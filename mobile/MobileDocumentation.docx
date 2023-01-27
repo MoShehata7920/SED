@@ -1,0 +1,71 @@
+Clean architecture with MVVM consist of 4 layers :
+    -Application layer.
+    -Data layer.
+    -Domain layer.
+    -Presentation layer.
+
+Application layer :
+    -Application class.
+    -Dependency injection.
+    -Application Routes manager (Navigation manager).
+    -Application preferences (shared preferences to save data to local storage).
+    -Extensions.
+    -shared functions.
+
+Data layer :
+    -Data Sources (Remote , Local).
+    -API interface.
+    -Dio factory (Http implementer/logger interceptor).
+    -Error handler.
+    -Repository implementer.
+    -API response (Serialization and json conversions).
+    -Mapper (from data layer to domain layer).
+    -Apply caching on Network responses.
+    -Applying null safety.
+
+Domain layer :
+    -Models.
+    -Repository interface.
+    -UseCases.
+    -Either left (Failure) and right  (Success).
+
+Presentation layer (MVVM) :
+    -Model.
+    -View.
+    -ViewModel.
+    -UseCase Rule to connect to outside world.
+    -Creating Data Class similar to Data class in kotlin.
+
+Presentation layer (State Management):
+    -State Management.
+    -Stream Controller and RX Dart.
+
+Presentation layer (State Renderer):
+    -Full screen loading state.
+    -Full screen error state.
+    -Popup loading state.
+    -Popup error state.
+    -Empty state (no data).
+
+Presentation layer (UI):
+    -Splash screen.
+    -OnBoarding screen.
+    -Login screen.
+    -Register screen.
+    -Forgot Password screen.
+    -Main screen (Home screen-Search screen-Notification screen-Setting screen).
+
+Presentation layer (Localization):
+    -English language.
+    -Arabic language.
+    -RTL and LTR in Widgets.
+    -Adding English strings and Arabic strings.
+
+Presentation layer (Resources):
+    -How to extract (image , icons , colors , fonts and dimensions).
+    -Assets Manager (images):
+        -How to add Correct icons/images for android (mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi).
+        -How to add Correct icons/images for IOS (@1x/@2x/@3x).
+    -Fonts Manager , Adding Fonts to Assets , Font weight Manager , Font Size , Style Manager , Light text Style , Regular text Style , Medium Style , SemiBold text Style , Bold text Style , language Manager , strings manager , values manager , padding values , Margin sizes , Size values and themeManager .
+
+---------------------------------------------------------------------------------------------
