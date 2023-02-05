@@ -69,3 +69,10 @@ Presentation layer (Resources):
     -Fonts Manager , Adding Fonts to Assets , Font weight Manager , Font Size , Style Manager , Light text Style , Regular text Style , Medium Style , SemiBold text Style , Bold text Style , language Manager , strings manager , values manager , padding values , Margin sizes , Size values and themeManager .
 
 ---------------------------------------------------------------------------------------------
+-first in main file we need to create application class which will be single instance for the whole project , so if we have variable , we can get its value from any place in the project.
+-default constructor : it means when i create instance anywhere , it will call this constructor
+-we won't use default constructor bc we want all instances of to be the same to achieve single instance
+-named instructor : it way which i can create instance with name and its private variable so i can't initiate MyApp in any other function 
+-i created MyApp instance as static bc it has only one value and it won't change.
+-factory MyApp() => _instance; means that i can get instance when i call it at anytime.
+---------------------------------------------------------------------------------------------
