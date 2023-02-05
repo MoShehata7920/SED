@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  // named constructor
+  MyApp._internal();
+
+  static final MyApp _instance =
+      MyApp._internal(); //singleton or single instance
+
+  factory MyApp() => _instance; //factory
 
   @override
   State<MyApp> createState() => _MyAppState();
