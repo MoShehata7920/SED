@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "SED Application ",
+  "description": "SED Application",
   "main": "index.js",
   "scripts": {
     "start": "node app.js"
