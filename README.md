@@ -17,7 +17,7 @@ Many people are concerned that their donations to charity may be reduced by tax 
 	- Front-end
 - [Abdullah Ragab](https://gitlab.com/)
 	- Back-end
-- [Mahmoud Elamrosy](https://gitlab.com/)
+- [Mahmoud Elamrosy](https://github.com/melamrosy72)
 	- Back-end
 - [Mohamed Shehata](https://github.com/MoShehata7920)
 	- Mobile Developer
@@ -27,3 +27,4 @@ Many people are concerned that their donations to charity may be reduced by tax 
 ## License
 This code has been licensed under the *DON'T BE A DICK PUBLIC LICENSE*. For the full license text, see the
 [LICENSE.txt](LICENSE.txt) file.
+
