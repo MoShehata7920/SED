@@ -85,3 +85,6 @@ updated pubspec.yaml and added Registered fonts assets on it .
 ---------------------------------------------------------------------------------------------
 added values mangers with values which expected to ue for Margining , padding or appSizes .and its available to edit at anytime and add new values.
 ---------------------------------------------------------------------------------------------
+created style manager file .
+this function _getTextStyle will return textStyle and control the text style of whole project depends on its type.
+---------------------------------------------------------------------------------------------
