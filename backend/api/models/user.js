@@ -1,14 +1,14 @@
 const mongoose=require('mongoose')
 
 
-const userSchema=new mongoose.Schema({
+const userSchema= mongoose.Schema({
     id:mongoose.Schema.Types.ObjectId ,
 
     email:{
         type:String   ,
         required:true ,
         unique:true   ,
-        match:/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        match:/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/  
     },
 
     fullName:{
@@ -27,7 +27,7 @@ const userSchema=new mongoose.Schema({
     //     required:true
     // }
 
-})
+} , {timestamps:true} )
 
 
 module.exports=mongoose.model('User',userSchema)

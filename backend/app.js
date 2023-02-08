@@ -8,9 +8,17 @@ const cors = require('cors')
 app.use(morgan('dev'))
 app.use(cors())
 
+app.use(express.json())
+
 //mongoose Connection
 mongoose.set('strictQuery', true)        //  suppressing the warning of the new coming update in mongoose 7 
 mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('Connected Successfully To SED Database')})
+
+//importing routes files
+const userRoute=require('./api/routes/users')
+
+//forwarding routes
+app.use('/api/users',userRoute)
 
 
 app.get('',(req,res)=>{
