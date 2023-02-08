@@ -1,0 +1,38 @@
+Our API is an MVC Architecture API consists of 3 main folders : 
+    -Models.
+    -Viewers.
+    -Controllers.
+
+Models : 
+    -User Schema
+    -Products Schema
+
+Views  :
+    -
+    -
+    -
+
+Controllers : 
+    -Users controller :
+        -Register
+        -Login
+        -
+    -Product controller : 
+        -Adding new product
+        -
+
+
+--------------------------------------------#initialization main server-------------------------------------------------
+
+-first we created new file app.js and we initialized server with express package after installing it 
+-we installed nodemon package to monitor changes in code and restart server automatically
+-we installed dotenv package to creat .env file to be our environment for our keys and credentials
+-we used cors package to enable Cross-origin Resource Sharing 
+-we used morgan package to get informations within every request to the server
+
+--------------------------------------------creating Schema-------------------------------------------------
+
+-
+-
+-
+-
