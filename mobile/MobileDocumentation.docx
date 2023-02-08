@@ -80,3 +80,5 @@ all UI/UX will be in Presentation layer.
 i added Color(0xff......) so it convert integer object into Color object.
 i created it as static so i don't have to make instance of ColorManager and i can use it anywhere.
 ---------------------------------------------------------------------------------------------
+i added fonts Assets folder.
+updated pubspec.yaml and added Registered fonts assets on it .
