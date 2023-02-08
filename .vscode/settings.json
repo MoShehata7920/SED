@@ -3,6 +3,7 @@
         "hdpi",
         "mdpi",
         "MVVM",
+        "pubspec",
         "xhdpi",
         "xxhdpi",
         "xxxhdpi"
