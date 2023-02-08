@@ -82,3 +82,6 @@ i created it as static so i don't have to make instance of ColorManager and i ca
 ---------------------------------------------------------------------------------------------
 i added fonts Assets folder.
 updated pubspec.yaml and added Registered fonts assets on it .
+---------------------------------------------------------------------------------------------
+added values mangers with values which expected to ue for Margining , padding or appSizes .and its available to edit at anytime and add new values.
+---------------------------------------------------------------------------------------------
