@@ -30,11 +30,27 @@ Controllers :
 -we used cors package to enable Cross-origin Resource Sharing 
 -we used morgan package to get informations within every request to the server
 
---------------------------------------------creating user Schema--------------------------------------------------------
+--------------------------------------------creating Schemas--------------------------------------------------------
 
+@User 
 -installed mongoose and connected to it on app.js 
 -created models folder inside api folder and created User Shema which accepts accepts email and fullName and password
 -added advacend options on the schema email and full name such as in fullName characters between 2 and 30 char and the email musta valid email addres form for example : test@gmail.com and it every email is unique 
 -added timestamps option to track time
 
-------------------------------------------------------------------------------------------------------------------------
+@Product
+-
+-
+-
+-
+
+
+--------------------------------------------creating routes--------------------------------------------------------
+
+@users 
+-Register route : 
+                    > established route forwarding in app.js 
+                    > we imported our User schema 
+                    >user enters his info and system checks at first if its a new email or its already exist , in the first case it returns an error message and in the second one it creats a user 
+                    >there are a checker to check password and password confirmation fields 
+                    >we used bcrypt package to hash user password to make everything safe
