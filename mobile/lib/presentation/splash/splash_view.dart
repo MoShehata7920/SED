@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/constants_manager.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -9,15 +13,37 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _initTimers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.primary,
       body: const Center(
         child: Image(
-          image: AssetImage('assets/images/splash_logo.png'),
+          image: AssetImage(ImageAssets.splashLogo),
         ),
       ),
     );
+  }
+
+  @override void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+  void _initTimers() {
+    _timer = Timer(const Duration(milliseconds: AppConstants.splashLoadingDelay,), _onFinishLoading);
+  }
+
+  void _onFinishLoading() {
+    //todo go to onboarding screen
+    //todo Navigator.pushReplacement(context,Routes.onboarding)...
+    print('timer finished loading');
   }
 }

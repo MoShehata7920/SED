@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sed/presentation/resources/splash/splash_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+
+import '../splash/splash_view.dart';
 
 class Routes {
   static const String splashRoute = "/";

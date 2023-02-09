@@ -89,3 +89,28 @@ created style manager file .
 this function _getTextStyle will return textStyle and control the text style of whole project depends on its type.
 ---------------------------------------------------------------------------------------------
 in app.dart file we used MaterialApp function and identify that the project will get its theme from getApplicationTheme function.
+---------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------
+update 2/9/2023
+---------------------------------------------------------------------------------------------
+
+created theme manager file
+this will be contatining all default styles so it will be applied as default to all created controls. 
+also default colors for the app. 
+---------------------------------------------------------------------------------------------
+created routes manager to manage the routes between the screens
+created app constants and assets manager constants to add the static variables
+---------------------------------------------------------------------------------------------
+added the splashview screen 
+added a timer so that after certain time it will navigate to another screen maybe later we can replace it with an actual loading function to load the startup settings.
+---------------------------------------------------------------------------------------------
+//these are members of MaterialApp :: starting the flow of the application by defining the onGenerateRoute function and initialize it with the first route the application would start with.
+onGenerateRoute: RouteGenerator.getRoute,
+initialRoute: Routes.splashRoute,
+---------------------------------------------------------------------------------------------
+important note::
+to create proper images you have to give care about the dpi resolution not to get a distorted image, 
+so for android for example there are different sizes like mdpi : 1.0x , hdpi : 1.5x , xhdpi : 2.0px and so on.
+every one of which has its own size for image, luckily adobe xd generates them automatically.
