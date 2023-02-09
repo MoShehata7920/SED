@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class ColorManager {
+  static Color primary = const Color(0xffED9728);
+
   static Color backGroundLightPrimary = const Color(0xffFFFFFF);
   static Color backGroundDarkPrimary = const Color(0xff1D2951);
 

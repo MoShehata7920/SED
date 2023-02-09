@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/theme_manager.dart';
 
 class MyApp extends StatefulWidget {
-  // named constructor
-  MyApp._internal();
+
+  //this approach is to make a singleton out of a class. same concept of static. so that everytime we intialize the class we get the same instance
+
+  MyApp._internal(); //named constructor
 
   static final MyApp _instance =
       MyApp._internal(); //singleton or single instance
+
+  //factory whether to return a new instance or just ( return the static instance we created as shown here )
 
   factory MyApp() => _instance; //factory
 
