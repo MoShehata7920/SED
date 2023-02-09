@@ -55,3 +55,9 @@ Controllers :
                     >user enters his info and system checks at first if its a new email or its already exist , in the first case it returns an error message and in the second one it creats a user 
                     >there are a checker to check password and password confirmation fields 
                     >we used bcrypt package to hash user password to make everything safe
+
+
+-Login route    :
+                    > firstly server check if the email address that the user entered is registered on the database 
+                    > if found it compare password and go on login process and return welcoming message with user full name
+                    > if not it returns error message either Wrong password or email not found and need to be registered first
