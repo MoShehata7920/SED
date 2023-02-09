@@ -29,6 +29,7 @@ Controllers :
 -we installed dotenv package to creat .env file to be our environment for our keys and credentials
 -we used cors package to enable Cross-origin Resource Sharing 
 -we used morgan package to get informations within every request to the server
+-we used express.json to get data from body from server requests
 
 --------------------------------------------creating Schemas--------------------------------------------------------
 
