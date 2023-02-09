@@ -51,5 +51,24 @@ router.post('/login',(req,res)=>{
     })
 })
 
+//forgot password route to be set
+// router.patch('/resetPassword/:id',(req,res)=>{
+//     const userId=req.params.id
+//     User.findByIdAndUpdate(userId,{$set : req.body},{new:true}).then((doc)=>{
+//         res.status(200).json(doc)
+//     }).catch(err=>{
+//         console.log('Wrong id');
+//         res.status(500).json({error : {message : 'wrong id '} , err})
+//     })  
+//     // User.findByIdAndUpdate(userId , { $set : req.body } , { new : true })
+// })
+
+
+
+
+
+
+
+
 
 module.exports=router;
