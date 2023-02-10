@@ -24,26 +24,33 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.primary,
+      backgroundColor: ColorManager.backGroundLightPrimary,
       body: const Center(
         child: Image(
-          image: AssetImage(ImageAssets.splashLogo),
+          image: AssetImage(ImageAssets.lightModeSplashLogo),
         ),
       ),
     );
   }
 
-  @override void dispose() {
+  @override
+  void dispose() {
     _timer?.cancel();
     super.dispose();
   }
+
   void _initTimers() {
-    _timer = Timer(const Duration(milliseconds: AppConstants.splashLoadingDelay,), _onFinishLoading);
+    _timer = Timer(
+        const Duration(
+          milliseconds: AppConstants.splashLoadingDelay,
+        ),
+        _onFinishLoading);
   }
 
   void _onFinishLoading() {
     //todo go to onboarding screen
     //todo Navigator.pushReplacement(context,Routes.onboarding)...
+    // ignore: avoid_print
     print('timer finished loading');
   }
 }

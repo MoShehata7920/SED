@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/theme_manager.dart';
 
 import '../presentation/resources/routes_manager.dart';
 
 class MyApp extends StatefulWidget {
-
-  //this approach is to make a singleton out of a class. same concept of static. so that everytime we intialize the class we get the same instance
+  //this approach is to make a singleton out of a class. same concept of static. so that every time we initialize the class we get the same instance
+  // ignore: prefer_const_constructors_in_immutables
   MyApp._internal(); //named constructor
 
   static final MyApp _instance =
