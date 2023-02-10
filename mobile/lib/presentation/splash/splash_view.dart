@@ -5,6 +5,8 @@ import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
 
+import '../resources/routes_manager.dart';
+
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
 
@@ -47,10 +49,5 @@ class _SplashViewState extends State<SplashView> {
         _onFinishLoading);
   }
 
-  void _onFinishLoading() {
-    //todo go to onboarding screen
-    //todo Navigator.pushReplacement(context,Routes.onboarding)...
-    // ignore: avoid_print
-    print('timer finished loading');
-  }
+  void _onFinishLoading() => Navigator.pushReplacementNamed(context,Routes.onBoardingRoute);
 }

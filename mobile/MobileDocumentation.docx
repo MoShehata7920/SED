@@ -114,3 +114,12 @@ important note::
 to create proper images you have to give care about the dpi resolution not to get a distorted image, 
 so for android for example there are different sizes like mdpi : 1.0x , hdpi : 1.5x , xhdpi : 2.0px and so on.
 every one of which has its own size for image, luckily adobe xd generates them automatically.
+
+
+---------------------------------------------------------------------------------------------
+update_1 2/10/2023
+---------------------------------------------------------------------------------------------
+
+created the onboarding view and assets , toggling from splash screen to onboarding view after 3.5 seconds.
+---------------------------------------------------------------------------------------------
+TODO // FROM LECTURE 25
