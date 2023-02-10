@@ -2,6 +2,7 @@ const router=require('express').Router()
 const mongoose=require('mongoose')
 const User=require('../models/user')
 const bcrypt=require('bcrypt')
+const jwt=require('jsonwebtoken')
 
 router.post('/register',(req,res)=>{
     User.find({email:req.body.email}).exec().then((user)=>{
@@ -39,7 +40,18 @@ router.post('/login',(req,res)=>{
                 if(err){                                                                                        // server error
                     res.status(500).json(err)
                 }else if(result) {                                                                              // true password
-                    res.status(200).json(`welcome back ${user[0].fullName}!`)
+                    const token=jwt.sign({
+                        email:user[0].email,
+                        id:user[0]._id.toString(),
+                        username:user[0].username 
+                    },
+
+                    process.env.SECRET_KEY ,
+
+                    {
+                        expiresIn:'10h'
+                    })                                                                                          
+                    res.status(200).json({message:`welcome back ${user[0].fullName}!` , token:token})
                 }
                 else{                                                                                           // wrong password
                     res.status(401).json('Wrong password. Try again or click Forgot password to reset it.')
