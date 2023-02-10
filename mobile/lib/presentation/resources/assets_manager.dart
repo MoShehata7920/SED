@@ -9,6 +9,10 @@ class ImageAssets {
     "$imagePath/onboarding_logo1.svg",
     "$imagePath/onboarding_logo2.svg",
     "$imagePath/onboarding_logo3.svg",
-    "$imagePath/onboarding_logo4.svg"
   ];
+
+  static const String leftArrowIcon = "$imagePath/left_arrow_icon.svg";
+  static const String rightArrowIcon = "$imagePath/right_arrow_icon.svg";
+  static const String hollowCircleIcon = "$imagePath/hollow_circle_icon.svg";
+  static const String solidCircleIcon = "$imagePath/solid_circle_icon.svg";
 }

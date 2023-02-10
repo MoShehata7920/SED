@@ -97,13 +97,13 @@ update 2/9/2023
 ---------------------------------------------------------------------------------------------
 
 created theme manager file
-this will be contatining all default styles so it will be applied as default to all created controls. 
+this will be containing all default styles so it will be applied as default to all created controls. 
 also default colors for the app. 
 ---------------------------------------------------------------------------------------------
 created routes manager to manage the routes between the screens
 created app constants and assets manager constants to add the static variables
 ---------------------------------------------------------------------------------------------
-added the splashview screen 
+added the splash view screen 
 added a timer so that after certain time it will navigate to another screen maybe later we can replace it with an actual loading function to load the startup settings.
 ---------------------------------------------------------------------------------------------
 //these are members of MaterialApp :: starting the flow of the application by defining the onGenerateRoute function and initialize it with the first route the application would start with.
@@ -122,4 +122,8 @@ update_1 2/10/2023
 
 created the onboarding view and assets , toggling from splash screen to onboarding view after 3.5 seconds.
 ---------------------------------------------------------------------------------------------
-TODO // FROM LECTURE 25
+we installed flutter svg package bc This package provides a wrapper around Dart implementations of SVG parsing, including SVG path data. In particular, it provides efficient BytesLoader implementations for package:vector_graphics. This package is easier to use but not as performant as using the vector_graphics and vector_graphics_compiler packages directly. Those packages allow you to do ahead-of-time compilation and optimization of SVGs, and offer some more performant satirization strategies at runtime.
+---------------------------------------------------------------------------------------------
+-this function _getBottomSheetWidget will control the bottom sheet of onboarding screen which contains arrows and hollow and solid circles.
+-this function _getProperCircles will control if the circle is hollow or solid depends on currentIndex screen.
+-functions _getPreviousIndex and _getNextIndex will be used for controlling arrows of onboarding screen which are infinite to move between onboarding screens slides.

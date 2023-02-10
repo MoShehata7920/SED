@@ -5,18 +5,16 @@ class AppStrings {
 
   //onboarding screen
   static const List<String> onBoardingTitles = [
-    'SEE THE BEST COURSE #1',
-    'SEE THE BEST COURSE #2',
-    'SEE THE BEST COURSE #3',
-    'SEE THE BEST COURSE #4'
+    'SELL YOUR PRODUCTS',
+    'EXCHANGE YOUR PRODUCTS WITH OTHERS',
+    'DONATE PRODUCTS FOR OTHERS',
   ];
 
   static const List<String> onBoardingSubTitles = [
-    'Tut app is an awesome flutter application using clean architecture #1',
-    'Tut app is an awesome flutter application using clean architecture #2',
-    'Tut app is an awesome flutter application using clean architecture #3',
-    'Tut app is an awesome flutter application using clean architecture #4'
+    'You can sell your used or new products using SED ',
+    'You can exchange products which you don\'t use with others by other products will be more useful for you using SED',
+    'TYou can help others by donating the products which you don\'t use and let others get use it using SEDpeople should help each other if we want better world',
   ];
 
-
+  static const String skip = "SKIP";
 }
