@@ -33,35 +33,42 @@ router.post('/register',(req,res)=>{
     })
 })
 
+
 router.post('/login',(req,res)=>{
-    User.find({email:req.body.email}).exec().then((user)=>{
-        if(user.length>=1){                                                                                     // email found
-            bcrypt.compare(req.body.password,user[0].password,(err,result)=>{
-                if(err){                                                                                        // server error
-                    res.status(500).json(err)
-                }else if(result) {                                                                              // true password
-                    const token=jwt.sign({
-                        email:user[0].email,
-                        id:user[0]._id.toString(),
-                        username:user[0].username 
-                    },
-
-                    process.env.SECRET_KEY ,
-
-                    {
-                        expiresIn:'10h'
-                    })                                                                                          
-                    res.status(200).json({message:`welcome back ${user[0].fullName}!` , token:token})
-                }
-                else{                                                                                           // wrong password
-                    res.status(401).json('Wrong password. Try again or click Forgot password to reset it.')
-                }
-            })
-        }else{                                                                                                  //email not found 
-            return res.status(406).json('There is no account registered with this email')
+    User.find({email:req.body.email}).exec().then(user=>{
+        if(user.length<=0){                                                                                             //if email not found 
+            return res.status(401).json({message:'This Emaiil Not exist , Please Register First'})
         }
+        bcrypt.compare(req.body.password , user[0].password , (err,result)=>{                                           //if found 
+            if(err){                                                                                                    // if server crashed
+                console.log(err)
+                return res.status(509).json({message:'server error',error : err})
+            }
+            if(result){                                                                                                 //true password
+                const token=jwt.sign({
+                    email:user[0].email,
+                    id:user[0]._id.toString(),
+                    fullName:user[0].fullName,                   
+                },
+                process.env.SECRET_KEY
+                ,{
+                    expiresIn:'10h'
+                }
+                )
+                // console.log(user[0]._id.toString());  we did that to remove the objectId thing from id 
+                // console.log(user[0].id)   // outs a undefined
+                return res.status(200).json({message:`welcome back ${user[0].fullName}!`,token:token})
+            }
+            console.log(err)
+            res.status(509).json('Wrong password. Try again or click Forgot password to reset it.')                     //wrong password
+        })
+    }).catch(err=>{
+        console.log(err);
+        res.status(409).json({error:err})
     })
 })
+
+
 
 //forgot password route to be set
 // router.patch('/resetPassword/:id',(req,res)=>{
