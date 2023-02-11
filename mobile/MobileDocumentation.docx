@@ -150,3 +150,9 @@ what is the view ?
     -the view is where the user interacts with UI (Widgets) that are shown on the screen.
     -user can click on button to ask (send event to) ViewModel to do an action then ViewModel gets the data and send back it to update UI to view.
 ---------------------------------------------------------------------------------------------
+-creating baseViewModel which will have all variables and all functions which can be used in many ViewModels bc clean code mean that i shouldn't create the same function more than once in the project.
+-our baseViewModel will inherits from others so i will create it as abstract class.
+-any view model has input(requests) and output(results) .
+-this "void start()"  is used in baseViewModel which means that any view can make ViewModel start its job.
+- i must have this function void dispose() so when ViewModel out of life cycle , ViewModel should finish all his jobs before it die to avoid any crash.
+---------------------------------------------------------------------------------------------
