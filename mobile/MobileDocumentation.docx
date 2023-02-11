@@ -127,3 +127,26 @@ we installed flutter svg package bc This package provides a wrapper around Dart 
 -this function _getBottomSheetWidget will control the bottom sheet of onboarding screen which contains arrows and hollow and solid circles.
 -this function _getProperCircles will control if the circle is hollow or solid depends on currentIndex screen.
 -functions _getPreviousIndex and _getNextIndex will be used for controlling arrows of onboarding screen which are infinite to move between onboarding screens slides.
+---------------------------------------------------------------------------------------------
+what is MVVM :
+    Model
+    View
+    ViewModel
+
+What is the goal of MVVM?
+    MVVM is used to move business logic from View to ViewModel and Model.
+
+what is Model ?
+    -its a layer which contains some business logic, code validation and data classes.
+    -ViewModel communicates with it for local data or data from server side.
+
+what is ViewModel?
+    -ViewModel is the controller between view and Model , which receives actions from view and request a response from Model layer(Calling API for example).
+    -Once the Model has data the it returns to ViewModel
+    -then ViewModel send this data to View .
+    -ViewModel can be used by multiple views , which means a single ViewModel can provide data to more than one view.
+
+what is the view ?
+    -the view is where the user interacts with UI (Widgets) that are shown on the screen.
+    -user can click on button to ask (send event to) ViewModel to do an action then ViewModel gets the data and send back it to update UI to view.
+---------------------------------------------------------------------------------------------

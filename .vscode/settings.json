@@ -7,5 +7,6 @@
         "xhdpi",
         "xxhdpi",
         "xxxhdpi"
-    ]
+    ],
+    "cmake.sourceDirectory": "${workspaceFolder}/mobile/linux"
 }
