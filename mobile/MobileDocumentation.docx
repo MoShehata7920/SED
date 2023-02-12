@@ -192,3 +192,11 @@ what is Clean architecture?
 -Network layer connect with domain layer by Mappers.
 -Domain layer connect with presentation layer by UseCases.
 ---------------------------------------------------------------------------------------------
+-we installed retrofit package, retrofit.dart is a type conversion dio client generator using source_gen.
+-we installed analyzer package bc This package provides a library that performs static analysis of Dart code. It is useful for tool integration and embedding.End-users should use the dart analyze command-line tool to analyze their Dart code. 
+-we installed dio package , bc its A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData, Request Cancellation, File downloading, Timeout etc.
+-we installed json_serializable package , bc  it Provides Dart Build System builders for handling JSON.
+-we installed retrofit_generator package , its used in development only and its responsible about create auto generated files on the project with build runner.
+-we installed build_runner package bc The build_runner package provides a concrete way of generating files using Dart code, outside of tools like pub. Unlike pub serve/build, files are always generated directly on disk, and rebuilds are incremental.
+---------------------------------------------------------------------------------------------
+to create the json file we used by using command "flutter pub get" then command  "flutter pub run build_runner build --delete-conflicting-outputs" and it will be auto generated.
