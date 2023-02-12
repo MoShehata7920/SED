@@ -156,3 +156,22 @@ what is the view ?
 -this "void start()"  is used in baseViewModel which means that any view can make ViewModel start its job.
 - i must have this function void dispose() so when ViewModel out of life cycle , ViewModel should finish all his jobs before it die to avoid any crash.
 ---------------------------------------------------------------------------------------------
+-to create onboarding screens as MVVM we will create onboarding viewModel and onboarding view which will work with onboarding model.
+-all logic will be on onBoardingViewModel.
+-this class OnBoardingViewModelInputs in onBoardingViewModel will receives orders from view.
+-this class OnBoardingViewModelOutputs in onBoardingViewModel will communicates with the model .
+---------------------------------------------------------------------------------------------
+what are Streams ?
+    -A Stream is like a pipe, you put a value on the one end and if there's a listener on the other end that listener will receive that value.
+    -A stream can have multiple listeners and all of those listeners will receive the same value when it's put in the pipeline. the way you put values on a stream is by using a StreamController.
+    -Streams are the output of StreamController
+
+what is Sink ?
+    -A Sink resembles a Stream that flows the other way.
+     Adding information events to an Event Sink channel that information into an associated Stream.
+    -we can say that Sink is input of StreamController.
+
+what is StreamController?
+    A StreamController improves stream Management, naturally make a stream and sink and gives techniques to control a stream's conduct
+---------------------------------------------------------------------------------------------
+
