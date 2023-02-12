@@ -174,4 +174,21 @@ what is Sink ?
 what is StreamController?
     A StreamController improves stream Management, naturally make a stream and sink and gives techniques to control a stream's conduct
 ---------------------------------------------------------------------------------------------
+what is Clean architecture?
+    it consists of 4 maun layers, every layer connect with the others .
 
+    first layer (Data layer):
+        it's the network layer. and its's responsible about data of tha application. it has the network data Source and local data Source.
+
+    seconds layer (Domain layer):
+        it has useCases , models and business logic. 
+
+    third layer (Presentation layer):
+        its responsible about application's UI.
+
+    fourth layer (Application layer):
+        it's contains shared functionalities and shared classes of the application.
+
+-Network layer connect with domain layer by Mappers.
+-Domain layer connect with presentation layer by UseCases.
+---------------------------------------------------------------------------------------------
