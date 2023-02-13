@@ -40,6 +40,7 @@ dependencies:
   dio: ^4.0.6
   retrofit_generator: ^4.0.1
   dartz: ^0.10.1
+  internet_connection_checker: ^1.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -5,6 +5,7 @@ import 'package:sed/domain/model/models.dart';
 
 extension AuthenticationResponseMapper on AuthenticationResponse? {
   Authentication toDomain() {
+    //FIXME since we did an extension why do we check again if it was null ?
     return Authentication(this?.token.orEmpty() ?? Constants.empty);
   }
 }
