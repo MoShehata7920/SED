@@ -215,14 +215,15 @@ update_1 2/13/2023
 update_2 2/13/2023
 ---------------------------------------------------------------------------------------------
 -added remote data sources
-    -implemented login which has AuthenticationResponse picewise getting the response from the appserviceclient
--added and implemented network checker
-    -added internet_connection_checker dependeny > it checks if the device is already connected to the internet
+    -implemented login which has AuthenticationResponse piecewise getting the response from the appServiceClient
+-installed and implemented network checker
+    -added internet_connection_checker dependency > it checks if the device is already connected to the internet
     -implemented it at network_info by creating an abstract class and implements it with isConnected variable which checks if the device has connections
--implemented the respository at data layer
-    -this implements the respository from domain layer.
+-implemented the repository at data layer
+    -this implements the repository from domain layer.
     -implemented the login function which returns either<Failure, Authentication>
         -failure model if failure happened or no internet connection found
         -authentication if the data returned
 
 -implemented the network response code and message (enum)
+---------------------------------------------------------------------------------------------

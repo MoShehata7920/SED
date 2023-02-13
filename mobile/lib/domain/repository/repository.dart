@@ -4,7 +4,7 @@ import 'package:sed/data/network/requests.dart';
 import 'package:sed/domain/model/models.dart';
 
 abstract class Repository {
-  //FIXME why do we pass a class instead of two strings params
-  //FIXME why failure at data layer and login request at domain layer
-  Future<Either<Failure,Authentication>> login(LoginRequest loginRequest);
+  //// why do we pass a class instead of two strings params
+  //// why failure at data layer and login request at domain layer
+  Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
 }
