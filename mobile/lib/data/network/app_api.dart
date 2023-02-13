@@ -5,9 +5,11 @@ import 'package:sed/data/responses/responses.dart';
 
 part 'app_api.g.dart';
 
-@RestApi(baseUrl: Constants.baseUrl)
+
+//Retrofit plugin is used to generate the files while dio is used to connect to the api
+@RestApi(baseUrl: Constants.baseUrl) //retrofit dependency
 abstract class AppServiceClient {
-  factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
+  factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient; //dio dependency
 
   @POST("/customers/login")
   Future<AuthenticationResponse> login(

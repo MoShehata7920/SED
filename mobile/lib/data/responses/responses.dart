@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'responses.g.dart';
 
-@JsonSerializable()
+@JsonSerializable() //json_serializable dependency
 class BaseResponse {
   @JsonKey(name: "status") //this depend on the name in the API
   int? status; //this is the usable on the project
@@ -13,7 +13,7 @@ class BaseResponse {
 
 @JsonSerializable()
 class AuthenticationResponse extends BaseResponse {
-  @JsonKey(name: "token") //this depend on the name in the API
+  @JsonKey(name: "token")
   String? token;
 
   AuthenticationResponse(this.token);
