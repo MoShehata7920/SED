@@ -200,3 +200,13 @@ what is Clean architecture?
 -we installed build_runner package bc The build_runner package provides a concrete way of generating files using Dart code, outside of tools like pub. Unlike pub serve/build, files are always generated directly on disk, and rebuilds are incremental.
 ---------------------------------------------------------------------------------------------
 to create the json file we used by using command "flutter pub get" then command  "flutter pub run build_runner build --delete-conflicting-outputs" and it will be auto generated.
+
+
+---------------------------------------------------------------------------------------------
+update 2/13/2023
+---------------------------------------------------------------------------------------------
+-added mapper from data layer to domain layer to deal with nulls
+-installed dartz to use either concept has two possible types
+    - left-> failure happened
+    - right-> got data successfully
+-added repository, request and failure.
