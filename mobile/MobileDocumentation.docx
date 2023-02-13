@@ -227,3 +227,7 @@ update_2 2/13/2023
 
 -implemented the network response code and message (enum)
 ---------------------------------------------------------------------------------------------
+-if API send any error or failure , i must have dataSources and errorHandler which send failure class .
+-Dio is the responsible of Http requests and response.
+- in errorHandler DioErrorType.response case will get the message and code which API send them back as response.
+---------------------------------------------------------------------------------------------
