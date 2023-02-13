@@ -5,13 +5,14 @@ import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/base_usecase.dart';
 
-class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication>{
+class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
   final Repository _repository;
 
   LoginUseCase(this._repository);
 
   @override
-  Future<Either<Failure, Authentication>> execute(LoginUseCaseInput input) async{
+  Future<Either<Failure, Authentication>> execute(
+      LoginUseCaseInput input) async {
     return await _repository.login(LoginRequest(input.email, input.password));
   }
 }

@@ -3,7 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:sed/app/app_prefs.dart';
+import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/constants.dart';
 
 const String APPLICATION_JSON = "application/json";
@@ -35,7 +35,8 @@ class DioFactory {
         receiveTimeout: Constants.apiTimeOut,
         sendTimeout: Constants.apiTimeOut);
 
-    if (!kReleaseMode) { //debug mode
+    if (!kReleaseMode) {
+      //debug mode
       dio.interceptors.add(PrettyDioLogger(
           requestHeader: true, requestBody: true, responseHeader: true));
     }

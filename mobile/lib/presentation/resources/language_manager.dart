@@ -1,3 +1,4 @@
+// ignore: constant_identifier_names
 enum LanguageType { ENGLISH, ARABIC }
 
 const String arabic = "ar";
@@ -8,6 +9,7 @@ extension LanguageTypeExtension on LanguageType {
     switch (this) {
       case LanguageType.ENGLISH:
         return english;
+
       case LanguageType.ARABIC:
         return arabic;
     }

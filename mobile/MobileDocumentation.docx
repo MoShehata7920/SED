@@ -240,9 +240,10 @@ update_3 2/13/2023
     if (!kReleaseMode)
 -added language manager at presentation layer
 -installed shared_preference to cache local values
-    -for example if the user choosed to keep login in, we will save the token locally so that when the user restarts the application he won't be needing to login again.
+    -for example if the user chose to keep login in, we will save the token locally so that when the user restarts the application he won't be needing to login again.
 -implemented UseCase
     -UseCase is considered to be a gate that presentation layer will use to communicate with domain and data layers.
     -it has in & out
         -in (input) -> this will be passed from viewModel
         -out (output) -> this will be passed from data layer to viewModel
+---------------------------------------------------------------------------------------------
