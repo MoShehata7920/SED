@@ -14,3 +14,10 @@ class SliderViewObject {
 
   SliderViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
 }
+
+// Login models
+class Authentication {
+  String? token;
+
+  Authentication(this.token);
+}

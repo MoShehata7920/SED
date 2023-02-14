@@ -13,6 +13,7 @@ ThemeData getApplicationTheme() {
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
     splashColor: ColorManager.lightPrimary,
+    // todo , use colorScheme instead of backgroundColor
     backgroundColor: ColorManager.backGroundLightPrimary,
 
     //cardView  Theme
@@ -44,6 +45,7 @@ ThemeData getApplicationTheme() {
       style: ElevatedButton.styleFrom(
           textStyle: getRegularStyle(
               fontSize: FontSize.s17, color: ColorManager.white),
+          // todo , use backgroundColor instead of primary
           primary: ColorManager.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s12),

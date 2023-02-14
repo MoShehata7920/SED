@@ -192,3 +192,58 @@ what is Clean architecture?
 -Network layer connect with domain layer by Mappers.
 -Domain layer connect with presentation layer by UseCases.
 ---------------------------------------------------------------------------------------------
+-we installed retrofit package, retrofit.dart is a type conversion dio client generator using source_gen.
+-we installed analyzer package bc This package provides a library that performs static analysis of Dart code. It is useful for tool integration and embedding.End-users should use the dart analyze command-line tool to analyze their Dart code. 
+-we installed dio package , bc its A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData, Request Cancellation, File downloading, Timeout etc.
+-we installed json_serializable package , bc  it Provides Dart Build System builders for handling JSON.
+-we installed retrofit_generator package , its used in development only and its responsible about create auto generated files on the project with build runner.
+-we installed build_runner package bc The build_runner package provides a concrete way of generating files using Dart code, outside of tools like pub. Unlike pub serve/build, files are always generated directly on disk, and rebuilds are incremental.
+---------------------------------------------------------------------------------------------
+to create the json file we used by using command "flutter pub get" then command  "flutter pub run build_runner build --delete-conflicting-outputs" and it will be auto generated.
+
+
+---------------------------------------------------------------------------------------------
+update_1 2/13/2023
+---------------------------------------------------------------------------------------------
+-added mapper from data layer to domain layer to deal with nulls
+-installed dartz to use either concept has two possible types
+    - left-> failure happened
+    - right-> got data successfully
+-added repository, request and failure.
+
+---------------------------------------------------------------------------------------------
+update_2 2/13/2023
+---------------------------------------------------------------------------------------------
+-added remote data sources
+    -implemented login which has AuthenticationResponse piecewise getting the response from the appServiceClient
+-installed and implemented network checker
+    -added internet_connection_checker dependency > it checks if the device is already connected to the internet
+    -implemented it at network_info by creating an abstract class and implements it with isConnected variable which checks if the device has connections
+-implemented the repository at data layer
+    -this implements the repository from domain layer.
+    -implemented the login function which returns either<Failure, Authentication>
+        -failure model if failure happened or no internet connection found
+        -authentication if the data returned
+
+-implemented the network response code and message (enum)
+---------------------------------------------------------------------------------------------
+-if API send any error or failure , i must have dataSources and errorHandler which send failure class .
+-Dio is the responsible of Http requests and response.
+- in errorHandler DioErrorType.response case will get the message and code which API send them back as response.
+---------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------
+update_3 2/13/2023
+---------------------------------------------------------------------------------------------
+-installed pretty_dio_logger dependency for debugging the dio responds
+-for debugging we can use that code it indicates if you at the debug model
+    if (!kReleaseMode)
+-added language manager at presentation layer
+-installed shared_preference to cache local values
+    -for example if the user chose to keep login in, we will save the token locally so that when the user restarts the application he won't be needing to login again.
+-implemented UseCase
+    -UseCase is considered to be a gate that presentation layer will use to communicate with domain and data layers.
+    -it has in & out
+        -in (input) -> this will be passed from viewModel
+        -out (output) -> this will be passed from data layer to viewModel
+---------------------------------------------------------------------------------------------
