@@ -17,7 +17,7 @@ const userSchema= mongoose.Schema({
 
     password:{
         type:String,
-        required:true
+        //required:true               // to enable google oauth and validation will be from front-end for now
     },
 
     isAdmin:{
