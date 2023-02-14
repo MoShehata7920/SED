@@ -3,8 +3,15 @@ const mongoose=require('mongoose')
 const User=require('../models/user')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
+const { body, validationResult } = require('express-validator')
 
-router.post('/register',(req,res)=>{
+router.post('/register',[
+    body('password').isLength({min:5}).withMessage('Please enter a valid password with at least 5 chars')
+],(req,res)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     User.find({email:req.body.email}).exec().then((user)=>{
         if(user.length>=1){
             // return res.status(406).json('This is an email that already exists')
@@ -17,7 +24,6 @@ router.post('/register',(req,res)=>{
                         res.status(500).json(err)
                     }else{
                         const newUser=new User({
-                            _id:new mongoose.Types.ObjectId,
                             email:req.body.email,
                             fullName:req.body.fullName,
                             password:hashedPassword
