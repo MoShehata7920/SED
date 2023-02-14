@@ -7,7 +7,9 @@ const jwt=require('jsonwebtoken')
 router.post('/register',(req,res)=>{
     User.find({email:req.body.email}).exec().then((user)=>{
         if(user.length>=1){
-            return res.status(406).json('This is an email that already exists')
+            // return res.status(406).json('This is an email that already exists')
+            return res.status(406).json({message:'This is an email that already exists'})
+
         }else{
             if(req.body.password===req.body.pwConfirmation){
                 bcrypt.hash(req.body.password,10,(err,hashedPassword)=>{
