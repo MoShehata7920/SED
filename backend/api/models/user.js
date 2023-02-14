@@ -2,8 +2,6 @@ const mongoose=require('mongoose')
 
 
 const userSchema= mongoose.Schema({
-    id:mongoose.Schema.Types.ObjectId ,
-
     email:{
         type:String   ,
         required:true ,
@@ -25,7 +23,13 @@ const userSchema= mongoose.Schema({
     isAdmin:{
         type:Boolean,
         default:false
-    }
+    },
+
+    // personalInfo:{                         // for next level 'to be updated in user profile'
+    //     phone:{type:Number,default:""},
+    //     government:{type : String ,default:""},
+    //     address:{type:String,default:""}
+    // }
 
 } , {timestamps:true} )
 
