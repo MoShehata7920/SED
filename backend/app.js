@@ -9,6 +9,9 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
 
+//static middleware  for product images 
+app.use('/uploads',express.static('uploads'))
+
 //google auth part
 const passport=require('passport')
 const passportSetup=require('./api/config/passport-setup')
