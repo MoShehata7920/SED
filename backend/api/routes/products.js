@@ -1,14 +1,25 @@
 const router=require('express').Router()
 const Product=require('../models/product')
 const mongoose=require('mongoose')
+const multer=require('multer')
+const storage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'./uploads/')
+    },
+    filename:(req,file,cb)=>{
+        cb(null,file.originalname)
+    }
+})
+const upload=multer({storage:storage})
 
 
-router.post('/newproduct',(req,res)=>{
+//router for creating new product
+router.post('/newproduct',upload.single('productImage'),(req,res)=>{
     new Product({
         productName : req.body.productName,
         description : req.body.description,
         quantity : req.body.quantity,
-        prdouctImage : req.file.path,
+        productImage : req.file.path,
         price : req.body.price,
 
     }).save().then((newproduct)=>{
