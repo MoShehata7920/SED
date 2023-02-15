@@ -246,4 +246,9 @@ update_3 2/13/2023
     -it has in & out
         -in (input) -> this will be passed from viewModel
         -out (output) -> this will be passed from data layer to viewModel
+---------------------------------16/2/2023----------------------------------------------------
+-added login viewModel which has so sinks and two streams (one will be for userName and the other will be for password).
+-we are going to make the login button looks disable if the user didn't fill any field of username or the password.
+-the inputs for the login viewModel will be the userName field and the password field and login button .
+-the outputs will be if the userName and password is valid and filled to activate the login button.
 ---------------------------------------------------------------------------------------------
