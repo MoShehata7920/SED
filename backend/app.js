@@ -36,10 +36,11 @@ mongoose.set('strictQuery', true)        //  suppressing the warning of the new 
 mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('Connected Successfully To SED Database')})
 
 //importing routes files
-const userRoute=require('./api/routes/users')
-
+const usersRoute=require('./api/routes/users')
+const productsRoute=require('./api/routes/products')
 //forwarding routes
-app.use('/api/users',userRoute)
+app.use('/api/users',usersRoute)
+app.use('/api/products',productsRoute)
 
 
 app.get('',(req,res)=>{
