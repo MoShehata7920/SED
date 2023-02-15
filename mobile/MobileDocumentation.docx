@@ -251,4 +251,8 @@ update_3 2/13/2023
 -we are going to make the login button looks disable if the user didn't fill any field of username or the password.
 -the inputs for the login viewModel will be the userName field and the password field and login button .
 -the outputs will be if the userName and password is valid and filled to activate the login button.
----------------------------------------------------------------------------------------------
+---------------------------------16/2/2023----------------------------------------------------
+-use broadcast() in login viewModel to make the StreamController has many listeners to avoid bad state.
+-i created _isPasswordValid and _isUserNameValid functions to check if this fields at lest has one letter and to return bool value to use it in map for stream.
+---------------------------------16/2/2023----------------------------------------------------
+
