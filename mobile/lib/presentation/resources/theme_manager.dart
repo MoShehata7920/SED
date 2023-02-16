@@ -8,7 +8,6 @@ import 'color_manager.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
     //main colors
-    primaryColor: ColorManager.primary,
     primaryColorLight: ColorManager.lightPrimary,
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
@@ -36,7 +35,7 @@ ThemeData getApplicationTheme() {
     buttonTheme: ButtonThemeData(
       shape: const StadiumBorder(),
       disabledColor: ColorManager.grey1,
-      buttonColor: ColorManager.primary,
+      buttonColor: ColorManager.lightPrimary,
       splashColor: ColorManager.lightPrimary,
     ),
 
@@ -46,7 +45,7 @@ ThemeData getApplicationTheme() {
           textStyle: getRegularStyle(
               fontSize: FontSize.s17, color: ColorManager.white),
           // todo , use backgroundColor instead of primary
-          primary: ColorManager.primary,
+          primary: ColorManager.lightPrimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s12),
           )),
@@ -80,13 +79,13 @@ ThemeData getApplicationTheme() {
         //enabled border style
         enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
         //focused border style
         focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
+            borderSide: BorderSide(
+                color: ColorManager.lightPrimary, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
         //error border style
@@ -97,8 +96,8 @@ ThemeData getApplicationTheme() {
 
         //focused border style
         focusedErrorBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+            borderSide: BorderSide(
+                color: ColorManager.lightPrimary, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)))),
   );
 }
