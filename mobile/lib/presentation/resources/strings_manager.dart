@@ -19,8 +19,8 @@ class AppStrings {
   static const String skip = "SKIP";
 
   //login screen
-  static const String username = "Username";
-  static const String usernameError = "Please enter your username.";
+  static const String username = "User Name";
+  static const String usernameError = "Please enter your user name.";
 
   static const String password = "Password";
   static const String passwordError = "Please enter your password.";
@@ -30,7 +30,4 @@ class AppStrings {
   static const String forgetPassword = "Forget Password";
 
   static const String registerText = "Not a member ? Sign up";
-
-
-
 }

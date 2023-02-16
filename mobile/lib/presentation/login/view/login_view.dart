@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -119,12 +118,14 @@ class _LoginViewState extends State<LoginView> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<bool>(
-                      stream: _viewModel.outIsUserNameValid,
+                      stream: _viewModel.outAreAllInputsValid,
                       builder: (context, snapshot) {
                         return ElevatedButton(
-                            onPressed: () {
-                              _viewModel.login();
-                            },
+                            onPressed: (snapshot.data ?? false)
+                                ? () {
+                                    _viewModel.login();
+                                  }
+                                : null,
                             child: const Text(AppStrings.login));
                       }),
                 )
