@@ -3,7 +3,7 @@ class AppStrings {
   static const String noRouteTitle = "404 Error";
   static const String noRouteFound = "No Route Found";
 
-  //onboarding screen
+  //on boarding screen
   static const List<String> onBoardingTitles = [
     'SELL YOUR PRODUCTS',
     'EXCHANGE YOUR PRODUCTS WITH OTHERS',
@@ -13,8 +13,24 @@ class AppStrings {
   static const List<String> onBoardingSubTitles = [
     'You can sell your used or new products using SED ',
     'You can exchange products which you don\'t use with others by other products will be more useful for you using SED',
-    'TYou can help others by donating the products which you don\'t use and let others get use it using SEDpeople should help each other if we want better world',
+    'You can help others by donating the products which you don\'t use and let others get use it using SED people should help each other if we want better world',
   ];
 
   static const String skip = "SKIP";
+
+  //login screen
+  static const String username = "Username";
+  static const String usernameError = "Please enter your username.";
+
+  static const String password = "Password";
+  static const String passwordError = "Please enter your password.";
+
+  static const String login = "Login";
+
+  static const String forgetPassword = "Forget Password";
+
+  static const String registerText = "Not a member ? Sign up";
+
+
+
 }

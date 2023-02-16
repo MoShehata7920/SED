@@ -2,14 +2,20 @@ import 'dart:async';
 
 import 'package:sed/presentation/base/baseviewmodel.dart';
 
+import '../../../data/network/requests.dart';
+import '../../../domain/usecase/login_usecase.dart';
 import '../../common/freezed_data_classes.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
-  StreamController _userNameStreamController =
+  final StreamController _userNameStreamController =
       StreamController<String>.broadcast();
-  StreamController _passwordStreamController =
+  final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
+
+  final LoginUseCase _loginUseCase;
+
+  LoginViewModel(this._loginUseCase);
 
   var loginObject = LoginObject("", "");
 
@@ -44,9 +50,14 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  login() async{
+    var response = await _loginUseCase.execute(LoginUseCaseInput(loginObject.userName, loginObject.password));
+
+    response.fold((failure) => {
+      //todo implement me
+    }, (response) => {
+      //todo implement me
+    });
   }
 
   // outputs
