@@ -30,7 +30,54 @@ router.post('/newproduct',upload.single('productImage'),(req,res)=>{
 })
 
 
+//getting all products
+router.get('/getallproducts',(req,res)=>{
+    Product.find().exec().then((docs)=>{
+        res.status(200).json(docs)
+    }).catch(err=>{
+        res.status(500).json(err)
+    })
+})
 
+//finding single product by it's id
+router.get('/product/:prodId',(req,res)=>{
+    Product.findById(req.params.prodId).exec().then(doc=>{
+        res.status(200).json(doc)
+    }).catch(err=>{
+        res.status(500).json(err)
+    })
+})
 
+//updating product
+router.patch('/product/:prodId',upload.single('productImage'),(req,res)=>{
+    // console.log(req.file.size)
+    if(req.file){       // if condition to check if there an update for the image      
+        Product.findByIdAndUpdate(req.params.prodId,{$set:req.body , productImage : req.file.path},{new:true}).exec().then(doc=>{
+            res.status(200).json(doc)
+        }).catch(err=>{
+            res.status(500).json(err)
+        })
+    }else{
+        Product.findByIdAndUpdate( req.params.prodId , { $set : req.body} , { new : true }).exec().then(doc=>{
+            res.status(200).json(doc)
+        }).catch(err=>{
+            res.status(500).json(err)
+        })
+    }
+    
+})
+
+//deleting a product by it's Id
+router.delete('/product/:prodId',(req,res)=>{
+    Product.findById(req.params.prodId).exec().then(doc=>{
+        if(doc){
+            Product.findByIdAndDelete(req.params.prodId).exec().then(()=>{
+                res.status(200).json('Product has been deleted successfully')
+            }) 
+        } else{
+            res.status(404).json('There is no product with this id')
+        }   
+    })
+})
 
 module.exports=router;
