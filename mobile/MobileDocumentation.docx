@@ -246,4 +246,17 @@ update_3 2/13/2023
     -it has in & out
         -in (input) -> this will be passed from viewModel
         -out (output) -> this will be passed from data layer to viewModel
+---------------------------------16/2/2023----------------------------------------------------
+-added login viewModel which has so sinks and two streams (one will be for userName and the other will be for password).
+-we are going to make the login button looks disable if the user didn't fill any field of username or the password.
+-the inputs for the login viewModel will be the userName field and the password field and login button .
+-the outputs will be if the userName and password is valid and filled to activate the login button.
+---------------------------------16/2/2023----------------------------------------------------
+-use broadcast() in login viewModel to make the StreamController has many listeners to avoid bad state.
+-i created _isPasswordValid and _isUserNameValid functions to check if this fields at lest has one letter and to return bool value to use it in map for stream.
+---------------------------------16/2/2023----------------------------------------------------
+-Data class is the class which have our data which we can update or copy of our data through it.
+-we installed freezed package which will be code generator for data-classes/unions/pattern-matching/cloning.
+-we used $ sign in freezed_data-classes file to identify that this class is freezed.
+-we will use feature copyWith to update the argument of loginObject after the user set for password and userName.
 ---------------------------------------------------------------------------------------------

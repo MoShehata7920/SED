@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sed/presentation/login/login_view.dart';
+import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
