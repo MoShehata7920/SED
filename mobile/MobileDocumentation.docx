@@ -265,11 +265,16 @@ update_3 2/13/2023
 ---------------------------------------------------------------------------------------------
 update 2/17/2023
 ---------------------------------------------------------------------------------------------
-instead of keep intializing instances we can use dependency injection to get over that.
-    -installed get_it dependency
+instead of keep initializing instances we can use dependency injection to get over that.
+    -installed get_it dependency bc it's  a simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by Splat. It can be used instead of InheritedWidget or Provider to access objects e.g. from your UI.
     -InitAppModule() contains all generic dependencies
-        -we can define instaneces as singleton or lazy singleton
+        -we can define instances as singleton or lazy singleton
             -singleton: the instance will be initialized at compile time
             -lazy singleton: the instance will be initialized at run time
     -added dependencies at InitAppModule() as lazy singleton to save memory, since it will be initialized only when we ask for instance.
-    
+---------------------------------17/2/2023----------------------------------------------------
+-in Login instance Module we create it as factory bc it will be called once in login screen to login by using email and password and won't use it again in the rest of app so i don't need to create it as singleton.
+-i will call initLoginModule in route manger to initialize it before login.
+-and i will call initAppModule in main.dart file bc it has to initialize before running the app and use it in the whole app next.
+-to avoid crash bc of null value in running app bc async code in main.dart file i will use "WidgetsFlutterBinding.ensureInitialized();" to make sure that app won't start before making sure that await functions are responded and then run the app.
+---------------------------------------------------------------------------------------------

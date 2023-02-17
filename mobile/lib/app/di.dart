@@ -8,6 +8,9 @@ import 'package:sed/data/network/network_info.dart';
 import 'package:sed/data/repository/repository_impl.dart';
 import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/repository/repository.dart';
+import 'package:sed/domain/usecase/login_usecase.dart';
+import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -22,22 +25,20 @@ Future<void> initAppModule() async {
       sharedPrefs); //app preference needs an instance of shared preference so we have to initialize one first.
 
   // app prefs instance
-  instance.registerLazySingleton<AppPreferences>(() =>
-      AppPreferences(instance())); //instance() gets the required instance so it returns sharedPrefs at this case.
+  instance.registerLazySingleton<AppPreferences>(() => AppPreferences(
+      instance())); //instance() gets the required instance so it returns sharedPrefs at this case.
 
   // network info
   instance.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(InternetConnectionChecker()));
 
   // dio factory
-  instance.registerLazySingleton<DioFactory>(() =>
-      DioFactory(instance()));
+  instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
 
   Dio dio = await instance<DioFactory>().getDio();
 
   //app service client
-  instance.registerLazySingleton<AppServiceClient>(() =>
-      AppServiceClient(dio));
+  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   // remote data source
   instance.registerLazySingleton<RemoteDataSource>(
@@ -48,4 +49,13 @@ Future<void> initAppModule() async {
       () => RepositoryImpl(instance(), instance()));
 }
 
-Future<void> initLoginModule() async {}
+initLoginModule() async {
+  // to check if i added it before at Get It or its the first time
+  if (!GetIt.I.isRegistered<LoginUseCase>()) {
+    // Login use case
+    instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
+
+    // Login view model
+    instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
