@@ -15,8 +15,7 @@ class AppPreferences {
     if (language.isNotEmpty) {
       return language;
     } else {
-      // return default lang
-      return LanguageType.ENGLISH.getValue();
+      return LanguageType.ENGLISH.getValue();      // return default lang
     }
   }
 }

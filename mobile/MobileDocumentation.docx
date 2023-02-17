@@ -260,3 +260,16 @@ update_3 2/13/2023
 -we used $ sign in freezed_data-classes file to identify that this class is freezed.
 -we will use feature copyWith to update the argument of loginObject after the user set for password and userName.
 ---------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------
+update 2/17/2023
+---------------------------------------------------------------------------------------------
+instead of keep intializing instances we can use dependency injection to get over that.
+    -installed get_it dependency
+    -InitAppModule() contains all generic dependencies
+        -we can define instaneces as singleton or lazy singleton
+            -singleton: the instance will be initialized at compile time
+            -lazy singleton: the instance will be initialized at run time
+    -added dependencies at InitAppModule() as lazy singleton to save memory, since it will be initialized only when we ask for instance.
+    
