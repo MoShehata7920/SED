@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 export default function Home() {
@@ -5,7 +6,7 @@ export default function Home() {
     <>
       <div className="App">
         <button>
-          <a href="SignIn">hello</a>
+          <Link to="SignIn">hello</Link>
         </button>
       </div>
     </>
