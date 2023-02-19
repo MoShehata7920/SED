@@ -286,3 +286,6 @@ update 2/19/2023
 -continued implementing the state renderer
     -implemented the possible cases for the state widget
 -installed lottie dependency to load images from json files
+---------------------------------19/2/2023----------------------------------------------------
+-state_renderer_impl will be responsible about handling the view with the state renderer
+---------------------------------------------------------------------------------------------

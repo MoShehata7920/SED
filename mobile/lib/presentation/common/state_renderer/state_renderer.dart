@@ -35,32 +35,40 @@ class StateRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return _getStateWidget(context);
   }
 
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.popUpLoadingState:
-        return _getPopUpDialog(context, [_getAnimatedImage(JsonAssets.loading)]);
+        return _getPopUpDialog(
+            context, [_getAnimatedImage(JsonAssets.loading)]);
+
       case StateRendererType.popUpErrorState:
         return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.retryAgain, context)
+          _getRetryButton(AppStrings.ok, context)
         ]);
+
       case StateRendererType.fullScreenLoadingState:
-        return _getItemsColumn([_getAnimatedImage(JsonAssets.loading), _getMessage(message)]);
+        return _getItemsColumn(
+            [_getAnimatedImage(JsonAssets.loading), _getMessage(message)]);
+
       case StateRendererType.fullScreenErrorState:
         return _getItemsColumn([
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
           _getRetryButton(AppStrings.retryAgain, context)
         ]);
+
       case StateRendererType.fullScreenEmptyState:
-        return _getItemsColumn([_getAnimatedImage(JsonAssets.empty), _getMessage(message)]);
+        return _getItemsColumn(
+            [_getAnimatedImage(JsonAssets.empty), _getMessage(message)]);
+
       case StateRendererType.contentState:
         return Container();
+
       default:
         return Container();
     }
@@ -104,7 +112,7 @@ class StateRenderer extends StatelessWidget {
     return SizedBox(
       height: AppSize.s100,
       width: AppSize.s100,
-      child: Lottie.asset(animationName), // todo add json image here
+      child: Lottie.asset(animationName),
     );
   }
 
