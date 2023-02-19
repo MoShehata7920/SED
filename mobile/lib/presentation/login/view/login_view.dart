@@ -82,6 +82,10 @@ class _LoginViewState extends State<LoginView> {
                             decoration: InputDecoration(
                               hintText: AppStrings.username,
                               labelText: AppStrings.username,
+                              prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: ColorManager.lightPrimary,
+                              ),
                               errorText: (snapshot.data ??
                                       true) //check if the username was null
                                   ? null //then no errors
@@ -102,9 +106,26 @@ class _LoginViewState extends State<LoginView> {
                         return TextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: _userPasswordController,
+                            obscureText: _viewModel.obsecureText,
                             decoration: InputDecoration(
                               hintText: AppStrings.password,
                               labelText: AppStrings.password,
+                              suffixIcon: GestureDetector(
+                                child: Icon(
+                                  _viewModel.passwordSuffixIcon,
+                                  color: ColorManager.lightPrimary,
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    //TODO change it to stream builder or use bloc
+                                    _viewModel.togglePasswordVisibility();
+                                  });
+                                },
+                              ),
+                              prefixIcon: Icon(
+                                Icons.lock_outline_sharp,
+                                color: ColorManager.lightPrimary,
+                              ),
                               errorText: (snapshot.data ??
                                       true) //check if the password was null
                                   ? null //then no errors

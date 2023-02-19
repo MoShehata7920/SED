@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 
 import '../../../domain/usecase/login_usecase.dart';
@@ -11,6 +12,8 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
+  final StreamController _passwordVisibilityController =
+      StreamController<void>.broadcast();
 
   // for login button to activate it or disable it
   final StreamController _areAllInputsValidStreamController =
@@ -22,12 +25,17 @@ class LoginViewModel extends BaseViewModel
 
   var loginObject = LoginObject("", "");
 
+  IconData passwordSuffixIcon = Icons.visibility;
+
+  bool obsecureText = true;
+
   // inputs
   @override
   void dispose() {
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
+    _passwordVisibilityController.close();
   }
 
   @override
@@ -102,15 +110,42 @@ class LoginViewModel extends BaseViewModel
     return _isPasswordValid(loginObject.password) &&
         _isUserNameValid(loginObject.userName);
   }
+
+  @override
+  togglePasswordVisibility() {
+    obsecureText = !obsecureText;
+
+    if(obsecureText) {
+      passwordSuffixIcon = Icons.visibility;
+    } else {
+      passwordSuffixIcon = Icons.visibility_off;
+    }
+
+    inputPasswordVisible.add(null);
+  }
+
+
+  @override
+  Sink get inputPasswordVisible => _passwordVisibilityController.sink;
+
+  @override
+  Stream<bool> get outIsPasswordVisible => _passwordVisibilityController.stream.map((event) => true);
 }
 
 abstract class LoginViewModelInputs {
   setUserName(String userName);
+
   setPassword(String password);
+
   login();
 
+  togglePasswordVisibility();
+
   Sink get inputUserName;
+
   Sink get inputPassword;
+
+  Sink get inputPasswordVisible;
 
   // for login button to activate it or disable it
   Sink get inputAreAllInputsValid;
@@ -118,7 +153,10 @@ abstract class LoginViewModelInputs {
 
 abstract class LoginViewModelOutputs {
   Stream<bool> get outIsUserNameValid;
+
   Stream<bool> get outIsPasswordValid;
+
+  Stream<bool> get outIsPasswordVisible;
 
   // for login button to activate it or disable it
   Stream<bool> get outAreAllInputsValid;
