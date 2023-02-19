@@ -9,27 +9,25 @@ class AppStrings {
     'EXCHANGE YOUR PRODUCTS WITH OTHERS',
     'DONATE PRODUCTS FOR OTHERS',
   ];
-
   static const List<String> onBoardingSubTitles = [
     'You can sell your used or new products using SED ',
     'You can exchange products which you don\'t use with others by other products will be more useful for you using SED',
     'You can help others by donating the products which you don\'t use and let others get use it using SED people should help each other if we want better world',
   ];
-
   static const String skip = "SKIP";
 
   //login screen
   static const String username = "User Name";
   static const String usernameError = "Please enter your user name.";
-
   static const String password = "Password";
   static const String passwordError = "Please enter your password.";
-
   static const String login = "Login";
-
   static const String forgetPassword = "Forget Password";
-
   static const String registerText = "Not a member ? Sign up";
 
+  //state renderer
   static const String loading = "Loading...";
+  static const String retryAgain = "Retry again!";
+  static const String ok = "Ok";
+
 }

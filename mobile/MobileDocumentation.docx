@@ -278,3 +278,11 @@ instead of keep initializing instances we can use dependency injection to get ov
 -and i will call initAppModule in main.dart file bc it has to initialize before running the app and use it in the whole app next.
 -to avoid crash bc of null value in running app bc async code in main.dart file i will use "WidgetsFlutterBinding.ensureInitialized();" to make sure that app won't start before making sure that await functions are responded and then run the app.
 ---------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------
+update 2/19/2023
+---------------------------------------------------------------------------------------------
+-continued implementing the state renderer
+    -implemented the possible cases for the state widget
+-installed lottie dependency to load images from json files

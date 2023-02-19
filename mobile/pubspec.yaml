@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.0.17
   freezed: ^2.3.2
   get_it: ^7.2.0
+  lottie: ^2.2.0
 
 
 dev_dependencies:
@@ -80,7 +81,9 @@ flutter:
     - assets/images/right_arrow_icon.svg
     - assets/images/hollow_circle_icon.svg
     - assets/images/solid_circle_icon.svg
-
+    - assets/json/loading.json
+    - assets/json/empty.json
+    - assets/json/error.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
