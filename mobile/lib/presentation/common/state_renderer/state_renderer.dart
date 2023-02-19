@@ -21,6 +21,7 @@ enum StateRendererType {
   contentState,
 }
 
+// ignore: must_be_immutable
 class StateRenderer extends StatelessWidget {
   StateRendererType stateRendererType;
   String message;
@@ -28,7 +29,7 @@ class StateRenderer extends StatelessWidget {
   Function retryActionFunction;
 
   StateRenderer(
-      {required this.stateRendererType,
+      {super.key, required this.stateRendererType,
       this.message = AppStrings.loading,
       this.title = "",
       required this.retryActionFunction});
