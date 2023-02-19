@@ -106,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                         return TextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: _userPasswordController,
-                            obscureText: _viewModel.obsecureText,
+                            obscureText: _viewModel.obscureText,
                             decoration: InputDecoration(
                               hintText: AppStrings.password,
                               labelText: AppStrings.password,

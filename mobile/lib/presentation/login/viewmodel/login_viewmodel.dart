@@ -27,7 +27,7 @@ class LoginViewModel extends BaseViewModel
 
   IconData passwordSuffixIcon = Icons.visibility;
 
-  bool obsecureText = true;
+  bool obscureText = true;
 
   // inputs
   @override
@@ -113,9 +113,9 @@ class LoginViewModel extends BaseViewModel
 
   @override
   togglePasswordVisibility() {
-    obsecureText = !obsecureText;
+    obscureText = !obscureText;
 
-    if(obsecureText) {
+    if (obscureText) {
       passwordSuffixIcon = Icons.visibility;
     } else {
       passwordSuffixIcon = Icons.visibility_off;
@@ -124,12 +124,12 @@ class LoginViewModel extends BaseViewModel
     inputPasswordVisible.add(null);
   }
 
-
   @override
   Sink get inputPasswordVisible => _passwordVisibilityController.sink;
 
   @override
-  Stream<bool> get outIsPasswordVisible => _passwordVisibilityController.stream.map((event) => true);
+  Stream<bool> get outIsPasswordVisible =>
+      _passwordVisibilityController.stream.map((event) => true);
 }
 
 abstract class LoginViewModelInputs {
