@@ -292,3 +292,11 @@ update 2/19/2023
 -The WidgetFlutterBinding is used to interact with the Flutter engine.
 -addPostFrameCallback function Schedule a callback for the end of this frame.and does not request a new frame.This callback is run during a frame, just after the persistent frame callbacks (which is when the main rendering pipeline has been flushed). If a frame is in progress and post-frame callbacks haven't been executed yet, then the registered callback is still executed during the frame. Otherwise, the registered callback is executed during the next frame.
 ---------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------
+update 2/20/2023
+---------------------------------------------------------------------------------------------
+-finished implementing FlowStateExtension cases (errorstate - emptystate - contentstate)
+-created _inputStreamController at the baseViewModel to handle the flow of strategies
+-applied the state renderer to login view

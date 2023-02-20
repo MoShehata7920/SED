@@ -5,6 +5,7 @@ import '../../resources/strings_manager.dart';
 
 abstract class FlowState {
   StateRendererType getStateRendererType();
+
   String getMessage();
 }
 
@@ -86,22 +87,46 @@ extension FlowStateExtension on FlowState {
 
       case ErrorState:
         {
-          break;
+          dismissDialog(context);
+
+          if (getStateRendererType() == StateRendererType.popUpErrorState) {
+            // show PopUp error
+
+            showPopUp(context, getStateRendererType(), getMessage());
+
+            // show content UI of screen
+            return contentScreenWidget;
+          } else {
+            // full screen error state
+            return StateRenderer(
+              message: getMessage(),
+              stateRendererType: getStateRendererType(),
+              retryActionFunction: retryActionFunction,
+            );
+          }
         }
 
       case EmptyState:
         {
-          break;
+          return StateRenderer(
+            message: getMessage(),
+            stateRendererType: getStateRendererType(),
+            retryActionFunction: () {},
+          );
         }
 
       case ContentState:
         {
-          break;
+          dismissDialog(context);
+
+          return contentScreenWidget;
         }
 
       default:
         {
-          break;
+          dismissDialog(context);
+
+          return contentScreenWidget;
         }
     }
   }
@@ -113,7 +138,17 @@ extension FlowStateExtension on FlowState {
           builder: (BuildContext context) => StateRenderer(
             stateRendererType: stateRendererType,
             retryActionFunction: () {},
+            message: message,
           ),
         ));
+  }
+
+  _isCurrentDialogShown(BuildContext context) =>
+      ModalRoute.of(context)?.isCurrent != true;
+
+  dismissDialog(BuildContext context) {
+    if(_isCurrentDialogShown(context)) {
+      Navigator.of(context, rootNavigator: true).pop(true);
+    }
   }
 }

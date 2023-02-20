@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 
 import '../../../domain/usecase/login_usecase.dart';
 import '../../common/freezed_data_classes.dart';
@@ -32,6 +34,7 @@ class LoginViewModel extends BaseViewModel
   // inputs
   @override
   void dispose() {
+    super.dispose();
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
@@ -40,7 +43,9 @@ class LoginViewModel extends BaseViewModel
 
   @override
   void start() {
-    // TODO: implement start
+    //view model should tell view show content state
+
+    inputState.add(ContentState());
   }
 
   @override
@@ -65,17 +70,19 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
+    inputState.add(LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+
     var response = await _loginUseCase
         .execute(LoginUseCaseInput(loginObject.userName, loginObject.password));
 
     response.fold(
         (failure) => {
               // left -> failure
-              //todo implement me
+              inputState.add(ErrorState(StateRendererType.popUpErrorState, failure.message))
             },
         (response) => {
               // right -> success
-              //todo implement me
+              inputState.add(ContentState())
             });
   }
 
