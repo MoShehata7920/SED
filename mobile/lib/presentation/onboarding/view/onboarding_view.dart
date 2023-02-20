@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
@@ -202,7 +203,7 @@ class OnBoardingPage extends StatelessWidget {
         const SizedBox(
           height: AppSize.s60,
         ),
-        SvgPicture.asset(_sliderObject.image)
+        Lottie.asset(_sliderObject.image)
       ],
     );
   }

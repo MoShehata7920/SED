@@ -65,7 +65,7 @@ class OnBoardingViewModel extends BaseViewModel
 
     for (int i = 0; i < 3; i++) {
       tempList.add(SliderObject(AppStrings.onBoardingTitles[i],
-          AppStrings.onBoardingSubTitles[i], ImageAssets.onBoardingLogos[i]));
+          AppStrings.onBoardingSubTitles[i], JsonAssets.onBoardingLogos[i]));
     }
 
     return tempList;

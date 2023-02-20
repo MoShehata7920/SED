@@ -74,9 +74,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/light_mode_logo.png
-    - assets/images/onboarding_logo1.svg
-    - assets/images/onboarding_logo2.svg
-    - assets/images/onboarding_logo3.svg
     - assets/images/left_arrow_icon.svg
     - assets/images/right_arrow_icon.svg
     - assets/images/hollow_circle_icon.svg
@@ -84,6 +81,10 @@ flutter:
     - assets/json/loading.json
     - assets/json/empty.json
     - assets/json/error.json
+    - assets/json/on_boarding_sell.json
+    - assets/json/on_boarding_exchange.json
+    - assets/json/on_boarding_donate.json
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
