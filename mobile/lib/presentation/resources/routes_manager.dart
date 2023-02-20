@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/view/forgot_password.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
+import 'package:sed/presentation/main_screen/main_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
-
 import '../splash/splash_view.dart';
 
 class Routes {
@@ -14,6 +14,7 @@ class Routes {
   static const String loginRoute = "/login";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String registerRoute = "/register";
+  static const String mainScreenRoute = "/main";
 }
 
 class RouteGenerator {
@@ -35,6 +36,9 @@ class RouteGenerator {
 
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (context) => const RegisterView());
+
+      case Routes.mainScreenRoute:
+        return MaterialPageRoute(builder: (context) => const MainScreenView());
 
       default:
         return unDefinedRoute();

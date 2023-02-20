@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
@@ -16,6 +18,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
   void initState() {
@@ -49,5 +52,32 @@ class _SplashViewState extends State<SplashView> {
         _onFinishLoading);
   }
 
-  void _onFinishLoading() => Navigator.pushReplacementNamed(context,Routes.onBoardingRoute);
+  void _onFinishLoading() async {
+    _appPreferences.isUserLoggedInSuccessfully().then((isUseLoggedIn) => {
+          if (isUseLoggedIn)
+            {
+              // navigate to main screen
+              Navigator.pushReplacementNamed(context, Routes.mainScreenRoute)
+            }
+          else
+            {
+              _appPreferences
+                  .isOnBoardingScreenViewed()
+                  .then((isOnBoardingScreenViewed) => {
+                        if (isOnBoardingScreenViewed)
+                          {
+                            // navigate to Login screen
+                            Navigator.pushReplacementNamed(
+                                context, Routes.loginRoute)
+                          }
+                        else
+                          {
+                            // navigate to onBoarding screen bc it means its the first time he open the app
+                            Navigator.pushReplacementNamed(
+                                context, Routes.onBoardingRoute)
+                          }
+                      })
+            }
+        });
+  }
 }

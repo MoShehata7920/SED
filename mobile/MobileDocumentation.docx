@@ -297,6 +297,15 @@ update 2/19/2023
 ---------------------------------------------------------------------------------------------
 update 2/20/2023
 ---------------------------------------------------------------------------------------------
--finished implementing FlowStateExtension cases (errorstate - emptystate - contentstate)
+-finished implementing FlowStateExtension cases (errorState - emptyState - contentState)
 -created _inputStreamController at the baseViewModel to handle the flow of strategies
 -applied the state renderer to login view
+---------------------------------20/2/2023----------------------------------------------------
+-created isUserLoggedInSuccessfullyStreamController function in Login ViewModel to check the state of loggingIn.
+-if the user successfully logged in , he will be navigated to the main screen.
+-in app preferences we created setOnBoardingScreenViewed and isOnBoardingScreenViewed functions to check if user already viewed onboarding screen.
+-in app preferences we created setUserLoggedInSuccessfully and isUserLoggedInSuccessfully functions to check if user already logged in successfully before.
+-in onboarding_view file i will call setOnBoardingScreenViewed function in _bind to tell the AppPreferences that the user already viewed onboarding screens.
+_in login_view before navigating to main screen i will call setUserLoggedInSuccessfully to tell AppPreferences that the user logged in successfully.
+_in splash_view we should get know where the user should be navigated after splash screen so first we check if the user already logged in and that means the he is already viewed onboarding screens too so he will be navigated to the main screen and if he isn't already logged in , we will check if he viewed onboarding screens or not yet and depend on this we will navigate him to onboarding screens or loggingIn screen. 
+---------------------------------------------------------------------------------------------

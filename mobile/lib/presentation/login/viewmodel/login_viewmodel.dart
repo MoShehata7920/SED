@@ -21,6 +21,10 @@ class LoginViewModel extends BaseViewModel
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
+  // i didn't create it as private bc i will call it in view directly 
+  StreamController isUserLoggedInSuccessfullyStreamController =
+      StreamController<bool>();
+
   final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
@@ -39,6 +43,7 @@ class LoginViewModel extends BaseViewModel
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
     _passwordVisibilityController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -70,7 +75,8 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
-    inputState.add(LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
 
     var response = await _loginUseCase
         .execute(LoginUseCaseInput(loginObject.userName, loginObject.password));
@@ -78,12 +84,14 @@ class LoginViewModel extends BaseViewModel
     response.fold(
         (failure) => {
               // left -> failure
-              inputState.add(ErrorState(StateRendererType.popUpErrorState, failure.message))
-            },
-        (response) => {
-              // right -> success
-              inputState.add(ContentState())
-            });
+              inputState.add(ErrorState(
+                  StateRendererType.popUpErrorState, failure.message))
+            }, (response) {
+      // right -> success
+      inputState.add(ContentState());
+      // navigate to main screen
+      isUserLoggedInSuccessfullyStreamController.add(true);
+    });
   }
 
   // for login button to activate it or disable it
