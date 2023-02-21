@@ -2,6 +2,7 @@ const router=require('express').Router()
 const Product=require('../models/product')
 const mongoose=require('mongoose')
 const multer=require('multer')
+const { verifyTokenAndAdmin } = require('../middleware/check-auth')
 const storage=multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./uploads/')
@@ -50,7 +51,7 @@ router.get('/product/:prodId',(req,res)=>{
 
 //updating product
 router.patch('/product/:prodId',upload.single('productImage'),(req,res)=>{
-    // console.log(req.file.size)
+    
     if(req.file){       // if condition to check if there an update for the image      
         Product.findByIdAndUpdate(req.params.prodId,{$set:req.body , productImage : req.file.path},{new:true}).exec().then(doc=>{
             res.status(200).json(doc)
@@ -68,15 +69,17 @@ router.patch('/product/:prodId',upload.single('productImage'),(req,res)=>{
 })
 
 //deleting a product by it's Id
-router.delete('/product/:prodId',(req,res)=>{
+router.delete('/product/:prodId',verifyTokenAndAdmin,(req,res)=>{
     Product.findById(req.params.prodId).exec().then(doc=>{
         if(doc){
-            Product.findByIdAndDelete(req.params.prodId).exec().then(()=>{
+            Product.deleteOne({ _id : req.params.prodId}).exec().then(()=>{
                 res.status(200).json('Product has been deleted successfully')
             }) 
         } else{
             res.status(404).json('There is no product with this id')
         }   
+    }).catch(err=>{
+        res.status(500).json(err)
     })
 })
 

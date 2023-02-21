@@ -4,7 +4,10 @@ const User=require('../models/user')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const { body, validationResult } = require('express-validator')
+const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
 
+
+// new user sign up 
 router.post('/register',[
     body('password').isLength({min:5}).withMessage('Please enter a valid password with at least 5 chars')
 ],(req,res)=>{
@@ -41,7 +44,7 @@ router.post('/register',[
     })
 })
 
-
+// user login
 router.post('/login',(req,res)=>{
     User.find({email:req.body.email}).exec().then(user=>{
         if(user.length<=0){                                                                                             //if email not found 
@@ -78,6 +81,71 @@ router.post('/login',(req,res)=>{
 })
 
 
+// getting all users , must be an admin
+router.get('/getallusers',verifyTokenAndAdmin,(req,res)=>{
+    User.find()
+    .select('-password')            // to hide user password
+    .exec()
+    .then(docs=>{
+        res.status(200).json(docs)
+    }).catch(err=>{
+        res.status(500).json(err)
+    })
+})
+
+// To find a Single User , must be and admin or the userhim self
+router.get('/:userId',verifyToken,(req,res)=>{
+    if(req.user.id===req.params.userId || req.user.isAdmin){   // to check wether the user him self who requested for his info , or an admin
+        User.findById(req.params.userId).exec().then(user=>{
+            if(user){
+                res.status(200).json(user)
+            }else{
+                res.status(404).json('This User Not exist')
+            }
+        }).catch(err=>{
+            res.status(500).json(err)
+        })
+    }else{
+        console.log('error from single user get else condition ');
+    }
+})
+
+//updating user info
+router.patch("/update/:userId", verifyToken ,(req, res) => {
+    if(req.user.id===req.params.userId || req.user.isAdmin){
+        User.findByIdAndUpdate(req.params.userId, { $set: req.body }, { new: true })
+        .then((newdoc) => {
+          res.status(200).json(newdoc);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    }else{
+        console.log('Error from updating user else condition');
+    }
+});
+
+
+
+
+//deleting user by it's Id
+router.delete('/delete/:userId',verifyTokenAndAdmin,(req,res)=>{
+    User.findById(req.params.userId).exec().then(doc=>{
+        if(doc){
+            User.deleteOne({_id:req.params.userId}).exec().then(()=>{
+                res.status(200).json('user has been deleted successfully')
+            }) 
+        } else{
+            res.status(404).json('There is no user with this id')
+        }   
+    }).catch(err=>{
+        res.status(500).json(err)
+    })
+})
+
+
+
+
 
 //forgot password route to be set
 // router.patch('/resetPassword/:id',(req,res)=>{
@@ -88,15 +156,6 @@ router.post('/login',(req,res)=>{
 //         console.log('Wrong id');
 //         res.status(500).json({error : {message : 'wrong id '} , err})
 //     })  
-//     // User.findByIdAndUpdate(userId , { $set : req.body } , { new : true })
 // })
-
-
-
-
-
-
-
-
 
 module.exports=router;
