@@ -10,7 +10,7 @@ passport.use(
       {
         clientID: process.env.CLIENT_ID, 
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "/auth/callback",
+        callbackURL: "/google/auth/callback",
         passReqToCallback: true,
       },
 

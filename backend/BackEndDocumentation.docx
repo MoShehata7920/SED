@@ -16,7 +16,11 @@ Controllers :
     -Users controller :
         -Register
         -Login
-        -
+        -getting all users
+        -get a single user by user id 
+        -update a single user by user id 
+        -delete a single user by user id 
+
     -Product controller : 
         -Adding new product
         -getting all products
@@ -63,8 +67,6 @@ Controllers :
                     > if not it returns error message either Wrong password or email not found and need to be registered first
                     >
                 
-                    //to write : check-auth file 
-
 -Google Auth    :       
                     > Google Api used to make it easier for users to access our application with a button 
                     > To implement this strategy we user Passport Version 0.5 "since it has no errors"
@@ -73,9 +75,21 @@ Controllers :
                     > There are two conditions for this method wether the user is new to our app or he is already registered before.. we know that by searching into our database by user googleId if not found then this user is new so we create a new user , if found it just return user info
                     > we put all the config on passport-setup.js file
                     >we used cookie Session package to store user identity into cookies 
-                                /* this method routes to be just edited to the exact endpoints */
+                    >added logout router 
 
+-All Users      :   
+                    > an Route for admin panel to show all registered users
 
+-Single User    : 
+                    > to show single user informations by user id 
+
+-Update User    :
+                    > to update single user informations by user id 
+-Delete User    :
+                    > to delete single user informations by user id 
+
+-Forgot PW      : 
+                    > to be finished 
 
 ----------------------------------------------------------------
 -check-auth file contains some functions to validate the user login token and user access levels
