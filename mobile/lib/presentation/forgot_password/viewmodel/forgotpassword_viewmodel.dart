@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sprintf/sprintf.dart';
 
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
@@ -104,7 +105,7 @@ class ForgotPasswordViewModel extends BaseViewModel
     }
   }
 
-  String getResendText() => 'Please wait $_secondsLeft to send again';
+  String getResendText() => sprintf(AppStrings.resendText,[_secondsLeft]);
 }
 
 abstract class ForgotPasswordViewModelInputs {
