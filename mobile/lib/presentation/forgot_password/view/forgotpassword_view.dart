@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/constants_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
-
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/values_manager.dart';
@@ -23,12 +19,25 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final TextEditingController _emailController = TextEditingController();
 
   final ForgotPasswordViewModel _viewModel =
-  instance<ForgotPasswordViewModel>();
+      instance<ForgotPasswordViewModel>();
 
+  bind() {
+    _viewModel.start(); //start the view model job
+
+    _emailController
+        .addListener(() => _viewModel.setEmail(_emailController.text));
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+
+    super.dispose();
+  }
 
   @override
   void initState() {
-    _bind();
+    bind();
 
     super.initState();
   }
@@ -41,18 +50,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(context, _getContentWidget(),
-                  () => _viewModel.resetPassword()) ??
+                  () => _viewModel.forgotPassword()) ??
               _getContentWidget();
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-
-    super.dispose();
   }
 
   Widget _getContentWidget() {
@@ -71,7 +73,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-                // todo, change
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsEmailValid,
                     builder: (context, snapshot) {
@@ -86,17 +87,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: (snapshot.data ??
-                                true) //check if the username was null
+                                    true) //check if the username was null
                                 ? null //then no errors
                                 : AppStrings
-                                .usernameError, //else present the error to the user
+                                    .usernameError, //else present the error to the user
                           ));
                     }),
               ),
               const SizedBox(
                 height: AppSize.s28,
               ),
-              // todo change
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<bool>(
@@ -120,9 +120,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                       child: Text(
                                         _viewModel.getResendText(),
                                         textAlign: TextAlign.center,
-                                        style:
-                                        Theme
-                                            .of(context)
+                                        style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
                                       ),
@@ -135,31 +133,23 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                 width: double.infinity,
                                 height: AppSize.s40,
                                 child: ElevatedButton(
-                                    onPressed: (snapshotValidation.data ??
-                                        false)
-                                        ? () {
-                                      _viewModel.resetPassword();
-                                    }
-                                        : null,
-                                    child: const Text(
-                                        AppStrings.resetPassword)),
+                                    onPressed:
+                                        (snapshotValidation.data ?? false)
+                                            ? () {
+                                                _viewModel.forgotPassword();
+                                              }
+                                            : null,
+                                    child:
+                                        const Text(AppStrings.resetPassword)),
                               );
                             }
                           });
                     }),
               ),
-
             ],
           ),
         ),
       ),
     );
-  }
-
-  void _bind() {
-    _viewModel.start(); //start the view model job
-
-    _emailController
-        .addListener(() => _viewModel.setEmail(_emailController.text));
   }
 }

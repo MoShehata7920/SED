@@ -1,10 +1,9 @@
 import 'dart:async';
-
+import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sprintf/sprintf.dart';
-
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 
@@ -13,7 +12,8 @@ class ForgotPasswordViewModel extends BaseViewModel
   final StreamController _emailStreamController =
       StreamController<String>.broadcast();
 
-  final StreamController _showResendStreamController = StreamController<bool>.broadcast();
+  final StreamController _showResendStreamController =
+      StreamController<bool>.broadcast();
 
   String forgotPasswordEmail = AppStrings.empty;
 
@@ -27,7 +27,7 @@ class ForgotPasswordViewModel extends BaseViewModel
 
   @override
   void start() {
-
+    inputState.add(ContentState());
   }
 
   @override
@@ -37,37 +37,13 @@ class ForgotPasswordViewModel extends BaseViewModel
     _timer?.cancel();
   }
 
+  // inputs
   @override
-  Sink get emailInput => _emailStreamController.sink;
-
-  @override
-  Stream<bool> get outIsEmailValid =>
-      _emailStreamController.stream.map((email) => isEmailValid(email));
-
-  @override
-  Sink get showResendInput => _showResendStreamController.sink;
-
-  @override
-  Stream<bool> get outShowResend =>
-      _showResendStreamController.stream.map((show) => show);
-
-  bool isEmailValid(String email) {
-    return email.isNotEmpty;
-  }
-
-  void setEmail(String email) {
-    forgotPasswordEmail = email;
-
-    emailInput.add(email);
-  }
-
-  @override
-  resetPassword() async {
+  forgotPassword() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
 
-    var response = await _forgotPasswordUseCase
-        .execute(ForgotPasswordInput(forgotPasswordEmail));
+    var response = await _forgotPasswordUseCase.execute(forgotPasswordEmail);
 
     response.fold((failure) {
       // left -> failure
@@ -81,6 +57,31 @@ class ForgotPasswordViewModel extends BaseViewModel
 
       _initTimers();
     });
+  }
+
+  void setEmail(String email) {
+    forgotPasswordEmail = email;
+
+    emailInput.add(email);
+  }
+
+  @override
+  Sink get emailInput => _emailStreamController.sink;
+
+  @override
+  Sink get showResendInput => _showResendStreamController.sink;
+
+  // outputs
+  @override
+  Stream<bool> get outIsEmailValid =>
+      _emailStreamController.stream.map((email) => isEmailValid(email));
+
+  @override
+  Stream<bool> get outShowResend =>
+      _showResendStreamController.stream.map((show) => show);
+
+  bool isEmailValid(String email) {
+    return email.isValidEmail();
   }
 
   void _initTimers() {
@@ -105,7 +106,7 @@ class ForgotPasswordViewModel extends BaseViewModel
     }
   }
 
-  String getResendText() => sprintf(AppStrings.resendText,[_secondsLeft]);
+  String getResendText() => sprintf(AppStrings.resendText, [_secondsLeft]);
 }
 
 abstract class ForgotPasswordViewModelInputs {
@@ -113,7 +114,7 @@ abstract class ForgotPasswordViewModelInputs {
 
   Sink get showResendInput;
 
-  void resetPassword();
+  forgotPassword();
 }
 
 abstract class ForgotPasswordViewModelOutputs {

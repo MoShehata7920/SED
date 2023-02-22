@@ -45,7 +45,7 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, ForgotPassword>> forgotPassword(String email) async{
+  Future<Either<Failure, String>> forgotPassword(String email) async{
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.forgotPassword(email);

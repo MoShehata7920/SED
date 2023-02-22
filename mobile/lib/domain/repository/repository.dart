@@ -8,5 +8,5 @@ abstract class Repository {
   //* why failure at data layer and login request at domain layer
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
 
-  Future<Either<Failure, ForgotPassword>> forgotPassword(String email);
+  Future<Either<Failure, String>> forgotPassword(String email);
 }

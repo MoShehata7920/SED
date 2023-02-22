@@ -18,7 +18,7 @@ abstract class AppServiceClient {
   );
 
   @POST("/customers/forgotPassword")
-  Future<ResetPasswordResponse> forgotPassword(
+  Future<ForgotPasswordResponse> forgotPassword(
       @Field("email") String email ,
       );
 }

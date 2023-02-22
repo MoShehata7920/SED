@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element
+
 part of 'responses.dart';
 
 // **************************************************************************
@@ -32,16 +34,16 @@ Map<String, dynamic> _$AuthenticationResponseToJson(
       'token': instance.token,
     };
 
-ResetPasswordResponse _$ResetPasswordResponseFromJson(
+ForgotPasswordResponse _$ResetPasswordResponseFromJson(
         Map<String, dynamic> json) =>
-    ResetPasswordResponse(
+    ForgotPasswordResponse(
       json['support'] as String?,
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$ResetPasswordResponseToJson(
-        ResetPasswordResponse instance) =>
+        ForgotPasswordResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,

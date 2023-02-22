@@ -10,9 +10,9 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
   }
 }
 
-extension ResetPasswordResponseMapper on ResetPasswordResponse? {
-  ForgotPassword toDomain() {
+extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
+  String toDomain() {
     // * since we did an extension why do we check again if it was null ?
-    return ForgotPassword(this?.support.orEmpty() ?? Constants.empty);
+    return this?.support.orEmpty() ?? Constants.empty;
   }
 }
