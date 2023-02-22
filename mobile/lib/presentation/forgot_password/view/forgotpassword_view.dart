@@ -4,6 +4,7 @@ import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmo
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
+import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/values_manager.dart';
 
@@ -28,13 +29,21 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   void initState() {
     _bind();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      body: _getContentWidget(),
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(
+                  context, _getContentWidget(), () => _viewModel.resetPassword()) ??
+              _getContentWidget();
+        },
+      ),
     );
   }
 

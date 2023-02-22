@@ -4,9 +4,13 @@ import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
+import '../../common/state_renderer/state_renderer.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
+
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
-  final StreamController _emailStreamController = StreamController<String>.broadcast();
+  final StreamController _emailStreamController =
+      StreamController<String>.broadcast();
   String forgotPasswordEmail = AppStrings.empty;
 
   final ForgotPasswordUseCase _forgotPasswordUseCase;
@@ -40,8 +44,20 @@ class ForgotPasswordViewModel extends BaseViewModel
 
   @override
   resetPassword() async {
-       var response = await _forgotPasswordUseCase
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+
+    var response = await _forgotPasswordUseCase
         .execute(ForgotPasswordInput(forgotPasswordEmail));
+
+    response.fold((failure) {
+      // left -> failure
+      inputState
+          .add(ErrorState(StateRendererType.popUpErrorState, failure.message));
+    }, (response) {
+      // right -> success
+      inputState.add(ContentState());
+    });
   }
 }
 
