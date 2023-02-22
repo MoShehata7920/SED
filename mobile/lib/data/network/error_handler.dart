@@ -18,8 +18,6 @@ class ErrorHandler implements Exception {
 }
 
 Failure _handleError(DioError error) {
-            print(DioError.error);
-
   switch (error.type) {
     case DioErrorType.connectTimeout:
       return DataSource.CONNECTION_TIMEOUT.getFailure();

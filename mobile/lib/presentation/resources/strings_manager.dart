@@ -32,7 +32,7 @@ class AppStrings {
   static const String ok = "Ok";
 
  //forgot password screen
-  static const String resendText = "Didn’t receive email ? Resend";
+  static const String resendText = "Please wait %d";
   static const String forgetPassword = "Forget Password";
   static const String resetPassword = "Reset Password";
 
