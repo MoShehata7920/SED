@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:sed/presentation/base/baseviewmodel.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
   final StreamController _emailStreamController = StreamController<String>();
-  late final String forgotPasswordEmail;
+  String forgotPasswordEmail = AppStrings.empty;
+
   @override
   void start() {}
 
