@@ -1,12 +1,17 @@
 import 'dart:async';
 
+import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
-  final StreamController _emailStreamController = StreamController<String>();
+  final StreamController _emailStreamController = StreamController<String>.broadcast();
   String forgotPasswordEmail = AppStrings.empty;
+
+  final ForgotPasswordUseCase _forgotPasswordUseCase;
+
+  ForgotPasswordViewModel(this._forgotPasswordUseCase);
 
   @override
   void start() {}
@@ -32,10 +37,18 @@ class ForgotPasswordViewModel extends BaseViewModel
 
     emailInput.add(email);
   }
+
+  @override
+  resetPassword() async {
+       var response = await _forgotPasswordUseCase
+        .execute(ForgotPasswordInput(forgotPasswordEmail));
+  }
 }
 
 abstract class ForgotPasswordViewModelInputs {
   Sink get emailInput;
+
+  void resetPassword();
 }
 
 abstract class ForgotPasswordViewModelOutputs {

@@ -24,7 +24,6 @@ class AppStrings {
   static const String password = "Password";
   static const String passwordError = "Please enter your password.";
   static const String login = "Login";
-  static const String forgetPassword = "Forget Password";
   static const String registerText = "Not a member ? Sign up";
 
   //state renderer
@@ -34,7 +33,10 @@ class AppStrings {
 
  //forgot password screen
   static const String resendText = "Didn’t receive email ? Resend";
+  static const String forgetPassword = "Forget Password";
+  static const String resetPassword = "Reset Password";
 
-  
+
+
 
 }

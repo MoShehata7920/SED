@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -16,7 +17,8 @@ class ForgotPasswordView extends StatefulWidget {
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  final ForgotPasswordViewModel _viewModel = ForgotPasswordViewModel();
+
+  final ForgotPasswordViewModel _viewModel = instance<ForgotPasswordViewModel>();
 
   void _bind() {
     _emailController
@@ -78,24 +80,24 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 height: AppSize.s28,
               ),
               // todo change
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-              //   child: StreamBuilder<bool>(
-              //       stream: _viewModel.outAreAllInputsValid,
-              //       builder: (context, snapshot) {
-              //         return SizedBox(
-              //           width: double.infinity,
-              //           height: AppSize.s40,
-              //           child: ElevatedButton(
-              //               onPressed: (snapshot.data ?? false)
-              //                   ? () {
-              //                       _viewModel.login();
-              //                     }
-              //                   : null,
-              //               child: const Text(AppStrings.login)),
-              //         );
-              //       }),
-              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<bool>(
+                    stream: _viewModel.outIsEmailValid,
+                    builder: (context, snapshot) {
+                      return SizedBox(
+                        width: double.infinity,
+                        height: AppSize.s40,
+                        child: ElevatedButton(
+                            onPressed: (snapshot.data ?? false)
+                                ? () {
+                                    _viewModel.resetPassword();
+                                  }
+                                : null,
+                            child: const Text(AppStrings.resetPassword)),
+                      );
+                    }),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: AppPadding.p8,
