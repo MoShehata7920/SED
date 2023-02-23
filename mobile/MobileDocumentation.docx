@@ -308,4 +308,24 @@ update 2/20/2023
 -in onboarding_view file i will call setOnBoardingScreenViewed function in _bind to tell the AppPreferences that the user already viewed onboarding screens.
 _in login_view before navigating to main screen i will call setUserLoggedInSuccessfully to tell AppPreferences that the user logged in successfully.
 _in splash_view we should get know where the user should be navigated after splash screen so first we check if the user already logged in and that means the he is already viewed onboarding screens too so he will be navigated to the main screen and if he isn't already logged in , we will check if he viewed onboarding screens or not yet and depend on this we will navigate him to onboarding screens or loggingIn screen. 
+---------------------------------22/2/2023----------------------------------------------------
+-added remote data sources
+    -implemented forgot_password which has AuthenticationResponse piecewise getting the response from the appServiceClient
+-implemented the repository at data layer
+    -this implements the repository from domain layer.
+    -implemented the forgot_password function which returns either<Failure, String>
+        -failure model if failure happened or no internet connection found
+-added forgot_password viewModel which has so sinks and one stream for email.
+-we are going to make the Reset password button looks disable if the email format isn't valid.
+-the input for the forgot_password viewModel will be the email field  and login button .
+-the outputs will be if the email is valid and filled to activate the Reset password button.
+-use broadcast() in forgot_password viewModel to make the StreamController has many listeners to avoid bad state.
+-i created _isUserNameValid function to check if this field has the right email format and to return bool value to use it in map for stream.
+-Data class is the class which have our data which we can update or copy of our data through it.
+-we used $ sign in freezed_data-classes file to identify that this class is freezed.
+-we will use feature copyWith to update the argument of email after the user set for email.
+-in forgetPassword instance Module we create it as factory bc it will be called once in forgetPassword screen to reset password by using email and won't use it again in the rest of app so i don't need to create it as singleton.
+-i will call initForgotPasswordModule in route manger to initialize it before reseating password.
+-we installed sprintf package to use it in strings format.
+-and we created functions file and created function for checking email format checker as extension to use it in checking email in login , register and reseating password screens to check email validity.
 ---------------------------------------------------------------------------------------------

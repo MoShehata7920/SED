@@ -21,3 +21,9 @@ class Authentication {
 
   Authentication(this.token);
 }
+
+class ForgotPassword {
+  String? support;
+
+  ForgotPassword(this.support);
+}

@@ -1,4 +1,6 @@
 class AppStrings {
+  static const String empty = "";
+
   //splash screen
   static const String noRouteTitle = "404 Error";
   static const String noRouteFound = "No Route Found";
@@ -22,12 +24,19 @@ class AppStrings {
   static const String password = "Password";
   static const String passwordError = "Please enter your password.";
   static const String login = "Login";
-  static const String forgetPassword = "Forget Password";
   static const String registerText = "Not a member ? Sign up";
 
   //state renderer
   static const String loading = "Loading...";
   static const String retryAgain = "Retry again!";
   static const String ok = "Ok";
+
+ //forgot password screen
+  static const String resendText = "Please wait %d to send again";
+  static const String forgetPassword = "Forget Password";
+  static const String resetPassword = "Reset Password";
+
+
+
 
 }

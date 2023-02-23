@@ -9,3 +9,10 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
     return Authentication(this?.token.orEmpty() ?? Constants.empty);
   }
 }
+
+extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
+  String toDomain() {
+    // * since we did an extension why do we check again if it was null ?
+    return this?.support.orEmpty() ?? Constants.empty;
+  }
+}

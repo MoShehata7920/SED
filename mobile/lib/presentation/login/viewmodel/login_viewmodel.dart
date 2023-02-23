@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sed/app/functions.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -21,7 +22,7 @@ class LoginViewModel extends BaseViewModel
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
-  // i didn't create it as private bc i will call it in view directly 
+  // i didn't create it as private bc i will call it in view directly
   StreamController isUserLoggedInSuccessfullyStreamController =
       StreamController<bool>();
 
@@ -118,7 +119,7 @@ class LoginViewModel extends BaseViewModel
   }
 
   bool _isUserNameValid(String userName) {
-    return userName.isNotEmpty;
+    return userName.isValidEmail();
   }
 
   bool _areAllInputsValid() {
