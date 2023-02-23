@@ -5,12 +5,15 @@ const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const { body, validationResult } = require('express-validator')
 const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
-
+const { generateOTP , mailTransport }=require('../helpers/mail')
+const EmailVerification=require('../models/emailVerification')
 
 // new user sign up 
-router.post('/register',[
+router.post('/register',
+[
     body('password').isLength({min:5}).withMessage('Please enter a valid password with at least 5 chars')
-],(req,res)=>{
+]   ,
+(req,res)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -31,10 +34,29 @@ router.post('/register',[
                             fullName:req.body.fullName,
                             password:hashedPassword
                         })
+
+                        //email Verification part 
+                        const OTP=generateOTP()
+                        const newEmailVerification=new EmailVerification({
+                            owner:newUser._id,
+                            token:OTP
+                        })
+                        newEmailVerification.save()
+                        //email Verification end 
+
                         newUser
                         .save()
                         .then((user)=>{res.status(200).json(user)})
                         .catch(err=>{res.status(404).json(err)})
+
+                        mailTransport().sendMail({
+                            from : "sedfamily@gmail.com",
+                            to : newUser.email,
+                            subject : "Verify your email address",
+                            html : `<h1>${OTP}</h1>`
+                        })
+
+
                     }
                 })
             }else{
@@ -144,7 +166,36 @@ router.delete('/delete/:userId',verifyTokenAndAdmin,(req,res)=>{
 })
 
 
+router.post('/verify-email',async(req,res,next)=>{
+    const { userId , otp } = req.body               //can get them from params method if needed
+    if( !userId || !otp.trim() ) return res.status(406).json('Invalid req,missiong parameters')     // if missing parameters 
 
+    if(!mongoose.isValidObjectId(userId)) res.status(406).json('Invalid user id ! ')                // if req came with wrong id type
+
+    const user=await User.findById(userId)                                                           
+    if( !user ) return res.status(406).json('Sorry , user not found !')                             // if user not found in database
+    if( user.verified ) return res.status(406).json('This account already verified')                // if user already verified = true
+
+    const token = await EmailVerification.findOne({ owner : user._id})                              // getting token token document to do compare token later too in isMatched condition
+    if( !token )  return  res.status(406).json('Error , there is no token document ')               // if there is no token document in email verification collection  
+    
+    const isMatched=await token.compareToken(otp)                                                   // checking token matching or not from from emailverification schema methods   
+    if( !isMatched ) return res.status(406).json('Please provide a valid token')
+
+    user.verified = true                                                                            // if we got here so all is good and this user will be changed to verified on database
+
+    await EmailVerification.findByIdAndDelete(token._id)                                            // deleting token doc from emailVerification schema
+    await user.save()                                                                               // updating on database
+
+    mailTransport().sendMail({
+        from : "sedfamily@gmail.com",
+        to :    user.email,
+        subject : "Thank You For Verification",
+        html : `<h1>email has been verified successfully</h1>`
+    })
+
+    res.status(200).json({success : true , message : "your email has been verified successfully ",user:user})
+})
 
 
 //forgot password route to be set

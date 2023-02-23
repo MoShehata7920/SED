@@ -27,6 +27,12 @@ const userSchema= mongoose.Schema({
 
     googleId: { type : String } ,
 
+    verified : {
+        type:Boolean,
+        default:false,
+        required:true
+    }
+
     // personalInfo:{                         // for next level 'to be updated in user profile'
     //     phone:{type:Number,default:""},
     //     government:{type : String ,default:""},

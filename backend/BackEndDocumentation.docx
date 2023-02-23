@@ -1,3 +1,5 @@
+#### all to be organized & written in a better structure 
+
 Our API is an MVC Architecture API consists of 3 main folders : 
     -Models.
     -Viewers.
@@ -93,3 +95,14 @@ Controllers :
 
 ----------------------------------------------------------------
 -check-auth file contains some functions to validate the user login token and user access levels
+----------------------------------------------------------------
+*Email-verification with token * 
+    >once User Register he automatically gets a verification email on his inbox
+    >when he write this token on our form which takes this token 
+    >our server compare it with our token stored in data base encrypter .. if matching user is verified and token document is deleted
+
+
+    > used mailtrap and nodmailer packages
+    > created a new schema for email verification token
+    > recieving messages on mailtrap 
+    > there are some conditions beside code explaining the constraints or the states that lead to errors or succes to be written ;)
