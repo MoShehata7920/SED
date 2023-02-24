@@ -11,6 +11,7 @@ enum StateRendererType {
   // PopUp state
   popUpLoadingState,
   popUpErrorState,
+  popUpSuccessState,
 
   // Full screen state
   fullScreenLoadingState,
@@ -30,9 +31,9 @@ class StateRenderer extends StatelessWidget {
 
   StateRenderer(
       {super.key, required this.stateRendererType,
-      this.message = AppStrings.loading,
-      this.title = "",
-      required this.retryActionFunction});
+        this.message = AppStrings.loading,
+        this.title = "",
+        required this.retryActionFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,14 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.popUpErrorState:
         return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.error),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context)
+        ]);
+
+      case StateRendererType.popUpSuccessState:
+        return _getPopUpDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getTitle(title),
           _getMessage(message),
           _getRetryButton(AppStrings.ok, context)
         ]);
@@ -123,6 +132,7 @@ class StateRenderer extends StatelessWidget {
         padding: const EdgeInsets.all(AppPadding.p8),
         child: Text(
           message,
+          textAlign: TextAlign.center,
           style: getRegularStyle(
               color: ColorManager.black, fontSize: FontSize.s18),
         ),
@@ -146,6 +156,19 @@ class StateRenderer extends StatelessWidget {
                   }
                 },
                 child: Text(buttonTitle))),
+      ),
+    );
+  }
+
+  Widget _getTitle(String title) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p8),
+        child: Text(
+          title,
+          style: getRegularStyle(
+              color: ColorManager.black, fontSize: FontSize.s18),
+        ),
       ),
     );
   }

@@ -7,12 +7,15 @@ abstract class FlowState {
   StateRendererType getStateRendererType();
 
   String getMessage();
+
+  String getTitle();
 }
 
 // loading state (PopUp , FullScreen)
 class LoadingState extends FlowState {
   StateRendererType stateRendererType;
   String? message;
+  String? title;
 
   LoadingState(
       {required this.stateRendererType, String message = AppStrings.loading});
@@ -22,12 +25,16 @@ class LoadingState extends FlowState {
 
   @override
   StateRendererType getStateRendererType() => stateRendererType;
+
+  @override
+  String getTitle() => title ?? AppStrings.title;
 }
 
 // Error state (PopUp , FullScreen)
 class ErrorState extends FlowState {
   StateRendererType stateRendererType;
   String message;
+  String? title;
 
   ErrorState(this.stateRendererType, this.message);
 
@@ -36,6 +43,9 @@ class ErrorState extends FlowState {
 
   @override
   StateRendererType getStateRendererType() => stateRendererType;
+
+  @override
+  String getTitle() => title ?? AppStrings.title;
 }
 
 // Content state
@@ -47,6 +57,9 @@ class ContentState extends FlowState {
 
   @override
   StateRendererType getStateRendererType() => StateRendererType.contentState;
+
+  @override
+  String getTitle() => Constants.empty;
 }
 
 // Empty state
@@ -61,6 +74,26 @@ class EmptyState extends FlowState {
   @override
   StateRendererType getStateRendererType() =>
       StateRendererType.fullScreenEmptyState;
+
+  @override
+  String getTitle() => Constants.empty;
+}
+
+class SuccessState extends FlowState {
+  StateRendererType stateRendererType;
+  String message;
+  String title;
+
+  SuccessState(this.stateRendererType, this.message, this.title);
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() => stateRendererType;
+
+  @override
+  String getTitle() => title;
 }
 
 extension FlowStateExtension on FlowState {
@@ -71,7 +104,10 @@ extension FlowStateExtension on FlowState {
         {
           if (getStateRendererType() == StateRendererType.popUpLoadingState) {
             // show PopUp loading
-            showPopUp(context, getStateRendererType(), getMessage());
+            showPopUp(
+                context: context,
+                stateRendererType: getStateRendererType(),
+                message: getMessage());
 
             // show content UI of screen
             return contentScreenWidget;
@@ -92,7 +128,10 @@ extension FlowStateExtension on FlowState {
           if (getStateRendererType() == StateRendererType.popUpErrorState) {
             // show PopUp error
 
-            showPopUp(context, getStateRendererType(), getMessage());
+            showPopUp(
+                context: context,
+                stateRendererType: getStateRendererType(),
+                message: getMessage());
 
             // show content UI of screen
             return contentScreenWidget;
@@ -122,6 +161,20 @@ extension FlowStateExtension on FlowState {
           return contentScreenWidget;
         }
 
+      case SuccessState:
+        {
+          dismissDialog(context);
+
+          showPopUp(
+              context: context,
+              stateRendererType: getStateRendererType(),
+              message: getMessage(),
+              title: getTitle());
+
+          return contentScreenWidget;
+
+        }
+
       default:
         {
           dismissDialog(context);
@@ -131,14 +184,18 @@ extension FlowStateExtension on FlowState {
     }
   }
 
-  showPopUp(BuildContext context, StateRendererType stateRendererType,
-      String message) {
+  showPopUp(
+      {required BuildContext context,
+      required StateRendererType stateRendererType,
+      required String message,
+      String title = ""}) {
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
           context: context,
           builder: (BuildContext context) => StateRenderer(
             stateRendererType: stateRendererType,
             retryActionFunction: () {},
             message: message,
+            title: title,
           ),
         ));
   }

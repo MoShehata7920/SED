@@ -28,8 +28,10 @@ class AppStrings {
 
   //state renderer
   static const String loading = "Loading...";
+  static const String title = "SED TITLE";
   static const String retryAgain = "Retry again!";
   static const String ok = "Ok";
+  static const String success = "Success";
 
  //forgot password screen
   static const String resendText = "Please wait %d to send again";

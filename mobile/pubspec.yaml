@@ -82,6 +82,7 @@ flutter:
     - assets/json/loading.json
     - assets/json/empty.json
     - assets/json/error.json
+    - assets/json/success.json
     - assets/json/on_boarding_sell.json
     - assets/json/on_boarding_exchange.json
     - assets/json/on_boarding_donate.json
