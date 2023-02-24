@@ -37,4 +37,11 @@ class AppStrings {
   static const String resendText = "Please wait %d to send again";
   static const String forgetPassword = "Forget Password";
   static const String resetPassword = "Reset Password";
+
+  // Register Screen
+  static const String userNameInValid = "UserName should be at least 6 chars ";
+  static const String emailInValid = "Please Check your Email format";
+  static const String mobileNumberInValid = "Mobile Number is Wrong";
+  static const String passwordInValid =
+      "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
 }

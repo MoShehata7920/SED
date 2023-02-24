@@ -10,6 +10,7 @@ import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/domain/usecase/login_usecase.dart';
+import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -66,9 +67,24 @@ initForgotPasswordModule() async {
   // to check if i added it before at Get It or its the first time
   if (!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
     // Forgot password use case
-    instance.registerFactory<ForgotPasswordUseCase>(() => ForgotPasswordUseCase(instance()));
+    instance.registerFactory<ForgotPasswordUseCase>(
+        () => ForgotPasswordUseCase(instance()));
 
     // Forgot password view model
-    instance.registerFactory<ForgotPasswordViewModel>(() => ForgotPasswordViewModel(instance()));
+    instance.registerFactory<ForgotPasswordViewModel>(
+        () => ForgotPasswordViewModel(instance()));
+  }
+}
+
+initRegisterModule() async {
+  // to check if i added it before at Get It or its the first time
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    // Register use case
+    instance
+        .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
+
+    // Register view model
+    instance
+        .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
   }
 }
