@@ -66,6 +66,7 @@ class RegisterViewModel extends BaseViewModel
       // reset userName value in register view object
       registerObject = registerObject.copyWith(userName: "");
     }
+    validate();
   }
 
   @override
@@ -78,6 +79,7 @@ class RegisterViewModel extends BaseViewModel
       // reset countryCode value in register view object
       registerObject = registerObject.copyWith(countryMobileCode: "");
     }
+    validate();
   }
 
   @override
@@ -89,6 +91,7 @@ class RegisterViewModel extends BaseViewModel
       // reset email value in register view object
       registerObject = registerObject.copyWith(mobileNumber: "");
     }
+    validate();
   }
 
   @override
@@ -100,6 +103,7 @@ class RegisterViewModel extends BaseViewModel
       // reset email value in register view object
       registerObject = registerObject.copyWith(email: "");
     }
+    validate();
   }
 
   @override
@@ -111,7 +115,11 @@ class RegisterViewModel extends BaseViewModel
       // reset email value in register view object
       registerObject = registerObject.copyWith(password: "");
     }
+    validate();
   }
+
+  @override
+  Sink get inputAllInputsValid => _areAllInputsValidStreamController.sink;
 
   @override
   register() {
@@ -154,6 +162,11 @@ class RegisterViewModel extends BaseViewModel
   Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(
       (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid);
 
+  @override
+  Stream<bool?> get outputAreAllInputsValid =>
+      _areAllInputsValidStreamController.stream
+          .map((_) => _areAllInputsValid());
+
   // private functions
   bool _isUserNameValid(String userName) {
     return userName.length >= 6;
@@ -170,6 +183,18 @@ class RegisterViewModel extends BaseViewModel
   bool _isPasswordValid(String password) {
     return password.isPasswordValid();
   }
+
+  bool _areAllInputsValid() {
+    return registerObject.userName.isNotEmpty &&
+        registerObject.countryMobileCode.isNotEmpty &&
+        registerObject.mobileNumber.isNotEmpty &&
+        registerObject.email.isNotEmpty &&
+        registerObject.password.isNotEmpty;
+  }
+
+  validate() {
+    inputAllInputsValid.add(null);
+  }
 }
 
 abstract class RegisterViewModelInputs {
@@ -177,6 +202,8 @@ abstract class RegisterViewModelInputs {
   Sink get inputMobileNumber;
   Sink get inputEmail;
   Sink get inputPassword;
+
+  Sink get inputAllInputsValid;
 
   register();
 
@@ -199,4 +226,6 @@ abstract class RegisterViewModelOutputs {
 
   Stream<bool> get outputIsPasswordValid;
   Stream<String?> get outputErrorPasswordValid;
+
+  Stream<bool?> get outputAreAllInputsValid;
 }
