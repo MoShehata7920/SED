@@ -5,6 +5,8 @@ import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
+import '../../common/freezed_data_classes.dart';
+
 class RegisterViewModel extends BaseViewModel
     with RegisterViewModelInputs, RegisterViewModelOutputs {
   final StreamController _userNameStreamController =
@@ -23,6 +25,7 @@ class RegisterViewModel extends BaseViewModel
       StreamController<String>.broadcast();
 
   final RegisterUseCase _registerUseCase;
+  var registerObject = RegisterObject("", "", "", "", "");
   RegisterViewModel(this._registerUseCase);
 
   // inputs
@@ -86,8 +89,8 @@ class RegisterViewModel extends BaseViewModel
       .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid
-      .map((isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid);
+  Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(
+      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid);
 
   // private functions
   bool _isUserNameValid(String userName) {
