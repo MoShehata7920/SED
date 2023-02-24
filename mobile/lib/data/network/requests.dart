@@ -10,3 +10,14 @@ class ForgotPasswordRequest {
 
   ForgotPasswordRequest(this.email);
 }
+
+class RegisterRequest {
+  String userName;
+  String countryMobileCode;
+  String mobileNumber;
+  String email;
+  String password;
+
+  RegisterRequest(this.userName, this.countryMobileCode, this.mobileNumber,
+      this.email, this.password);
+}

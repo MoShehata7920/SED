@@ -33,12 +33,8 @@ class AppStrings {
   static const String ok = "Ok";
   static const String success = "Success";
 
- //forgot password screen
+  //forgot password screen
   static const String resendText = "Please wait %d to send again";
   static const String forgetPassword = "Forget Password";
   static const String resetPassword = "Reset Password";
-
-
-
-
 }
