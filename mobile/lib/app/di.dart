@@ -13,6 +13,7 @@ import 'package:sed/domain/usecase/login_usecase.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
+import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -84,7 +85,7 @@ initRegisterModule() async {
         .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
 
     // Register view model
-    instance
-        .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
+    instance.registerFactory<RegisterViewModel>(
+        () => RegisterViewModel(instance()));
   }
 }
