@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
-
 import '../../common/freezed_data_classes.dart';
+import '../../common/state_renderer/state_renderer.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
 
 class RegisterViewModel extends BaseViewModel
     with RegisterViewModelInputs, RegisterViewModelOutputs {
@@ -122,9 +122,27 @@ class RegisterViewModel extends BaseViewModel
   Sink get inputAllInputsValid => _areAllInputsValidStreamController.sink;
 
   @override
-  register() {
-    // TODO: implement register
-    throw UnimplementedError();
+  register() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+
+    var response = await _registerUseCase.execute(RegisterUseCaseInput(
+        registerObject.userName,
+        registerObject.countryMobileCode,
+        registerObject.mobileNumber,
+        registerObject.email,
+        registerObject.password));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+              inputState.add(ErrorState(
+                  StateRendererType.popUpErrorState, failure.message))
+            }, (response) {
+      // right -> success
+      inputState.add(ContentState());
+      // TODO navigate to main screen
+    });
   }
 
   // outputs
