@@ -339,4 +339,5 @@ update 2/24/2023
 -added register API call in repository implementation , remote_data_source and  useCases.
 -added inputs of viewModel as Sink and outputs of viewModel as stream and make stream for every error message of registering fields.
 -made every error message stream depend on the stream controller of the field which belongs to.
--
+-created register view object data which we will save data in and used feature copyWith to update the argument of registerObject after the user set for new parameters.
+---------------------------------------------------------------------------------------------

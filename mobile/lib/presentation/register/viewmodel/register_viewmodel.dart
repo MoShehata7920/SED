@@ -57,6 +57,68 @@ class RegisterViewModel extends BaseViewModel
   @override
   Sink get inputUserName => _userNameStreamController.sink;
 
+  @override
+  setUserName(String userName) {
+    if (_isUserNameValid(userName)) {
+      // update register view object
+      registerObject = registerObject.copyWith(userName: userName);
+    } else {
+      // reset userName value in register view object
+      registerObject = registerObject.copyWith(userName: "");
+    }
+  }
+
+  @override
+  setMobileCountryCode(String mobileCountryCode) {
+    if (mobileCountryCode.isNotEmpty) {
+      // update countryCode view object
+      registerObject =
+          registerObject.copyWith(countryMobileCode: mobileCountryCode);
+    } else {
+      // reset countryCode value in register view object
+      registerObject = registerObject.copyWith(countryMobileCode: "");
+    }
+  }
+
+  @override
+  setMobileNumber(String mobileNumber) {
+    if (_isMobileNumberValid(mobileNumber)) {
+      // update email view object
+      registerObject = registerObject.copyWith(mobileNumber: mobileNumber);
+    } else {
+      // reset email value in register view object
+      registerObject = registerObject.copyWith(mobileNumber: "");
+    }
+  }
+
+  @override
+  setEmail(String email) {
+    if (_isEmailValid(email)) {
+      // update email view object
+      registerObject = registerObject.copyWith(email: email);
+    } else {
+      // reset email value in register view object
+      registerObject = registerObject.copyWith(email: "");
+    }
+  }
+
+  @override
+  setPassword(String password) {
+    if (_isPasswordValid(password)) {
+      // update email view object
+      registerObject = registerObject.copyWith(mobileNumber: password);
+    } else {
+      // reset email value in register view object
+      registerObject = registerObject.copyWith(password: "");
+    }
+  }
+
+  @override
+  register() {
+    // TODO: implement register
+    throw UnimplementedError();
+  }
+
   // outputs
   @override
   Stream<bool> get outputIsUserNameValid => _userNameStreamController.stream
@@ -115,6 +177,14 @@ abstract class RegisterViewModelInputs {
   Sink get inputMobileNumber;
   Sink get inputEmail;
   Sink get inputPassword;
+
+  register();
+
+  setUserName(String userName);
+  setMobileCountryCode(String mobileCountryCode);
+  setMobileNumber(String mobileNumber);
+  setEmail(String email);
+  setPassword(String password);
 }
 
 abstract class RegisterViewModelOutputs {
