@@ -106,3 +106,19 @@ Controllers :
     > created a new schema for email verification token
     > recieving messages on mailtrap 
     > there are some conditions beside code explaining the constraints or the states that lead to errors or succes to be written ;)
+
+
+
+*Forgot-Password && Reset-Password *
+    > once user forget his password and clicks forgot password button he got directed to '/api/users/forgot-password' where he have to enter his email address to get a reset email on it 
+    > one he recieve this email and click on reset confirmation button on his email he got directed with his id and token to '/api/users/reset-password' 
+    > finally he starts to enter new password and password confirmation and if they are the same the password will be changed without any problems
+
+    #implementation : 
+        'the important things for now'
+        > we user crypto to generate the token inside a function called creatResetToken in mail.js file then we exported it to our file
+        > we created a middleware called resetVerification which takes the id and token from request and perform some validations
+        > We search for user with his id in the users that has token expire time greater than the request time 
+        > token expires after 6 hours so if user tried after 6 hours he gets error
+
+        

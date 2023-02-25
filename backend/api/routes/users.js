@@ -5,8 +5,9 @@ const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const { body, validationResult } = require('express-validator')
 const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
-const { generateOTP , mailTransport }=require('../helpers/mail')
+const { generateOTP , mailTransport , creatResetToken , generateForgotPasswordTemplate}=require('../helpers/mail')
 const EmailVerification=require('../models/emailVerification')
+const {resetVerification} = require('../middleware/check-reset')
 
 // new user sign up 
 router.post('/register',
@@ -198,15 +199,47 @@ router.post('/verify-email',async(req,res,next)=>{
 })
 
 
-//forgot password route to be set
-// router.patch('/resetPassword/:id',(req,res)=>{
-//     const userId=req.params.id
-//     User.findByIdAndUpdate(userId,{$set : req.body},{new:true}).then((doc)=>{
-//         res.status(200).json(doc)
-//     }).catch(err=>{
-//         console.log('Wrong id');
-//         res.status(500).json({error : {message : 'wrong id '} , err})
-//     })  
-// })
+//forgot password 
+router.post('/forgot-password',[body('email').notEmpty().withMessage(' invalid parameter \'email\' ').isEmail().withMessage('Please Enter A valid email address')],async (req,res)=>{
+    const errors = validationResult(req);           //validating email field with express-validator
+    if (!errors.isEmpty()) {
+      return res.status(444).json({ errors: errors.array() });
+    }
+
+    const user=await User.findOne({email:req.body.email})             // finding user
+    if(!user) return res.status(404).json({message:' can\'t find any user with this email address'})    // if user not found
+    
+    const token=await creatResetToken()                 // creating token
+    await User.findByIdAndUpdate( user._id ,{ reset_password_token : token , reset_password_expires: Date.now() + 60*60*1000*6 },{ upsert : true , new : true }) //updating user document , token expires after 6 hours
+    
+    mailTransport().sendMail({
+        from : "sedfamily@gmail.com",
+        to :    user.email,
+        subject : "SED Support team , Reset Your Account Password",
+        html :  generateForgotPasswordTemplate(`http://localhost:3000/api/users/reset-password?token=${token}&id=${user._id} `)
+    })
+
+    res.status(200).json({message:'Reset password email has been sent successfuly to your email address'})
+})
+
+
+router.post('/reset-password', resetVerification , async (req,res) =>{
+    const user=req.user
+    try {
+        if(req.body.newPassword === req.body.verifyPassword) {
+            user.password = bcrypt.hashSync(req.body.newPassword, 10);
+            user.reset_password_token = undefined;
+            user.reset_password_expires = undefined;
+            await user.save()
+            res.status(200).json(user)
+        }else{
+            res.status(500).json('passwords doesn\'t match ')
+        }
+    } catch (error) {
+        res.status(404).json(error)
+    }
+
+} )
+
 
 module.exports=router;

@@ -31,6 +31,12 @@ const userSchema= mongoose.Schema({
         type:Boolean,
         default:false,
         required:true
+    } ,
+    reset_password_token:{
+        type:String
+    },
+    reset_password_expires:{
+        type:Date
     }
 
     // personalInfo:{                         // for next level 'to be updated in user profile'
