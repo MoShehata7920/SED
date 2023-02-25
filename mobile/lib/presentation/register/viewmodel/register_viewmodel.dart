@@ -24,8 +24,12 @@ class RegisterViewModel extends BaseViewModel
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
+  StreamController isUserRegisteredSuccessfullyStreamController =
+      StreamController<bool>();
+
   final RegisterUseCase _registerUseCase;
   var registerObject = RegisterObject("", "", "", "", "");
+
   RegisterViewModel(this._registerUseCase);
 
   // inputs
@@ -43,6 +47,7 @@ class RegisterViewModel extends BaseViewModel
     _emailStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
+    isUserRegisteredSuccessfullyStreamController.close();
 
     super.dispose();
   }
@@ -150,9 +155,8 @@ class RegisterViewModel extends BaseViewModel
                   StateRendererType.popUpErrorState, failure.message))
             }, (response) {
       // right -> success
-      inputState.add(SuccessState(StateRendererType.popUpSuccessState, response.token.toString(), AppStrings.success));
-
-      // TODO navigate to main screen
+      //inputState.add(SuccessState(StateRendererType.popUpSuccessState, response.token.toString(), AppStrings.success));
+      isUserRegisteredSuccessfullyStreamController.add(true);
     });
   }
 
@@ -228,8 +232,11 @@ class RegisterViewModel extends BaseViewModel
 
 abstract class RegisterViewModelInputs {
   Sink get inputUserName;
+
   Sink get inputMobileNumber;
+
   Sink get inputEmail;
+
   Sink get inputPassword;
 
   Sink get inputAllInputsValid;
@@ -237,23 +244,31 @@ abstract class RegisterViewModelInputs {
   register();
 
   setUserName(String userName);
+
   setMobileCountryCode(String mobileCountryCode);
+
   setMobileNumber(String mobileNumber);
+
   setEmail(String email);
+
   setPassword(String password);
 }
 
 abstract class RegisterViewModelOutputs {
   Stream<bool> get outputIsUserNameValid;
+
   Stream<String?> get outputErrorUserNameValid;
 
   Stream<bool> get outputIsMobileNumberValid;
+
   Stream<String?> get outputErrorMobileNumberValid;
 
   Stream<bool> get outputIsEmailValid;
+
   Stream<String?> get outputErrorEmailValid;
 
   Stream<bool> get outputIsPasswordValid;
+
   Stream<String?> get outputErrorPasswordValid;
 
   Stream<bool> get outputAreAllInputsValid;

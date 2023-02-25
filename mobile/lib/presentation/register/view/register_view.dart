@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
@@ -47,6 +48,16 @@ class _RegisterViewState extends State<RegisterView> {
     _passwordEditingController.addListener(() {
       _viewModel.setPassword(_passwordEditingController.text);
     });
+
+    _viewModel.isUserRegisteredSuccessfullyStreamController.stream
+        .listen((isRegistered) {
+      if (isRegistered) {
+        // navigate to main screen
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+        });
+      }
+    });
   }
 
   @override
@@ -85,7 +96,6 @@ class _RegisterViewState extends State<RegisterView> {
               const Center(
                   child: Image(
                       image: AssetImage(ImageAssets.lightModeSplashLogo))),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<String?>(
@@ -111,7 +121,8 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: Row(
                     children: [
                       Expanded(
