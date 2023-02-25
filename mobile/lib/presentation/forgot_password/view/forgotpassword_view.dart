@@ -80,8 +80,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           keyboardType: TextInputType.emailAddress,
                           controller: _emailController,
                           decoration: InputDecoration(
-                            hintText: AppStrings.username,
-                            labelText: AppStrings.username,
+                            hintText: AppStrings.email,
+                            labelText: AppStrings.email,
                             prefixIcon: Icon(
                               Icons.email_outlined,
                               color: ColorManager.lightPrimary,
@@ -90,7 +90,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                     true) //check if the username was null
                                 ? null //then no errors
                                 : AppStrings
-                                    .usernameError, //else present the error to the user
+                                    .emailInValid, //else present the error to the user
                           ));
                     }),
               ),

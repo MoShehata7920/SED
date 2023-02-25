@@ -1,13 +1,13 @@
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:country_code_picker_mp/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
+import '../../../app/constants.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 
@@ -29,6 +29,8 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
       TextEditingController();
+
+  //Initialize the controller
 
   _bind() {
     _viewModel.start();
@@ -131,11 +133,17 @@ class _RegisterViewState extends State<RegisterView> {
                             onChanged: (country) =>
                                 _viewModel.setMobileCountryCode(
                                     country.code ?? Constants.token),
-                            initialSelection: '+20',
-                            favorite: const ['+39', 'FR', '+966'],
+                            searchDecoration: InputDecoration(
+                                hintText: AppStrings.countrySearchBar,
+                                prefixIconColor: ColorManager.lightPrimary
+                              ),
+                            initialSelection: 'EG',
+                            favorite: const ['EG'],
+                            hideMainText: true,
                             showCountryOnly: true,
                             showOnlyCountryWhenClosed: true,
-                            hideMainText: true,
+                            showFlag: true,
+                            padding: const EdgeInsets.all(AppPadding.p0),
                           )),
                       Expanded(
                         flex: 4,
@@ -198,6 +206,7 @@ class _RegisterViewState extends State<RegisterView> {
                           decoration: InputDecoration(
                             hintText: AppStrings.password,
                             labelText: AppStrings.password,
+                            errorMaxLines: 3,
                             prefixIcon: Icon(
                               Icons.lock_outline_sharp,
                               color: ColorManager.lightPrimary,

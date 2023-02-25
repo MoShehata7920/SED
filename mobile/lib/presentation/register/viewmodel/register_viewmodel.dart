@@ -210,7 +210,7 @@ class RegisterViewModel extends BaseViewModel
   }
 
   bool _isMobileNumberValid(String mobileNumber) {
-    return mobileNumber.length >= 11;
+    return mobileNumber.length >= 9;
   }
 
   bool _isPasswordValid(String password) {

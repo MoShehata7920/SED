@@ -19,8 +19,8 @@ class AppStrings {
   static const String skip = "SKIP";
 
   //login screen
-  static const String username = "User Name";
-  static const String usernameError = "Please enter your user name.";
+  static const String email = "Email";
+  static const String emailInValid = "Please Check your Email format";
   static const String password = "Password";
   static const String passwordError = "Please enter your password.";
   static const String login = "Login";
@@ -40,13 +40,13 @@ class AppStrings {
 
   // Register Screen
   static const String userNameInValid = "UserName should be at least 6 chars ";
-  static const String emailInValid = "Please Check your Email format";
+
   static const String mobileNumberInValid = "Mobile Number is Wrong";
   static const String passwordInValid =
       "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
   static const String loginText = "Already have an account ? Login";
   static const String register = "Register";
   static const String mobileNumber = "Mobile Number";
-  static const String email = "Email";
-
+  static const String username = "User Name";
+  static const String countrySearchBar = "Search by name or Country's code";
 }

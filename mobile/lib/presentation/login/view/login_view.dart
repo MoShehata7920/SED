@@ -102,8 +102,8 @@ class _LoginViewState extends State<LoginView> {
                           keyboardType: TextInputType.emailAddress,
                           controller: _userNameController,
                           decoration: InputDecoration(
-                            hintText: AppStrings.username,
-                            labelText: AppStrings.username,
+                            hintText: AppStrings.email,
+                            labelText: AppStrings.email,
                             prefixIcon: Icon(
                               Icons.email_outlined,
                               color: ColorManager.lightPrimary,
@@ -112,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                                     true) //check if the username was null
                                 ? null //then no errors
                                 : AppStrings
-                                    .usernameError, //else present the error to the user
+                                    .emailInValid, //else present the error to the user
                           ));
                     }),
               ),
@@ -200,8 +200,7 @@ class _LoginViewState extends State<LoginView> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, Routes.registerRoute);
+                          Navigator.pushNamed(context, Routes.registerRoute);
                         },
                         child: Text(
                           AppStrings.registerText,
