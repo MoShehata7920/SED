@@ -22,7 +22,7 @@ class RegisterViewModel extends BaseViewModel
       StreamController<String>.broadcast();
 
   final StreamController _areAllInputsValidStreamController =
-      StreamController<String>.broadcast();
+      StreamController<void>.broadcast();
 
   final RegisterUseCase _registerUseCase;
   var registerObject = RegisterObject("", "", "", "", "");
@@ -32,6 +32,8 @@ class RegisterViewModel extends BaseViewModel
   @override
   void start() {
     inputState.add(ContentState());
+
+    setMobileCountryCode('EG');
   }
 
   @override
@@ -59,6 +61,8 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setUserName(String userName) {
+    inputUserName.add(userName);
+
     if (_isUserNameValid(userName)) {
       // update register view object
       registerObject = registerObject.copyWith(userName: userName);
@@ -84,6 +88,8 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setMobileNumber(String mobileNumber) {
+    inputMobileNumber.add(mobileNumber);
+
     if (_isMobileNumberValid(mobileNumber)) {
       // update email view object
       registerObject = registerObject.copyWith(mobileNumber: mobileNumber);
@@ -96,6 +102,8 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setEmail(String email) {
+    inputEmail.add(email);
+
     if (_isEmailValid(email)) {
       // update email view object
       registerObject = registerObject.copyWith(email: email);
@@ -108,9 +116,11 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setPassword(String password) {
+    inputPassword.add(password);
+
     if (_isPasswordValid(password)) {
       // update email view object
-      registerObject = registerObject.copyWith(mobileNumber: password);
+      registerObject = registerObject.copyWith(password: password);
     } else {
       // reset email value in register view object
       registerObject = registerObject.copyWith(password: "");
@@ -140,7 +150,8 @@ class RegisterViewModel extends BaseViewModel
                   StateRendererType.popUpErrorState, failure.message))
             }, (response) {
       // right -> success
-      inputState.add(ContentState());
+      inputState.add(SuccessState(StateRendererType.popUpSuccessState, response.token.toString(), AppStrings.success));
+
       // TODO navigate to main screen
     });
   }
@@ -181,7 +192,7 @@ class RegisterViewModel extends BaseViewModel
       (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid);
 
   @override
-  Stream<bool?> get outputAreAllInputsValid =>
+  Stream<bool> get outputAreAllInputsValid =>
       _areAllInputsValidStreamController.stream
           .map((_) => _areAllInputsValid());
 
@@ -245,5 +256,5 @@ abstract class RegisterViewModelOutputs {
   Stream<bool> get outputIsPasswordValid;
   Stream<String?> get outputErrorPasswordValid;
 
-  Stream<bool?> get outputAreAllInputsValid;
+  Stream<bool> get outputAreAllInputsValid;
 }

@@ -200,7 +200,7 @@ class _LoginViewState extends State<LoginView> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(
+                          Navigator.pushNamed(
                               context, Routes.registerRoute);
                         },
                         child: Text(

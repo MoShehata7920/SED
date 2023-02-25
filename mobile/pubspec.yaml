@@ -47,7 +47,7 @@ dependencies:
   get_it: ^7.2.0
   lottie: ^2.2.0
   sprintf: ^7.0.0
-
+  country_code_picker: ^2.0.2
 
 dev_dependencies:
   flutter_test:

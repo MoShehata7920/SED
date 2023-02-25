@@ -1,6 +1,11 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
+import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
@@ -70,7 +75,169 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Widget _getContentWidget() {
-    return Container();
+    return Container(
+      padding: const EdgeInsets.only(top: AppPadding.p8),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const Center(
+                  child: Image(
+                      image: AssetImage(ImageAssets.lightModeSplashLogo))),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<String?>(
+                    stream: _viewModel.outputErrorUserNameValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: _userNameEditingController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.username,
+                            labelText: AppStrings.username,
+                            prefixIcon: Icon(
+                              Icons.spatial_audio_off_sharp,
+                              color: ColorManager.lightPrimary,
+                            ),
+                            errorText: snapshot
+                                .data, //else present the error to the user
+                          ));
+                    }),
+              ),
+              const SizedBox(
+                height: AppSize.s18,
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: CountryCodePicker(
+                            onChanged: (country) =>
+                                _viewModel.setMobileCountryCode(
+                                    country.code ?? Constants.token),
+                            initialSelection: '+20',
+                            favorite: const ['+39', 'FR', '+966'],
+                            showCountryOnly: true,
+                            showOnlyCountryWhenClosed: true,
+                            hideMainText: true,
+                          )),
+                      Expanded(
+                        flex: 4,
+                        child: StreamBuilder<String?>(
+                            stream: _viewModel.outputErrorMobileNumberValid,
+                            builder: (context, snapshot) {
+                              return TextFormField(
+                                  keyboardType: TextInputType.phone,
+                                  controller: _mobileNumberEditingController,
+                                  decoration: InputDecoration(
+                                    hintText: AppStrings.mobileNumber,
+                                    labelText: AppStrings.mobileNumber,
+                                    prefixIcon: Icon(
+                                      Icons.phone_outlined,
+                                      color: ColorManager.lightPrimary,
+                                    ),
+                                    errorText: snapshot
+                                        .data, //else present the error to the user
+                                  ));
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: AppSize.s18,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<String?>(
+                    stream: _viewModel.outputErrorEmailValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: _emailEditingController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.email,
+                            labelText: AppStrings.email,
+                            prefixIcon: Icon(
+                              Icons.email_outlined,
+                              color: ColorManager.lightPrimary,
+                            ),
+                            errorText: snapshot
+                                .data, //else present the error to the user
+                          ));
+                    }),
+              ),
+              const SizedBox(
+                height: AppSize.s18,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<String?>(
+                    stream: _viewModel.outputErrorPasswordValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          controller: _passwordEditingController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.password,
+                            labelText: AppStrings.password,
+                            prefixIcon: Icon(
+                              Icons.lock_outline_sharp,
+                              color: ColorManager.lightPrimary,
+                            ),
+                            errorText: snapshot
+                                .data, //else present the error to the user
+                          ));
+                    }),
+              ),
+              const SizedBox(
+                height: AppSize.s18,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<bool>(
+                    stream: _viewModel.outputAreAllInputsValid,
+                    builder: (context, snapshot) {
+                      return SizedBox(
+                        width: double.infinity,
+                        height: AppSize.s40,
+                        child: ElevatedButton(
+                            onPressed: (snapshot.data ?? false)
+                                ? () {
+                                    _viewModel.register();
+                                  }
+                                : null,
+                            child: const Text(AppStrings.register)),
+                      );
+                    }),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: AppPadding.p8,
+                  left: AppPadding.p18,
+                  right: AppPadding.p18,
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    AppStrings.loginText,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
