@@ -19,10 +19,8 @@ class RepositoryImpl implements Repository {
       LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
-
       try {
         final response = await _remoteDataSource.login(loginRequest);
-
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success
           //return data

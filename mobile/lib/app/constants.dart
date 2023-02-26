@@ -1,7 +1,7 @@
 // * why don't we just use app strings ?
 class Constants {
   //dio constants
-  static const String baseUrl = "https://moshehata.mocklab.io/";
+  static const String baseUrl = "103.48.193.225:9000";
 
   //mapper constants
   static const String empty = "";
