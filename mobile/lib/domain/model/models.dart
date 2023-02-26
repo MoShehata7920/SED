@@ -1,4 +1,6 @@
 // onBoarding Models
+import 'package:flutter/material.dart';
+
 class SliderObject {
   String title;
   String subTitle;
@@ -22,6 +24,7 @@ class Authentication {
   Authentication(this.token);
 }
 
+// ForgotPassword Models
 class ForgotPassword {
   String? support;
 

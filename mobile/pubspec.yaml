@@ -48,6 +48,7 @@ dependencies:
   lottie: ^2.2.0
   sprintf: ^7.0.0
   country_code_picker_mp: ^1.0.3
+  animated_bottom_navigation_bar: ^1.1.0+1
 
 
 dev_dependencies:
