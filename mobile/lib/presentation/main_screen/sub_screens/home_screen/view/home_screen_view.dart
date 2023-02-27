@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -17,15 +19,30 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   final CarouselController _controller = CarouselController();
 
   final HomeScreenViewModel _viewModel = instance<HomeScreenViewModel>();
+
   @override
   void initState() {
-    _viewModel.start();
-
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<FlowState>(
+      stream: _viewModel.outputState,
+      builder: (context, snapshot) {
+        print(snapshot.data);
+        return snapshot.data?.getScreenWidget(
+                context, _getContentWidget(), () => _viewModel.getHomeData()) ??
+            _getContentWidget();
+      },
+    );
+  }
+
+  Widget _getContentWidget() {
     return StreamBuilder<void>(
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
@@ -90,5 +107,11 @@ class _HomeScreenViewState extends State<HomeScreenView> {
             ),
           );
         });
+  }
+
+  void _bind(){
+    _viewModel.start();
+
+    _viewModel.getHomeData();
   }
 }

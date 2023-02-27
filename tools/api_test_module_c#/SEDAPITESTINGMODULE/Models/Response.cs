@@ -8,19 +8,31 @@ namespace Models
         public string? message { get; set; }
     }
 
-    public class LoginRequest : Response
+    public class LoginResponse : Response
     {
         public string? token { get; set; }
     }
 
-    public class ForgotRequest : Response
+    public class ForgotResponse : Response
     {
         public string? support { get; set; }
     }
 
-    public class HomeRequest : Response
+    public class HomeResponse : Response
     {
-        [JsonProperty("Images")]
-        public List<string?> Images { get; set; } = new List<string?>();
+        [JsonProperty("Carousel")]
+        public Carousel carousel { get; set; } = new Carousel();
+
+        [JsonProperty("Categories")]
+        public List<Categories> categories { get; set; } = new List<Categories>();
+
+        [JsonProperty("Sell")]
+        public List<Item> sellItems { get; set; } = new List<Item>();
+
+        [JsonProperty("Donate")]
+        public List<Item> donateItems { get; set; } = new List<Item>();
+
+        [JsonProperty("Exchange")]
+        public List<Item> exchangeItems { get; set; } = new List<Item>();
     }
 }

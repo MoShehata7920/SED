@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dJ2Xxkgelk+3EC78Q04c9eZ1mDvmmWphUyy7a3VBPXCouxn3Okivw0eYB2RXDMyk0Q/+rdEuzUz412P438UtgQ==",
+  "dgSpecHash": "aQ3rv9eXItjsOdt0PK0GA7s0P2U2N7dCImQEjBQEM3gQzfVvm8eLVoJH28xUxnKYu6e3BWzz8w4SPgpeJVVwFQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maximus\\source\\repos\\ConsoleApp3\\SEDAPITESTINGMODULE\\SEDAPITESTINGMODULE.csproj",
+  "projectFilePath": "C:\\Users\\maximus\\Desktop\\Project_Copy\\SED\\tools\\api_test_module_c#\\SEDAPITESTINGMODULE\\SEDAPITESTINGMODULE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maximus\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\maximus\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

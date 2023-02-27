@@ -15,7 +15,7 @@ public class WebserverManager : IWebserverManager
 
     public WebserverManager()
     {
-        Start("192.168.40.166", 9000);
+        Start("192.168.1.2", 9000);
     }
 
     public void Start(string hostname, int port)
@@ -114,7 +114,7 @@ public class WebserverManager : IWebserverManager
         //check if the incrediants are correct
         using var db = new Database.Context.SED();
 
-        var res = new LoginRequest
+        var res = new LoginResponse
         {
             status = 0,
             message = "Successfully Logged In",
@@ -153,7 +153,7 @@ public class WebserverManager : IWebserverManager
         //check if the incrediants are correct
         using var db = new Database.Context.SED();
 
-        var res = new LoginRequest
+        var res = new LoginResponse
         {
             status = 0,
             message = "User registered successfully",
@@ -206,7 +206,7 @@ public class WebserverManager : IWebserverManager
         //check if the incrediants are correct
         using var db = new Database.Context.SED();
 
-        var res = new ForgotRequest
+        var res = new ForgotResponse
         {
             status = 0,
             message = "success",
@@ -238,25 +238,84 @@ public class WebserverManager : IWebserverManager
     public static async Task GetHomeData(HttpContext ctx)
     {
         //logging
-        Extensions.WriteLine($"RECEIVED REQUEST AT [/main/home]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
+        Extensions.WriteLine($"RECEIVED REQUEST AT [/main/home]", ConsoleColor.Yellow);
 
         //get request
 
         using var db = new Database.Context.SED();
 
         var homeCarouselImages = await db.CarouselImages.ToListAsync();
+        var homeCategories = await db.Categories.ToListAsync();
+        var homeSections = await db.Sections.ToListAsync();
+        var homeItems = await db.Items.ToListAsync();
 
-        var homeRequest = new HomeRequest();
-
-        foreach (var entry in homeCarouselImages)
-        {
-            homeRequest.Images.Add(entry.Image);
-        }
+        var homeRequest = new HomeResponse();
 
         homeRequest.status = 0;
 
         homeRequest.message = "Successfully loaded data";
 
+        foreach (var entry in homeCarouselImages)
+        {
+            homeRequest.carousel.Images.Add(entry.Image);
+        }
+
+        foreach (var entry in homeCategories)
+        {
+            var categoryEntity = new Categories
+            {
+                ID = entry.ID,
+                Name = entry.Name,
+                Image = entry.Image,
+            };
+
+            homeRequest.categories.Add(categoryEntity);
+        }
+
+        var sellItems = homeItems.Where(x => x.Section_Id == 1).OrderByDescending(x => x.ID).Take(10);
+
+        foreach (var item in sellItems)
+        {
+            var sellItem = new Item
+            {
+                Image = item.Image,
+                Descr = item.Descr,
+                Name = item.Name,
+                Price = item.Price
+            };
+
+            homeRequest.sellItems.Add(sellItem);
+        }
+
+        var donateItems = homeItems.Where(x => x.Section_Id == 2).OrderByDescending(x => x.ID).Take(10);
+
+        foreach (var item in donateItems)
+        {
+            var donateItem = new Item
+            {
+                Image = item.Image,
+                Descr = item.Descr,
+                Name = item.Name,
+                Price = item.Price
+            };
+
+            homeRequest.donateItems.Add(donateItem);
+        }
+
+        var exchangeItems = homeItems.Where(x => x.Section_Id == 3).OrderByDescending(x => x.ID).Take(10);
+
+        foreach (var item in exchangeItems)
+        {
+            var exchangeItem = new Item
+            {
+                Image = item.Image,
+                Descr = item.Descr,
+                Name = item.Name,
+                Price = item.Price
+            };
+
+            homeRequest.exchangeItems.Add(exchangeItem);
+        }
 
         string jsonString = JsonSerializer.Serialize(homeRequest);
 

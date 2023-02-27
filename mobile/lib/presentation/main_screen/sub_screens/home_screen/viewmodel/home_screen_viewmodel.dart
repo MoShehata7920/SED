@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class HomeScreenViewModel extends BaseViewModel
     with HomeScreenViewModelInputs, HomeScreenViewModelOutputs {
@@ -16,17 +18,8 @@ class HomeScreenViewModel extends BaseViewModel
   int carouselCurrentIndex = 0;
 
   @override
-  void start() async {
-    var response = await _homeUseCase.execute(null);
-
-    response.fold(
-            (failure) => {
-          // left -> failure
-        }, (response) {
-      // right -> success
-      // navigate to main screen
-      carouselImages = response.carouselImages;
-    });
+  void start() {
+    inputState.add(ContentState());
   }
 
   @override
@@ -47,6 +40,24 @@ class HomeScreenViewModel extends BaseViewModel
   @override
   Stream<void> get carouselOutput =>
       _carouselStreamController.stream.map((index) => () {});
+
+  void getHomeData() async{
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.fullScreenLoadingState));
+
+    var response = await _homeUseCase.execute(null);
+
+    response.fold(
+            (failure) => {
+          // left -> failure
+        }, (response) {
+      // right -> success
+      // navigate to main screen
+      carouselImages = response.carouselImages;
+
+      inputState.add(ContentState());
+    });
+  }
 }
 
 abstract class HomeScreenViewModelInputs {
