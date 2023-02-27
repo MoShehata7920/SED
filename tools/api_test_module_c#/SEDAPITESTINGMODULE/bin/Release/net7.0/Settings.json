@@ -1,0 +1,7 @@
+{
+  "Address": "0.0.0.0",
+  "Port": 1433,
+  "Username": "sa",
+  "Password": "123456",
+  "SedDb": "SED"
+}
