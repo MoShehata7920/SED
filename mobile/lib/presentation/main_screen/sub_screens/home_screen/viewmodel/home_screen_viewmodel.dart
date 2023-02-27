@@ -53,7 +53,7 @@ class HomeScreenViewModel extends BaseViewModel
         }, (response) {
       // right -> success
       // navigate to main screen
-      carouselImages = response.carouselImages;
+      carouselImages = response.carousel!.images;
 
       inputState.add(ContentState());
     });

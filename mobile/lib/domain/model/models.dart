@@ -31,7 +31,13 @@ class ForgotPassword {
 
 // Home models
 class Home {
-  List<String?> carouselImages;
+  Carousel? carousel;
 
-  Home(this.carouselImages);
+  Home(this.carousel);
+}
+
+class Carousel {
+  List<String?> images;
+
+  Carousel(this.images);
 }

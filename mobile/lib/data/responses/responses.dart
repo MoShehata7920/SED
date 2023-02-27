@@ -43,10 +43,10 @@ class ForgotPasswordResponse extends BaseResponse {
 
 @JsonSerializable()
 class HomeResponse extends BaseResponse {
-  @JsonKey(name: "Images")
-  List<String?> images;
+  @JsonKey(name: "carousel")
+  CarouselResponse carousel;
 
-  HomeResponse(this.images);
+  HomeResponse(this.carousel);
 
   // From Json
   factory HomeResponse.fromJson(Map<String, dynamic> json) =>
@@ -54,4 +54,19 @@ class HomeResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$HomeResponseToJson(this);
+}
+
+@JsonSerializable()
+class CarouselResponse {
+  @JsonKey(name: "Images")
+  List<String?> images;
+
+  CarouselResponse(this.images);
+
+  // from json
+  factory CarouselResponse.fromJson(Map<String, dynamic> json) =>
+      _$CarouselResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$CarouselResponseToJson(this);
 }

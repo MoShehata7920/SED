@@ -6,6 +6,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class HomeScreenView extends StatefulWidget {
@@ -34,7 +35,6 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     return StreamBuilder<FlowState>(
       stream: _viewModel.outputState,
       builder: (context, snapshot) {
-        print(snapshot.data);
         return snapshot.data?.getScreenWidget(
                 context, _getContentWidget(), () => _viewModel.getHomeData()) ??
             _getContentWidget();
@@ -103,13 +103,41 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     );
                   }).toList(),
                 ),
+                const SizedBox(height: AppSize.s10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Categories',
+                        style: getBoldStyle(
+                            color: ColorManager.lightPrimary, fontSize: 15),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: TextButton(
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "Show All",
+                                ),
+                                const Icon(Icons.keyboard_arrow_right_outlined)
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           );
         });
   }
 
-  void _bind(){
+  void _bind() {
     _viewModel.start();
 
     _viewModel.getHomeData();
