@@ -39,7 +39,7 @@ class _MainScreenViewState extends State<MainScreenView> {
             bottomNavigationBar: AnimatedBottomNavigationBar(
               inactiveColor: ColorManager.white,
               activeColor: ColorManager.lightPrimary,
-              backgroundColor: ColorManager.black,
+              backgroundColor: Colors.grey,
               icons: IconsManager.iconsList,
               activeIndex: _viewModel.bottomNavIndex,
               gapLocation: GapLocation.center,

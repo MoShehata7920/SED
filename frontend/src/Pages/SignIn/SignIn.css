@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    background-color: hsl(0, 0%, 90%);
+    background-color: hsl(0, 70%, 41%);
     transition: background-color 300ms;
     width: 100%;
     display: flex;
