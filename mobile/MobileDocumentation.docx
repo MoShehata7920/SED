@@ -351,4 +351,4 @@ update 2/24/2023
 -in HomeScreenViewModel and MainScreenViewModel instances Modules we create it as registerLazySingleton bc they will be needed to create them as singleton(will be called more than once).
 -created the use case, the Mapper and the repository of the home screen.
 -and we created the response of the home screen which will be consists of many component (for now we get the response of the carousal images from dataBase).
----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------;
