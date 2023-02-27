@@ -32,12 +32,20 @@ class ForgotPassword {
 // Home models
 class Home {
   Carousel? carousel;
+  List<Category>? category;
 
-  Home(this.carousel);
+  Home(this.carousel, this.category);
 }
 
 class Carousel {
   List<String?> images;
 
   Carousel(this.images);
+}
+
+class Category {
+  String name;
+  String image;
+
+  Category(this.name, this.image);
 }

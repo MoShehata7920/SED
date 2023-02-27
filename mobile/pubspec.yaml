@@ -51,7 +51,6 @@ dependencies:
   animated_bottom_navigation_bar: ^1.1.0+1
   carousel_slider: ^4.2.1
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -50,6 +50,11 @@ Map<String, dynamic> _$ForgotPasswordResponseToJson(
 
 HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
       CarouselResponse.fromJson(json['carousel'] as Map<String, dynamic>),
+      (json['categories'] as List<dynamic>)
+          .map((e) => e == null
+              ? null
+              : CategoriesResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -59,6 +64,7 @@ Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
       'status': instance.status,
       'message': instance.message,
       'carousel': instance.carousel,
+      'categories': instance.categories,
     };
 
 CarouselResponse _$CarouselResponseFromJson(Map<String, dynamic> json) =>
@@ -69,4 +75,18 @@ CarouselResponse _$CarouselResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CarouselResponseToJson(CarouselResponse instance) =>
     <String, dynamic>{
       'Images': instance.images,
+    };
+
+CategoriesResponse _$CategoriesResponseFromJson(Map<String, dynamic> json) =>
+    CategoriesResponse(
+      json['ID'] as int?,
+      json['Name'] as String?,
+      json['Image'] as String?,
+    );
+
+Map<String, dynamic> _$CategoriesResponseToJson(CategoriesResponse instance) =>
+    <String, dynamic>{
+      'ID': instance.id,
+      'Name': instance.name,
+      'Image': instance.image,
     };

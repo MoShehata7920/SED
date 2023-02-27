@@ -22,8 +22,22 @@ extension HomeCarouselMapper on CarouselResponse? {
   }
 }
 
-extension HomeResponseMapper on HomeResponse? {
-  Home toDomain() {
-    return Home(this?.carousel.toDomain());
+extension HomeCategoriesMapper on List<CategoriesResponse?> {
+  List<Category> toDomain() {
+    List<Category> temporary = [];
+
+    forEach((element) {
+      //todo if not found put default image not found
+      temporary.add(Category(element?.name ?? "", element?.image ?? ""));
+    });
+
+    return temporary;
   }
 }
+
+extension HomeResponseMapper on HomeResponse? {
+  Home toDomain() {
+    return Home(this?.carousel.toDomain(), this?.categories.toDomain());
+  }
+}
+

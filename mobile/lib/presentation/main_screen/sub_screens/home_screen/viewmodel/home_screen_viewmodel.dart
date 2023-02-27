@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:sed/app/di.dart';
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
@@ -9,6 +10,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 class HomeScreenViewModel extends BaseViewModel
     with HomeScreenViewModelInputs, HomeScreenViewModelOutputs {
   List<String?> carouselImages = [];
+  List<Category?> categories = [];
 
   final HomeUseCase _homeUseCase = instance<HomeUseCase>();
 
@@ -54,6 +56,7 @@ class HomeScreenViewModel extends BaseViewModel
       // right -> success
       // navigate to main screen
       carouselImages = response.carousel!.images;
+      categories = response.category!;
 
       inputState.add(ContentState());
     });

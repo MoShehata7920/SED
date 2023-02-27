@@ -21,6 +21,12 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
   final HomeScreenViewModel _viewModel = instance<HomeScreenViewModel>();
 
+  void _bind() {
+    _viewModel.start();
+
+    _viewModel.getHomeData();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -47,8 +53,10 @@ class _HomeScreenViewState extends State<HomeScreenView> {
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
           return SingleChildScrollView(
+
             child: Column(
               children: [
+                const SizedBox(height: AppSize.s20),
                 CarouselSlider(
                   carouselController: _controller,
                   options: CarouselOptions(
@@ -120,26 +128,57 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             onPressed: () {},
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: [
+                              children: const [
                                 Text(
                                   "Show All",
                                 ),
-                                const Icon(Icons.keyboard_arrow_right_outlined)
+                                Icon(Icons.keyboard_arrow_right_outlined)
                               ],
                             )),
                       ),
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    // crossAxisCount is the number of columns
+                    crossAxisCount: 3,
+                    // This creates two columns with two items in each column
+                    children:
+                        List.generate(_viewModel.categories.length, (index) {
+                      return Center(
+                        child: Card(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Image(
+                                    image: NetworkImage(
+                                        _viewModel.categories[index]!.image),
+                                    fit: BoxFit.fill,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Text(_viewModel.categories[index]!.name),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 )
               ],
             ),
           );
         });
-  }
-
-  void _bind() {
-    _viewModel.start();
-
-    _viewModel.getHomeData();
   }
 }

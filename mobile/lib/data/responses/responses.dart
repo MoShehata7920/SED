@@ -46,7 +46,10 @@ class HomeResponse extends BaseResponse {
   @JsonKey(name: "carousel")
   CarouselResponse carousel;
 
-  HomeResponse(this.carousel);
+  @JsonKey(name: "categories")
+  List<CategoriesResponse?> categories;
+
+  HomeResponse(this.carousel, this.categories);
 
   // From Json
   factory HomeResponse.fromJson(Map<String, dynamic> json) =>
@@ -69,4 +72,25 @@ class CarouselResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$CarouselResponseToJson(this);
+}
+
+@JsonSerializable()
+class CategoriesResponse {
+  @JsonKey(name: "ID")
+  int? id;
+
+  @JsonKey(name: "Name")
+  String? name;
+
+  @JsonKey(name: "Image")
+  String? image;
+
+  CategoriesResponse(this.id, this.name, this.image);
+
+  // from json
+  factory CategoriesResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoriesResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$CategoriesResponseToJson(this);
 }
