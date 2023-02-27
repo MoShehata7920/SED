@@ -30,4 +30,7 @@ abstract class AppServiceClient {
     @Field("email") String email,
     @Field("password") String password,
   );
+
+  @GET("/main/home/")
+  Future<HomeResponse> getHomeData();
 }

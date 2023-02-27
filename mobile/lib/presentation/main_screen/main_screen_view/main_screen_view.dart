@@ -22,8 +22,10 @@ class _MainScreenViewState extends State<MainScreenView> {
         builder: (context, snapshot) {
           return Scaffold(
             backgroundColor: Colors.white,
-            body: snapshot.data ??
-                _viewModel.mainScreenWidgets[0], //destination screen
+            body: SafeArea(
+              child: snapshot.data ??
+                  _viewModel.mainScreenWidgets[0],
+            ), //destination screen
             floatingActionButton: FloatingActionButton(
               backgroundColor: ColorManager.white,
               child: Icon(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/chat_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/favorite_screen/Favorite_screen_view.dart';
-import 'package:sed/presentation/main_screen/sub_screens/home_screen/home_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_screen_view.dart';
 
 class MainScreenViewModel extends BaseViewModel

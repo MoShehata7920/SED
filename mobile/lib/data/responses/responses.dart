@@ -40,3 +40,18 @@ class ForgotPasswordResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
 }
+
+@JsonSerializable()
+class HomeResponse extends BaseResponse {
+  @JsonKey(name: "Images")
+  List<String?> images;
+
+  HomeResponse(this.images);
+
+  // From Json
+  factory HomeResponse.fromJson(Map<String, dynamic> json) =>
+      _$HomeResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$HomeResponseToJson(this);
+}

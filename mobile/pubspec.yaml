@@ -49,6 +49,7 @@ dependencies:
   sprintf: ^7.0.0
   country_code_picker_mp: ^1.0.3
   animated_bottom_navigation_bar: ^1.1.0+1
+  carousel_slider: ^4.2.1
 
 
 dev_dependencies:
