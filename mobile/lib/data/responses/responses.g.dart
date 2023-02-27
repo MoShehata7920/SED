@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -51,7 +49,7 @@ Map<String, dynamic> _$ForgotPasswordResponseToJson(
     };
 
 HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
-      (json['Images'] as List<dynamic>).map((e) => e as String?).toList(),
+      CarouselResponse.fromJson(json['carousel'] as Map<String, dynamic>),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -60,5 +58,15 @@ Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
+      'carousel': instance.carousel,
+    };
+
+CarouselResponse _$CarouselResponseFromJson(Map<String, dynamic> json) =>
+    CarouselResponse(
+      (json['Images'] as List<dynamic>).map((e) => e as String?).toList(),
+    );
+
+Map<String, dynamic> _$CarouselResponseToJson(CarouselResponse instance) =>
+    <String, dynamic>{
       'Images': instance.images,
     };

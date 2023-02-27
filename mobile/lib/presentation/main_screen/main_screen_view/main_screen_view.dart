@@ -21,6 +21,21 @@ class _MainScreenViewState extends State<MainScreenView> {
         stream: _viewModel.mainViewOutput,
         builder: (context, snapshot) {
           return Scaffold(
+            appBar: AppBar(
+              title: Container(
+                width: double.infinity,
+                height: 40,
+                color: ColorManager.lightPrimary,
+                child: const Center(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search for something',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             backgroundColor: Colors.white,
             body: SafeArea(
               child: snapshot.data ?? _viewModel.mainScreenWidgets[0],

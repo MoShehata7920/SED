@@ -16,8 +16,14 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   }
 }
 
+extension HomeCarouselMapper on CarouselResponse? {
+  Carousel toDomain() {
+    return Carousel(this?.images ?? <String>[]);
+  }
+}
+
 extension HomeResponseMapper on HomeResponse? {
   Home toDomain() {
-    return Home(this?.images ?? <String>[]);
+    return Home(this?.carousel.toDomain());
   }
 }
