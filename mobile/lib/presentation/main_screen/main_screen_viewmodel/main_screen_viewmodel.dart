@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/chat_screen_view.dart';
@@ -39,7 +38,7 @@ class MainScreenViewModel extends BaseViewModel
   Stream<Widget> get mainViewOutput => _mainViewStreamController.stream
       .map((index) => (mainScreenWidgets[index]));
 
-  // Private Functions
+  // Functions
   @override
   void onIndexChange(int index) {
     bottomNavIndex = index;

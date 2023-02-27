@@ -23,11 +23,10 @@ class _MainScreenViewState extends State<MainScreenView> {
           return Scaffold(
             backgroundColor: Colors.white,
             body: SafeArea(
-              child: snapshot.data ??
-                  _viewModel.mainScreenWidgets[0],
+              child: snapshot.data ?? _viewModel.mainScreenWidgets[0],
             ), //destination screen
             floatingActionButton: FloatingActionButton(
-              backgroundColor: ColorManager.white,
+              backgroundColor: ColorManager.lightPrimary,
               child: Icon(
                 Icons.add,
                 color: ColorManager.black,
@@ -38,6 +37,9 @@ class _MainScreenViewState extends State<MainScreenView> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: AnimatedBottomNavigationBar(
+              inactiveColor: ColorManager.white,
+              activeColor: ColorManager.lightPrimary,
+              backgroundColor: ColorManager.black,
               icons: IconsManager.iconsList,
               activeIndex: _viewModel.bottomNavIndex,
               gapLocation: GapLocation.center,

@@ -1,6 +1,4 @@
 // onBoarding Models
-import 'package:flutter/material.dart';
-
 class SliderObject {
   String title;
   String subTitle;

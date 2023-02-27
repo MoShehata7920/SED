@@ -12,16 +12,12 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
 
 extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   String toDomain() {
-    // * since we did an extension why do we check again if it was null ?
     return this?.support.orEmpty() ?? Constants.empty;
   }
 }
 
 extension HomeResponseMapper on HomeResponse? {
   Home toDomain() {
-    // * since we did an extension why do we check again if it was null ?
     return Home(this?.images ?? <String>[]);
   }
 }
-
-

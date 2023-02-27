@@ -50,7 +50,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: NetworkImage(image ?? AppStrings.empty), fit: BoxFit.cover),
+                                image: NetworkImage(image ?? AppStrings.empty),
+                                fit: BoxFit.cover),
                             color: Colors.blue,
                             borderRadius: const BorderRadius.all(
                                 Radius.circular(AppSize.s16)),
@@ -76,7 +77,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             color: (Theme.of(context).brightness ==
                                         Brightness.dark
                                     ? ColorManager.white
-                                    : ColorManager.black)
+                                    : ColorManager.lightPrimary)
                                 .withOpacity(
                                     _viewModel.carouselCurrentIndex == entry.key
                                         ? AppSize.s0_9

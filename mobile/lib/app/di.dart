@@ -7,7 +7,6 @@ import 'package:sed/data/network/dio_factory.dart';
 import 'package:sed/data/network/network_info.dart';
 import 'package:sed/data/repository/repository_impl.dart';
 import 'package:sed/data/source/remote_data_source.dart';
-import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
@@ -16,7 +15,6 @@ import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
-import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 

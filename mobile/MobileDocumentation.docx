@@ -340,4 +340,15 @@ update 2/24/2023
 -added inputs of viewModel as Sink and outputs of viewModel as stream and make stream for every error message of registering fields.
 -made every error message stream depend on the stream controller of the field which belongs to.
 -created register view object data which we will save data in and used feature copyWith to update the argument of registerObject after the user set for new parameters.
+---------------------------------26/2/2023----------------------------------------------------
+-we installed country_code_picker_mp package to let user choose the code of his country.
+---------------------------------27/2/2023----------------------------------------------------
+-the main screen will control the content of the current screen depending on if its the main, chat, favorite, settings or add screens.
+-the initial screen will be the home screen.
+-created the streams and sink of the main screen. inputs will be the current screen index and output will be list of screens.
+-we installed animated_bottom_navigation_bar package create the bottom navigation bar with smoothy design.
+-we installed carousel_slider package to create carousal slides in the home screen.
+-in HomeScreenViewModel and MainScreenViewModel instances Modules we create it as registerLazySingleton bc they will be needed to create them as singleton(will be called more than once).
+-created the use case, the Mapper and the repository of the home screen.
+-and we created the response of the home screen which will be consists of many component (for now we get the response of the carousal images from dataBase).
 ---------------------------------------------------------------------------------------------
