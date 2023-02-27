@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -22,7 +25,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController _pageController = PageController();
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();
 
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
   _bind() {
+    _appPreferences.setOnBoardingScreenViewed();
     _viewModel.start();
   }
 
@@ -197,7 +203,7 @@ class OnBoardingPage extends StatelessWidget {
         const SizedBox(
           height: AppSize.s60,
         ),
-        SvgPicture.asset(_sliderObject.image)
+        Lottie.asset(_sliderObject.image)
       ],
     );
   }

@@ -9,3 +9,15 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
     return Authentication(this?.token.orEmpty() ?? Constants.empty);
   }
 }
+
+extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
+  String toDomain() {
+    return this?.support.orEmpty() ?? Constants.empty;
+  }
+}
+
+extension HomeResponseMapper on HomeResponse? {
+  Home toDomain() {
+    return Home(this?.images ?? <String>[]);
+  }
+}

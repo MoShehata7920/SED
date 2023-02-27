@@ -1,4 +1,6 @@
 class AppStrings {
+  static const String empty = "";
+
   //splash screen
   static const String noRouteTitle = "404 Error";
   static const String noRouteFound = "No Route Found";
@@ -17,17 +19,34 @@ class AppStrings {
   static const String skip = "SKIP";
 
   //login screen
-  static const String username = "User Name";
-  static const String usernameError = "Please enter your user name.";
+  static const String email = "Email";
+  static const String emailInValid = "Please Check your Email format";
   static const String password = "Password";
   static const String passwordError = "Please enter your password.";
   static const String login = "Login";
-  static const String forgetPassword = "Forget Password";
   static const String registerText = "Not a member ? Sign up";
 
   //state renderer
   static const String loading = "Loading...";
+  static const String title = "SED TITLE";
   static const String retryAgain = "Retry again!";
   static const String ok = "Ok";
+  static const String success = "Success";
 
+  //forgot password screen
+  static const String resendText = "Please wait %d to send again";
+  static const String forgetPassword = "Forget Password";
+  static const String resetPassword = "Reset Password";
+
+  // Register Screen
+  static const String userNameInValid = "UserName should be at least 6 chars ";
+
+  static const String mobileNumberInValid = "Mobile Number is Wrong";
+  static const String passwordInValid =
+      "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
+  static const String loginText = "Already have an account ? Login";
+  static const String register = "Register";
+  static const String mobileNumber = "Mobile Number";
+  static const String username = "User Name";
+  static const String countrySearchBar = "Search by name or Country's code";
 }

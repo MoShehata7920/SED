@@ -46,6 +46,10 @@ dependencies:
   freezed: ^2.3.2
   get_it: ^7.2.0
   lottie: ^2.2.0
+  sprintf: ^7.0.0
+  country_code_picker_mp: ^1.0.3
+  animated_bottom_navigation_bar: ^1.1.0+1
+  carousel_slider: ^4.2.1
 
 
 dev_dependencies:
@@ -74,9 +78,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/light_mode_logo.png
-    - assets/images/onboarding_logo1.svg
-    - assets/images/onboarding_logo2.svg
-    - assets/images/onboarding_logo3.svg
     - assets/images/left_arrow_icon.svg
     - assets/images/right_arrow_icon.svg
     - assets/images/hollow_circle_icon.svg
@@ -84,6 +85,11 @@ flutter:
     - assets/json/loading.json
     - assets/json/empty.json
     - assets/json/error.json
+    - assets/json/success.json
+    - assets/json/on_boarding_sell.json
+    - assets/json/on_boarding_exchange.json
+    - assets/json/on_boarding_donate.json
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

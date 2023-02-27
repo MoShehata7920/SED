@@ -297,6 +297,58 @@ update 2/19/2023
 ---------------------------------------------------------------------------------------------
 update 2/20/2023
 ---------------------------------------------------------------------------------------------
--finished implementing FlowStateExtension cases (errorstate - emptystate - contentstate)
+-finished implementing FlowStateExtension cases (errorState - emptyState - contentState)
 -created _inputStreamController at the baseViewModel to handle the flow of strategies
 -applied the state renderer to login view
+---------------------------------20/2/2023----------------------------------------------------
+-created isUserLoggedInSuccessfullyStreamController function in Login ViewModel to check the state of loggingIn.
+-if the user successfully logged in , he will be navigated to the main screen.
+-in app preferences we created setOnBoardingScreenViewed and isOnBoardingScreenViewed functions to check if user already viewed onboarding screen.
+-in app preferences we created setUserLoggedInSuccessfully and isUserLoggedInSuccessfully functions to check if user already logged in successfully before.
+-in onboarding_view file i will call setOnBoardingScreenViewed function in _bind to tell the AppPreferences that the user already viewed onboarding screens.
+_in login_view before navigating to main screen i will call setUserLoggedInSuccessfully to tell AppPreferences that the user logged in successfully.
+_in splash_view we should get know where the user should be navigated after splash screen so first we check if the user already logged in and that means the he is already viewed onboarding screens too so he will be navigated to the main screen and if he isn't already logged in , we will check if he viewed onboarding screens or not yet and depend on this we will navigate him to onboarding screens or loggingIn screen. 
+---------------------------------22/2/2023----------------------------------------------------
+-added remote data sources
+    -implemented forgot_password which has AuthenticationResponse piecewise getting the response from the appServiceClient
+-implemented the repository at data layer
+    -this implements the repository from domain layer.
+    -implemented the forgot_password function which returns either<Failure, String>
+        -failure model if failure happened or no internet connection found
+-added forgot_password viewModel which has so sinks and one stream for email.
+-we are going to make the Reset password button looks disable if the email format isn't valid.
+-the input for the forgot_password viewModel will be the email field  and login button .
+-the outputs will be if the email is valid and filled to activate the Reset password button.
+-use broadcast() in forgot_password viewModel to make the StreamController has many listeners to avoid bad state.
+-i created _isUserNameValid function to check if this field has the right email format and to return bool value to use it in map for stream.
+-Data class is the class which have our data which we can update or copy of our data through it.
+-we used $ sign in freezed_data-classes file to identify that this class is freezed.
+-we will use feature copyWith to update the argument of email after the user set for email.
+-in forgetPassword instance Module we create it as factory bc it will be called once in forgetPassword screen to reset password by using email and won't use it again in the rest of app so i don't need to create it as singleton.
+-i will call initForgotPasswordModule in route manger to initialize it before reseating password.
+-we installed sprintf package to use it in strings format.
+-and we created functions file and created function for checking email format checker as extension to use it in checking email in login , register and reseating password screens to check email validity.
+---------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------
+update 2/24/2023
+---------------------------------------------------------------------------------------------
+-implemented the success state
+---------------------------------24/2/2023----------------------------------------------------
+-added register interface and repository.
+-added register API call in repository implementation , remote_data_source and  useCases.
+-added inputs of viewModel as Sink and outputs of viewModel as stream and make stream for every error message of registering fields.
+-made every error message stream depend on the stream controller of the field which belongs to.
+-created register view object data which we will save data in and used feature copyWith to update the argument of registerObject after the user set for new parameters.
+---------------------------------26/2/2023----------------------------------------------------
+-we installed country_code_picker_mp package to let user choose the code of his country.
+---------------------------------27/2/2023----------------------------------------------------
+-the main screen will control the content of the current screen depending on if its the main, chat, favorite, settings or add screens.
+-the initial screen will be the home screen.
+-created the streams and sink of the main screen. inputs will be the current screen index and output will be list of screens.
+-we installed animated_bottom_navigation_bar package create the bottom navigation bar with smoothy design.
+-we installed carousel_slider package to create carousal slides in the home screen.
+-in HomeScreenViewModel and MainScreenViewModel instances Modules we create it as registerLazySingleton bc they will be needed to create them as singleton(will be called more than once).
+-created the use case, the Mapper and the repository of the home screen.
+-and we created the response of the home screen which will be consists of many component (for now we get the response of the carousal images from dataBase).
+---------------------------------------------------------------------------------------------;

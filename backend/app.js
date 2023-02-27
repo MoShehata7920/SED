@@ -14,26 +14,17 @@ app.use('/uploads',express.static('uploads'))
 
 //google auth part
 const passport=require('passport')
-const passportSetup=require('./api/config/passport-setup')
 const cookieSession=require('cookie-session')
     //initializing cookies        
 app.use(cookieSession({
     maxAge:6 * 60 * 60 * 1000 ,           // 6 hors = 6 h x 60min x 60sec x 1000 cuz it millisecond   
-    keys:['key1','key2']      
+    keys:[process.env.COOKIES_KEY3]    
 }))
     //passport middlewares
 app.use(passport.initialize());
 app.use(passport.session());
-    //auth roues
-app.get('/google', (req, res) => {
-    res.send("<button><a href='/auth'>Login With Google</a></button>")
-});
-app.get('/auth' , passport.authenticate('google', { scope:
-    [ 'email', 'profile' ]
-}));
-app.get('/auth/callback',passport.authenticate('google',{failureRedirect:'/'}),(req,res)=>{
-    res.send(req.user)
-})
+
+
 //mongoose Connection
 mongoose.set('strictQuery', true)        //  suppressing the warning of the new coming update in mongoose 7 
 mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('Connected Successfully To SED Database')})
@@ -41,9 +32,12 @@ mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('Connected Success
 //importing routes files
 const usersRoute=require('./api/routes/users')
 const productsRoute=require('./api/routes/products')
+const authRoute=require('./api/routes/auth')     
+
 //forwarding routes
 app.use('/api/users',usersRoute)
 app.use('/api/products',productsRoute)
+app.use('/google',authRoute)                    
 
 
 app.get('',(req,res)=>{

@@ -21,3 +21,17 @@ class Authentication {
 
   Authentication(this.token);
 }
+
+// ForgotPassword models
+class ForgotPassword {
+  String? support;
+
+  ForgotPassword(this.support);
+}
+
+// Home models
+class Home {
+  List<String?> carouselImages;
+
+  Home(this.carouselImages);
+}

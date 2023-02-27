@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
@@ -18,6 +20,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = instance<LoginViewModel>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   final TextEditingController _userNameController = TextEditingController();
 
@@ -35,6 +38,17 @@ class _LoginViewState extends State<LoginView> {
     _userPasswordController.addListener(() => _viewModel.setPassword(
         _userPasswordController
             .text)); //updating the password on change happening to the text
+
+    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
+        .listen((isLoggedIn) {
+      if (isLoggedIn) {
+        // navigate to main screen
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _appPreferences.setUserLoggedInSuccessfully();
+          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+        });
+      }
+    });
   }
 
   @override
@@ -88,8 +102,8 @@ class _LoginViewState extends State<LoginView> {
                           keyboardType: TextInputType.emailAddress,
                           controller: _userNameController,
                           decoration: InputDecoration(
-                            hintText: AppStrings.username,
-                            labelText: AppStrings.username,
+                            hintText: AppStrings.email,
+                            labelText: AppStrings.email,
                             prefixIcon: Icon(
                               Icons.email_outlined,
                               color: ColorManager.lightPrimary,
@@ -98,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                                     true) //check if the username was null
                                 ? null //then no errors
                                 : AppStrings
-                                    .usernameError, //else present the error to the user
+                                    .emailInValid, //else present the error to the user
                           ));
                     }),
               ),
@@ -174,7 +188,7 @@ class _LoginViewState extends State<LoginView> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(
+                          Navigator.pushNamed(
                               context, Routes.forgotPasswordRoute);
                         },
                         child: Text(
@@ -186,8 +200,7 @@ class _LoginViewState extends State<LoginView> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, Routes.registerRoute);
+                          Navigator.pushNamed(context, Routes.registerRoute);
                         },
                         child: Text(
                           AppStrings.registerText,
