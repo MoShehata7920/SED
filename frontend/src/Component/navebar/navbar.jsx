@@ -7,7 +7,7 @@ function Navebar() {
       <nav class="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">
         <div className="container">
           <div className="col-xl-2 col-lg-1 col-xxl-3 col-md-2 col-sm-10 col-10">
-            <Link class="navbar-brand text-white" to={"/"}>
+            <Link class="navbar-brand text-white fs-3" to={"/"}>
               SED
             </Link>
           </div>
@@ -59,7 +59,7 @@ function Navebar() {
               </li>
               <li class="nav-item dropdown">
                 <Link
-                  class="nav-link dropdown-toggle text-white fs-4"
+                  class="nav-link dropdown-toggle text-white fs-4 ms-2 me-2"
                   to={"a"}
                   role="button"
                   data-bs-toggle="dropdown"
