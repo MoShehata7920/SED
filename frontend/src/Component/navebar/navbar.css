@@ -1,0 +1,13 @@
+.bg-nav{
+    background-color: rgb(0 53 95); 
+    
+}
+.nav-input{
+    margin-right: 10px;
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    border-color: rgb(73, 52, 52);
+    border-width: 3px;
+    border-style: solid;
+}
