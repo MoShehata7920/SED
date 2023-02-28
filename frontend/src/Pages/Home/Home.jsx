@@ -1,14 +1,13 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import Navebar from "../../Component/navebar/navbar";
 import "./Home.css";
 
 export default function Home() {
   return (
     <>
-      <div className="App">
-        <button>
-          <Link to="SignIn">hello</Link>
-        </button>
-      </div>
+      <section>
+        <Navebar />
+      </section>
     </>
   );
 }
