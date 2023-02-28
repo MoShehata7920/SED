@@ -10,12 +10,17 @@ namespace Library.Webserver;
 
 public class WebserverManager : IWebserverManager
 {
+    static JsonSerializerOptions options = new JsonSerializerOptions()
+    {
+        WriteIndented = true
+    };
+
     private WatsonWebserver.Server _server;
     private List<string> _protectedRoutes;
 
     public WebserverManager()
     {
-        Start("192.168.1.2", 9000);
+        Start("103.48.193.225", 9000);
     }
 
     public void Start(string hostname, int port)
@@ -106,7 +111,7 @@ public class WebserverManager : IWebserverManager
     public static async Task Login(HttpContext ctx)
     {
         //logging
-        Extensions.WriteLine($"RECEIVED REQUEST AT [/customers/login]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
+        Extensions.WriteLineAsync($"RECEIVED REQUEST AT [/customers/login]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
 
         //get request
         var req = ctx.Request.DataAsJsonObject<Login>();
@@ -123,18 +128,18 @@ public class WebserverManager : IWebserverManager
 
         if (await db.UsersTable.AnyAsync(x => x.Email == req.email && x.Password == req.password))
         {
-            Extensions.WriteLine($"User {req.email} Logged in successfully", ConsoleColor.Green);
+            Extensions.WriteLineAsync($"User {req.email} Logged in successfully", ConsoleColor.Green);
 
             res.status = 0;
         }
         else
         {
-            Extensions.WriteLine($"User {req.email} failed to login", ConsoleColor.Red);
+            Extensions.WriteLineAsync($"User {req.email} failed to login", ConsoleColor.Red);
             res.status = 1;
             res.message = "Email or password are wrong!";
         }
 
-        string jsonString = JsonSerializer.Serialize(res);
+        string jsonString = JsonSerializer.Serialize(res, options);
 
         ctx.Response.ContentType = "application/json";
         ctx.Response.StatusCode = 200;
@@ -145,7 +150,7 @@ public class WebserverManager : IWebserverManager
     public static async Task Register(HttpContext ctx)
     {
         //logging
-        Extensions.WriteLine($"RECEIVED REQUEST AT [/customers/Register]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
+        Extensions.WriteLineAsync($"RECEIVED REQUEST AT [/customers/Register]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
 
         //get request
         var req = ctx.Request.DataAsJsonObject<Register>();
@@ -162,14 +167,14 @@ public class WebserverManager : IWebserverManager
 
         if (await db.UsersTable.AnyAsync(x => x.Email == req.email))
         {
-            Extensions.WriteLine($"User {req.email} already registered.", ConsoleColor.Red);
+            Extensions.WriteLineAsync($"User {req.email} already registered.", ConsoleColor.Red);
 
             res.status = 1;
             res.message = $"User {req.email} already registered.";
         }
         else
         {
-            Extensions.WriteLine($"User {req.email} successfully registered", ConsoleColor.Green);
+            Extensions.WriteLineAsync($"User {req.email} successfully registered", ConsoleColor.Green);
 
             res.status = 0;
             res.message = "user registered successfully!";
@@ -187,7 +192,7 @@ public class WebserverManager : IWebserverManager
             await db.SaveChangesAsync();
         }
 
-        string jsonString = JsonSerializer.Serialize(res);
+        string jsonString = JsonSerializer.Serialize(res, options);
 
         ctx.Response.ContentType = "application/json";
         ctx.Response.StatusCode = 200;
@@ -198,7 +203,7 @@ public class WebserverManager : IWebserverManager
     public static async Task ForgotPassword(HttpContext ctx)
     {
         //logging
-        Extensions.WriteLine($"RECEIVED REQUEST AT [/customers/forgotPassword]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
+        Extensions.WriteLineAsync($"RECEIVED REQUEST AT [/customers/forgotPassword]\n{ctx.Request.DataAsString}", ConsoleColor.Yellow);
 
         //get request
         var req = ctx.Request.DataAsJsonObject<ForgotPassword>();
@@ -215,18 +220,18 @@ public class WebserverManager : IWebserverManager
 
         if (await db.UsersTable.AnyAsync(x => x.Email == req.email))
         {
-            Extensions.WriteLine($"User {req.email} resetted password succesffully", ConsoleColor.Green);
+            Extensions.WriteLineAsync($"User {req.email} resetted password succesffully", ConsoleColor.Green);
 
             res.status = 0;
         }
         else
         {
-            Extensions.WriteLine($"User {req.email} failed to reset password", ConsoleColor.Red);
+            Extensions.WriteLineAsync($"User {req.email} failed to reset password", ConsoleColor.Red);
             res.status = 1;
             res.message = "Email seems to be wrong!";
         }
 
-        string jsonString = JsonSerializer.Serialize(res);
+        string jsonString = JsonSerializer.Serialize(res, options);
 
         ctx.Response.ContentType = "application/json";
         ctx.Response.StatusCode = 200;
@@ -238,7 +243,7 @@ public class WebserverManager : IWebserverManager
     public static async Task GetHomeData(HttpContext ctx)
     {
         //logging
-        Extensions.WriteLine($"RECEIVED REQUEST AT [/main/home]", ConsoleColor.Yellow);
+        Extensions.WriteLineAsync($"RECEIVED REQUEST FROM: [{ctx.Request.Source.IpAddress}] AT [/main/home]", ConsoleColor.Yellow);
 
         //get request
 
@@ -317,9 +322,9 @@ public class WebserverManager : IWebserverManager
             homeRequest.exchangeItems.Add(exchangeItem);
         }
 
-        string jsonString = JsonSerializer.Serialize(homeRequest);
+        string jsonString = JsonSerializer.Serialize(homeRequest, options);
 
-        Extensions.WriteLine($"{jsonString}", ConsoleColor.Magenta);
+        Extensions.WriteLineAsync($"{jsonString}", ConsoleColor.Magenta);
 
         ctx.Response.ContentType = "application/json";
         ctx.Response.StatusCode = 200;
