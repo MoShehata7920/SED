@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/app/extensions.dart';
 import 'package:sed/data/responses/responses.dart';
@@ -22,13 +23,31 @@ extension HomeCarouselMapper on CarouselResponse? {
   }
 }
 
-extension HomeCategoriesMapper on List<CategoriesResponse?> {
+extension HomeCategoriesMapper on List<CategoriesResponse?>? {
   List<Category> toDomain() {
     List<Category> temporary = [];
 
-    forEach((element) {
+    this?.forEach((element) {
       //todo if not found put default image not found
-      temporary.add(Category(element?.name ?? "", element?.image ?? ""));
+      temporary.add(Category(
+          element?.id ?? 0, element?.name ?? "", element?.image ?? ""));
+    });
+
+    return temporary;
+  }
+}
+
+extension ItemsMapper on List<ItemsResponse?>? {
+  List<Items> toDomain() {
+    List<Items> temporary = [];
+
+    this?.forEach((element) {
+      temporary.add(Items(
+          element?.name ?? "",
+          element?.image ?? "",
+          element?.price ?? 0,
+          element?.description ?? "",
+          element?.categoryId ?? 0));
     });
 
     return temporary;
@@ -37,7 +56,12 @@ extension HomeCategoriesMapper on List<CategoriesResponse?> {
 
 extension HomeResponseMapper on HomeResponse? {
   Home toDomain() {
-    return Home(this?.carousel.toDomain(), this?.categories.toDomain());
+    return Home(
+      this?.carousel?.toDomain() as Carousel,
+      this?.categories?.toDomain() as List<Category>,
+      this?.sellItems?.toDomain() as List<Items>,
+      this?.donateItems?.toDomain() as List<Items>,
+      this?.exchangeItems?.toDomain() as List<Items>,
+    );
   }
 }
-

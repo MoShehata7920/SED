@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
-import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -53,17 +52,17 @@ class _HomeScreenViewState extends State<HomeScreenView> {
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
           return SingleChildScrollView(
-
             child: Column(
               children: [
                 const SizedBox(height: AppSize.s20),
                 CarouselSlider(
                   carouselController: _controller,
                   options: CarouselOptions(
-                      aspectRatio: 2.0,
+                      aspectRatio: AppValues.carouselAspectRatio,
                       height: AppSize.s200,
                       autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayInterval: const Duration(
+                          seconds: AppValues.carouselAutoPlayInterval),
                       onPageChanged: (index, reason) {
                         _viewModel.onPageChanged(index);
                       }),
@@ -72,12 +71,12 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       builder: (BuildContext context) {
                         return Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p4),
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(image ?? AppStrings.empty),
                                 fit: BoxFit.cover),
-                            color: Colors.blue,
                             borderRadius: const BorderRadius.all(
                                 Radius.circular(AppSize.s16)),
                           ),
@@ -113,22 +112,24 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                 ),
                 const SizedBox(height: AppSize.s10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Categories',
                         style: getBoldStyle(
-                            color: ColorManager.lightPrimary, fontSize: 15),
+                            color: ColorManager.lightPrimary,
+                            fontSize: AppSize.s14),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: AppPadding.p8),
                         child: TextButton(
                             onPressed: () {},
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: const [
+                              children: [
                                 Text(
                                   "Show All",
                                 ),
@@ -140,15 +141,20 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                   child: GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     // crossAxisCount is the number of columns
-                    crossAxisCount: 3,
+                    crossAxisCount: AppValues.categoriesCrossAxisCount,
+
                     // This creates two columns with two items in each column
-                    children:
-                        List.generate(_viewModel.categories.length, (index) {
+                    children: List.generate(
+                        _viewModel.categories.length >
+                                AppValues.defaultCategoriesNumber
+                            ? AppValues.defaultCategoriesNumber
+                            : _viewModel.categories.length, (index) {
                       return Center(
                         child: Card(
                           child: Column(
@@ -156,29 +162,103 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.all(AppPadding.p14),
                                   child: Image(
                                     image: NetworkImage(
-                                        _viewModel.categories[index]!.image),
+                                        _viewModel.categories[index].image),
                                     fit: BoxFit.fill,
                                     width: double.infinity,
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Text(_viewModel.categories[index]!.name),
-                              )
+                                padding: const EdgeInsets.only(
+                                    bottom: AppPadding.p8),
+                                child: Text(
+                                  _viewModel.categories[index].name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       );
                     }),
                   ),
-                )
+                ),
+                for (int i = 0; i < _getItems().length; i++) _getItems()[i]
               ],
             ),
           );
         });
   }
+}
+
+List<Widget> _getItems() {
+  return [
+    const SizedBox(height: AppSize.s16),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Sell',
+            style: getBoldStyle(
+                color: ColorManager.lightPrimary, fontSize: AppSize.s14),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: AppPadding.p8),
+            child: TextButton(
+                onPressed: () {},
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Show All",
+                    ),
+                    Icon(Icons.keyboard_arrow_right_outlined)
+                  ],
+                )),
+          ),
+        ],
+      ),
+    ),
+    Container(
+      height: 250,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) => _buildItem(),
+      ),
+    ),
+  ];
+}
+
+Widget _buildItem() {
+  return Card(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(15),
+            width: 150,
+            height: 150,
+            child: Image.network(
+              "https://images-na.ssl-images-amazon.com/images/I/812NShN3MpL._SL1500_.jpg",
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Text("name"),
+        Text("price"),
+        Text("description"),
+      ],
+    ),
+  );
 }

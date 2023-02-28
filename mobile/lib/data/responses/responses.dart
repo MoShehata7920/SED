@@ -44,12 +44,22 @@ class ForgotPasswordResponse extends BaseResponse {
 @JsonSerializable()
 class HomeResponse extends BaseResponse {
   @JsonKey(name: "carousel")
-  CarouselResponse carousel;
+  CarouselResponse? carousel;
 
   @JsonKey(name: "categories")
-  List<CategoriesResponse?> categories;
+  List<CategoriesResponse?>? categories;
 
-  HomeResponse(this.carousel, this.categories);
+  @JsonKey(name: "sellItems")
+  List<ItemsResponse?>? sellItems;
+
+  @JsonKey(name: "donateItems")
+  List<ItemsResponse?>? donateItems;
+
+  @JsonKey(name: "exchangeItems")
+  List<ItemsResponse?>? exchangeItems;
+
+  HomeResponse(this.carousel, this.categories, this.sellItems, this.donateItems,
+      this.exchangeItems);
 
   // From Json
   factory HomeResponse.fromJson(Map<String, dynamic> json) =>
@@ -62,7 +72,7 @@ class HomeResponse extends BaseResponse {
 @JsonSerializable()
 class CarouselResponse {
   @JsonKey(name: "Images")
-  List<String?> images;
+  List<String?>? images;
 
   CarouselResponse(this.images);
 
@@ -93,4 +103,32 @@ class CategoriesResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$CategoriesResponseToJson(this);
+}
+
+@JsonSerializable()
+class ItemsResponse {
+  @JsonKey(name: "Name")
+  String? name;
+
+  @JsonKey(name: "Image")
+  String? image;
+
+  @JsonKey(name: "Descr")
+  String? description;
+
+  @JsonKey(name: "Price")
+  int? price;
+
+  @JsonKey(name: "CategoryId")
+  int? categoryId;
+
+  ItemsResponse(
+      this.name, this.image, this.description, this.price, this.categoryId);
+
+  // From Json
+  factory ItemsResponse.fromJson(Map<String, dynamic> json) =>
+      _$ItemsResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$ItemsResponseToJson(this);
 }
