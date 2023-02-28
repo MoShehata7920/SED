@@ -19,12 +19,12 @@ namespace Database
             {
                 using var context = new Context.SED();
                 context.Database.Migrate();
-                Extensions.WriteLine("Successfully connected to the database :)", ConsoleColor.Green);
+                Extensions.WriteLineAsync("Successfully connected to the database :)", ConsoleColor.Green);
 
             }
             catch (Exception ex)
             {
-                Extensions.WriteLine(ex + " An error occurred while migrating the database", ConsoleColor.Red);
+                Extensions.WriteLineAsync(ex + " An error occurred while migrating the database", ConsoleColor.Red);
             }
         }
 

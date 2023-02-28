@@ -10,7 +10,12 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 class HomeScreenViewModel extends BaseViewModel
     with HomeScreenViewModelInputs, HomeScreenViewModelOutputs {
   List<String?> carouselImages = [];
-  List<Category?> categories = [];
+
+  List<Category> categories = [];
+
+  List<Items> sellItems = [];
+  List<Items> donateItems = [];
+  List<Items> exchangeItems = [];
 
   final HomeUseCase _homeUseCase = instance<HomeUseCase>();
 
@@ -43,20 +48,23 @@ class HomeScreenViewModel extends BaseViewModel
   Stream<void> get carouselOutput =>
       _carouselStreamController.stream.map((index) => () {});
 
-  void getHomeData() async{
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.fullScreenLoadingState));
+  void getHomeData() async {
+    inputState.add(LoadingState(
+        stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _homeUseCase.execute(null);
 
     response.fold(
-            (failure) => {
-          // left -> failure
-        }, (response) {
+        (failure) => {
+              // left -> failure
+            }, (response) {
       // right -> success
       // navigate to main screen
-      carouselImages = response.carousel!.images;
-      categories = response.category!;
+      carouselImages = response.carousel.images;
+      categories = response.category;
+      sellItems = response.sellItems;
+      donateItems = response.donateItems;
+      exchangeItems = response.exchangeItems;
 
       inputState.add(ContentState());
     });

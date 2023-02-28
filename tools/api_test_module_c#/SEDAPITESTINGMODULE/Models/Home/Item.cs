@@ -15,5 +15,9 @@ namespace Models
 
         [JsonProperty("Price")]
         public int? Price { get; set; }
+
+        [JsonProperty("CategoryId")]
+        public int? CategoryId { get; set; }
+
     }
 }

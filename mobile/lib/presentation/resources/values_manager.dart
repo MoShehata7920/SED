@@ -43,3 +43,9 @@ class AppSize {
   static const double s200 = 200.0;
 }
 
+class AppValues {
+  static const double carouselAspectRatio = 2.0;
+  static const int carouselAutoPlayInterval = 3;
+  static const int categoriesCrossAxisCount = 3;
+  static const int defaultCategoriesNumber = 6;
+}

@@ -1,3 +1,5 @@
+import 'package:sprintf/sprintf.dart';
+
 extension EmailValidator on String {
   bool isValidEmail() {
     return RegExp(
@@ -11,3 +13,5 @@ extension EmailValidator on String {
         .hasMatch(this);
   }
 }
+
+String getPrice(int price) => sprintf("%d.0 L.E",[price]);

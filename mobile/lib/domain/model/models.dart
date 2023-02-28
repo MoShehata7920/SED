@@ -31,10 +31,13 @@ class ForgotPassword {
 
 // Home models
 class Home {
-  Carousel? carousel;
-  List<Category>? category;
+  Carousel carousel;
+  List<Category> category;
+  List<Items> sellItems;
+  List<Items> donateItems;
+  List<Items> exchangeItems;
 
-  Home(this.carousel, this.category);
+  Home(this.carousel, this.category, this.sellItems, this.donateItems, this.exchangeItems);
 }
 
 class Carousel {
@@ -44,8 +47,21 @@ class Carousel {
 }
 
 class Category {
+  int id;
   String name;
   String image;
 
-  Category(this.name, this.image);
+  Category(this.id, this.name, this.image);
 }
+
+class Items {
+  String name;
+  String image;
+  int price;
+  String description;
+
+  int categoryId;
+
+  Items(this.name, this.image, this.price, this.description, this.categoryId);
+}
+
