@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/app/functions.dart';
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -127,7 +129,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         padding: const EdgeInsets.only(top: AppPadding.p8),
                         child: TextButton(
                             onPressed: () {},
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
@@ -187,7 +189,16 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     }),
                   ),
                 ),
-                for (int i = 0; i < _getItems().length; i++) _getItems()[i]
+                for (int i = 0; i < 3; i++) _getItems(0, _viewModel)[i],
+
+                for (int i = 0; i < 3; i++) _getItems(1, _viewModel)[i],
+
+                for (int i = 0; i < 3; i++) _getItems(2, _viewModel)[i],
+
+                const SizedBox(
+                  height: 100,
+                )
+                //preparing for the next widget maybe ?
               ],
             ),
           );
@@ -195,7 +206,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   }
 }
 
-List<Widget> _getItems() {
+List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
   return [
     const SizedBox(height: AppSize.s16),
     Padding(
@@ -204,7 +215,7 @@ List<Widget> _getItems() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Sell',
+            sectionId == 0 ? "SELL" : sectionId == 1 ? "DONATE" : "EXCHANGE",
             style: getBoldStyle(
                 color: ColorManager.lightPrimary, fontSize: AppSize.s14),
           ),
@@ -212,9 +223,9 @@ List<Widget> _getItems() {
             padding: const EdgeInsets.only(top: AppPadding.p8),
             child: TextButton(
                 onPressed: () {},
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                  children: const [
                     Text(
                       "Show All",
                     ),
@@ -226,19 +237,23 @@ List<Widget> _getItems() {
       ),
     ),
     Container(
-      height: 250,
+      height: 200,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (context, index) => _buildItem(),
+        itemCount: sectionId == 0 ? viewModel.sellItems.length : sectionId == 1 ? viewModel.donateItems.length : viewModel.exchangeItems.length,
+        itemBuilder: (context, index) => _buildItem(sectionId == 0
+            ? viewModel.sellItems[index]
+            : sectionId == 1
+                ? viewModel.donateItems[index]
+                : viewModel.exchangeItems[index]),
       ),
     ),
   ];
 }
 
-Widget _buildItem() {
+Widget _buildItem(Items item) {
   return Card(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -250,14 +265,20 @@ Widget _buildItem() {
             width: 150,
             height: 150,
             child: Image.network(
-              "https://images-na.ssl-images-amazon.com/images/I/812NShN3MpL._SL1500_.jpg",
+              item.image,
               fit: BoxFit.fill,
             ),
           ),
         ),
-        Text("name"),
-        Text("price"),
-        Text("description"),
+        Text(
+          item.description,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(getPrice(item.price)),
+        ),
       ],
     ),
   );
