@@ -9,7 +9,17 @@ public static class Extensions
         Console.WriteLine($"[{DateTime.Now}]: {message}");
         Console.WriteLine("======================================================================================");
 
-        await DiscordManger.sendEmbed("API_LOGS", "SED", message);
+        List<string> lines = new List<string>();
+
+        lines = message
+            .Chunk(1000)
+            .Select(x => new string(x))
+            .ToList();
+
+        foreach (var x in lines)
+        {
+            await DiscordManger.sendEmbed("API_LOGS", "SED", x);
+        }
     }
 
 }
