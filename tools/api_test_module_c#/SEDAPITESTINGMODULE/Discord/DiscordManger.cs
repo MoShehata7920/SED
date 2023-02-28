@@ -11,7 +11,7 @@ namespace SEDAPITESTINGMODULE.Discord
         {
             _client = new DiscordSocketClient(new DiscordSocketConfig() { LogLevel = LogSeverity.Info, GatewayIntents = GatewayIntents.All });
 
-            var token = "MTA3OTkxODY2NjI4OTc5MTEwNw.GjliMN.agTi8sGAqQSDE9vYjtDK609D6HFGzAD7LKPefs\r\n";
+            var token = "MTA3OTkxODY2NjI4OTc5MTEwNw.G8hPmo.otaIjVlI87v6kSn9myDS9expVLMssCDKrEUhh8";
 
             _client.MessageReceived += MessageReceived;
 

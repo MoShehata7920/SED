@@ -286,7 +286,8 @@ public class WebserverManager : IWebserverManager
                 Image = item.Image,
                 Descr = item.Descr,
                 Name = item.Name,
-                Price = item.Price
+                Price = item.Price,
+                CategoryId = item.Category_Id,
             };
 
             homeRequest.sellItems.Add(sellItem);
