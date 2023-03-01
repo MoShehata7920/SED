@@ -1,0 +1,34 @@
+.slider-style img {
+    height: 250px;
+    width: 100%;
+
+}
+.catogiry-div{
+    position: relative;
+    margin-bottom: 50px;
+    overflow: hidden;
+    width: 100%;
+    height: 300px;
+}
+.catogiry-img{
+    transition-duration: 0.4s;
+
+}
+.catogiry-div:hover .catogiry-img{
+   transform: scale(1.5);
+   
+}
+.catogiry-text{
+    position: absolute;
+    color: rgb(255, 255, 255) ;
+    z-index: 100;
+    bottom: 0px;
+    left: 50px;
+}
+.advertisement{
+    height: 300px;
+}
+.fs-10{
+    font-size: 50px;
+    font-weight: bolder;
+}
