@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
 class ColorManager {
-  static Color backGroundLightPrimary = const Color(0xffFFFFFF);
+  static Color backGroundLightPrimary = const Color(0xffEEE9DA);
   static Color backGroundDarkPrimary = const Color(0xff1D2951);
 
-  static Color lightPrimary = const Color(0xff94B4AC);
+  static Color lightPrimary = const Color(0xff6096B4);
+  static Color secondLightPrimary = const Color(0xff93BFCF);
+  static Color thirdLightPrimary = const Color(0xffBDCDD6);
+  static Color fourthLightPrimary = const Color(0xffEEE9DA);
+
   static Color darkPrimary = const Color(0xffEAAA31);
 
   static Color darkGrey = const Color(0xff525252);

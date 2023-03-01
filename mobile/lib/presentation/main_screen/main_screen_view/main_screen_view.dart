@@ -4,6 +4,7 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -25,12 +26,16 @@ class _MainScreenViewState extends State<MainScreenView> {
               title: Container(
                 width: double.infinity,
                 height: 40,
-                color: ColorManager.lightPrimary,
-                child: const Center(
+                color: ColorManager.white,
+                child: Center(
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search for something',
-                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      prefixIconColor: ColorManager.lightPrimary,
+                      hintText: AppStrings.searchForSomething,
+                      prefixIcon: IconsManager.search,
                     ),
                   ),
                 ),
@@ -44,7 +49,7 @@ class _MainScreenViewState extends State<MainScreenView> {
               backgroundColor: ColorManager.lightPrimary,
               child: Icon(
                 Icons.add,
-                color: ColorManager.black,
+                color: ColorManager.white,
               ),
               onPressed: () {},
               //params
@@ -53,8 +58,8 @@ class _MainScreenViewState extends State<MainScreenView> {
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: AnimatedBottomNavigationBar(
               inactiveColor: ColorManager.white,
-              activeColor: ColorManager.lightPrimary,
-              backgroundColor: Colors.grey,
+              activeColor: ColorManager.backGroundLightPrimary,
+              backgroundColor: ColorManager.lightPrimary,
               icons: IconsManager.iconsList,
               activeIndex: _viewModel.bottomNavIndex,
               gapLocation: GapLocation.center,

@@ -46,6 +46,6 @@ class AppSize {
 class AppValues {
   static const double carouselAspectRatio = 2.0;
   static const int carouselAutoPlayInterval = 3;
-  static const int categoriesCrossAxisCount = 3;
+  static const int categoriesCrossAxisCount = 4;
   static const int defaultCategoriesNumber = 6;
 }

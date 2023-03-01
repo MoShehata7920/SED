@@ -49,4 +49,12 @@ class AppStrings {
   static const String mobileNumber = "Mobile Number";
   static const String username = "User Name";
   static const String countrySearchBar = "Search by name or Country's code";
+
+  static const String categories = "Categories";
+  static const String sell = "Sell";
+  static const String exchange = "Exchange";
+  static const String donate = "Donate";
+  static const String showAll = "Show All";
+
+  static const String searchForSomething = "Search for something";
 }

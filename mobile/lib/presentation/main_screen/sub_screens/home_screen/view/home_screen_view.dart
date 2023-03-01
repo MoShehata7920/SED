@@ -6,6 +6,7 @@ import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
@@ -120,7 +121,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Categories',
+                        AppStrings.categories,
                         style: getBoldStyle(
                             color: ColorManager.lightPrimary,
                             fontSize: AppSize.s14),
@@ -129,13 +130,13 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         padding: const EdgeInsets.only(top: AppPadding.p8),
                         child: TextButton(
                             onPressed: () {},
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  "Show All",
+                                  AppStrings.showAll,
                                 ),
-                                Icon(Icons.keyboard_arrow_right_outlined)
+                                IconsManager.rightArrow
                               ],
                             )),
                       ),
@@ -215,7 +216,11 @@ List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            sectionId == 0 ? "SELL" : sectionId == 1 ? "DONATE" : "EXCHANGE",
+            sectionId == 0
+                ? AppStrings.sell
+                : sectionId == 1
+                    ? AppStrings.donate
+                    : AppStrings.exchange,
             style: getBoldStyle(
                 color: ColorManager.lightPrimary, fontSize: AppSize.s14),
           ),
@@ -223,13 +228,13 @@ List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
             padding: const EdgeInsets.only(top: AppPadding.p8),
             child: TextButton(
                 onPressed: () {},
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Text(
-                      "Show All",
+                      AppStrings.showAll,
                     ),
-                    Icon(Icons.keyboard_arrow_right_outlined)
+                    IconsManager.rightArrow
                   ],
                 )),
           ),
@@ -242,18 +247,24 @@ List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: sectionId == 0 ? viewModel.sellItems.length : sectionId == 1 ? viewModel.donateItems.length : viewModel.exchangeItems.length,
-        itemBuilder: (context, index) => _buildItem(sectionId == 0
-            ? viewModel.sellItems[index]
+        itemCount: sectionId == 0
+            ? viewModel.sellItems.length
             : sectionId == 1
-                ? viewModel.donateItems[index]
-                : viewModel.exchangeItems[index]),
+                ? viewModel.donateItems.length
+                : viewModel.exchangeItems.length,
+        itemBuilder: (context, index) => _buildItem(
+            sectionId == 0
+                ? viewModel.sellItems[index]
+                : sectionId == 1
+                    ? viewModel.donateItems[index]
+                    : viewModel.exchangeItems[index],
+            sectionId),
       ),
     ),
   ];
 }
 
-Widget _buildItem(Items item) {
+Widget _buildItem(Items item, int sectionId) {
   return Card(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -275,10 +286,19 @@ Widget _buildItem(Items item) {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(getPrice(item.price)),
-        ),
+        if (sectionId == 0)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Text(getPrice(item.price)),
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Icon(
+              Icons.attach_money,
+              color: ColorManager.lightPrimary,
+            ),
+          )
       ],
     ),
   );
