@@ -5,6 +5,7 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
@@ -105,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                             hintText: AppStrings.email,
                             labelText: AppStrings.email,
                             prefixIcon: Icon(
-                              Icons.email_outlined,
+                              IconsManager.email,
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: (snapshot.data ??
@@ -144,7 +145,7 @@ class _LoginViewState extends State<LoginView> {
                               },
                             ),
                             prefixIcon: Icon(
-                              Icons.lock_outline_sharp,
+                              IconsManager.lock,
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: (snapshot.data ??

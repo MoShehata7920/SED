@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
@@ -110,7 +111,7 @@ class _RegisterViewState extends State<RegisterView> {
                             hintText: AppStrings.username,
                             labelText: AppStrings.username,
                             prefixIcon: Icon(
-                              Icons.spatial_audio_off_sharp,
+                              IconsManager.useName,
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: snapshot
@@ -135,8 +136,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     country.code ?? Constants.token),
                             searchDecoration: InputDecoration(
                                 hintText: AppStrings.countrySearchBar,
-                                prefixIconColor: ColorManager.lightPrimary
-                              ),
+                                prefixIconColor: ColorManager.lightPrimary),
                             initialSelection: 'EG',
                             favorite: const ['EG'],
                             hideMainText: true,
@@ -157,7 +157,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     hintText: AppStrings.mobileNumber,
                                     labelText: AppStrings.mobileNumber,
                                     prefixIcon: Icon(
-                                      Icons.phone_outlined,
+                                      IconsManager.phone,
                                       color: ColorManager.lightPrimary,
                                     ),
                                     errorText: snapshot
@@ -184,7 +184,7 @@ class _RegisterViewState extends State<RegisterView> {
                             hintText: AppStrings.email,
                             labelText: AppStrings.email,
                             prefixIcon: Icon(
-                              Icons.email_outlined,
+                              IconsManager.email,
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: snapshot
@@ -208,7 +208,7 @@ class _RegisterViewState extends State<RegisterView> {
                             labelText: AppStrings.password,
                             errorMaxLines: 3,
                             prefixIcon: Icon(
-                              Icons.lock_outline_sharp,
+                              IconsManager.lock,
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: snapshot

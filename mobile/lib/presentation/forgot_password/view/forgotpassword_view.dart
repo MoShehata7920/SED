@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../resources/assets_manager.dart';
@@ -83,7 +84,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                             hintText: AppStrings.email,
                             labelText: AppStrings.email,
                             prefixIcon: Icon(
-                              Icons.email_outlined,
+                              IconsManager.email,
                               color: ColorManager.lightPrimary,
                             ),
                             errorText: (snapshot.data ??

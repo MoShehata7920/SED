@@ -5,6 +5,7 @@ import 'package:sed/app/functions.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 
 import '../../../domain/usecase/login_usecase.dart';
 import '../../common/freezed_data_classes.dart';
@@ -32,7 +33,7 @@ class LoginViewModel extends BaseViewModel
 
   var loginObject = LoginObject("", "");
 
-  IconData passwordSuffixIcon = Icons.visibility;
+  IconData passwordSuffixIcon = IconsManager.passwordVisible;
 
   bool obscureText = true;
 
@@ -132,9 +133,9 @@ class LoginViewModel extends BaseViewModel
     obscureText = !obscureText;
 
     if (obscureText) {
-      passwordSuffixIcon = Icons.visibility;
+      passwordSuffixIcon = IconsManager.passwordVisible;
     } else {
-      passwordSuffixIcon = Icons.visibility_off;
+      passwordSuffixIcon = IconsManager.passwordNotVisible;
     }
 
     inputPasswordVisible.add(null);

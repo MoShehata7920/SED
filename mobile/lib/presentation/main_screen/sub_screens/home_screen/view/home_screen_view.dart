@@ -55,6 +55,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
           return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 const SizedBox(height: AppSize.s20),
@@ -73,7 +74,6 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     return Builder(
                       builder: (BuildContext context) {
                         return Container(
-                          width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(
                               horizontal: AppPadding.p4),
                           decoration: BoxDecoration(
@@ -113,36 +113,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     );
                   }).toList(),
                 ),
+                _getIdentifyBar(AppStrings.categories),
                 const SizedBox(height: AppSize.s10),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppStrings.categories,
-                        style: getBoldStyle(
-                            color: ColorManager.lightPrimary,
-                            fontSize: AppSize.s14),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: AppPadding.p8),
-                        child: TextButton(
-                            onPressed: () {},
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  AppStrings.showAll,
-                                ),
-                                IconsManager.rightArrow
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -151,7 +123,6 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     physics: const NeverScrollableScrollPhysics(),
                     // crossAxisCount is the number of columns
                     crossAxisCount: AppValues.categoriesCrossAxisCount,
-
                     // This creates two columns with two items in each column
                     children: List.generate(
                         _viewModel.categories.length >
@@ -190,6 +161,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     }),
                   ),
                 ),
+
                 for (int i = 0; i < 3; i++) _getItems(0, _viewModel)[i],
 
                 for (int i = 0; i < 3; i++) _getItems(1, _viewModel)[i],
@@ -210,37 +182,11 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
   return [
     const SizedBox(height: AppSize.s16),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            sectionId == 0
-                ? AppStrings.sell
-                : sectionId == 1
-                    ? AppStrings.donate
-                    : AppStrings.exchange,
-            style: getBoldStyle(
-                color: ColorManager.lightPrimary, fontSize: AppSize.s14),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: AppPadding.p8),
-            child: TextButton(
-                onPressed: () {},
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      AppStrings.showAll,
-                    ),
-                    IconsManager.rightArrow
-                  ],
-                )),
-          ),
-        ],
-      ),
-    ),
+    _getIdentifyBar(sectionId == 0
+        ? AppStrings.sell
+        : sectionId == 1
+            ? AppStrings.donate
+            : AppStrings.exchange),
     Container(
       height: 200,
       child: ListView.builder(
@@ -258,48 +204,152 @@ List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
                 : sectionId == 1
                     ? viewModel.donateItems[index]
                     : viewModel.exchangeItems[index],
-            sectionId),
+            sectionId,
+            viewModel),
       ),
     ),
   ];
 }
 
-Widget _buildItem(Items item, int sectionId) {
-  return Card(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            width: 150,
-            height: 150,
-            child: Image.network(
-              item.image,
-              fit: BoxFit.fill,
+Widget _buildItem(
+    Items item, int sectionId, HomeScreenViewModel homeScreenViewModel) {
+  return Container(
+    width: 200,
+    child: Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s16)),
+      color: ColorManager.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+              width: 150,
+              height: 150,
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Image.network(
+                    item.image,
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                  ),
+                  Container(
+                    color: Colors.black.withOpacity(0.5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      getCategoryNameById(item.categoryId, homeScreenViewModel),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: ColorManager.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        Text(
-          item.description,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        if (sectionId == 0)
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(getPrice(item.price)),
-          )
-        else
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Icon(
-              Icons.attach_money,
-              color: ColorManager.lightPrimary,
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              item.description,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          if (sectionId == 0)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(getPrice(item.price)),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Icon(
+                Icons.attach_money,
+                color: ColorManager.lightPrimary,
+              ),
+            ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    IconsManager.location,
+                    size: AppSize.s12,
+                    color: ColorManager.grey2,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Gharbiya / Tanta',
+                      textAlign: TextAlign.start,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: AppSize.s12, color: ColorManager.grey2),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      '5 min ago',
+                      textAlign: TextAlign.end,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: AppSize.s12, color: ColorManager.grey2),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
-      ],
+        ],
+      ),
     ),
   );
+}
+
+Widget _getIdentifyBar(String category) => Container(
+      height: AppSize.s40,
+      color: ColorManager.fourthLightPrimary.withOpacity(0.5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: AppSize.s10),
+            child: Text(
+              category,
+              style: getBoldStyle(
+                  color: ColorManager.lightPrimary, fontSize: AppSize.s14),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: AppPadding.p8),
+            child: TextButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      AppStrings.showAll,
+                      style: TextStyle(color: ColorManager.lightPrimary),
+                    ),
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
+
+String getCategoryNameById(int id, HomeScreenViewModel homeScreenViewModel) {
+  String categoryName = AppStrings.empty;
+
+  homeScreenViewModel.categories.forEach((element) {
+    if (element.id == id) categoryName = element.name;
+  });
+  return categoryName;
 }

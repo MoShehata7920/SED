@@ -4,10 +4,10 @@ class ColorManager {
   static Color backGroundLightPrimary = const Color(0xffEEE9DA);
   static Color backGroundDarkPrimary = const Color(0xff1D2951);
 
-  static Color lightPrimary = const Color(0xff6096B4);
-  static Color secondLightPrimary = const Color(0xff93BFCF);
-  static Color thirdLightPrimary = const Color(0xffBDCDD6);
-  static Color fourthLightPrimary = const Color(0xffEEE9DA);
+  static Color lightPrimary = const Color(0xff18122B);
+  static Color secondLightPrimary = const Color(0xff393053);
+  static Color thirdLightPrimary = const Color(0xff443C68);
+  static Color fourthLightPrimary = const Color(0xff635985);
 
   static Color darkPrimary = const Color(0xffEAAA31);
 

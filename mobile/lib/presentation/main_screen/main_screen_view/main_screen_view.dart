@@ -5,6 +5,7 @@ import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_v
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sed/presentation/resources/values_manager.dart';
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -23,33 +24,65 @@ class _MainScreenViewState extends State<MainScreenView> {
         builder: (context, snapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: Container(
+              toolbarHeight: 50,
+              title: SizedBox(
                 width: double.infinity,
-                height: 40,
-                color: ColorManager.white,
-                child: Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      prefixIconColor: ColorManager.lightPrimary,
-                      hintText: AppStrings.searchForSomething,
-                      prefixIcon: IconsManager.search,
+                height: AppSize.s40,
+                child: Row(
+                  children: [
+                    const Icon(Icons.notifications),
+                    const SizedBox(
+                      width: AppSize.s14,
                     ),
-                  ),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: ColorManager.white,
+                          hintStyle: TextStyle(color: ColorManager.grey),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(AppSize.s8),
+                            borderSide: BorderSide.none,
+                          ),
+                          border: InputBorder.none,
+                          prefixIconColor: ColorManager.lightPrimary,
+                          hintText: AppStrings.searchForSomething,
+                          prefixIcon: const Icon(IconsManager.search),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: <Color>[
+                      ColorManager.secondLightPrimary,
+                      ColorManager.thirdLightPrimary
+                    ])),
+              ),
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: ColorManager.white,
             body: SafeArea(
               child: snapshot.data ?? _viewModel.mainScreenWidgets[0],
             ), //destination screen
             floatingActionButton: FloatingActionButton(
               backgroundColor: ColorManager.lightPrimary,
-              child: Icon(
-                Icons.add,
-                color: ColorManager.white,
+              child: Container(
+                width: AppSize.s60,
+                height: AppSize.s60,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(colors: [
+                      ColorManager.lightPrimary,
+                      ColorManager.thirdLightPrimary
+                    ])),
+                child: const Icon(
+                  Icons.add,
+                ),
               ),
               onPressed: () {},
               //params
@@ -57,9 +90,16 @@ class _MainScreenViewState extends State<MainScreenView> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: AnimatedBottomNavigationBar(
+              // borderColor: Colors.transparent,
               inactiveColor: ColorManager.white,
               activeColor: ColorManager.backGroundLightPrimary,
-              backgroundColor: ColorManager.lightPrimary,
+              backgroundGradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    ColorManager.secondLightPrimary,
+                    ColorManager.thirdLightPrimary
+                  ]),
               icons: IconsManager.iconsList,
               activeIndex: _viewModel.bottomNavIndex,
               gapLocation: GapLocation.center,
