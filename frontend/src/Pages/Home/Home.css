@@ -1,5 +1,10 @@
 .slider-style img {
-    height: 250px;
+    height: 320px;
+    width: 100%;
+
+}
+.slider-style2  {
+    height: auto;
     width: 100%;
 
 }
@@ -23,7 +28,6 @@
     color: rgb(255, 255, 255) ;
     z-index: 100;
     bottom: 0px;
-    left: 50px;
 }
 .advertisement{
     height: 300px;
@@ -31,4 +35,46 @@
 .fs-10{
     font-size: 50px;
     font-weight: bolder;
+}
+.slider-service-div{
+    height: 500px;
+    width: 250px;
+    text-align: center;
+}
+.slider-service-div:hover{
+    box-shadow: 5px black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    height: auto;
+    
+    
+}
+.slider-service-img{
+    margin: auto;
+    width: 170px;
+    height: 250px;
+    padding-top: 20px;
+}
+.slider-service-btn{
+    display: none;
+    position: relative;
+    z-index: 100;
+}
+.slider-service-detailes{
+    height: 50px ;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.slider-service-div:hover .slider-service-detailes{
+    height: auto;
+    overflow:visible;
+ 
+
+}
+.slider-service-div:hover .slider-service-btn{
+    display:inline;
 }

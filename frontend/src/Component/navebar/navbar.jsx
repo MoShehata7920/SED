@@ -69,18 +69,18 @@ function Navebar() {
                 </Link>
                 <ul class="dropdown-menu">
                   <li>
-                    <Link class="dropdown-item text-white" to={"a"}>
-                      Action
+                    <Link class="dropdown-item text-black" to={"a"}>
+                      SELL
                     </Link>
                   </li>
                   <li>
-                    <Link class="dropdown-item text-white" to={"a"}>
-                      Another action
+                    <Link class="dropdown-item text-black" to={"a"}>
+                      EXCHANGE
                     </Link>
                   </li>
                   <li>
-                    <Link class="dropdown-item text-white" to={"a"}>
-                      Something else here
+                    <Link class="dropdown-item text-black" to={"a"}>
+                      DONAT
                     </Link>
                   </li>
                 </ul>
