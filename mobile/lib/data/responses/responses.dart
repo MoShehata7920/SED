@@ -122,8 +122,11 @@ class ItemsResponse {
   @JsonKey(name: "CategoryId")
   int? categoryId;
 
+  @JsonKey(name: "Date")
+  String? date;
+
   ItemsResponse(
-      this.name, this.image, this.description, this.price, this.categoryId);
+      this.name, this.image, this.description, this.price, this.categoryId, this.date);
 
   // From Json
   factory ItemsResponse.fromJson(Map<String, dynamic> json) =>

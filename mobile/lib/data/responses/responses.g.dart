@@ -118,6 +118,7 @@ ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
       json['Descr'] as String?,
       json['Price'] as int?,
       json['CategoryId'] as int?,
+      json['Date'] as String?,
     );
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
@@ -127,4 +128,5 @@ Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
       'Descr': instance.description,
       'Price': instance.price,
       'CategoryId': instance.categoryId,
+      'Date': instance.date,
     };

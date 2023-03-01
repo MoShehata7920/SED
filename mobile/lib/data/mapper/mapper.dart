@@ -42,11 +42,13 @@ extension ItemsMapper on List<ItemsResponse?>? {
 
     this?.forEach((element) {
       temporary.add(Items(
-          element?.name ?? "",
-          element?.image ?? "",
-          element?.price ?? 0,
-          element?.description ?? "",
-          element?.categoryId ?? 0));
+        element?.name ?? "",
+        element?.image ?? "",
+        element?.price ?? 0,
+        element?.description ?? "",
+        element?.categoryId ?? 0,
+        element?.date ?? ""
+      ));
     });
 
     return temporary;

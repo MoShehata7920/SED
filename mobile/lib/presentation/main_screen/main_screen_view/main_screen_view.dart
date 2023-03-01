@@ -104,8 +104,6 @@ class _MainScreenViewState extends State<MainScreenView> {
               activeIndex: _viewModel.bottomNavIndex,
               gapLocation: GapLocation.center,
               notchSmoothness: NotchSmoothness.verySmoothEdge,
-              leftCornerRadius: 32,
-              rightCornerRadius: 32,
               onTap: (index) => _viewModel.onIndexChange(index),
 
               //other params

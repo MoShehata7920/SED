@@ -295,9 +295,9 @@ Widget _buildItem(
                   ),
                   Expanded(
                     child: Text(
-                      '5 min ago',
+                      item.date,
                       textAlign: TextAlign.end,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: AppSize.s12, color: ColorManager.grey2),
@@ -315,7 +315,7 @@ Widget _buildItem(
 
 Widget _getIdentifyBar(String category) => Container(
       height: AppSize.s40,
-      color: ColorManager.fourthLightPrimary.withOpacity(0.5),
+      color: ColorManager.lightPrimary.withOpacity(0.1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

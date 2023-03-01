@@ -59,9 +59,9 @@ class Items {
   String image;
   int price;
   String description;
-
+  String date;
   int categoryId;
 
-  Items(this.name, this.image, this.price, this.description, this.categoryId);
+  Items(this.name, this.image, this.price, this.description, this.categoryId, this.date);
 }
 
