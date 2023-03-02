@@ -114,6 +114,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   }).toList(),
                 ),
                 _getIdentifyBar(AppStrings.categories),
+
                 const SizedBox(height: AppSize.s10),
                 Padding(
                   padding:
@@ -162,9 +163,45 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   ),
                 ),
 
+                const SizedBox(height: AppSize.s10),
+
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Image(
+                    height: 150,
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    image: NetworkImage(
+                        'https://f.nooncdn.com/mpcms/EN0003/assets/514e3867-0b4c-4aa0-a78a-2d37102f1e59.gif'),
+                  ),
+                ),
+
                 for (int i = 0; i < 3; i++) _getItems(0, _viewModel)[i],
 
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Image(
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        'https://eg.jumia.is/cms/Ramadan-23/Banks/INST5.gif'),
+                  ),
+                ),
+
+
                 for (int i = 0; i < 3; i++) _getItems(1, _viewModel)[i],
+
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Image(
+                    height: 150,
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    image: NetworkImage(
+                        'https://eg.jumia.is/cms/Ramadan-23/General-UNs/Entertainment/xwfa.png'),
+                  ),
+                ),
 
                 for (int i = 0; i < 3; i++) _getItems(2, _viewModel)[i],
 
