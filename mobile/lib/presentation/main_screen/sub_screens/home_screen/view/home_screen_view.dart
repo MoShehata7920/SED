@@ -5,6 +5,7 @@ import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -127,10 +128,10 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     crossAxisCount: AppValues.categoriesCrossAxisCount,
                     // This creates two columns with two items in each column
                     children: List.generate(
-                        _viewModel.categories.length >
+                        Utils.categories.length >
                                 AppValues.defaultCategoriesNumber
                             ? AppValues.defaultCategoriesNumber
-                            : _viewModel.categories.length, (index) {
+                            : Utils.categories.length, (index) {
                       return Center(
                         child: Card(
                           child: Column(
@@ -141,7 +142,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   padding: const EdgeInsets.all(AppPadding.p14),
                                   child: Image(
                                     image: NetworkImage(
-                                        _viewModel.categories[index].image),
+                                        Utils.categories[index].image),
                                     fit: BoxFit.fill,
                                     width: double.infinity,
                                   ),
@@ -151,7 +152,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 padding: const EdgeInsets.only(
                                     bottom: AppPadding.p8),
                                 child: Text(
-                                  _viewModel.categories[index].name,
+                                  Utils.categories[index].name,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -349,7 +350,7 @@ Widget _buildItem(
         ),
       ),
       onTap: () {
-        Navigator.pushNamed(context, Routes.itemScreenRoute);
+        Navigator.pushNamed(context, Routes.itemScreenRoute, arguments: item.id);
       },
     ),
   );
@@ -390,7 +391,7 @@ Widget _getIdentifyBar(String category) => Container(
 String getCategoryNameById(int id, HomeScreenViewModel homeScreenViewModel) {
   String categoryName = AppStrings.empty;
 
-  homeScreenViewModel.categories.forEach((element) {
+  Utils.categories.forEach((element) {
     if (element.id == id) categoryName = element.name;
   });
   return categoryName;

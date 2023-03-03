@@ -2,20 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class ItemView extends StatefulWidget {
-  const ItemView({Key? key}) : super(key: key);
+  Object? itemId;
+
+  ItemView(this.itemId, {Key? key}) : super(key: key);
 
   @override
-  _ItemViewState createState() => _ItemViewState();
+  _ItemViewState createState() => _ItemViewState(itemId as int);
 }
 
 class _ItemViewState extends State<ItemView> {
   final ItemsScreenViewModel _viewModel = ItemsScreenViewModel();
+
+  int itemId;
+
+  _ItemViewState(this.itemId);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class _ItemViewState extends State<ItemView> {
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
               return snapshot.data?.getScreenWidget(
-                  context, _getContentWidget(), () => _viewModel.getItemData()) ??
+                  context, _getContentWidget(), () => _viewModel.getItemData(itemId)) ??
                   _getContentWidget();
           },
       ),
@@ -34,6 +41,8 @@ class _ItemViewState extends State<ItemView> {
 
   void _bind() {
     _viewModel.start();
+
+    _viewModel.getItemData(itemId);
   }
 
   @override
@@ -59,7 +68,7 @@ class _ItemViewState extends State<ItemView> {
               StretchMode.zoomBackground,
             ],
             background: Image.network(
-              _viewModel.item != null ? _viewModel.item!.item.image : "",
+              _viewModel.item.item.image,
               fit: BoxFit.cover,
             )),
         bottom: PreferredSize(
@@ -105,7 +114,7 @@ class _ItemViewState extends State<ItemView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              _viewModel.item != null ? _viewModel.item!.item.name : "",
+                              _viewModel.item.item.name,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 22,
@@ -118,7 +127,7 @@ class _ItemViewState extends State<ItemView> {
                             Container(
                               color: Colors.black.withOpacity(.2),
                               child: Text(
-                                _viewModel.item != null ? _viewModel.item!.item.name : "",
+                                Utils.getCategoryNameById(_viewModel.item.item.categoryId),
                                 style: TextStyle(
                                   color: ColorManager.thirdLightPrimary,
                                   fontSize: 14,
@@ -128,7 +137,7 @@ class _ItemViewState extends State<ItemView> {
                           ],
                         ),
                         Text(
-                          getPrice(_viewModel.item != null ? _viewModel.item!.item.price : 0),
+                          getPrice(_viewModel.item.item.price),
                           style: const TextStyle(
                               color: Colors.black, fontSize: AppSize.s16),
                         ),
@@ -138,7 +147,7 @@ class _ItemViewState extends State<ItemView> {
                       height: 20,
                     ),
                     Text(
-                      _viewModel.item != null ? _viewModel.item!.item.description : "",
+                      _viewModel.item.item.description,
                       style: TextStyle(
                         height: AppSize.s1_5,
                         color: Colors.grey.shade800,
@@ -158,7 +167,7 @@ class _ItemViewState extends State<ItemView> {
                         ),
                         Expanded(
                           child: Text(
-                            'Gharbiya / Tanta',
+                            _viewModel.item.userData.address,
                             textAlign: TextAlign.start,
                             maxLines: AppValues.maxAddressLines,
                             overflow: TextOverflow.ellipsis,
@@ -168,7 +177,7 @@ class _ItemViewState extends State<ItemView> {
                         ),
                         Expanded(
                           child: Text(
-                            _viewModel.item != null ? _viewModel.item!.item.date : "",
+                            _viewModel.item.item.date,
                             textAlign: TextAlign.end,
                             maxLines: AppValues.maxDateLines,
                             overflow: TextOverflow.ellipsis,
@@ -192,10 +201,10 @@ class _ItemViewState extends State<ItemView> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                           radius: AppSize.s28,
                           backgroundImage: NetworkImage(
-                              "https://th.bing.com/th/id/R.733a9c9b0f5252d2c21f33f5a60a9de7?rik=wiZ31M7KSXjoWA&pid=ImgRaw&r=0"),
+                              _viewModel.item.userData.image),
                         ),
                         const SizedBox(
                           width: AppSize.s14,
@@ -204,14 +213,14 @@ class _ItemViewState extends State<ItemView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(_viewModel.item != null ? _viewModel.item!.userData.name : ""),
+                              Text(_viewModel.item.userData.name),
                               const SizedBox(
                                 height: AppSize.s5,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(_viewModel.item != null ? _viewModel.item!.userData.phone : ""),
+                                  Text(_viewModel.item.userData.phone),
                                   TextButton(
                                     child: Text(
                                       AppStrings.showProfile,

@@ -6,12 +6,12 @@ import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 
 class HomeScreenViewModel extends BaseViewModel
     with HomeScreenViewModelInputs, HomeScreenViewModelOutputs {
   List<String?> carouselImages = [];
 
-  List<Category> categories = [];
 
   List<Items> sellItems = [];
   List<Items> donateItems = [];
@@ -61,7 +61,7 @@ class HomeScreenViewModel extends BaseViewModel
       // right -> success
       // navigate to main screen
       carouselImages = response.carousel.images;
-      categories = response.category;
+      Utils.categories = response.category;
       sellItems = response.sellItems;
       donateItems = response.donateItems;
       exchangeItems = response.exchangeItems;

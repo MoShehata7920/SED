@@ -119,10 +119,11 @@ ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
       json['Price'] as int?,
       json['CategoryId'] as int?,
       json['Date'] as String?,
-    );
+    )..id = json['ID'] as int?;
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
     <String, dynamic>{
+      'ID': instance.id,
       'Name': instance.name,
       'Image': instance.image,
       'Descr': instance.description,
@@ -152,14 +153,16 @@ Map<String, dynamic> _$ItemResponseToJson(ItemResponse instance) =>
 
 UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
     UserDataResponse(
-      json['username'] as String?,
+      json['name'] as String?,
       json['phonenumber'] as String?,
-      json['email'] as String?,
+      json['address'] as String?,
+      json['image'] as String?,
     );
 
 Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
     <String, dynamic>{
-      'username': instance.name,
+      'name': instance.name,
       'phonenumber': instance.phone,
-      'email': instance.email,
+      'address': instance.address,
+      'image': instance.image,
     };

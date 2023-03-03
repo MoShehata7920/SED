@@ -46,7 +46,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const MainScreenView());
 
       case Routes.itemScreenRoute:
-        return MaterialPageRoute(builder: (context) => const ItemView());
+        return MaterialPageRoute(builder: (context) => ItemView(settings.arguments));
 
       default:
         return unDefinedRoute();

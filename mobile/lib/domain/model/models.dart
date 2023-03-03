@@ -55,6 +55,7 @@ class Category {
 }
 
 class Items {
+  int id;
   String name;
   String image;
   int price;
@@ -62,7 +63,7 @@ class Items {
   String date;
   int categoryId;
 
-  Items(this.name, this.image, this.price, this.description, this.categoryId, this.date);
+  Items(this.id, this.name, this.image, this.price, this.description, this.categoryId, this.date);
 }
 
 class Item {
@@ -75,7 +76,8 @@ class Item {
 class UserData {
   String name;
   String phone;
-  String email;
+  String address;
+  String image;
 
-  UserData(this.name, this.phone, this.email);
+  UserData(this.name, this.phone, this.address, this.image);
 }
