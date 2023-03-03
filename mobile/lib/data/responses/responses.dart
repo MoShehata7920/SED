@@ -135,3 +135,44 @@ class ItemsResponse {
   // To Json
   Map<String, dynamic> toJson() => _$ItemsResponseToJson(this);
 }
+
+@JsonSerializable()
+class ItemResponse extends BaseResponse{
+  @JsonKey(name: "item")
+  ItemsResponse? item;
+
+  @JsonKey(name: "user")
+  UserDataResponse? user;
+
+  ItemResponse(
+      this.item, this.user);
+
+  // From Json
+  factory ItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$ItemResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$ItemResponseToJson(this);
+}
+
+@JsonSerializable()
+class UserDataResponse {
+  @JsonKey(name: "username")
+  String? name;
+
+  @JsonKey(name: "phonenumber")
+  String? phone;
+
+  @JsonKey(name: "email")
+  String? email;
+
+  UserDataResponse(
+      this.name, this.phone, this.email);
+
+  // From Json
+  factory UserDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserDataResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$UserDataResponseToJson(this);
+}

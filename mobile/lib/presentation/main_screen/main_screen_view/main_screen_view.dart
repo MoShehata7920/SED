@@ -1,7 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
-import 'package:sed/presentation/main_screen/items_screen/items_screen_view.dart';
+import 'package:sed/presentation/main_screen/items_screen/view/items_screen_view.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -86,17 +86,17 @@ class _MainScreenViewState extends State<MainScreenView> {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProductViewPage(
-                            product: Product(
-                                "Sehata",
-                                "Addidas",
-                                "https://th.bing.com/th/id/R.b0b2f36f24bac4b34f3d1be1eb243928?rik=8vbR1yNIfr%2bw%2bg&pid=ImgRaw&r=0",
-                                123),
-                          )),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => ProductViewPage(
+                //             product: Product(
+                //                 "Sehata",
+                //                 "Addidas",
+                //                 "https://th.bing.com/th/id/R.b0b2f36f24bac4b34f3d1be1eb243928?rik=8vbR1yNIfr%2bw%2bg&pid=ImgRaw&r=0",
+                //                 123),
+                //           )),
+                // );
               },
               //params
             ),

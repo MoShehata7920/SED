@@ -130,3 +130,36 @@ Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
       'CategoryId': instance.categoryId,
       'Date': instance.date,
     };
+
+ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) => ItemResponse(
+      json['item'] == null
+          ? null
+          : ItemsResponse.fromJson(json['item'] as Map<String, dynamic>),
+      json['user'] == null
+          ? null
+          : UserDataResponse.fromJson(json['user'] as Map<String, dynamic>),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$ItemResponseToJson(ItemResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'item': instance.item,
+      'user': instance.user,
+    };
+
+UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
+    UserDataResponse(
+      json['username'] as String?,
+      json['phonenumber'] as String?,
+      json['email'] as String?,
+    );
+
+Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
+    <String, dynamic>{
+      'username': instance.name,
+      'phonenumber': instance.phone,
+      'email': instance.email,
+    };

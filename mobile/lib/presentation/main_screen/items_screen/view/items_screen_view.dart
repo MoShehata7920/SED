@@ -1,53 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:sed/app/functions.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
-class Product {
-  final String name;
-  final String brand;
-  final String imageURL;
-  final int price;
-
-  Product(this.name, this.brand, this.imageURL, this.price);
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return new Product(
-        json["name"], json["brand"], json["imageURL"], json["price"]);
-  }
-}
-
-class ProductViewPage extends StatefulWidget {
-  final Product product;
-  const ProductViewPage({Key? key, required this.product}) : super(key: key);
+class ItemView extends StatefulWidget {
+  const ItemView({Key? key}) : super(key: key);
 
   @override
-  _ProductViewPageState createState() => _ProductViewPageState();
+  _ItemViewState createState() => _ItemViewState();
 }
 
-class _ProductViewPageState extends State<ProductViewPage> {
-  List<dynamic> productList = [];
-  List<String> size = [
-    "S",
-    "M",
-    "L",
-    "XL",
-  ];
-
-  List<Color> colors = [
-    Colors.black,
-    Colors.purple,
-    Colors.orange.shade200,
-    Colors.blueGrey,
-    Color(0xFFFFC1D9),
-  ];
-
-  int _selectedColor = 0;
-  int _selectedSize = 1;
+class _ItemViewState extends State<ItemView> {
+  final ItemsScreenViewModel _viewModel = ItemsScreenViewModel();
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) => _viewModel.item != null ? _getContentWidget() : Container());
+  }
+
+  void _bind() {
+    _viewModel.start();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
+    });
+  }
+
+  Widget _getContentWidget() {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: CustomScrollView(slivers: [
@@ -63,7 +53,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                 StretchMode.zoomBackground,
               ],
               background: Image.network(
-                widget.product.imageURL,
+                _viewModel.item!.item.image,
                 fit: BoxFit.cover,
               )),
           bottom: PreferredSize(
@@ -109,20 +99,20 @@ class _ProductViewPageState extends State<ProductViewPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.product.name,
-                            style: TextStyle(
+                            _viewModel.item!.item.name,
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
                             color: Colors.black.withOpacity(.2),
                             child: Text(
-                              widget.product.brand,
+                              _viewModel.item!.item.name,
                               style: TextStyle(
                                 color: ColorManager.thirdLightPrimary,
                                 fontSize: 14,
@@ -132,7 +122,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                         ],
                       ),
                       Text(
-                        "\$ " + widget.product.price.toString() + '.00',
+                        getPrice(_viewModel.item!.item.price),
                         style: const TextStyle(
                             color: Colors.black, fontSize: AppSize.s16),
                       ),
@@ -142,7 +132,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     height: 20,
                   ),
                   Text(
-                    "Take a break from jeans with the parker long straight pant. These lightweight, pleat front pants feature a flattering high waist and loose, straight legs.",
+                    _viewModel.item!.item.description,
                     style: TextStyle(
                       height: AppSize.s1_5,
                       color: Colors.grey.shade800,
@@ -172,7 +162,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                       ),
                       Expanded(
                         child: Text(
-                          "item.date,",
+                          _viewModel.item!.item.date,
                           textAlign: TextAlign.end,
                           maxLines: AppValues.maxDateLines,
                           overflow: TextOverflow.ellipsis,
@@ -208,14 +198,14 @@ class _ProductViewPageState extends State<ProductViewPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Mahmoud Hafez"),
+                            Text(_viewModel.item!.userData.name),
                             const SizedBox(
                               height: AppSize.s5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("+201060945735"),
+                                Text(_viewModel.item!.userData.phone),
                                 TextButton(
                                   child: Text(
                                     AppStrings.showProfile,
@@ -260,5 +250,12 @@ class _ProductViewPageState extends State<ProductViewPage> {
         ])),
       ]),
     );
+  }
+
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
   }
 }

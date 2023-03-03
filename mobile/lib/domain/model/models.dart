@@ -65,3 +65,17 @@ class Items {
   Items(this.name, this.image, this.price, this.description, this.categoryId, this.date);
 }
 
+class Item {
+  Items item;
+  UserData userData;
+
+  Item(this.item, this.userData);
+}
+
+class UserData {
+  String name;
+  String phone;
+  String email;
+
+  UserData(this.name, this.phone, this.email);
+}

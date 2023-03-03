@@ -7,6 +7,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
@@ -241,110 +242,115 @@ List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
                     ? viewModel.donateItems[index]
                     : viewModel.exchangeItems[index],
             sectionId,
-            viewModel),
+            viewModel,context),
       ),
     ),
   ];
 }
 
 Widget _buildItem(
-    Items item, int sectionId, HomeScreenViewModel homeScreenViewModel) {
+    Items item, int sectionId, HomeScreenViewModel homeScreenViewModel,BuildContext context) {
   return Container(
     width: 200,
-    child: Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s16)),
-      color: ColorManager.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Container(
-              width: 150,
-              height: 150,
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Image.network(
-                    item.image,
-                    fit: BoxFit.contain,
-                    width: double.infinity,
-                  ),
-                  Container(
-                    color: Colors.black.withOpacity(0.5),
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      getCategoryNameById(item.categoryId, homeScreenViewModel),
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: ColorManager.white,
+    child: InkWell(
+      child: Card(
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.s16)),
+        color: ColorManager.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                width: 150,
+                height: 150,
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Image.network(
+                      item.image,
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                    ),
+                    Container(
+                      color: Colors.black.withOpacity(0.5),
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text(
+                        getCategoryNameById(item.categoryId, homeScreenViewModel),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: ColorManager.white,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              item.description,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          if (sectionId == 0)
             Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(getPrice(item.price)),
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                item.description,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            if (sectionId == 0)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(getPrice(item.price)),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Icon(
+                  Icons.attach_money,
+                  color: ColorManager.lightPrimary,
+                ),
+              ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      IconsManager.location,
+                      size: AppSize.s12,
+                      color: ColorManager.grey2,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Gharbiya / Tanta',
+                        textAlign: TextAlign.start,
+                        maxLines: AppValues.maxAddressLines,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        item.date,
+                        textAlign: TextAlign.end,
+                        maxLines: AppValues.maxDateLines,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
-          else
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Icon(
-                Icons.attach_money,
-                color: ColorManager.lightPrimary,
-              ),
-            ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(
-                    IconsManager.location,
-                    size: AppSize.s12,
-                    color: ColorManager.grey2,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Gharbiya / Tanta',
-                      textAlign: TextAlign.start,
-                      maxLines: AppValues.maxAddressLines,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: AppSize.s12, color: ColorManager.grey2),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      item.date,
-                      textAlign: TextAlign.end,
-                      maxLines: AppValues.maxDateLines,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: AppSize.s12, color: ColorManager.grey2),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
+          ],
+        ),
       ),
+      onTap: () {
+        Navigator.pushNamed(context, Routes.itemScreenRoute);
+      },
     ),
   );
 }
