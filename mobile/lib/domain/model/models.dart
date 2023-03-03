@@ -36,8 +36,16 @@ class Home {
   List<Items> sellItems;
   List<Items> donateItems;
   List<Items> exchangeItems;
+  List<Section> sections;
 
-  Home(this.carousel, this.category, this.sellItems, this.donateItems, this.exchangeItems);
+  Home(this.carousel, this.category, this.sellItems, this.donateItems, this.exchangeItems, this.sections);
+}
+class Section {
+  int id;
+  String name;
+  String image;
+
+  Section(this.id, this.name, this.image);
 }
 
 class Carousel {

@@ -58,6 +58,9 @@ class HomeResponse extends BaseResponse {
   @JsonKey(name: "exchangeItems")
   List<ItemsResponse?>? exchangeItems;
 
+  @JsonKey(name: "sections")
+  List<SectionResponse?>? sections;
+
   HomeResponse(this.carousel, this.categories, this.sellItems, this.donateItems,
       this.exchangeItems);
 
@@ -67,6 +70,26 @@ class HomeResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$HomeResponseToJson(this);
+}
+@JsonSerializable()
+class SectionResponse {
+  @JsonKey(name: "ID")
+  int? id;
+
+  @JsonKey(name: "Image")
+  String? image;
+
+  @JsonKey(name: "Name")
+  String? name;
+
+  SectionResponse(this.id, this.image, this.name);
+
+  // From Json
+  factory SectionResponse.fromJson(Map<String, dynamic> json) =>
+      _$SectionResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$SectionResponseToJson(this);
 }
 
 @JsonSerializable()

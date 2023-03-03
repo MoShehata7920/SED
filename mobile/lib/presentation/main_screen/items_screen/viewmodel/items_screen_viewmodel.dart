@@ -29,11 +29,11 @@ class ItemsScreenViewModel extends BaseViewModel
     response.fold(
         (failure) => {
               // left -> failure
+              inputState.add(ErrorState(
+                  StateRendererType.fullScreenLoadingState, failure.message))
             }, (response) {
       // right -> success
-      // navigate to main screen
 
-      // exchangeItems = response.exchangeItems;
       item = response;
       inputState.add(ContentState());
     });
