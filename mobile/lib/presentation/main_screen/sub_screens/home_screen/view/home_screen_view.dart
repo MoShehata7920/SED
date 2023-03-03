@@ -189,7 +189,6 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   ),
                 ),
 
-
                 for (int i = 0; i < 3; i++) _getItems(1, _viewModel)[i],
 
                 const Padding(
@@ -324,7 +323,7 @@ Widget _buildItem(
                     child: Text(
                       'Gharbiya / Tanta',
                       textAlign: TextAlign.start,
-                      maxLines: 2,
+                      maxLines: AppValues.maxAddressLines,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: AppSize.s12, color: ColorManager.grey2),
@@ -334,7 +333,7 @@ Widget _buildItem(
                     child: Text(
                       item.date,
                       textAlign: TextAlign.end,
-                      maxLines: 2,
+                      maxLines: AppValues.maxDateLines,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: AppSize.s12, color: ColorManager.grey2),

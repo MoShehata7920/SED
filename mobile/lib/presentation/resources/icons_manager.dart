@@ -22,4 +22,6 @@ class IconsManager {
 
   static const add = Icons.add;
   static const location = Icons.location_on;
+
+  static const chat = Icons.chat;
 }

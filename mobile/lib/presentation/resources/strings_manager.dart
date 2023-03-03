@@ -57,4 +57,8 @@ class AppStrings {
   static const String showAll = "Show All";
 
   static const String searchForSomething = "Search for something";
+
+  static const String user = "User";
+  static const String chat = "Chat";
+  static const String showProfile = "Show Profile";
 }
