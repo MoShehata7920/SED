@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/main_screen/items_screen/items_screen_view.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -23,6 +24,7 @@ class _MainScreenViewState extends State<MainScreenView> {
         stream: _viewModel.mainViewOutput,
         builder: (context, snapshot) {
           return Scaffold(
+            extendBody: true,
             appBar: AppBar(
               toolbarHeight: 50,
               title: SizedBox(
@@ -66,9 +68,8 @@ class _MainScreenViewState extends State<MainScreenView> {
               ),
             ),
             backgroundColor: ColorManager.white,
-            body: SafeArea(
-              child: snapshot.data ?? _viewModel.mainScreenWidgets[0],
-            ), //destination screen
+            body: snapshot.data ??
+                _viewModel.mainScreenWidgets[0], //destination screen
             floatingActionButton: FloatingActionButton(
               backgroundColor: ColorManager.lightPrimary,
               child: Container(
@@ -84,7 +85,19 @@ class _MainScreenViewState extends State<MainScreenView> {
                   Icons.add,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductViewPage(
+                            product: Product(
+                                "Sehata",
+                                "Addidas",
+                                "https://th.bing.com/th/id/R.b0b2f36f24bac4b34f3d1be1eb243928?rik=8vbR1yNIfr%2bw%2bg&pid=ImgRaw&r=0",
+                                123),
+                          )),
+                );
+              },
               //params
             ),
             floatingActionButtonLocation:
