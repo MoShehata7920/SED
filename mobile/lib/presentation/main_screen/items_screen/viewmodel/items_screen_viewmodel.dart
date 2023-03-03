@@ -13,7 +13,7 @@ class ItemsScreenViewModel extends BaseViewModel
 
   @override
   void start() {
-    getHomeData();
+    getItemData();
   }
 
   @override
@@ -21,7 +21,7 @@ class ItemsScreenViewModel extends BaseViewModel
     super.dispose();
   }
 
-  void getHomeData() async {
+  void getItemData() async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
