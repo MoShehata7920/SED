@@ -11,11 +11,10 @@ import 'package:sed/presentation/main_screen/utils/utils.dart';
 class HomeScreenViewModel extends BaseViewModel
     with HomeScreenViewModelInputs, HomeScreenViewModelOutputs {
   List<String?> carouselImages = [];
-
-
   List<Items> sellItems = [];
   List<Items> donateItems = [];
   List<Items> exchangeItems = [];
+  List<Section> sections = [];
 
   final HomeUseCase _homeUseCase = instance<HomeUseCase>();
 
@@ -65,6 +64,7 @@ class HomeScreenViewModel extends BaseViewModel
       sellItems = response.sellItems;
       donateItems = response.donateItems;
       exchangeItems = response.exchangeItems;
+      sections = response.sections;
 
       inputState.add(ContentState());
     });

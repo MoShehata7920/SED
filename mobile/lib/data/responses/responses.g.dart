@@ -74,7 +74,12 @@ HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
           .toList(),
     )
       ..status = json['status'] as int?
-      ..message = json['message'] as String?;
+      ..message = json['message'] as String?
+      ..sections = (json['sections'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : SectionResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
     <String, dynamic>{
@@ -85,6 +90,21 @@ Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
       'sellItems': instance.sellItems,
       'donateItems': instance.donateItems,
       'exchangeItems': instance.exchangeItems,
+      'sections': instance.sections,
+    };
+
+SectionResponse _$SectionResponseFromJson(Map<String, dynamic> json) =>
+    SectionResponse(
+      json['ID'] as int?,
+      json['Image'] as String?,
+      json['Name'] as String?,
+    );
+
+Map<String, dynamic> _$SectionResponseToJson(SectionResponse instance) =>
+    <String, dynamic>{
+      'ID': instance.id,
+      'Image': instance.image,
+      'Name': instance.name,
     };
 
 CarouselResponse _$CarouselResponseFromJson(Map<String, dynamic> json) =>
