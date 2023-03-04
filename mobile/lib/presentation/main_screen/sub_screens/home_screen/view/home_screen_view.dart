@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +118,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     );
                   }).toList(),
                 ),
-                _getIdentifyBar(AppStrings.categories, context),
+                _getIdentifyBar(AppStrings.categories, context, 0),
 
                 const SizedBox(height: AppSize.s10),
                 Padding(
@@ -233,7 +232,7 @@ List<Widget> _getItems(
             : sectionId == 1
                 ? AppStrings.donate
                 : AppStrings.exchange,
-        context),
+        context,sectionId + 1),
     Container(
       height: 200,
       child: ListView.builder(
@@ -368,7 +367,7 @@ Widget _buildItem(Items item, int sectionId,
   );
 }
 
-Widget _getIdentifyBar(String category, BuildContext context) => Container(
+Widget _getIdentifyBar(String category, BuildContext context, int type) => Container(
       height: AppSize.s40,
       color: ColorManager.lightPrimary.withOpacity(0.1),
       child: Row(
@@ -386,8 +385,18 @@ Widget _getIdentifyBar(String category, BuildContext context) => Container(
             padding: const EdgeInsets.only(top: AppPadding.p8),
             child: TextButton(
                 onPressed: () {
+                  Views viewType = Views.CATEGORY;
+
+                  if(type == 1) {
+                    viewType = Views.SELL;
+                  }else if(type == 2) {
+                    viewType = Views.DONATE;
+                  }else if(type == 3) {
+                    viewType = Views.EXCHANGE;
+                  }
+
                   Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                      arguments: Views.CATEGORY);
+                      arguments: viewType);
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

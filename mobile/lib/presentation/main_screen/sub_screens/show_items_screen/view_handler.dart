@@ -30,6 +30,21 @@ extension ViewExtension on Views {
   Widget getCard() {
     return ViewCard.card;
   }
+
+  int getViewId() {
+    switch(this) {
+      case Views.SELL:
+        return 0;
+      case Views.DONATE:
+        return 1;
+      case Views.EXCHANGE:
+        return 2;
+      case Views.CATEGORY:
+        return 3;
+      case Views.SAVED:
+        return 4;
+    }
+  }
 }
 
 class ViewsName {

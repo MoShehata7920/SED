@@ -1,5 +1,9 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
+import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 
@@ -25,7 +29,54 @@ class _ShowItemsViewState extends State<ShowItemsView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      extendBody: true,
+      appBar: AppBar(
+        toolbarHeight: 50,
+        title: SizedBox(
+          width: double.infinity,
+          height: AppSize.s40,
+          child: Row(
+            children: [
+              const Icon(Icons.notifications),
+              const SizedBox(
+                width: AppSize.s14,
+              ),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: ColorManager.white,
+                    hintStyle: TextStyle(color: ColorManager.grey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s8),
+                      borderSide: BorderSide.none,
+                    ),
+                    border: InputBorder.none,
+                    prefixIconColor: ColorManager.lightPrimary,
+                    hintText: AppStrings.searchForSomething,
+                    prefixIcon: const Icon(IconsManager.search),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    ColorManager.secondLightPrimary,
+                    ColorManager.thirdLightPrimary
+                  ])),
+        ),
+      ),
+      backgroundColor: ColorManager.white,
+      body: _getContentWidget(),
+           //destination screen
+    );
   }
 
   @override
@@ -71,10 +122,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
     return Padding(
       padding: const EdgeInsets.only(bottom: AppPadding.p4, left: 2, right: 2),
       child: Center(
-          child: InkWell(
-        child: viewType.getCard(),
-        onTap: () {},
-      )),
+          child: viewType.getCard()),
     );
   }
 }
