@@ -207,7 +207,7 @@ class UserDataResponse {
 
 @JsonSerializable()
 class ShowItemsResponse extends BaseResponse {
-  @JsonKey(name: "ShowItems")
+  @JsonKey(name: "items")
   List<ItemsResponse?>? showItems;
 
   ShowItemsResponse(this.showItems);

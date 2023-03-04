@@ -1,6 +1,8 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:sed/domain/model/models.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/viewmodel/show_items_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -27,56 +29,12 @@ class _ShowItemsViewState extends State<ShowItemsView> {
     keepScrollOffset: true,
   );
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      appBar: AppBar(
-        toolbarHeight: 50,
-        title: SizedBox(
-          width: double.infinity,
-          height: AppSize.s40,
-          child: Row(
-            children: [
-              const Icon(Icons.notifications),
-              const SizedBox(
-                width: AppSize.s14,
-              ),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: ColorManager.white,
-                    hintStyle: TextStyle(color: ColorManager.grey),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppSize.s8),
-                      borderSide: BorderSide.none,
-                    ),
-                    border: InputBorder.none,
-                    prefixIconColor: ColorManager.lightPrimary,
-                    hintText: AppStrings.searchForSomething,
-                    prefixIcon: const Icon(IconsManager.search),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                    ColorManager.secondLightPrimary,
-                    ColorManager.thirdLightPrimary
-                  ])),
-        ),
-      ),
-      backgroundColor: ColorManager.white,
-      body: _getContentWidget(),
-           //destination screen
-    );
+  final ShowItemsViewModel _viewModel = ShowItemsViewModel();
+
+  void _bind() {
+    _viewModel.start();
+
+    _viewModel.getItems(viewType);
   }
 
   @override
@@ -89,6 +47,26 @@ class _ShowItemsViewState extends State<ShowItemsView> {
     });
 
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBody: true,
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(
+              context, _getContentWidget(), () => _viewModel.getItems(viewType)) ??
+              _getContentWidget();
+        }
+      ),
+    );
   }
 
   Widget _getContentWidget() {
@@ -107,22 +85,23 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         const SizedBox(
           height: 20,
         ),
+
         GridView.count(
           shrinkWrap: true,
           crossAxisCount: 2,
           physics: const ScrollPhysics(),
           children:
-              List.generate(12, (index) => _getItemWidget(index, viewType)),
+              List.generate(_viewModel.items.length, (index) => _getItemWidget(index, viewType, context)),
         )
       ]),
     );
   }
 
-  Widget _getItemWidget(int index, Views viewType) {
+  Widget _getItemWidget(int index, Views viewType, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: AppPadding.p4, left: 2, right: 2),
       child: Center(
-          child: viewType.getCard()),
+          child: viewType.getCard(_viewModel.items[index], context)),
     );
   }
 }

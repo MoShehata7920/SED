@@ -13,11 +13,13 @@ import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/domain/usecase/item_usecase.dart';
 import 'package:sed/domain/usecase/login_usecase.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
+import 'package:sed/domain/usecase/show_items_usecase.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/viewmodel/show_items_screen_viewmodel.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -68,10 +70,16 @@ Future<void> initAppModule() async {
 
   instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
 
-  instance
-      .registerLazySingleton<ItemsScreenViewModel>(() => ItemsScreenViewModel());
+  instance.registerLazySingleton<ItemsScreenViewModel>(
+      () => ItemsScreenViewModel());
 
   instance.registerFactory<ItemUseCase>(() => ItemUseCase(instance()));
+
+  instance
+      .registerLazySingleton<ShowItemsViewModel>(() => ShowItemsViewModel());
+
+  instance
+      .registerFactory<ShowItemsUseCase>(() => ShowItemsUseCase(instance()));
 }
 
 initLoginModule() async {

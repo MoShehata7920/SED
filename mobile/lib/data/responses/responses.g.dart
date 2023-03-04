@@ -189,7 +189,7 @@ Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
 
 ShowItemsResponse _$ShowItemsResponseFromJson(Map<String, dynamic> json) =>
     ShowItemsResponse(
-      (json['ShowItems'] as List<dynamic>?)
+      (json['items'] as List<dynamic>?)
           ?.map((e) => e == null
               ? null
               : ItemsResponse.fromJson(e as Map<String, dynamic>))
@@ -202,5 +202,5 @@ Map<String, dynamic> _$ShowItemsResponseToJson(ShowItemsResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'ShowItems': instance.showItems,
+      'items': instance.showItems,
     };
