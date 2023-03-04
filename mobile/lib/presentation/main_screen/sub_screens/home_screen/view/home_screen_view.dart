@@ -174,7 +174,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     height: 150,
                     fit: BoxFit.fill,
                     width: double.infinity,
-                    image: NetworkImage(_viewModel.sections[0].image),
+                    //todo default image
+                    image: NetworkImage(_viewModel.sections.isNotEmpty ? _viewModel.sections[0].image : ""),
                   ),
                 ),
 
@@ -188,7 +189,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     width: double.infinity,
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                      _viewModel.sections[1].image,
+                      //todo default image
+                    _viewModel.sections.isNotEmpty ? _viewModel.sections[1].image : "",
                     ),
                   ),
                 ),
@@ -203,7 +205,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     fit: BoxFit.fill,
                     width: double.infinity,
                     image: NetworkImage(
-                      _viewModel.sections[2].image,
+                      //todo default image
+                    _viewModel.sections.isNotEmpty ? _viewModel.sections[2].image : "",
                     ),
                   ),
                 ),
