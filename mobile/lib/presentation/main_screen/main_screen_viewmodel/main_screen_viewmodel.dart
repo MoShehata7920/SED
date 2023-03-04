@@ -5,6 +5,8 @@ import 'package:sed/presentation/main_screen/sub_screens/chat_screen/chat_screen
 import 'package:sed/presentation/main_screen/sub_screens/favorite_screen/Favorite_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/view/settings_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
 
 class MainScreenViewModel extends BaseViewModel
     with MainScreenViewModelInputs, MainScreenViewModelOutputs {
@@ -16,7 +18,7 @@ class MainScreenViewModel extends BaseViewModel
   final List<Widget> mainScreenWidgets = [
     const HomeScreenView(),
     const ChatScreenView(),
-    const FavoriteScreenView(),
+    ShowItemsView(Views.SAVED),
     const SettingsScreenView(),
   ];
 

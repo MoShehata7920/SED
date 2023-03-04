@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
@@ -5,6 +7,8 @@ import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -115,7 +119,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     );
                   }).toList(),
                 ),
-                _getIdentifyBar(AppStrings.categories),
+                _getIdentifyBar(AppStrings.categories, context),
 
                 const SizedBox(height: AppSize.s10),
                 Padding(
@@ -165,20 +169,18 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   ),
                 ),
 
-                const SizedBox(height: AppSize.s10),
-
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image(
                     height: 150,
                     fit: BoxFit.fill,
                     width: double.infinity,
-                    image: NetworkImage(
-                        _viewModel.sections[0].image),
+                    image: NetworkImage(_viewModel.sections[0].image),
                   ),
                 ),
 
-                for (int i = 0; i < 3; i++) _getItems(0, _viewModel)[i],
+                for (int i = 0; i < 3; i++)
+                  _getItems(0, _viewModel, context)[i],
 
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -187,11 +189,13 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     width: double.infinity,
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                      _viewModel.sections[1].image,),
+                      _viewModel.sections[1].image,
+                    ),
                   ),
                 ),
 
-                for (int i = 0; i < 3; i++) _getItems(1, _viewModel)[i],
+                for (int i = 0; i < 3; i++)
+                  _getItems(1, _viewModel, context)[i],
 
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -205,7 +209,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   ),
                 ),
 
-                for (int i = 0; i < 3; i++) _getItems(2, _viewModel)[i],
+                for (int i = 0; i < 3; i++)
+                  _getItems(2, _viewModel, context)[i],
 
                 const SizedBox(
                   height: 100,
@@ -218,14 +223,17 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   }
 }
 
-List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
+List<Widget> _getItems(
+    int sectionId, HomeScreenViewModel viewModel, BuildContext context) {
   return [
     const SizedBox(height: AppSize.s16),
-    _getIdentifyBar(sectionId == 0
-        ? AppStrings.sell
-        : sectionId == 1
-            ? AppStrings.donate
-            : AppStrings.exchange),
+    _getIdentifyBar(
+        sectionId == 0
+            ? AppStrings.sell
+            : sectionId == 1
+                ? AppStrings.donate
+                : AppStrings.exchange,
+        context),
     Container(
       height: 200,
       child: ListView.builder(
@@ -244,14 +252,15 @@ List<Widget> _getItems(int sectionId, HomeScreenViewModel viewModel) {
                     ? viewModel.donateItems[index]
                     : viewModel.exchangeItems[index],
             sectionId,
-            viewModel,context),
+            viewModel,
+            context),
       ),
     ),
   ];
 }
 
-Widget _buildItem(
-    Items item, int sectionId, HomeScreenViewModel homeScreenViewModel,BuildContext context) {
+Widget _buildItem(Items item, int sectionId,
+    HomeScreenViewModel homeScreenViewModel, BuildContext context) {
   return Container(
     width: 200,
     child: InkWell(
@@ -280,7 +289,8 @@ Widget _buildItem(
                       color: Colors.black.withOpacity(0.5),
                       padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       child: Text(
-                        getCategoryNameById(item.categoryId, homeScreenViewModel),
+                        getCategoryNameById(
+                            item.categoryId, homeScreenViewModel),
                         style: TextStyle(
                           fontSize: 10,
                           color: ColorManager.white,
@@ -294,7 +304,7 @@ Widget _buildItem(
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                item.description,
+                item.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -308,7 +318,7 @@ Widget _buildItem(
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Icon(
-                  Icons.attach_money,
+                  Icons.currency_exchange_outlined,
                   color: ColorManager.lightPrimary,
                 ),
               ),
@@ -351,13 +361,14 @@ Widget _buildItem(
         ),
       ),
       onTap: () {
-        Navigator.pushNamed(context, Routes.itemScreenRoute, arguments: item.id);
+        Navigator.pushNamed(context, Routes.itemScreenRoute,
+            arguments: item.id);
       },
     ),
   );
 }
 
-Widget _getIdentifyBar(String category) => Container(
+Widget _getIdentifyBar(String category, BuildContext context) => Container(
       height: AppSize.s40,
       color: ColorManager.lightPrimary.withOpacity(0.1),
       child: Row(
@@ -374,7 +385,10 @@ Widget _getIdentifyBar(String category) => Container(
           Padding(
             padding: const EdgeInsets.only(top: AppPadding.p8),
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                      arguments: Views.CATEGORY);
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

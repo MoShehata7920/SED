@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -18,6 +19,7 @@ class Routes {
   static const String registerRoute = "/register";
   static const String mainScreenRoute = "/main";
   static const String itemScreenRoute = "/item";
+  static const String showItemsScreenRoute = "/showItems";
 }
 
 class RouteGenerator {
@@ -46,7 +48,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const MainScreenView());
 
       case Routes.itemScreenRoute:
-        return MaterialPageRoute(builder: (context) => ItemView(settings.arguments));
+        return MaterialPageRoute(
+            builder: (context) => ItemView(settings.arguments));
+
+      case Routes.showItemsScreenRoute:
+        return MaterialPageRoute(
+            builder: (context) => ShowItemsView(settings.arguments));
 
       default:
         return unDefinedRoute();
