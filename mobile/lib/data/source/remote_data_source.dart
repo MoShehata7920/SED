@@ -2,6 +2,8 @@ import 'package:sed/data/network/app_api.dart';
 import 'package:sed/data/network/requests.dart';
 import 'package:sed/data/responses/responses.dart';
 
+import '../../domain/model/models.dart';
+
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
 
@@ -12,6 +14,8 @@ abstract class RemoteDataSource {
   Future<HomeResponse> getHomeData();
 
   Future<ItemResponse> getItemData(int itemId);
+
+  Future<ShowItemsResponse> getShowItemsData(ShowItemsRequest showItemsRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -42,12 +46,19 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<HomeResponse> getHomeData() async{
+  Future<HomeResponse> getHomeData() async {
     return await _appServiceClient.getHomeData();
   }
 
   @override
-  Future<ItemResponse> getItemData(int itemId) async{
+  Future<ItemResponse> getItemData(int itemId) async {
     return await _appServiceClient.getItemData(itemId);
+  }
+
+  @override
+  Future<ShowItemsResponse> getShowItemsData(
+      ShowItemsRequest showItemsRequest) async {
+    return await _appServiceClient.getShowItemsData(
+        showItemsRequest.type, showItemsRequest.offset);
   }
 }

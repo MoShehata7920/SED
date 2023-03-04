@@ -38,8 +38,10 @@ class Home {
   List<Items> exchangeItems;
   List<Section> sections;
 
-  Home(this.carousel, this.category, this.sellItems, this.donateItems, this.exchangeItems, this.sections);
+  Home(this.carousel, this.category, this.sellItems, this.donateItems,
+      this.exchangeItems, this.sections);
 }
+
 class Section {
   int id;
   String name;
@@ -71,7 +73,8 @@ class Items {
   String date;
   int categoryId;
 
-  Items(this.id, this.name, this.image, this.price, this.description, this.categoryId, this.date);
+  Items(this.id, this.name, this.image, this.price, this.description,
+      this.categoryId, this.date);
 }
 
 class Item {
@@ -88,4 +91,10 @@ class UserData {
   String image;
 
   UserData(this.name, this.phone, this.address, this.image);
+}
+
+class ShowItems {
+  List<Items> items;
+
+  ShowItems(this.items);
 }

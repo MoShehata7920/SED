@@ -21,3 +21,10 @@ class RegisterRequest {
   RegisterRequest(this.userName, this.countryMobileCode, this.mobileNumber,
       this.email, this.password);
 }
+
+class ShowItemsRequest {
+  int type;
+  int offset;
+
+  ShowItemsRequest(this.type, this.offset);
+}

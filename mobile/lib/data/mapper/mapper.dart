@@ -59,10 +59,8 @@ extension SectionMapper on List<SectionResponse?>? {
     List<Section> temporary = [];
 
     this?.forEach((element) {
-      temporary.add(Section(
-        element?.id ?? 0,
-        element?.name ?? "",
-        element?.image ?? ""));
+      temporary.add(
+          Section(element?.id ?? 0, element?.name ?? "", element?.image ?? ""));
     });
 
     return temporary;
@@ -72,26 +70,32 @@ extension SectionMapper on List<SectionResponse?>? {
 extension HomeResponseMapper on HomeResponse? {
   Home toDomain() {
     return Home(
-      this?.carousel?.toDomain() as Carousel,
-      this?.categories?.toDomain() as List<Category>,
-      this?.sellItems?.toDomain() as List<Items>,
-      this?.donateItems?.toDomain() as List<Items>,
-      this?.exchangeItems?.toDomain() as List<Items>,
-      this?.sections?.toDomain() as List<Section>
-    );
+        this?.carousel?.toDomain() as Carousel,
+        this?.categories?.toDomain() as List<Category>,
+        this?.sellItems?.toDomain() as List<Items>,
+        this?.donateItems?.toDomain() as List<Items>,
+        this?.exchangeItems?.toDomain() as List<Items>,
+        this?.sections?.toDomain() as List<Section>);
   }
 }
 
 extension ItemsResponseMapper on ItemsResponse? {
   Items toDomain() {
-    return Items(this?.id ?? 0, this?.name ?? "", this?.image ?? "", this?.price ?? 0,
-        this?.description ?? "", this?.categoryId ?? 0, this?.date ?? "");
+    return Items(
+        this?.id ?? 0,
+        this?.name ?? "",
+        this?.image ?? "",
+        this?.price ?? 0,
+        this?.description ?? "",
+        this?.categoryId ?? 0,
+        this?.date ?? "");
   }
 }
 
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
-    return UserData(this?.name ?? "", this?.phone ?? "", this?.address ?? "", this?.image ?? "");
+    return UserData(this?.name ?? "", this?.phone ?? "", this?.address ?? "",
+        this?.image ?? "");
   }
 }
 
@@ -99,5 +103,12 @@ extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
     return Item(this?.item.toDomain() ?? Items(0, "", "", 0, "", 0, ""),
         this?.user.toDomain() ?? UserData("", "", "", ""));
+  }
+}
+
+extension ShowItemsResponseMapper on ShowItemsResponse? {
+  ShowItems toDomain() {
+    return ShowItems(
+        this?.showItems?.toDomain() ?? <Items>[]);
   }
 }

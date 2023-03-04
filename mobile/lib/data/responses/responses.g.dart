@@ -186,3 +186,21 @@ Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
       'address': instance.address,
       'image': instance.image,
     };
+
+ShowItemsResponse _$ShowItemsResponseFromJson(Map<String, dynamic> json) =>
+    ShowItemsResponse(
+      (json['ShowItems'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : ItemsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$ShowItemsResponseToJson(ShowItemsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'ShowItems': instance.showItems,
+    };

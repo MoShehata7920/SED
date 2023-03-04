@@ -17,4 +17,6 @@ abstract class Repository {
 
   Future<Either<Failure, Item>> getItemData(int itemId);
 
+  Future<Either<Failure, ShowItems>> getShowItems(
+      ShowItemsRequest showItemsRequest);
 }
