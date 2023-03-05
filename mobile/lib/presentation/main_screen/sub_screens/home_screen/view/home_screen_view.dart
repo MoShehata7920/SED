@@ -134,32 +134,38 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             ? AppValues.defaultCategoriesNumber
                             : Utils.categories.length, (index) {
                       return Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(AppPadding.p14),
-                                  child: Image(
-                                    image: NetworkImage(
-                                        Utils.categories[index].image),
-                                    fit: BoxFit.fill,
-                                    width: double.infinity,
+                        child: InkWell(
+                          child: Card(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(AppPadding.p14),
+                                    child: Image(
+                                      image: NetworkImage(
+                                          Utils.categories[index].image),
+                                      fit: BoxFit.fill,
+                                      width: double.infinity,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: AppPadding.p8),
-                                child: Text(
-                                  Utils.categories[index].name,
-                                  maxLines: AppValues.maxItemNameLines,
-                                  overflow: TextOverflow.ellipsis,
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: AppPadding.p8),
+                                  child: Text(
+                                    Utils.categories[index].name,
+                                    maxLines: AppValues.maxItemNameLines,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                          onTap: (){
+                            Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                                arguments: [Views.CATEGORY, Utils.categories[index].id]);
+                          },
                         ),
                       );
                     }),
@@ -297,8 +303,8 @@ Widget _buildItem(Items item, int sectionId,
                       padding:
                           const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                       child: Text(
-                        getCategoryNameById(
-                            item.categoryId, homeScreenViewModel),
+                        Utils.getCategoryNameById(
+                            item.categoryId),
                         style: TextStyle(
                           fontSize: AppSize.s10,
                           color: ColorManager.white,
@@ -406,7 +412,7 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
                   }
 
                   Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                      arguments: viewType);
+                      arguments: [viewType, 0]);
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -422,11 +428,3 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
       ),
     );
 
-String getCategoryNameById(int id, HomeScreenViewModel homeScreenViewModel) {
-  String categoryName = AppStrings.empty;
-
-  for (var element in Utils.categories) {
-    if (element.id == id) categoryName = element.name;
-  }
-  return categoryName;
-}

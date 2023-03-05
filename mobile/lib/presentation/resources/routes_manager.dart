@@ -51,8 +51,9 @@ class RouteGenerator {
             builder: (context) => ItemView(settings.arguments));
 
       case Routes.showItemsScreenRoute:
+        List<dynamic> args = settings.arguments as List<dynamic>;
         return MaterialPageRoute(
-            builder: (context) => ShowItemsView(settings.arguments));
+            builder: (context) => ShowItemsView(args[0], categoryId: args[1],));
 
       default:
         return unDefinedRoute();

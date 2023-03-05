@@ -16,12 +16,13 @@ class ShowItemsViewModel extends BaseViewModel
   void start() {}
 
   @override
-  void getItems(Views viewType) async {
+  void getItems(Views viewType, int categoryId) async {
+
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _showItemsUseCase
-        .execute(ShowItemsUseCaseInputs(viewType.getViewId(), 0));
+        .execute(ShowItemsUseCaseInputs(viewType.getViewId() + (viewType == Views.CATEGORY ? 100 + categoryId : 0), 0));
 
     response.fold(
         (failure) => {
@@ -36,7 +37,7 @@ class ShowItemsViewModel extends BaseViewModel
 }
 
 abstract class ShowItemsViewModelInputs {
-  void getItems(Views viewType);
+  void getItems(Views viewType, int categoryId);
 }
 
 abstract class ShowItemsViewModelOutputs {}

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sed/domain/model/models.dart';
+import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -11,7 +12,7 @@ import '../../../resources/values_manager.dart';
 enum Views { SELL, DONATE, EXCHANGE, CATEGORY, SAVED }
 
 extension ViewExtension on Views {
-  String getName() {
+  String getName({int categoryId = 0}) {
     switch (this) {
       case Views.SELL:
         return ViewsName.sell;
@@ -23,7 +24,7 @@ extension ViewExtension on Views {
         return ViewsName.exchange;
 
       case Views.CATEGORY:
-        return ViewsName.category;
+        return Utils.getCategoryNameById(categoryId);
 
       case Views.SAVED:
         return ViewsName.saved;
@@ -54,7 +55,6 @@ class ViewsName {
   static const String sell = "Sell";
   static const String donate = "Donate";
   static const String exchange = "Exchange";
-  static String category = getCategoryName();
   static String saved = "Saved";
 }
 
@@ -159,6 +159,3 @@ class ViewCard {
   }
 }
 
-String getCategoryName() {
-  return "hello world";
-}

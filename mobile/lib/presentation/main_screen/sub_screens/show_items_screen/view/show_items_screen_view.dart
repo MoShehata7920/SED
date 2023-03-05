@@ -7,18 +7,20 @@ import 'package:sed/presentation/resources/values_manager.dart';
 
 // ignore: must_be_immutable
 class ShowItemsView extends StatefulWidget {
-  ShowItemsView(this.type, {super.key});
-  Object? type;
+  ShowItemsView(this.type,{this.categoryId = 0, super.key});
+  Views type;
+  int categoryId;
 
   @override
   // ignore: no_logic_in_create_state
-  State<ShowItemsView> createState() => _ShowItemsViewState(type as Views);
+  State<ShowItemsView> createState() => _ShowItemsViewState(type, categoryId);
 }
 
 class _ShowItemsViewState extends State<ShowItemsView> {
   Views viewType;
+  int categoryId;
 
-  _ShowItemsViewState(this.viewType);
+  _ShowItemsViewState(this.viewType, this.categoryId);
 
   final ScrollController _scrollController = ScrollController(
     initialScrollOffset: 0.0,
@@ -30,7 +32,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItems(viewType);
+    _viewModel.getItems(viewType, categoryId);
   }
 
   @override
@@ -55,7 +57,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
       appBar: AppBar(
         toolbarHeight: AppSize.s50,
         title: Text(
-          viewType.getName(),
+          viewType.getName(categoryId: categoryId),
           style: const TextStyle(
               fontSize: AppSize.s30, fontWeight: FontWeight.bold),
         ),
@@ -70,7 +72,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
             return snapshot.data?.getScreenWidget(context, _getContentWidget(),
-                    () => _viewModel.getItems(viewType)) ??
+                    () => _viewModel.getItems(viewType, categoryId)) ??
                 _getContentWidget();
           }),
     );
