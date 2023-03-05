@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
@@ -6,7 +5,6 @@ import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
-import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -156,7 +154,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     bottom: AppPadding.p8),
                                 child: Text(
                                   Utils.categories[index].name,
-                                  maxLines: 1,
+                                  maxLines: AppValues.maxItemNameLines,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -171,11 +169,13 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image(
-                    height: 150,
+                    height: AppSize.s150,
                     fit: BoxFit.fill,
                     width: double.infinity,
                     //todo default image
-                    image: NetworkImage(_viewModel.sections.isNotEmpty ? _viewModel.sections[0].image : ""),
+                    image: NetworkImage(_viewModel.sections.isNotEmpty
+                        ? _viewModel.sections[0].image
+                        : ""),
                   ),
                 ),
 
@@ -183,14 +183,16 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   _getItems(0, _viewModel, context)[i],
 
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(AppPadding.p10),
                   child: Image(
-                    height: 150,
+                    height: AppSize.s150,
                     width: double.infinity,
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                      //todo default image
-                    _viewModel.sections.isNotEmpty ? _viewModel.sections[1].image : "",
+                      //TODO default image
+                      _viewModel.sections.isNotEmpty
+                          ? _viewModel.sections[1].image
+                          : "",
                     ),
                   ),
                 ),
@@ -199,14 +201,16 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   _getItems(1, _viewModel, context)[i],
 
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(AppPadding.p10),
                   child: Image(
-                    height: 150,
+                    height: AppSize.s150,
                     fit: BoxFit.fill,
                     width: double.infinity,
                     image: NetworkImage(
-                      //todo default image
-                    _viewModel.sections.isNotEmpty ? _viewModel.sections[2].image : "",
+                      //TODO default image
+                      _viewModel.sections.isNotEmpty
+                          ? _viewModel.sections[2].image
+                          : "",
                     ),
                   ),
                 ),
@@ -215,7 +219,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   _getItems(2, _viewModel, context)[i],
 
                 const SizedBox(
-                  height: 100,
+                  height: AppSize.s100,
                 )
                 //preparing for the next widget maybe ?
               ],
@@ -235,9 +239,10 @@ List<Widget> _getItems(
             : sectionId == 1
                 ? AppStrings.donate
                 : AppStrings.exchange,
-        context,sectionId + 1),
-    Container(
-      height: 200,
+        context,
+        sectionId + 1),
+    SizedBox(
+      height: AppSize.s200,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
@@ -263,8 +268,8 @@ List<Widget> _getItems(
 
 Widget _buildItem(Items item, int sectionId,
     HomeScreenViewModel homeScreenViewModel, BuildContext context) {
-  return Container(
-    width: 200,
+  return SizedBox(
+    width: AppSize.s200,
     child: InkWell(
       child: Card(
         elevation: 1,
@@ -276,25 +281,26 @@ Widget _buildItem(Items item, int sectionId,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Container(
-                width: 150,
-                height: 150,
+              child: SizedBox(
+                width: AppSize.s200,
+                height: AppSize.s200,
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: [
                     Image.network(
                       item.image,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fill,
                       width: double.infinity,
                     ),
                     Container(
                       color: Colors.black.withOpacity(0.5),
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                       child: Text(
                         getCategoryNameById(
                             item.categoryId, homeScreenViewModel),
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: AppSize.s10,
                           color: ColorManager.white,
                         ),
                       ),
@@ -304,21 +310,21 @@ Widget _buildItem(Items item, int sectionId,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.only(top: AppPadding.p8),
               child: Text(
                 item.name,
-                maxLines: 1,
+                maxLines: AppValues.maxItemNameLines,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             if (sectionId == 0)
               Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: AppPadding.p10),
                 child: Text(getPrice(item.price)),
               )
             else
               Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: AppPadding.p10),
                 child: Icon(
                   Icons.currency_exchange_outlined,
                   color: ColorManager.lightPrimary,
@@ -326,7 +332,7 @@ Widget _buildItem(Items item, int sectionId,
               ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -370,7 +376,8 @@ Widget _buildItem(Items item, int sectionId,
   );
 }
 
-Widget _getIdentifyBar(String category, BuildContext context, int type) => Container(
+Widget _getIdentifyBar(String category, BuildContext context, int type) =>
+    Container(
       height: AppSize.s40,
       color: ColorManager.lightPrimary.withOpacity(0.1),
       child: Row(
@@ -390,11 +397,11 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) => Conta
                 onPressed: () {
                   Views viewType = Views.CATEGORY;
 
-                  if(type == 1) {
+                  if (type == 1) {
                     viewType = Views.SELL;
-                  }else if(type == 2) {
+                  } else if (type == 2) {
                     viewType = Views.DONATE;
-                  }else if(type == 3) {
+                  } else if (type == 3) {
                     viewType = Views.EXCHANGE;
                   }
 
@@ -418,8 +425,8 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) => Conta
 String getCategoryNameById(int id, HomeScreenViewModel homeScreenViewModel) {
   String categoryName = AppStrings.empty;
 
-  Utils.categories.forEach((element) {
+  for (var element in Utils.categories) {
     if (element.id == id) categoryName = element.name;
-  });
+  }
   return categoryName;
 }

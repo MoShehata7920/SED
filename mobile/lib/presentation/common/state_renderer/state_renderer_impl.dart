@@ -172,7 +172,6 @@ extension FlowStateExtension on FlowState {
               title: getTitle());
 
           return contentScreenWidget;
-
         }
 
       default:

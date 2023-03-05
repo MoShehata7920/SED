@@ -8,7 +8,6 @@ import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
-
 import '../../resources/assets_manager.dart';
 import '../../resources/routes_manager.dart';
 

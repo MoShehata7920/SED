@@ -2,8 +2,6 @@ import 'package:sed/data/network/app_api.dart';
 import 'package:sed/data/network/requests.dart';
 import 'package:sed/data/responses/responses.dart';
 
-import '../../domain/model/models.dart';
-
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
 

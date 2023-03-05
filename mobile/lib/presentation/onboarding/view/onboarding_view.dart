@@ -11,7 +11,6 @@ import 'package:sed/presentation/resources/constants_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
-
 import '../../../domain/model/models.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -57,7 +56,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           backgroundColor: ColorManager.backGroundLightPrimary,
           elevation: AppSize.s0,
           systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: ColorManager.white,
+              statusBarColor: ColorManager.lightPrimary,
               statusBarBrightness: Brightness.dark),
         ),
         body: PageView.builder(
@@ -99,7 +98,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   Widget _getBottomSheetWidget(SliderViewObject sliderViewObject) {
     return Container(
-      color: ColorManager.lightPrimary,
+      decoration: BoxDecoration(gradient: ColorManager.secondLightPrimaryMix),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

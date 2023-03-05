@@ -8,6 +8,20 @@ class ColorManager {
   static Color secondLightPrimary = const Color(0xff393053);
   static Color thirdLightPrimary = const Color(0xff443C68);
   static Color fourthLightPrimary = const Color(0xff635985);
+  static Color fifthLightPrimary = const Color(0xffE5D1FA);
+
+  static Gradient firstLightPrimaryMix = LinearGradient(colors: <Color>[
+    ColorManager.lightPrimary,
+    ColorManager.thirdLightPrimary
+  ]);
+  static Gradient secondLightPrimaryMix = LinearGradient(colors: <Color>[
+    ColorManager.secondLightPrimary,
+    ColorManager.thirdLightPrimary
+  ]);
+  static Gradient thirdLightPrimaryMix = LinearGradient(colors: <Color>[
+    ColorManager.fifthLightPrimary,
+    ColorManager.thirdLightPrimary
+  ]);
 
   static Color darkPrimary = const Color(0xffEAAA31);
 

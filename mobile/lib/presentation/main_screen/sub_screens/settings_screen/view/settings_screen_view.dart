@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/fonts_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class SettingsScreenView extends StatefulWidget {
@@ -17,7 +16,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
       children: [
         Column(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(
                   top: AppSize.s14, left: AppSize.s5, right: AppSize.s18),
               child: CircleAvatar(
@@ -26,7 +25,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                     "https://cdn.24.co.za/files/Cms/General/d/2559/0862e2e9206a488d996a3a37afcde0de.jpg"),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: AppSize.s12,
             ),
             Column(

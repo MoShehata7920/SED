@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/item_usecase.dart';
@@ -13,11 +12,6 @@ class ItemsScreenViewModel extends BaseViewModel
 
   @override
   void start() {}
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   void getItemData(int itemId) async {

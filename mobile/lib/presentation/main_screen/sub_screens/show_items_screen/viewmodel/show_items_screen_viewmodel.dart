@@ -10,23 +10,18 @@ class ShowItemsViewModel extends BaseViewModel
     with ShowItemsViewModelInputs, ShowItemsViewModelOutputs {
   final ShowItemsUseCase _showItemsUseCase = instance<ShowItemsUseCase>();
 
-  List<Items> items = <Items> [];
+  List<Items> items = <Items>[];
 
   @override
   void start() {}
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   void getItems(Views viewType) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var response =
-        await _showItemsUseCase.execute(ShowItemsUseCaseInputs(viewType.getViewId(), 0));
+    var response = await _showItemsUseCase
+        .execute(ShowItemsUseCaseInputs(viewType.getViewId(), 0));
 
     response.fold(
         (failure) => {

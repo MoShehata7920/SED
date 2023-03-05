@@ -9,7 +9,8 @@ abstract class BaseViewModel extends BaseViewModelInputs
   //for example if we have 100 view class and all of them have a function to add two numbers
   //instead of implementing it 100 times we can implement it 1 time at the base
 
-  final StreamController _inputStreamController = StreamController<FlowState>.broadcast();
+  final StreamController _inputStreamController =
+      StreamController<FlowState>.broadcast();
 
   @override
   void dispose() {
@@ -20,7 +21,8 @@ abstract class BaseViewModel extends BaseViewModelInputs
   Sink get inputState => _inputStreamController.sink;
 
   @override
-  Stream<FlowState> get outputState => _inputStreamController.stream.map((flowState) => flowState);
+  Stream<FlowState> get outputState =>
+      _inputStreamController.stream.map((flowState) => flowState);
 }
 
 abstract class BaseViewModelInputs {

@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:sed/data/network/requests.dart';
-
 import '../../data/network/failure.dart';
 import '../model/models.dart';
 import '../repository/repository.dart';

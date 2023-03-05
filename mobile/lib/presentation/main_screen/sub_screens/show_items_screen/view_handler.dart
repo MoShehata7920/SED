@@ -35,7 +35,7 @@ extension ViewExtension on Views {
   }
 
   int getViewId() {
-    switch(this) {
+    switch (this) {
       case Views.SELL:
         return 0;
       case Views.DONATE:
@@ -59,7 +59,6 @@ class ViewsName {
 }
 
 class ViewCard {
-
   static Widget getCard(Items item, BuildContext context) {
     return InkWell(
       child: Card(
@@ -72,9 +71,9 @@ class ViewCard {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Container(
-                width: 150,
-                height: 150,
+              child: SizedBox(
+                width: AppSize.s150,
+                height: AppSize.s150,
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: [
@@ -85,11 +84,12 @@ class ViewCard {
                     ),
                     Container(
                       color: Colors.black.withOpacity(0.5),
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                       child: Text(
                         Utils.getCategoryNameById(item.categoryId),
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: AppSize.s10,
                           color: ColorManager.white,
                         ),
                       ),
@@ -99,15 +99,15 @@ class ViewCard {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.only(top: AppPadding.p8),
               child: Text(
                 item.name,
-                maxLines: 1,
+                maxLines: AppValues.maxItemNameLines,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: AppPadding.p10),
               child: Icon(
                 Icons.attach_money,
                 color: ColorManager.lightPrimary,
@@ -115,7 +115,7 @@ class ViewCard {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -151,7 +151,7 @@ class ViewCard {
           ],
         ),
       ),
-      onTap: (){
+      onTap: () {
         Navigator.pushNamed(context, Routes.itemScreenRoute,
             arguments: item.id);
       },

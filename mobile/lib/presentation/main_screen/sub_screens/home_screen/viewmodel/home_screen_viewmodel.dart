@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';

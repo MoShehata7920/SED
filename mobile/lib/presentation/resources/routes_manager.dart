@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
-import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';

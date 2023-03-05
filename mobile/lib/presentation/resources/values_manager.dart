@@ -12,6 +12,7 @@ class AppPadding {
   static const double p0 = 0;
   static const double p2 = 2;
   static const double p4 = 4;
+  static const double p5 = 5;
   static const double p8 = 8.0;
   static const double p10 = 10.0;
   static const double p12 = 12.0;
@@ -48,6 +49,7 @@ class AppSize {
   static const double s52 = 52.0;
   static const double s60 = 60.0;
   static const double s100 = 100.0;
+  static const double s150 = 150.0;
   static const double s200 = 200.0;
 }
 
@@ -58,5 +60,7 @@ class AppValues {
   static const int defaultCategoriesNumber = 8;
 
   static const int maxDateLines = 2;
+  static const int maxItemNameLines = 1;
   static const int maxAddressLines = 2;
+  static const int showItemCrossAxisCounts = 2;
 }

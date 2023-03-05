@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/chat_screen_view.dart';
-import 'package:sed/presentation/main_screen/sub_screens/favorite_screen/Favorite_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/view/settings_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
