@@ -57,19 +57,23 @@ export default function Home() {
       },
     },
   };
-  let [SellItmData, setSellItmData] = useState([]);
-  let [ExchangeData, setExchangeData] = useState([]);
-  let [carouselData, setcarouselData] = useState([]);
-  let [donateItemsData, setdonateItemsData] = useState([]);
-  async function GetSellItmData() {
-    let { data } = await Axios.get("http://103.48.193.225:9000/main/home/");
-    setSellItmData(data.sellItems);
-    setExchangeData(data.exchangeItems);
-    setcarouselData(data.carousel.Images);
-    setdonateItemsData(data.donateItems);
+  let [DetaAll, setDetaAll] = useState([]);
+  let [Detasell, setDetasell] = useState([]);
+  let [Detadonat, setDetadonat] = useState([]);
+  let [Detaexchange, setDetaexchange] = useState([]);
+  async function GetDeta(mediatype, callback) {
+    let { data } = await Axios.get(
+      `http://103.48.193.225:9000/home/${mediatype}`
+    );
+    console.log(data.items);
+    callback(data.items);
   }
+
   useEffect(() => {
-    GetSellItmData();
+    GetDeta("", setDetaAll);
+    GetDeta("sell", setDetasell);
+    GetDeta("donate", setDetadonat);
+    GetDeta("exchange", setDetaexchange);
   }, []);
   return (
     <>
@@ -78,17 +82,73 @@ export default function Home() {
       </section>
       <section className="pt-5">
         <OwlCarousel className="slider-style " {...options}>
-          {carouselData.map((carousel, index) => (
-            <div key={index} className="item">
-              <img className="" src={carousel} alt="" />
-            </div>
-          ))}
+          <div className="item">
+            <img
+              className=""
+              src="https://thumbs.dreamstime.com/b/lake-clouds-sky-water-panoramic-panorama-banner-15611956.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://media.istockphoto.com/id/163196980/photo/sunset-panorama.jpg?s=612x612&w=0&k=20&c=kHv1TLoxBv5D2wZVnFUvyrU4KFbvJ9tEiXoG7h9y6ig="
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://images.pexels.com/photos/358482/pexels-photo-358482.jpeg?cs=srgb&dl=pexels-pixabay-358482.jpg&fm=jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/02/Photoshop.panorama.stitch.mishra.chicago.skyline-1024x290.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://www.kraftwerk.at/app/uploads/fly-images/962/reference-img-worlds-of-adventure-park-4-1920x9999.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://www.kraftwerk.at/app/uploads/fly-images/962/reference-img-worlds-of-adventure-park-4-1920x9999.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://www.kraftwerk.at/app/uploads/fly-images/962/reference-img-worlds-of-adventure-park-4-1920x9999.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://www.kraftwerk.at/app/uploads/fly-images/962/reference-img-worlds-of-adventure-park-4-1920x9999.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://www.kraftwerk.at/app/uploads/fly-images/962/reference-img-worlds-of-adventure-park-4-1920x9999.jpg"
+              alt=""
+            />
+          </div>
+          <div className="item">
+            <img
+              src="https://www.kraftwerk.at/app/uploads/fly-images/962/reference-img-worlds-of-adventure-park-4-1920x9999.jpg"
+              alt=""
+            />
+          </div>
         </OwlCarousel>
       </section>
       <section>
-        <div className="row gy-1">
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1 ">
-            <Link to={"a"} className="text-decoration-none">
+        <div className="row">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
+            <Link to={"a"} className="  text-decoration-none">
               <div className="catogiry-div  position-relative  ">
                 <div className=" position-absolute h-100 w-100">
                   <img
@@ -103,7 +163,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12">
             <Link to={"a"} className=" text-decoration-none">
               <div className="catogiry-div  position-relative ">
                 <div className=" position-absolute w-100 h-100">
@@ -119,7 +179,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1 ">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
             <Link to={"a"} className="  text-decoration-none">
               <div className="catogiry-div  position-relative   ">
                 <div className=" position-absolute w-100 h-100">
@@ -135,7 +195,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1 ">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
             <Link to={"a"} className="  text-decoration-none  ">
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
@@ -168,7 +228,7 @@ export default function Home() {
       </section>
       <section>
         <div className="row ">
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1 ">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
             <Link to={"a"} className="  text-decoration-none">
               <div className="catogiry-div  position-relative  ">
                 <div className=" position-absolute h-100 w-100">
@@ -184,7 +244,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12">
             <Link to={"a"} className=" text-decoration-none">
               <div className="catogiry-div  position-relative ">
                 <div className=" position-absolute w-100 h-100">
@@ -200,7 +260,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 p-1">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
             <Link to={"a"} className="  text-decoration-none">
               <div className="catogiry-div  position-relative   ">
                 <div className=" position-absolute w-100 h-100">
@@ -216,7 +276,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12  p-1">
+          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
             <Link to={"a"} className="  text-decoration-none  ">
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
@@ -242,47 +302,47 @@ export default function Home() {
               <p className="text-black fs-3 "> see all</p>
             </Link>
           </div>
-          {SellItmData.map((sell, index) => (
-            <div key={index}>
-              <Link to={"na"} className="text-decoration-none ">
-                <div className="item slider-style2 mb-1">
-                  <div className="slider-service-div  text-center  ">
-                    <div className="slider-service-img ">
-                      <img
-                        src={sell.Image}
-                        className="card-img-top w-100 h-100  "
-                        alt="..."
-                      />
-                    </div>
+          {Detasell.map((sell, index) => (
+            <Link
+              key={sell.id}
+              to={`/items/${sell.ID}`}
+              className="text-decoration-none "
+            >
+              <div className="item slider-style2 mb-1">
+                <div className="slider-service-div  text-center  ">
+                  <div className="slider-service-img ">
+                    <img
+                      src={sell.Image}
+                      className="card-img-top w-100 h-100  "
+                      alt="..."
+                    />
+                  </div>
 
-                    <div className="slider-service-title">
-                      <h5 className="card-title text-black mb-3 mt-3">
-                        {sell.Name}
-                      </h5>
-                    </div>
-                    <div className="slider-service-detailes ">
-                      <p className=" text-black  h-100 w-100 ">{sell.Descr}</p>
-                    </div>
-                    <div className="slider-service-price ">
-                      <p className=" text-black mb-3 h-100 w-100">
-                        {sell.Price}
-                      </p>
-                    </div>
+                  <div className="slider-service-title">
+                    <h5 className="card-title text-black mb-3 mt-3">
+                      {sell.Name}
+                    </h5>
+                  </div>
+                  <div className="slider-service-detailes ">
+                    <p className=" text-black  h-100 w-100 "></p>
+                  </div>
+                  <div className="slider-service-price ">
+                    <p className=" text-black mb-3 h-100 w-100">{sell.Price}</p>
+                  </div>
 
-                    <div className="slider-service-btn">
-                      <button className="btn btn-primary mt-2 mb-3">
-                        <Link
-                          to={"n"}
-                          className="text-decoration-none text-white"
-                        >
-                          ADD TO CARD
-                        </Link>
-                      </button>
-                    </div>
+                  <div className="slider-service-btn">
+                    <button className="btn btn-primary mt-2 mb-3">
+                      <Link
+                        to={"n"}
+                        className="text-decoration-none text-white"
+                      >
+                        ADD TO CARD
+                      </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </OwlCarousel>
       </section>
@@ -294,53 +354,56 @@ export default function Home() {
               <p className="text-black fs-3 "> see all</p>
             </Link>
           </div>
-          {ExchangeData.map((exchange, index) => (
-            <div key={index}>
-              <Link to={"na"} className="text-decoration-none ">
-                <div className="item slider-style2 mb-1">
-                  <div className="slider-service-div  text-center  ">
-                    <div className="slider-service-img ">
-                      <img
-                        src={exchange.Image}
-                        className="card-img-top w-100 h-100  "
-                        alt="..."
-                      />
-                    </div>
+          {Detaexchange.map((exchange, ind) => (
+            <Link
+              key={ind}
+              to={`/items/${exchange.ID}`}
+              className="text-decoration-none "
+            >
+              <div className="item slider-style2 mb-1">
+                <div className="slider-service-div  text-center  ">
+                  <div className="slider-service-img ">
+                    <img
+                      src={exchange.Image}
+                      className="card-img-top w-100 h-100  "
+                      alt="..."
+                    />
+                  </div>
 
-                    <div className="slider-service-title">
-                      <h5 className="card-title text-black mb-3 mt-3">
-                        {exchange.Name}
-                      </h5>
-                    </div>
-                    <div className="slider-service-detailes ">
-                      <p className=" text-black  h-100 w-100 ">
-                        {exchange.Descr}
-                      </p>
-                    </div>
-                    <div className="slider-service-price ">
-                      <p className=" text-black mb-3 h-100 w-100">
-                        {exchange.Price}
-                      </p>
-                    </div>
+                  <div className="slider-service-title">
+                    <h5 className="card-title text-black mb-3 mt-3">
+                      {exchange.Name}
+                    </h5>
+                  </div>
+                  <div className="slider-service-detailes ">
+                    <p className=" text-black  h-100 w-100 ">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content
+                    </p>
+                  </div>
+                  <div className="slider-service-price ">
+                    <p className=" text-black mb-3 h-100 w-100">
+                      {exchange.Price}
+                    </p>
+                  </div>
 
-                    <div className="slider-service-btn">
-                      <button className="btn btn-primary mt-2 mb-3">
-                        <Link
-                          to={"n"}
-                          className="text-decoration-none text-white"
-                        >
-                          ADD TO CARD
-                        </Link>
-                      </button>
-                    </div>
+                  <div className="slider-service-btn">
+                    <button className="btn btn-primary mt-2 mb-3">
+                      <Link
+                        to={"n"}
+                        className="text-decoration-none text-white"
+                      >
+                        ADD TO CARD
+                      </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </OwlCarousel>
       </section>
-      <section className="pt-5">
+      <section className="pt-5  ">
         <OwlCarousel className=" owl-theme  " {...options2}>
           <div className="item text-center">
             <h1 className=" fs-9 ">DONATE</h1>
@@ -348,49 +411,52 @@ export default function Home() {
               <p className="text-black fs-3 "> see all</p>
             </Link>
           </div>
-          {donateItemsData.map((donate, index) => (
-            <div key={index}>
-              <Link to={"na"} className="text-decoration-none ">
-                <div className="item slider-style2 mb-1">
-                  <div className="slider-service-div  text-center  ">
-                    <div className="slider-service-img ">
-                      <img
-                        src={donate.Image}
-                        className="card-img-top w-100 h-100  "
-                        alt="..."
-                      />
-                    </div>
+          {Detadonat.map((donate, ind) => (
+            <Link
+              key={ind}
+              to={`/items/${donate.ID}`}
+              className="text-decoration-none "
+            >
+              <div className="item slider-style2 mb-1">
+                <div className="slider-service-div  text-center  ">
+                  <div className="slider-service-img ">
+                    <img
+                      src={donate.Image}
+                      className="card-img-top w-100 h-100  "
+                      alt="..."
+                    />
+                  </div>
 
-                    <div className="slider-service-title">
-                      <h5 className="card-title text-black mb-3 mt-3">
-                        {donate.Name}
-                      </h5>
-                    </div>
-                    <div className="slider-service-detailes ">
-                      <p className=" text-black  h-100 w-100 ">
-                        {donate.Descr}
-                      </p>
-                    </div>
-                    <div className="slider-service-price ">
-                      <p className=" text-black mb-3 h-100 w-100">
-                        {donate.Price}
-                      </p>
-                    </div>
+                  <div className="slider-service-title">
+                    <h5 className="card-title text-black mb-3 mt-3">
+                      {donate.Name}
+                    </h5>
+                  </div>
+                  <div className="slider-service-detailes ">
+                    <p className=" text-black  h-100 w-100 ">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content
+                    </p>
+                  </div>
+                  <div className="slider-service-price ">
+                    <p className=" text-black mb-3 h-100 w-100">
+                      {donate.Price}
+                    </p>
+                  </div>
 
-                    <div className="slider-service-btn">
-                      <button className="btn btn-primary mt-2 mb-3">
-                        <Link
-                          to={"n"}
-                          className="text-decoration-none text-white"
-                        >
-                          ADD TO CARD
-                        </Link>
-                      </button>
-                    </div>
+                  <div className="slider-service-btn">
+                    <button className="btn btn-primary mt-2 mb-3">
+                      <Link
+                        to={"n"}
+                        className="text-decoration-none text-white"
+                      >
+                        ADD TO CARD
+                      </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </OwlCarousel>
       </section>
