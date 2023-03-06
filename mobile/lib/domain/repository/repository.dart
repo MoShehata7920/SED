@@ -19,4 +19,7 @@ abstract class Repository {
 
   Future<Either<Failure, ShowItems>> getShowItems(
       ShowItemsRequest showItemsRequest);
+
+  Future<Either<Failure, SavingProduct>> toggleSavingProduct(
+      SavingProductRequest savingProductRequest);
 }

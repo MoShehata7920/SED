@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
+import 'package:sed/domain/usecase/saving_products_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -20,7 +21,15 @@ class HomeScreenViewModel extends BaseViewModel
   final StreamController _carouselStreamController =
       StreamController<void>.broadcast();
 
+  final StreamController _savedStreamController =
+      StreamController<bool>.broadcast();
+
+  final SavingProductsUseCase _savingProductsUseCase =
+      instance<SavingProductsUseCase>();
+
   int carouselCurrentIndex = 0;
+
+  // Inputs
 
   @override
   void start() {
@@ -30,6 +39,7 @@ class HomeScreenViewModel extends BaseViewModel
   @override
   void dispose() {
     _carouselStreamController.close();
+    _savedStreamController.close();
     super.dispose();
   }
 
@@ -43,9 +53,19 @@ class HomeScreenViewModel extends BaseViewModel
   Sink get carouselInput => _carouselStreamController.sink;
 
   @override
+  Sink get savedInput => _savedStreamController.sink;
+
+  // Outputs
+
+  @override
   Stream<void> get carouselOutput =>
       _carouselStreamController.stream.map((index) => () {});
 
+  @override
+  Stream<bool> get savedOutput =>
+      _savedStreamController.stream.map((event) => event);
+
+  // private functions
   void getHomeData() async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
@@ -68,12 +88,37 @@ class HomeScreenViewModel extends BaseViewModel
       inputState.add(ContentState());
     });
   }
+
+  @override
+  void toggleSavingProduct(Items product) async {
+    product.isSaved = !product.isSaved;
+
+    savedInput.add(true);
+
+    var response = await _savingProductsUseCase
+        .execute(SavingProductUseCaseInputs(product.id));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+              product.isSaved = false,
+              savedInput.add(true)
+            }, (response) {
+      // right -> success
+    });
+  }
 }
 
 abstract class HomeScreenViewModelInputs {
   Sink get carouselInput;
+
+  Sink get savedInput;
+
+  void toggleSavingProduct(Items product);
 }
 
 abstract class HomeScreenViewModelOutputs {
   Stream<void> get carouselOutput;
+
+  Stream<bool> get savedOutput;
 }

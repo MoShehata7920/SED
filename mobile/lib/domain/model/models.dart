@@ -72,9 +72,10 @@ class Items {
   String description;
   String date;
   int categoryId;
+  bool isSaved;
 
   Items(this.id, this.name, this.image, this.price, this.description,
-      this.categoryId, this.date);
+      this.categoryId, this.date, this.isSaved);
 }
 
 class Item {
@@ -97,4 +98,10 @@ class ShowItems {
   List<Items> items;
 
   ShowItems(this.items);
+}
+
+class SavingProduct {
+  bool savingProductStatus;
+
+  SavingProduct(this.savingProductStatus);
 }

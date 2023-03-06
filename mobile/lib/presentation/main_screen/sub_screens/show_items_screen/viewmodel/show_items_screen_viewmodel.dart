@@ -17,12 +17,11 @@ class ShowItemsViewModel extends BaseViewModel
 
   @override
   void getItems(Views viewType, int categoryId) async {
-
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var response = await _showItemsUseCase
-        .execute(ShowItemsUseCaseInputs(viewType.getViewId() + (viewType == Views.CATEGORY ? 100 + categoryId : 0), 0));
+    var response = await _showItemsUseCase.execute(
+        ShowItemsUseCaseInputs(viewType.getName(categoryId: categoryId), 0));
 
     response.fold(
         (failure) => {

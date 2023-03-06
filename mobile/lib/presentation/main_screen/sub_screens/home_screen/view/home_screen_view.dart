@@ -304,6 +304,28 @@ Widget _buildItem(Items item, int sectionId,
                       fit: BoxFit.fill,
                       width: double.infinity,
                     ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                          onPressed: () {
+                            homeScreenViewModel.toggleSavingProduct(item);
+                          },
+                          icon: StreamBuilder<bool>(
+                              stream: homeScreenViewModel.savedOutput,
+                              builder: (context, snapshot) {
+                                return CircleAvatar(
+                                  radius: 14,
+                                  backgroundColor: item.isSaved
+                                      ? ColorManager.thirdLightPrimary
+                                      : ColorManager.grey2,
+                                  child: const Icon(
+                                    Icons.favorite_border,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                );
+                              })),
+                    ),
                     Container(
                       color: Colors.black.withOpacity(0.5),
                       padding:

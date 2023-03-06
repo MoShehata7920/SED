@@ -152,8 +152,11 @@ class ItemsResponse {
   @JsonKey(name: "Date")
   String? date;
 
+  @JsonKey(name: "Saved")
+  bool? isSaved;
+
   ItemsResponse(this.name, this.image, this.description, this.price,
-      this.categoryId, this.date);
+      this.categoryId, this.date, this.isSaved);
 
   // From Json
   factory ItemsResponse.fromJson(Map<String, dynamic> json) =>
@@ -218,4 +221,19 @@ class ShowItemsResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$ShowItemsResponseToJson(this);
+}
+
+@JsonSerializable()
+class SavingProductResponse extends BaseResponse {
+  @JsonKey(name: "savingProductStatus")
+  bool? savingProductStatus;
+
+  SavingProductResponse(this.savingProductStatus);
+
+  // From Json
+  factory SavingProductResponse.fromJson(Map<String, dynamic> json) =>
+      _$SavingProductResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$SavingProductResponseToJson(this);
 }

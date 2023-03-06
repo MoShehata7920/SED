@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -141,6 +139,7 @@ ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
       json['Price'] as int?,
       json['CategoryId'] as int?,
       json['Date'] as String?,
+      json['Saved'] as bool?,
     )..id = json['ID'] as int?;
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
@@ -152,6 +151,7 @@ Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
       'Price': instance.price,
       'CategoryId': instance.categoryId,
       'Date': instance.date,
+      'Saved': instance.isSaved,
     };
 
 ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) => ItemResponse(
@@ -205,4 +205,20 @@ Map<String, dynamic> _$ShowItemsResponseToJson(ShowItemsResponse instance) =>
       'status': instance.status,
       'message': instance.message,
       'items': instance.showItems,
+    };
+
+SavingProductResponse _$SavingProductResponseFromJson(
+        Map<String, dynamic> json) =>
+    SavingProductResponse(
+      json['savingProductStatus'] as bool?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$SavingProductResponseToJson(
+        SavingProductResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'savingProductStatus': instance.savingProductStatus,
     };

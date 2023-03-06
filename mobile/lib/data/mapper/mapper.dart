@@ -47,7 +47,8 @@ extension ItemsMapper on List<ItemsResponse?>? {
           element?.price ?? 0,
           element?.description ?? "",
           element?.categoryId ?? 0,
-          element?.date ?? ""));
+          element?.date ?? "",
+          element?.isSaved ?? false));
     });
 
     return temporary;
@@ -88,7 +89,8 @@ extension ItemsResponseMapper on ItemsResponse? {
         this?.price ?? 0,
         this?.description ?? "",
         this?.categoryId ?? 0,
-        this?.date ?? "");
+        this?.date ?? "",
+        this?.isSaved ?? false);
   }
 }
 
@@ -101,14 +103,19 @@ extension UserDataResponseMapper on UserDataResponse? {
 
 extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
-    return Item(this?.item.toDomain() ?? Items(0, "", "", 0, "", 0, ""),
+    return Item(this?.item.toDomain() ?? Items(0, "", "", 0, "", 0, "", false),
         this?.user.toDomain() ?? UserData("", "", "", ""));
   }
 }
 
 extension ShowItemsResponseMapper on ShowItemsResponse? {
   ShowItems toDomain() {
-    return ShowItems(
-        this?.showItems?.toDomain() ?? <Items>[]);
+    return ShowItems(this?.showItems?.toDomain() ?? <Items>[]);
+  }
+}
+
+extension SavingProductResponseMapper on SavingProductResponse? {
+  SavingProduct toDomain() {
+    return SavingProduct(this?.savingProductStatus ?? false);
   }
 }

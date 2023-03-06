@@ -20,7 +20,7 @@ class ShowItemsUseCase
 }
 
 class ShowItemsUseCaseInputs {
-  int type;
+  String type;
   int offset;
 
   ShowItemsUseCaseInputs(this.type, this.offset);

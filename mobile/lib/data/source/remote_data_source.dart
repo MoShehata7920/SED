@@ -14,6 +14,9 @@ abstract class RemoteDataSource {
   Future<ItemResponse> getItemData(int itemId);
 
   Future<ShowItemsResponse> getShowItemsData(ShowItemsRequest showItemsRequest);
+
+  Future<SavingProductResponse> toggleSavingProduct(
+      SavingProductRequest savingProductRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -58,5 +61,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       ShowItemsRequest showItemsRequest) async {
     return await _appServiceClient.getShowItemsData(
         showItemsRequest.type, showItemsRequest.offset);
+  }
+
+  @override
+  Future<SavingProductResponse> toggleSavingProduct(
+      SavingProductRequest savingProductRequest) async {
+    return await _appServiceClient
+        .toggleSavingProduct(savingProductRequest.productId);
   }
 }

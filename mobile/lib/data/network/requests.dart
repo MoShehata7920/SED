@@ -23,8 +23,14 @@ class RegisterRequest {
 }
 
 class ShowItemsRequest {
-  int type;
+  String type;
   int offset;
 
   ShowItemsRequest(this.type, this.offset);
+}
+
+class SavingProductRequest {
+  int productId;
+
+  SavingProductRequest(this.productId);
 }

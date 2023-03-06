@@ -31,7 +31,7 @@ abstract class AppServiceClient {
     @Field("password") String password,
   );
 
-  @GET("/main/home/")
+  @GET("/home/")
   Future<HomeResponse> getHomeData();
 
   @POST("/main/items/")
@@ -39,9 +39,14 @@ abstract class AppServiceClient {
     @Field("itemId") int itemId,
   );
 
-  @POST("/home/showItems")
+  @GET("/home/{type}/{pageId}")
   Future<ShowItemsResponse> getShowItemsData(
-    @Field("type") int type,
-    @Field("offset") int offset,
+    @Path("type") String? type,
+    @Path("pageId") int? offset,
+  );
+
+  @GET("/Products/{itemId}")
+  Future<SavingProductResponse> toggleSavingProduct(
+    @Path("itemId") int itemId,
   );
 }
