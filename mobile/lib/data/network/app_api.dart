@@ -34,9 +34,9 @@ abstract class AppServiceClient {
   @GET("/home/")
   Future<HomeResponse> getHomeData();
 
-  @POST("/main/items/")
+  @GET("/Items/{itemId}")
   Future<ItemResponse> getItemData(
-    @Field("itemId") int itemId,
+    @Path("itemId") int itemId,
   );
 
   @GET("/home/{type}/{pageId}")

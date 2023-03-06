@@ -1,12 +1,16 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import '../../../resources/icons_manager.dart';
 import '../../../resources/values_manager.dart';
+import 'viewmodel/show_items_screen_viewmodel.dart';
 
 enum Views { SELL, DONATE, EXCHANGE, CATEGORY, SAVED }
 
@@ -59,6 +63,10 @@ class ViewsName {
 
 class ViewCard {
   static Widget getCard(Items item, BuildContext context) {
+    final HomeScreenViewModel homeScreenViewModel = instance<HomeScreenViewModel>();
+
+    final ShowItemsViewModel showItemsViewModel = instance<ShowItemsViewModel>();
+
     return InkWell(
       child: Card(
         elevation: 1,
@@ -81,6 +89,28 @@ class ViewCard {
                       item.image,
                       fit: BoxFit.fill,
                       width: double.infinity,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                          onPressed: () {
+                            homeScreenViewModel.toggleSavingProduct(item);
+                          },
+                          icon: StreamBuilder<bool>(
+                              stream: homeScreenViewModel.savedOutput,
+                              builder: (context, snapshot) {
+                                return CircleAvatar(
+                                  radius: 14,
+                                  backgroundColor: item.isSaved
+                                      ? ColorManager.thirdLightPrimary
+                                      : ColorManager.grey2,
+                                  child: const Icon(
+                                    Icons.favorite_border,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                );
+                              })),
                     ),
                     Container(
                       color: Colors.black.withOpacity(0.5),

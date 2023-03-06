@@ -152,7 +152,7 @@ class ItemsResponse {
   @JsonKey(name: "Date")
   String? date;
 
-  @JsonKey(name: "Saved")
+  @JsonKey(name: "isSaved")
   bool? isSaved;
 
   ItemsResponse(this.name, this.image, this.description, this.price,

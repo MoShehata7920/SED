@@ -139,7 +139,7 @@ ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
       json['Price'] as int?,
       json['CategoryId'] as int?,
       json['Date'] as String?,
-      json['Saved'] as bool?,
+      json['isSaved'] as bool?,
     )..id = json['ID'] as int?;
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
@@ -151,7 +151,7 @@ Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
       'Price': instance.price,
       'CategoryId': instance.categoryId,
       'Date': instance.date,
-      'Saved': instance.isSaved,
+      'isSaved': instance.isSaved,
     };
 
 ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) => ItemResponse(
