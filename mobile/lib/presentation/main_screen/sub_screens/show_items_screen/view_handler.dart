@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:sed/domain/model/models.dart';
-import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -32,7 +31,7 @@ extension ViewExtension on Views {
   }
 
   Widget getCard(Items item, BuildContext context) {
-    return ViewCard.getCard(item, context);
+    return Container(height: 250, child: ViewCard.getCard(item, context));
   }
 
   int getViewId() {
@@ -70,16 +69,17 @@ class ViewCard {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
+            Flexible(
+              flex: 2,
               child: SizedBox(
-                width: AppSize.s150,
-                height: AppSize.s150,
+                width: AppSize.s200,
+                height: AppSize.s200,
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: [
                     Image.network(
                       item.image,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fill,
                       width: double.infinity,
                     ),
                     Container(
@@ -113,7 +113,8 @@ class ViewCard {
                 color: ColorManager.lightPrimary,
               ),
             ),
-            Expanded(
+            Flexible(
+              flex: 1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                 child: Row(
@@ -158,4 +159,3 @@ class ViewCard {
     );
   }
 }
-

@@ -7,7 +7,7 @@ import 'package:sed/presentation/resources/values_manager.dart';
 
 // ignore: must_be_immutable
 class ShowItemsView extends StatefulWidget {
-  ShowItemsView(this.type,{this.categoryId = 0, super.key});
+  ShowItemsView(this.type, {this.categoryId = 0, super.key});
   Views type;
   int categoryId;
 
@@ -45,14 +45,20 @@ class _ShowItemsViewState extends State<ShowItemsView> {
     });
 
     super.initState();
+  }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _bind();
-    });
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _viewModel.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      _bind();
+    });
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: AppSize.s50,
@@ -83,10 +89,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
       controller: _scrollController,
       child: Column(children: [
         const SizedBox(
-          height: AppSize.s10,
-        ),
-        const SizedBox(
-          height: AppSize.s20,
+          height: AppSize.s30,
         ),
         GridView.count(
           shrinkWrap: true,
@@ -100,10 +103,6 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   }
 
   Widget _getItemWidget(int index, Views viewType, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-          bottom: AppPadding.p4, left: AppPadding.p2, right: AppPadding.p2),
-      child: Center(child: viewType.getCard(_viewModel.items[index], context)),
-    );
+    return Container(child: viewType.getCard(_viewModel.items[index], context));
   }
 }

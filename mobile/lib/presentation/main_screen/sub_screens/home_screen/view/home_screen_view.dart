@@ -141,7 +141,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(AppPadding.p14),
+                                    padding:
+                                        const EdgeInsets.all(AppPadding.p14),
                                     child: Image(
                                       image: NetworkImage(
                                           Utils.categories[index].image),
@@ -162,9 +163,13 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                               ],
                             ),
                           ),
-                          onTap: (){
-                            Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                                arguments: [Views.CATEGORY, Utils.categories[index].id]);
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, Routes.showItemsScreenRoute,
+                                arguments: [
+                                  Views.CATEGORY,
+                                  Utils.categories[index].id
+                                ]);
                           },
                         ),
                       );
@@ -248,7 +253,7 @@ List<Widget> _getItems(
         context,
         sectionId + 1),
     SizedBox(
-      height: AppSize.s200,
+      height: AppSize.s270,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
@@ -286,7 +291,8 @@ Widget _buildItem(Items item, int sectionId,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
+            Flexible(
+              flex: 2,
               child: SizedBox(
                 width: AppSize.s200,
                 height: AppSize.s200,
@@ -303,8 +309,7 @@ Widget _buildItem(Items item, int sectionId,
                       padding:
                           const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                       child: Text(
-                        Utils.getCategoryNameById(
-                            item.categoryId),
+                        Utils.getCategoryNameById(item.categoryId),
                         style: TextStyle(
                           fontSize: AppSize.s10,
                           color: ColorManager.white,
@@ -327,16 +332,21 @@ Widget _buildItem(Items item, int sectionId,
               Padding(
                 padding: const EdgeInsets.only(top: AppPadding.p10),
                 child: Text(getPrice(item.price)),
-              )
-            else
-              Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p10),
-                child: Icon(
-                  Icons.currency_exchange_outlined,
-                  color: ColorManager.lightPrimary,
-                ),
               ),
-            Expanded(
+            // else
+            //   Padding(
+            //     padding: const EdgeInsets.only(top: AppPadding.p10),
+            //     child: Icon(
+            //       Icons.currency_exchange_outlined,
+            //       color: ColorManager.lightPrimary,
+            //     ),
+            //   ),
+
+            SizedBox(
+              height: 10,
+            ),
+            Flexible(
+              flex: 1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                 child: Row(
@@ -427,4 +437,3 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
         ],
       ),
     );
-
