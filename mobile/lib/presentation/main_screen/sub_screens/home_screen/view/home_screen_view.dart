@@ -472,14 +472,20 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
 
                   if (type == 1) {
                     viewType = Views.SELL;
+                    Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                        arguments: [viewType, 0]);
                   } else if (type == 2) {
                     viewType = Views.DONATE;
+                    Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                        arguments: [viewType, 0]);
                   } else if (type == 3) {
                     viewType = Views.EXCHANGE;
+                    Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                        arguments: [viewType, 0]);
+                  } else {
+                    Navigator.pushNamed(context, Routes.categoriesScreenRoute);
                   }
-
-                  Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                      arguments: [viewType, 0]);
+                  
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
