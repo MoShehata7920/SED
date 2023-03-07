@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
+import 'package:sed/presentation/resources/values_manager.dart';
 
 class CategoriesScreenView extends StatefulWidget {
   const CategoriesScreenView({super.key});
@@ -12,17 +16,29 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.lightGrey,
-      appBar: AppBar(),
+      backgroundColor: ColorManager.white,
+      appBar: AppBar(
+        toolbarHeight: AppSize.s50,
+        title: const Text(
+          "Categories",
+          style: TextStyle(
+              fontSize: AppSize.s30, fontWeight: FontWeight.bold),
+        ),
+        flexibleSpace: Container(
+          decoration:
+          BoxDecoration(gradient: ColorManager.secondLightPrimaryMix),
+        ),
+      ),
+      extendBody: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
             GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: 1/1.2,
-                physics: NeverScrollableScrollPhysics(),
+                childAspectRatio: 1/0.9,
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                children: List.generate(5, (index) => _getItemWidget(index))),
+                children: List.generate(Utils.categories.length, (index) => _getItemWidget(index))),
           ],
         ),
       ),
@@ -30,49 +46,66 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
   }
 
   Widget _getItemWidget(index) {
-    return Card(
-      child: Column(children: [
-        Flexible(
-          flex: 2,
-          child: Image(
-            image: NetworkImage(
-                "https://www.i2clipart.com/cliparts/5/5/a/2/clipart-gown-512x512-55a2.png"),
+    return InkWell(
+      child: Card(
+        elevation: 1,
+        child: Column(children: [
+          Flexible(
+            flex: 2,
+            child: Image(
+              height: 100,
+              image: NetworkImage(
+                  Utils.categories[index].image),
+            ),
           ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Padding(
+          Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
+              height: 50,
               width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                color: Colors.lightBlue.withOpacity(0.1),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Fashion',
-                        style: TextStyle(
-                          color: ColorManager.thirdLightPrimary,
+                      Expanded(
+                        child: Text(
+                          Utils.categories[index].name,
+                          style: TextStyle(
+                            color: ColorManager.thirdLightPrimary,
+                          ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
-                      Text(
-                        '+5000 ads',
+                      Expanded(
+                        child: Text(
+                          '+5000 ads',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: ColorManager.grey2,
+                          ),
+                        ),
                       ),
                     ]),
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.lightBlue.withOpacity(0.1),
-              ),
-              height: 50,
             ),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
+      onTap: () {
+        Navigator.pushNamed(
+            context, Routes.showItemsScreenRoute,
+            arguments: [
+              Views.CATEGORY,
+              Utils.categories[index].id
+            ]);
+      },
     );
   }
 }
