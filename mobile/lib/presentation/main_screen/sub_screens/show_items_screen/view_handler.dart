@@ -63,9 +63,11 @@ class ViewsName {
 
 class ViewCard {
   static Widget getCard(Items item, BuildContext context) {
-    final HomeScreenViewModel homeScreenViewModel = instance<HomeScreenViewModel>();
+    final HomeScreenViewModel homeScreenViewModel =
+        instance<HomeScreenViewModel>();
 
-    final ShowItemsViewModel showItemsViewModel = instance<ShowItemsViewModel>();
+    final ShowItemsViewModel showItemsViewModel =
+        instance<ShowItemsViewModel>();
 
     return InkWell(
       child: Card(
