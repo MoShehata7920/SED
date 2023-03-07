@@ -101,186 +101,193 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     return StreamBuilder<void>(
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                const SizedBox(height: AppSize.s20),
-                CarouselSlider(
-                  carouselController: _controller,
-                  options: CarouselOptions(
-                      aspectRatio: AppValues.carouselAspectRatio,
-                      height: AppSize.s200,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(
-                          seconds: AppValues.carouselAutoPlayInterval),
-                      onPageChanged: (index, reason) {
-                        _viewModel.onPageChanged(index);
-                      }),
-                  items: _viewModel.carouselImages.map((image) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p4),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(image ?? AppStrings.empty),
-                                fit: BoxFit.cover),
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(AppSize.s16)),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      _viewModel.carouselImages.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Container(
-                        width: AppSize.s10,
-                        height: AppSize.s10,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: AppPadding.p8, horizontal: AppPadding.p4),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? ColorManager.white
-                                    : ColorManager.lightPrimary)
-                                .withOpacity(
-                                    _viewModel.carouselCurrentIndex == entry.key
-                                        ? AppSize.s0_9
-                                        : AppSize.s0_4)),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                _getIdentifyBar(AppStrings.categories, context, 0),
-
-                const SizedBox(height: AppSize.s10),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    // crossAxisCount is the number of columns
-                    crossAxisCount: AppValues.categoriesCrossAxisCount,
-                    // This creates two columns with two items in each column
-                    children: List.generate(
-                        Utils.categories.length >
-                                AppValues.defaultCategoriesNumber
-                            ? AppValues.defaultCategoriesNumber
-                            : Utils.categories.length, (index) {
-                      return Center(
-                        child: InkWell(
-                          child: Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.all(AppPadding.p14),
-                                    child: Image(
-                                      image: NetworkImage(
-                                          Utils.categories[index].image),
-                                      fit: BoxFit.fill,
-                                      width: double.infinity,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: AppPadding.p8),
-                                  child: Text(
-                                    Utils.categories[index].name,
-                                    maxLines: AppValues.maxItemNameLines,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+          return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  const SizedBox(height: AppSize.s20),
+                  CarouselSlider(
+                    carouselController: _controller,
+                    options: CarouselOptions(
+                        aspectRatio: AppValues.carouselAspectRatio,
+                        height: AppSize.s200,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(
+                            seconds: AppValues.carouselAutoPlayInterval),
+                        onPageChanged: (index, reason) {
+                          _viewModel.onPageChanged(index);
+                        }),
+                    items: _viewModel.carouselImages.map((image) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: AppPadding.p4),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(image ?? AppStrings.empty),
+                                  fit: BoxFit.cover),
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(AppSize.s16)),
                             ),
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, Routes.showItemsScreenRoute,
-                                arguments: [
-                                  Views.CATEGORY,
-                                  Utils.categories[index].id
-                                ]);
-                          },
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:
+                        _viewModel.carouselImages.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        onTap: () => _controller.animateToPage(entry.key),
+                        child: Container(
+                          width: AppSize.s10,
+                          height: AppSize.s10,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: AppPadding.p8, horizontal: AppPadding.p4),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? ColorManager.white
+                                      : ColorManager.lightPrimary)
+                                  .withOpacity(
+                                      _viewModel.carouselCurrentIndex == entry.key
+                                          ? AppSize.s0_9
+                                          : AppSize.s0_4)),
                         ),
                       );
-                    }),
+                    }).toList(),
                   ),
-                ),
+                  _getIdentifyBar(AppStrings.categories, context, 0),
 
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image(
-                    height: AppSize.s150,
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    //todo default image
-                    image: NetworkImage(_viewModel.sections.isNotEmpty
-                        ? _viewModel.sections[0].image
-                        : ""),
-                  ),
-                ),
-
-                for (int i = 0; i < 3; i++)
-                  _getItems(0, _viewModel, context)[i],
-
-                Padding(
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  child: Image(
-                    height: AppSize.s150,
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-                      //TODO default image
-                      _viewModel.sections.isNotEmpty
-                          ? _viewModel.sections[1].image
-                          : "",
+                  const SizedBox(height: AppSize.s10),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      // crossAxisCount is the number of columns
+                      crossAxisCount: AppValues.categoriesCrossAxisCount,
+                      // This creates two columns with two items in each column
+                      children: List.generate(
+                          Utils.categories.length >
+                                  AppValues.defaultCategoriesNumber
+                              ? AppValues.defaultCategoriesNumber
+                              : Utils.categories.length, (index) {
+                        return Center(
+                          child: InkWell(
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.all(AppPadding.p14),
+                                      child: Image(
+                                        image: NetworkImage(
+                                            Utils.categories[index].image),
+                                        fit: BoxFit.fill,
+                                        width: double.infinity,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: AppPadding.p8),
+                                    child: Text(
+                                      Utils.categories[index].name,
+                                      maxLines: AppValues.maxItemNameLines,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, Routes.showItemsScreenRoute,
+                                  arguments: [
+                                    Views.CATEGORY,
+                                    Utils.categories[index].id
+                                  ]);
+                            },
+                          ),
+                        );
+                      }),
                     ),
                   ),
-                ),
 
-                for (int i = 0; i < 3; i++)
-                  _getItems(1, _viewModel, context)[i],
-
-                Padding(
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  child: Image(
-                    height: AppSize.s150,
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    image: NetworkImage(
-                      //TODO default image
-                      _viewModel.sections.isNotEmpty
-                          ? _viewModel.sections[2].image
-                          : "",
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image(
+                      height: AppSize.s150,
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      //todo default image
+                      image: NetworkImage(_viewModel.sections.isNotEmpty
+                          ? _viewModel.sections[0].image
+                          : ""),
                     ),
                   ),
-                ),
 
-                for (int i = 0; i < 3; i++)
-                  _getItems(2, _viewModel, context)[i],
+                  for (int i = 0; i < 3; i++)
+                    _getItems(0, _viewModel, context)[i],
 
-                const SizedBox(
-                  height: AppSize.s100,
-                )
-                //preparing for the next widget maybe ?
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    child: Image(
+                      height: AppSize.s150,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        //TODO default image
+                        _viewModel.sections.isNotEmpty
+                            ? _viewModel.sections[1].image
+                            : "",
+                      ),
+                    ),
+                  ),
+
+                  for (int i = 0; i < 3; i++)
+                    _getItems(1, _viewModel, context)[i],
+
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    child: Image(
+                      height: AppSize.s150,
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      image: NetworkImage(
+                        //TODO default image
+                        _viewModel.sections.isNotEmpty
+                            ? _viewModel.sections[2].image
+                            : "",
+                      ),
+                    ),
+                  ),
+
+                  for (int i = 0; i < 3; i++)
+                    _getItems(2, _viewModel, context)[i],
+
+                  const SizedBox(
+                    height: AppSize.s100,
+                  )
+                  //preparing for the next widget maybe ?
+                ],
+              ),
             ),
           );
         });
+  }
+
+  Future _onRefresh() async {
+    _viewModel.getHomeData();
   }
 }
 

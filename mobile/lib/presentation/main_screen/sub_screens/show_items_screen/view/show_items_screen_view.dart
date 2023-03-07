@@ -91,20 +91,23 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   }
 
   Widget _getContentWidget() {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: Column(children: [
-        const SizedBox(
-          height: AppSize.s30,
-        ),
-        GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: AppValues.showItemCrossAxisCounts,
-          physics: const ScrollPhysics(),
-          children: List.generate(_viewModel.items.length,
-              (index) => _getItemWidget(index, viewType, context)),
-        )
-      ]),
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(children: [
+          const SizedBox(
+            height: AppSize.s30,
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: AppValues.showItemCrossAxisCounts,
+            physics: const NeverScrollableScrollPhysics(),
+            children: List.generate(_viewModel.items.length,
+                (index) => _getItemWidget(index, viewType, context)),
+          )
+        ]),
+      ),
     );
   }
 
@@ -240,5 +243,9 @@ class _ShowItemsViewState extends State<ShowItemsView> {
             arguments: _viewModel.items[index].id);
       },
     ));
+  }
+
+  Future _onRefresh() async {
+    _viewModel.getItems(viewType, categoryId);
   }
 }
