@@ -43,13 +43,57 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FlowState>(
-      stream: _viewModel.outputState,
-      builder: (context, snapshot) {
-        return snapshot.data?.getScreenWidget(
-                context, _getContentWidget(), () => _viewModel.getHomeData()) ??
-            _getContentWidget();
-      },
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: AppSize.s50,
+        title: SizedBox(
+          width: double.infinity,
+          height: AppSize.s40,
+          child: Row(
+            children: [
+              const Icon(Icons.notifications),
+              const SizedBox(
+                width: AppSize.s14,
+              ),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: ColorManager.white,
+                    hintStyle: TextStyle(color: ColorManager.grey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s8),
+                      borderSide: BorderSide.none,
+                    ),
+                    border: InputBorder.none,
+                    prefixIconColor: ColorManager.lightPrimary,
+                    hintText: AppStrings.searchForSomething,
+                    prefixIcon: const Icon(IconsManager.search),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                ColorManager.secondLightPrimary,
+                ColorManager.thirdLightPrimary
+              ])),
+        ),
+      ),
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(context, _getContentWidget(),
+                  () => _viewModel.getHomeData()) ??
+              _getContentWidget();
+        },
+      ),
     );
   }
 
@@ -355,16 +399,7 @@ Widget _buildItem(Items item, int sectionId,
                 padding: const EdgeInsets.only(top: AppPadding.p10),
                 child: Text(getPrice(item.price)),
               ),
-            // else
-            //   Padding(
-            //     padding: const EdgeInsets.only(top: AppPadding.p10),
-            //     child: Icon(
-            //       Icons.currency_exchange_outlined,
-            //       color: ColorManager.lightPrimary,
-            //     ),
-            //   ),
-
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Flexible(
