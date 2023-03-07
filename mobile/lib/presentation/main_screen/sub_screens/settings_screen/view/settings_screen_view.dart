@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../../../resources/routes_manager.dart';
 
 class SettingsScreenView extends StatefulWidget {
   const SettingsScreenView({super.key});
@@ -67,321 +71,349 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.supervised_user_circle_outlined,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.supervised_user_circle_outlined,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "Account",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      "Account",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.production_quantity_limits_outlined,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "MY ADS",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
+              ),
+              const Divider(
+                height: 1,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.production_quantity_limits_outlined,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "MY ADS",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 5, bottom: 5),
-            child: Text(
-              textAlign: TextAlign.start,
-              "Settings",
-              style: TextStyle(color: ColorManager.grey),
-            ),
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.language_outlined,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "Language",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.color_lens,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "Theme",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 25, left: 8, right: 5, bottom: 5),
+                child: Text(
+                  textAlign: TextAlign.start,
+                  "Settings",
+                  style: TextStyle(color: ColorManager.grey),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.language_outlined,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "Language",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.notifications_active_outlined,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "Notification",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
+              ),
+              const Divider(
+                height: 1,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.color_lens,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "Theme",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 5, bottom: 5),
-            child: Text(
-              textAlign: TextAlign.start,
-              "General",
-              style: TextStyle(color: ColorManager.grey),
-            ),
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.share_outlined,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "Share",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
+              ),
+              const Divider(
+                height: 1,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.notifications_active_outlined,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "Notification",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.help,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "Help",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-          Container(
-            color: ColorManager.white,
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.live_help_outlined,
-                        size: 30,
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                    Text(
-                      "About US",
-                      style: TextStyle(
-                        color: ColorManager.thirdLightPrimary,
-                      ),
-                    ),
-                  ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 25, left: 8, right: 5, bottom: 5),
+                child: Text(
+                  textAlign: TextAlign.start,
+                  "General",
+                  style: TextStyle(color: ColorManager.grey),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_circle_right,
-                    color: ColorManager.thirdLightPrimary,
+              ),
+              InkWell(
+                onTap: () {
+                  Share.share(
+                      'https://instagram.com/mohamed_shehata7920?igshid=ZDdkNTZiNTM=');
+                },
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.share_outlined,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "Share",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              const Divider(
+                height: 1,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.help,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "Help",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(
+                height: 1,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  color: ColorManager.white,
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.live_help_outlined,
+                              size: 30,
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                          Text(
+                            "About US",
+                            style: TextStyle(
+                              color: ColorManager.thirdLightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_circle_right,
+                          color: ColorManager.thirdLightPrimary,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
