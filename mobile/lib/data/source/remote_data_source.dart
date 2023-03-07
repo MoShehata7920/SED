@@ -1,6 +1,7 @@
 import 'package:sed/data/network/app_api.dart';
 import 'package:sed/data/network/requests.dart';
 import 'package:sed/data/responses/responses.dart';
+import 'package:sed/domain/model/models.dart';
 
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
@@ -14,6 +15,9 @@ abstract class RemoteDataSource {
   Future<ItemResponse> getItemData(int itemId);
 
   Future<ShowItemsResponse> getShowItemsData(ShowItemsRequest showItemsRequest);
+
+  Future<ShowItemsResponse> getShowProfile(
+      ShowProfileRequest showProfileRequest);
 
   Future<SavingProductResponse> toggleSavingProduct(
       SavingProductRequest savingProductRequest);
@@ -68,5 +72,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       SavingProductRequest savingProductRequest) async {
     return await _appServiceClient
         .toggleSavingProduct(savingProductRequest.productId);
+  }
+  
+  @override
+  Future<ShowItemsResponse> getShowProfile(ShowProfileRequest showProfileRequest) async{
+        return await _appServiceClient.getShowProfileData(
+        showProfileRequest.profileId);
   }
 }

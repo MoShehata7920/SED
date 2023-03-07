@@ -49,4 +49,9 @@ abstract class AppServiceClient {
   Future<SavingProductResponse> toggleSavingProduct(
     @Path("itemId") int itemId,
   );
+
+  @GET("/Profile/{profileId}")
+  Future<ShowItemsResponse> getShowProfileData(
+    @Path("profileId") int profileId,
+  );
 }

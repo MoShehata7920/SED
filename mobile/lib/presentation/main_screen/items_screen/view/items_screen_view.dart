@@ -5,6 +5,7 @@ import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
@@ -230,7 +231,10 @@ class _ItemViewState extends State<ItemView> {
                                   style: TextStyle(
                                       color: ColorManager.secondLightPrimary),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.showProfileScreenRoute);
+                                },
                               ),
                             ],
                           ),

@@ -105,3 +105,9 @@ class SavingProduct {
 
   SavingProduct(this.savingProductStatus);
 }
+
+class ShowProfileRequest {
+  int profileId;
+
+  ShowProfileRequest(this.profileId);
+}
