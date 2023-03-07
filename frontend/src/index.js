@@ -11,8 +11,4 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <MainRoutes />
-  </React.StrictMode>
-);
+root.render(<MainRoutes />);
