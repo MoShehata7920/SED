@@ -81,7 +81,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: <Color>[
-                ColorManager.secondLightPrimary,
+                ColorManager.lightPrimary,
                 ColorManager.thirdLightPrimary
               ])),
         ),
@@ -127,7 +127,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 horizontal: AppPadding.p4),
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(image ?? AppStrings.empty),
+                                  image:
+                                      NetworkImage(image ?? AppStrings.empty),
                                   fit: BoxFit.cover),
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(AppSize.s16)),
@@ -147,7 +148,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           width: AppSize.s10,
                           height: AppSize.s10,
                           margin: const EdgeInsets.symmetric(
-                              vertical: AppPadding.p8, horizontal: AppPadding.p4),
+                              vertical: AppPadding.p8,
+                              horizontal: AppPadding.p4),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: (Theme.of(context).brightness ==
@@ -155,7 +157,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                       ? ColorManager.white
                                       : ColorManager.lightPrimary)
                                   .withOpacity(
-                                      _viewModel.carouselCurrentIndex == entry.key
+                                      _viewModel.carouselCurrentIndex ==
+                                              entry.key
                                           ? AppSize.s0_9
                                           : AppSize.s0_4)),
                         ),
@@ -492,7 +495,6 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
                   } else {
                     Navigator.pushNamed(context, Routes.categoriesScreenRoute);
                   }
-                  
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

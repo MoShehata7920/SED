@@ -4,6 +4,7 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class MainScreenView extends StatefulWidget {
@@ -35,11 +36,11 @@ class _MainScreenViewState extends State<MainScreenView> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: ColorManager.firstLightPrimaryMix),
-                child: const Icon(
-                  Icons.add,
-                ),
+                child: const Icon(IconsManager.add),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.addProductScreenRoute);
+              },
               //params
             ),
             floatingActionButtonLocation:
