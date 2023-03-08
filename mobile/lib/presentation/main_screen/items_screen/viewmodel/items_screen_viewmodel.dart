@@ -8,7 +8,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 class ItemsScreenViewModel extends BaseViewModel
     with ItemsScreenViewModelInputs, ItemsScreenViewModelOutputs {
   Item item =
-      Item(Items(0, "", "", 0, "", 0, "", false), UserData("", "", "", ""));
+      Item(Items(0, "", "", 0, "", 0, "", false), UserData(0, "", "", "", ""));
   final ItemUseCase _itemUseCase = instance<ItemUseCase>();
 
   @override

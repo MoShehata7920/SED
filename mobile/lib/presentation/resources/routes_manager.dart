@@ -69,7 +69,7 @@ class RouteGenerator {
       // show profile screen for other users
       case Routes.showProfileScreenRoute:
         return MaterialPageRoute(
-            builder: (context) => const ShowProfileView());
+            builder: (context) => ShowProfileView(settings.arguments));
 
       default:
         return unDefinedRoute();

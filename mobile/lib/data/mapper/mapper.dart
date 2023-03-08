@@ -96,7 +96,7 @@ extension ItemsResponseMapper on ItemsResponse? {
 
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
-    return UserData(this?.name ?? "", this?.phone ?? "", this?.address ?? "",
+    return UserData(this?.id ?? 0, this?.name ?? "", this?.phone ?? "", this?.address ?? "",
         this?.image ?? "");
   }
 }
@@ -104,7 +104,7 @@ extension UserDataResponseMapper on UserDataResponse? {
 extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
     return Item(this?.item.toDomain() ?? Items(0, "", "", 0, "", 0, "", false),
-        this?.user.toDomain() ?? UserData("", "", "", ""));
+        this?.user.toDomain() ?? UserData(0, "", "", "", ""));
   }
 }
 

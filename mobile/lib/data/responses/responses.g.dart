@@ -175,6 +175,7 @@ Map<String, dynamic> _$ItemResponseToJson(ItemResponse instance) =>
 
 UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
     UserDataResponse(
+      json['id'] as int?,
       json['name'] as String?,
       json['phonenumber'] as String?,
       json['address'] as String?,
@@ -183,6 +184,7 @@ UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'phonenumber': instance.phone,
       'address': instance.address,

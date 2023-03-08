@@ -186,6 +186,9 @@ class ItemResponse extends BaseResponse {
 
 @JsonSerializable()
 class UserDataResponse {
+  @JsonKey(name: "id")
+  int? id;
+
   @JsonKey(name: "name")
   String? name;
 
@@ -198,7 +201,7 @@ class UserDataResponse {
   @JsonKey(name: "image")
   String? image;
 
-  UserDataResponse(this.name, this.phone, this.address, this.image);
+  UserDataResponse(this.id, this.name, this.phone, this.address, this.image);
 
   // From Json
   factory UserDataResponse.fromJson(Map<String, dynamic> json) =>

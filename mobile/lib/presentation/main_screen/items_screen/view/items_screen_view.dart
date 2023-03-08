@@ -232,8 +232,8 @@ class _ItemViewState extends State<ItemView> {
                                       color: ColorManager.secondLightPrimary),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.showProfileScreenRoute);
+                                  Navigator.pushNamed(context, Routes.showProfileScreenRoute,
+                                      arguments: _viewModel.item.userData);
                                 },
                               ),
                             ],
