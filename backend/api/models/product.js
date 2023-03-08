@@ -2,30 +2,40 @@ const mongoose=require('mongoose')
 
 
 const productSchema = mongoose.Schema({
-    productName:{
+    productName: {
         type:String,
         required:true
     },
 
-    description:{
+    description: {
         type:String
     },
 
-    quantity:{
-        type:Number,
-        default:1
-    },
-
-    productImage:{
+    category: {
         type:String,
-        required:true
+        // required:true,
+        enum:['Electronics','Fashion','Furniture','Books','Games','Health Care','example1','ex2']
     },
 
-    price:{
-        type:Number,
-        required:true
+    quantity: {
+        type : Number,
+        default : 1
+    },
+
+    productImage: {
+        type : String,
+        required : true
+    },
+
+    price: {
+        type : Number,
+        required : true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now()
     }
-}, {timestamps:true})
+})
 
 
 module.exports=mongoose.model('Product',productSchema)
