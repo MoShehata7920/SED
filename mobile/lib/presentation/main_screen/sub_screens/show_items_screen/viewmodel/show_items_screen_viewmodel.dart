@@ -33,10 +33,32 @@ class ShowItemsViewModel extends BaseViewModel
       inputState.add(ContentState());
     });
   }
+
+  @override
+  Future getMoreItems(Views viewType, int categoryId, int pageId) async {
+    inputState.add(ContentState());
+
+    var response = await _showItemsUseCase.execute(
+        ShowItemsUseCaseInputs(viewType.getName(categoryId: categoryId), pageId));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+            }, (response) {
+      // right -> success
+      for (var element in response.items) {
+        items.add(element);
+      }
+
+      inputState.add(ContentState());
+    });
+  }
 }
 
 abstract class ShowItemsViewModelInputs {
   void getItems(Views viewType, int categoryId);
+
+  void getMoreItems(Views viewType, int categoryId, int pageId);
 }
 
 abstract class ShowItemsViewModelOutputs {}

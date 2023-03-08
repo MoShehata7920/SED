@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
@@ -25,6 +26,9 @@ class ShowItemsView extends StatefulWidget {
 class _ShowItemsViewState extends State<ShowItemsView> {
   Views viewType;
   int categoryId;
+  int pageId = 0;
+  double currentIntent = 0;
+  bool isLoading = false;
 
   _ShowItemsViewState(this.viewType, this.categoryId);
 
@@ -38,15 +42,26 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItems(viewType, categoryId);
+    _viewModel.getItems(
+        viewType, categoryId);
   }
 
   @override
   void initState() {
-    _scrollController.addListener(() {
+    _scrollController.addListener(() async{
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.offset) {
-        print('LOAD HERE');
+        if (_viewModel.items.length % 20 == 0) {
+          pageId++;
+
+          currentIntent = _scrollController.offset;
+
+          isLoading = true;
+
+          await _viewModel.getMoreItems(viewType, categoryId, pageId);
+
+          isLoading = false;
+        }
       }
     });
 
@@ -83,7 +98,9 @@ class _ShowItemsViewState extends State<ShowItemsView> {
       body: StreamBuilder<FlowState>(
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
-            return snapshot.data?.getScreenWidget(context, _getContentWidget(),
+            return snapshot.data?.getScreenWidget(
+                    context,
+                    _getContentWidget(),
                     () => _viewModel.getItems(viewType, categoryId)) ??
                 _getContentWidget();
           }),
@@ -105,7 +122,9 @@ class _ShowItemsViewState extends State<ShowItemsView> {
             physics: const NeverScrollableScrollPhysics(),
             children: List.generate(_viewModel.items.length,
                 (index) => _getItemWidget(index, viewType, context)),
-          )
+          ),
+          if(isLoading)
+            const CircularProgressIndicator(),
         ]),
       ),
     );
@@ -114,138 +133,138 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   Widget _getItemWidget(int index, Views viewType, BuildContext context) {
     final HomeScreenViewModel homeScreenViewModel =
         instance<HomeScreenViewModel>();
-
-    return Container(
-        child: InkWell(
+    print(isLoading);
+    return InkWell(
       child: Card(
-        elevation: 1,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSize.s16)),
-        color: ColorManager.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Flexible(
-              flex: 2,
-              child: SizedBox(
-                width: AppSize.s200,
-                height: AppSize.s200,
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Image.network(
-                      _viewModel.items[index].image,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                          onPressed: () {
-                            homeScreenViewModel
-                                .toggleSavingProduct(_viewModel.items[index]);
+    elevation: 1,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.s16)),
+    color: ColorManager.white,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Flexible(
+          flex: 2,
+          child: SizedBox(
+            width: AppSize.s200,
+            height: AppSize.s200,
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                Image.network(
+                  _viewModel.items[index].image,
+                  fit: BoxFit.fill,
+                  width: double.infinity,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        homeScreenViewModel
+                            .toggleSavingProduct(_viewModel.items[index]);
 
-                            if (viewType == Views.SAVED) {
-                              setState(() {});
-                            }
-                          },
-                          icon: StreamBuilder<bool>(
-                              stream: homeScreenViewModel.savedOutput,
-                              builder: (context, snapshot) {
-                                return CircleAvatar(
-                                  radius: 14,
-                                  backgroundColor:
-                                      _viewModel.items[index].isSaved
-                                          ? ColorManager.thirdLightPrimary
-                                          : ColorManager.grey2,
-                                  child: const Icon(
-                                    Icons.favorite_border,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                );
-                              })),
-                    ),
-                    Container(
-                      color: Colors.black.withOpacity(0.5),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                      child: Text(
-                        Utils.getCategoryNameById(
-                            _viewModel.items[index].categoryId),
-                        style: TextStyle(
-                          fontSize: AppSize.s10,
-                          color: ColorManager.white,
-                        ),
-                      ),
-                    ),
-                  ],
+                        if (viewType == Views.SAVED) {
+                          setState(() {});
+                        }
+                      },
+                      icon: StreamBuilder<bool>(
+                          stream: homeScreenViewModel.savedOutput,
+                          builder: (context, snapshot) {
+                            return CircleAvatar(
+                              radius: 14,
+                              backgroundColor:
+                                  _viewModel.items[index].isSaved
+                                      ? ColorManager.thirdLightPrimary
+                                      : ColorManager.grey2,
+                              child: const Icon(
+                                Icons.favorite_border,
+                                size: 12,
+                                color: Colors.white,
+                              ),
+                            );
+                          })),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: AppPadding.p8),
-              child: Text(
-                _viewModel.items[index].name,
-                maxLines: AppValues.maxItemNameLines,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: AppPadding.p10),
-              child: Icon(
-                Icons.attach_money,
-                color: ColorManager.lightPrimary,
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      IconsManager.location,
-                      size: AppSize.s12,
-                      color: ColorManager.grey2,
+                Container(
+                  color: Colors.black.withOpacity(0.5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p5),
+                  child: Text(
+                    Utils.getCategoryNameById(
+                        _viewModel.items[index].categoryId),
+                    style: TextStyle(
+                      fontSize: AppSize.s10,
+                      color: ColorManager.white,
                     ),
-                    Expanded(
-                      child: Text(
-                        'Gharbiya / Tanta',
-                        textAlign: TextAlign.start,
-                        maxLines: AppValues.maxAddressLines,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        _viewModel.items[index].date,
-                        textAlign: TextAlign.end,
-                        maxLines: AppValues.maxDateLines,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              ],
+            ),
+          ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(top: AppPadding.p8),
+          child: Text(
+            _viewModel.items[index].name,
+            maxLines: AppValues.maxItemNameLines,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: AppPadding.p10),
+          child: Icon(
+            Icons.attach_money,
+            color: ColorManager.lightPrimary,
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  IconsManager.location,
+                  size: AppSize.s12,
+                  color: ColorManager.grey2,
+                ),
+                Expanded(
+                  child: Text(
+                    'Gharbiya / Tanta',
+                    textAlign: TextAlign.start,
+                    maxLines: AppValues.maxAddressLines,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: AppSize.s12, color: ColorManager.grey2),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    _viewModel.items[index].date,
+                    textAlign: TextAlign.end,
+                    maxLines: AppValues.maxDateLines,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: AppSize.s12, color: ColorManager.grey2),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
+    ),
       ),
       onTap: () {
-        Navigator.pushNamed(context, Routes.itemScreenRoute,
-            arguments: _viewModel.items[index].id);
+    Navigator.pushNamed(context, Routes.itemScreenRoute,
+        arguments: _viewModel.items[index].id);
       },
-    ));
+    );
   }
 
   Future _onRefresh() async {
-    _viewModel.getItems(viewType, categoryId);
+    _viewModel.getItems(
+        viewType, categoryId);
   }
 }
