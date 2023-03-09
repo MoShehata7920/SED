@@ -46,7 +46,30 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorsManager.primaryBackground,
+      appBar: AppBar(
+        backgroundColor: ColorsManager.primaryBackground,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: ColorsManager.primaryText,
+            size: 32.0,
+          ),
+        ),
+        title: Text(
+          'Forgot Password',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 22.0,
+          ),
+        ),
+        centerTitle: false,
+        elevation: 0.0,
+      ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
@@ -60,33 +83,34 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   Widget _getContentWidget() {
     return Container(
-      padding: const EdgeInsets.only(top: AppPadding.p100),
+      width: MediaQuery.of(context).size.width * 1.0,
+      height: MediaQuery.of(context).size.height * 1.0,
+      decoration: BoxDecoration(
+        color: ColorsManager.primaryBackground,
+      ),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              const Center(
-                  child: Image(
-                      image: AssetImage(ImageAssets.lightModeSplashLogo))),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s20, AppSize.s20, AppSize.s20, AppSize.s0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsEmailValid,
                     builder: (context, snapshot) {
                       return TextFormField(
                           keyboardType: TextInputType.emailAddress,
+                          obscureText: false,
                           controller: _emailController,
                           decoration: InputDecoration(
                             hintText: AppStrings.email,
                             labelText: AppStrings.email,
-                            prefixIcon: Icon(
-                              IconsManager.email,
-                              color: ColorManager.lightPrimary,
-                            ),
+                            labelStyle: TextStyle(
+                                fontSize: AppSize.s14,
+                                color: ColorsManager.secondaryText),
+                            filled: true,
+                            fillColor: ColorsManager.secondaryBackground,
                             errorText: (snapshot.data ??
                                     true) //check if the username was null
                                 ? null //then no errors
@@ -95,11 +119,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           ));
                     }),
               ),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s0, AppSize.s24, AppSize.s0, AppSize.s0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsEmailValid,
                     builder: (context, snapshotValidation) {
@@ -131,17 +153,26 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               );
                             } else {
                               return SizedBox(
-                                width: double.infinity,
-                                height: AppSize.s40,
+                                width: AppSize.s230,
+                                height: AppSize.s50,
                                 child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: ColorManager.white,
+                                    ),
                                     onPressed:
                                         (snapshotValidation.data ?? false)
                                             ? () {
                                                 _viewModel.forgotPassword();
                                               }
                                             : null,
-                                    child:
-                                        const Text(AppStrings.resetPassword)),
+                                    child: Text(
+                                      AppStrings.resetPassword,
+                                      style: TextStyle(
+                                          fontSize: AppSize.s16,
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorsManager
+                                              .secondaryBackground),
+                                    )),
                               );
                             }
                           });
