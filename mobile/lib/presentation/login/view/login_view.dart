@@ -5,7 +5,6 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../resources/assets_manager.dart';
@@ -61,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorsManager.dark900,
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
@@ -80,84 +79,125 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _getContentWidget() {
-    return Container(
-      padding: const EdgeInsets.only(top: AppPadding.p100),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
+    return Align(
+      key: _formKey,
+      alignment: const AlignmentDirectional(-0.14, -0.08),
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+            color: Color(0x19444D59),
+            image: DecorationImage(
+                fit: BoxFit.fitWidth,
+                image: AssetImage(ImageAssets.loginBackground))),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 90.0),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Center(
-                  child: Image(
-                      image: AssetImage(ImageAssets.lightModeSplashLogo))),
-              const SizedBox(
-                height: AppSize.s28,
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 24.0),
+                child: Image(
+                  image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
+                  width: AppSize.s160,
+                  height: AppSize.s140,
+                  fit: BoxFit.cover,
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-                child: StreamBuilder<bool>(
-                    stream: _viewModel.outIsUserNameValid,
-                    builder: (context, snapshot) {
-                      return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _userNameController,
-                          decoration: InputDecoration(
-                            hintText: AppStrings.email,
-                            labelText: AppStrings.email,
-                            prefixIcon: Icon(
-                              IconsManager.email,
-                              color: ColorManager.lightPrimary,
+              StreamBuilder<bool>(
+                  stream: _viewModel.outIsUserNameValid,
+                  builder: (context, snapshot) {
+                    return Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          40.0, 0.0, 40.0, 20.0),
+                      child: Container(
+                        width: double.infinity,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color: ColorsManager.primaryBackground,
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              12.0, 0.0, 20.0, 0.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _userNameController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.email,
+                              labelStyle: TextStyle(
+                                  fontSize: AppSize.s14,
+                                  color: ColorsManager.secondaryText),
+                              labelText: AppStrings.email,
+                              errorText: (snapshot.data ??
+                                      true) //check if the username was null
+                                  ? null //then no errors
+                                  : AppStrings
+                                      .emailInValid, //else present the error to the user
                             ),
-                            errorText: (snapshot.data ??
-                                    true) //check if the username was null
-                                ? null //then no errors
-                                : AppStrings
-                                    .emailInValid, //else present the error to the user
-                          ));
-                    }),
-              ),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
+                            style: TextStyle(color: ColorsManager.tertiary),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
-                      return TextFormField(
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: _userPasswordController,
-                          obscureText: _viewModel.obscureText,
-                          decoration: InputDecoration(
-                            hintText: AppStrings.password,
-                            labelText: AppStrings.password,
-                            suffixIcon: GestureDetector(
-                              child: Icon(
-                                _viewModel.passwordSuffixIcon,
-                                color: ColorManager.lightPrimary,
+                      return Container(
+                        width: double.infinity,
+                        height: AppSize.s50,
+                        decoration: BoxDecoration(
+                          color: ColorsManager.primaryBackground,
+                          borderRadius: BorderRadius.circular(AppSize.s25),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              12.0, 0.0, 20.0, 0.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: _userPasswordController,
+                            obscureText: _viewModel.obscureText,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.password,
+                              labelText: AppStrings.password,
+                              labelStyle: TextStyle(
+                                  fontSize: AppSize.s14,
+                                  color: ColorsManager.secondaryText),
+                              suffixIcon: InkWell(
+                                child: Icon(
+                                  _viewModel.passwordSuffixIcon,
+                                  color: ColorsManager.grayDark,
+                                  size: AppSize.s24,
+                                ),
+                                focusNode: FocusNode(skipTraversal: true),
+                                onTap: () {
+                                  setState(() {
+                                    //TODO change it to stream builder or use bloc
+                                    _viewModel.togglePasswordVisibility();
+                                  });
+                                },
                               ),
-                              onTap: () {
-                                setState(() {
-                                  //TODO change it to stream builder or use bloc
-                                  _viewModel.togglePasswordVisibility();
-                                });
-                              },
+                              errorText: (snapshot.data ??
+                                      true) //check if the password was null
+                                  ? null //then no errors
+                                  : AppStrings
+                                      .passwordError, //else present the error to the user
                             ),
-                            prefixIcon: Icon(
-                              IconsManager.lock,
-                              color: ColorManager.lightPrimary,
-                            ),
-                            errorText: (snapshot.data ??
-                                    true) //check if the password was null
-                                ? null //then no errors
-                                : AppStrings
-                                    .passwordError, //else present the error to the user
-                          ));
+                            style: TextStyle(color: ColorsManager.tertiary),
+                          ),
+                        ),
+                      );
                     }),
               ),
-              const SizedBox(
-                height: AppSize.s28,
-              ),
+
+              // FIXME stat from here @Bimbum1337 
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<bool>(
