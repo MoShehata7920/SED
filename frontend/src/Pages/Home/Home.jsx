@@ -1,83 +1,68 @@
 import Navebar from "../../Component/navebar/navbar";
 import "./Home.css";
-import "react-responsive-carousel/lib/styles/carousel.css";
-import OwlCarousel from "react-owl-carousel";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper";
+
 import { NavLink } from "react-router-dom";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import Footer from "../../Component/footer/Footer";
+import ExchangeSlider from "../../Component/exchange_slider/exchange_slider";
+import SellSlider from "../../Component/sell_slider/sell_slider";
+import DonateSlider from "../../Component/donate_slider/donate_slider";
 
 export default function Home() {
-  const options = {
-    margin: 20,
-    loop: true,
-    autoplay: true,
-    autoplayTimeout: 5000,
-    autoplayHoverPause: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 1,
-      },
-      600: {
-        items: 1,
-      },
-      700: {
-        items: 1,
-      },
-      1000: {
-        items: 1,
-      },
-    },
-  };
-  const options2 = {
-    margin: 20,
-    merge: true,
-    nav: true,
-    dot: true,
-    responsiveClass: true,
-    autoplay: false,
-    smartSpeed: 1000,
-    responsive: {
-      0: {
-        items: 2,
-      },
-      400: {
-        items: 2,
-      },
-      600: {
-        items: 2,
-      },
-      700: {
-        items: 3,
-      },
-      1000: {
-        items: 5,
-      },
-    },
-  };
   let [DetaAll, setDetaAll] = useState([]);
   let [Detasell, setDetasell] = useState([]);
   let [Detadonat, setDetadonat] = useState([]);
   let [Detaexchange, setDetaexchange] = useState([]);
-  async function GetDeta(mediatype, callback) {
-    let { data } = await Axios.get(
-      `http://103.48.193.225:9000/home/${mediatype}`
-    );
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
+  const GetDeta = async (mediatype, callback) => {
+    setError(null);
+    setIsPending(true);
 
-    if (mediatype === "") {
-      callback(data.carousel.Images);
-    } else {
-      callback(data.items);
+    try {
+      let respond = await Axios.get(
+        `http://103.48.193.225:9000/home/${mediatype}`
+      );
+      if (mediatype === "") {
+        callback(respond.data.carousel.Images);
+        console.log(respond.data.carousel.Images);
+      } else {
+        callback(respond.data.items);
+        console.log(respond.data.items);
+      }
+
+      setIsPending(false);
+      //setError(null);
+    } catch (err) {
+      setIsPending(false);
+      setError("could not fetch the data");
+      console.log(err.message);
     }
-  }
+  };
+  // async function GetDeta(mediatype, callback) {
+  //   let respond = await Axios.get(
+  //     `http://103.48.193.225:9000/home/${mediatype}`
+  //   );
+
+  //   if (mediatype === "") {
+  //     callback(respond.data.carousel.Images);
+  //     console.log(respond.data.carousel.Images);
+  //   } else {
+  //     callback(respond.data.items);
+  //     console.log(respond.data.items);
+  //   }
+  // }
 
   useEffect(() => {
     GetDeta("", setDetaAll);
-    GetDeta("sell", setDetasell);
     GetDeta("donate", setDetadonat);
+    GetDeta("sell", setDetasell);
     GetDeta("exchange", setDetaexchange);
   }, []);
   return (
@@ -85,14 +70,30 @@ export default function Home() {
       <section>
         <Navebar />
       </section>
-      <section className="pt-5">
-        <OwlCarousel className="slider-style " {...options}>
-          {DetaAll.map((carous, carousindex) => (
-            <div key={carousindex} className="item">
-              <img className="" src={carous} alt="" />
-            </div>
-          ))}
-        </OwlCarousel>
+      <section className="mb-5">
+        <div className="slider-style ">
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {DetaAll.map((carous, carousindex) => (
+              <SwiperSlide key={carousindex}>
+                <div className="item">
+                  <img className="" src={carous} alt="" />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </section>
       <section>
         <div className="row">
@@ -244,115 +245,58 @@ export default function Home() {
         </div>
       </section>
       <section className="pt-5  ">
-        <OwlCarousel className=" owl-theme  " {...options2}>
-          <div className="item text-center">
-            <h1 className=" fs-10 ">SELL</h1>
-            <NavLink to={"a"}>
-              <p className="text-black fs-3 "> see all</p>
-            </NavLink>
-          </div>
+        <Swiper
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className=" mySwiper"
+          spaceBetween={5}
+          slidesPerView={5}
+        >
+          <SwiperSlide>
+            <div className="item text-center">
+              <h1 className=" fs-10 ">SELL</h1>
+              <NavLink to={"a"}>
+                <p className="text-black fs-3 "> see all</p>
+              </NavLink>
+            </div>
+          </SwiperSlide>
+
           {Detasell.map((sell, index) => (
-            <NavLink
-              key={index}
-              to={`/items/${sell.ID}`}
-              className="text-decoration-none "
-            >
-              <div className="item slider-style2 mb-1">
-                <div className="slider-service-div  text-center  ">
-                  <div className="slider-service-img ">
-                    <img
-                      src={sell.Image}
-                      className="card-img-top w-100 h-100  "
-                      alt="..."
-                    />
-                  </div>
-
-                  <div className="slider-service-title">
-                    <h5 className="card-title text-black mb-3 mt-3">
-                      {sell.Name}
-                    </h5>
-                  </div>
-                  <div className="slider-service-detailes ">
-                    <p className=" text-black  h-100 w-100 "></p>
-                  </div>
-                  <div className="slider-service-price ">
-                    <p className=" text-black mb-3 h-100 w-100">{sell.Price}</p>
-                  </div>
-
-                  <div className="slider-service-btn">
-                    <button className="btn btn-primary mt-2 mb-3">
-                      <NavLink
-                        to={"n"}
-                        className="text-decoration-none text-white"
-                      >
-                        ADD TO CARD
-                      </NavLink>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </NavLink>
+            <SwiperSlide key={index} className="mb-5">
+              <SellSlider sell={sell} />
+            </SwiperSlide>
           ))}
-        </OwlCarousel>
+        </Swiper>
       </section>
       <section className="pt-5  ">
-        <OwlCarousel className=" owl-theme  " {...options2}>
-          <div className="item text-center">
-            <h1 className=" fs-9 ">EXCHANGE</h1>
-            <NavLink to={"a"}>
-              <p className="text-black fs-3 "> see all</p>
-            </NavLink>
-          </div>
+        <Swiper
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className=" mySwiper"
+          spaceBetween={5}
+          slidesPerView={5}
+        >
+          <SwiperSlide>
+            <div className="item text-center">
+              <h1 className=" fs-9 ">EXCHANGE</h1>
+              <NavLink to={"a"}>
+                <p className="text-black fs-3 "> see all</p>
+              </NavLink>
+            </div>
+          </SwiperSlide>
+
           {Detaexchange.map((exchange, ind) => (
-            <NavLink
-              key={ind}
-              to={`/items/${exchange.ID}`}
-              className="text-decoration-none "
-            >
-              <div className="item slider-style2 mb-1">
-                <div className="slider-service-div  text-center  ">
-                  <div className="slider-service-img ">
-                    <img
-                      src={exchange.Image}
-                      className="card-img-top w-100 h-100  "
-                      alt="..."
-                    />
-                  </div>
-
-                  <div className="slider-service-title">
-                    <h5 className="card-title text-black mb-3 mt-3">
-                      {exchange.Name}
-                    </h5>
-                  </div>
-                  <div className="slider-service-detailes ">
-                    <p className=" text-black  h-100 w-100 ">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content
-                    </p>
-                  </div>
-                  <div className="slider-service-price ">
-                    <p className=" text-black mb-3 h-100 w-100">
-                      {exchange.Price}
-                    </p>
-                  </div>
-
-                  <div className="slider-service-btn">
-                    <button className="btn btn-primary mt-2 mb-3">
-                      <NavLink
-                        to={"n"}
-                        className="text-decoration-none text-white"
-                      >
-                        ADD TO CARD
-                      </NavLink>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </NavLink>
+            <SwiperSlide key={ind} className="mb-5">
+              <ExchangeSlider exchange={exchange} />
+            </SwiperSlide>
           ))}
-        </OwlCarousel>
+        </Swiper>
       </section>
-      <section className="pt-5  ">
+      {/* <section className="pt-5  ">
         <OwlCarousel className=" owl-theme  " {...options2}>
           <div className="item text-center">
             <h1 className=" fs-9 ">DONATE</h1>
@@ -361,53 +305,34 @@ export default function Home() {
             </NavLink>
           </div>
           {Detadonat.map((donate, donateindex) => (
-            <NavLink
-              key={donateindex}
-              to={`/items/${donate.ID}`}
-              className="text-decoration-none "
-            >
-              <div className="item slider-style2 mb-1">
-                <div className="slider-service-div  text-center  ">
-                  <div className="slider-service-img ">
-                    <img
-                      src={donate.Image}
-                      className="card-img-top w-100 h-100  "
-                      alt="..."
-                    />
-                  </div>
-
-                  <div className="slider-service-title">
-                    <h5 className="card-title text-black mb-3 mt-3">
-                      {donate.Name}
-                    </h5>
-                  </div>
-                  <div className="slider-service-detailes ">
-                    <p className=" text-black  h-100 w-100 ">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content
-                    </p>
-                  </div>
-                  <div className="slider-service-price ">
-                    <p className=" text-black mb-3 h-100 w-100">
-                      {donate.Price}
-                    </p>
-                  </div>
-
-                  <div className="slider-service-btn">
-                    <button className="btn btn-primary mt-2 mb-3">
-                      <NavLink
-                        to={"n"}
-                        className="text-decoration-none text-white"
-                      >
-                        ADD TO CARD
-                      </NavLink>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </NavLink>
+            <DonateSlider key={donateindex} donate={donate} />
           ))}
         </OwlCarousel>
+      </section> */}
+      <section className="pt-5  ">
+        <Swiper
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className=" mySwiper"
+          spaceBetween={5}
+          slidesPerView={5}
+        >
+          <SwiperSlide>
+            <div className="item text-center">
+              <h1 className=" fs-9 ">DONATE</h1>
+              <NavLink to={"a"}>
+                <p className="text-black fs-3 "> see all</p>
+              </NavLink>
+            </div>
+          </SwiperSlide>
+          {Detadonat.map((donate, donateindex) => (
+            <SwiperSlide key={donateindex} className="mb-5">
+              <DonateSlider donate={donate} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
       <Footer />
     </>

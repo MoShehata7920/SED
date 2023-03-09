@@ -1,0 +1,17 @@
+.photo-div{
+    height: 400px;
+    width: 450px;
+    margin-left: 10px;
+    margin-top: 70px;
+}
+.btn-items{
+    background-color: rgb(113 206 245);
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+    margin-top: 50px;
+    border: none;
+}
+.btn-items:hover{
+    background-color: rgb(171 225 249);
+}
