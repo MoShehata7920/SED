@@ -55,6 +55,7 @@ dependencies:
   image_picker: ^0.8.6+4
   font_awesome_flutter: ^10.4.0
   flutter_spinkit: ^5.1.0
+  flutter_animate: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -109,19 +110,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    
-    - family: Montserrat
+
+    - family: 'Brazila'
       fonts:
-        - asset: assets/fonts/Montserrat-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Montserrat-Light.ttf
-          weight: 600
-        - asset: assets/fonts/Montserrat-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Montserrat-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Montserrat-SemiBold.ttf
-          weight: 300
+        - asset: assets/fonts/Brazilia_Three_CG_Regular.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

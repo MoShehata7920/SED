@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
 import 'package:sed/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -172,6 +173,7 @@ class OnBoardingPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+
         const SizedBox(
           height: AppSize.s32,
         ),

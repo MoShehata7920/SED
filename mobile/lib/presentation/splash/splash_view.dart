@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
@@ -39,19 +40,19 @@ class _SplashViewState extends State<SplashView> {
             ),
             const Image(
               image: AssetImage(ImageAssets.darkModeSplashLogo),
-            ),
+            ).animateOnPageLoad(msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 900),
             const SpinKitSquareCircle(
               color: Colors.white,
               size: AppSize.s50,
-            ),
+            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
             Text(
               AppStrings.poweredBy,
               style: Theme.of(context).textTheme.titleMedium,
-            ),
+            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
             Text(
               AppStrings.eagles,
               style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
           ],
         ),
       ),
