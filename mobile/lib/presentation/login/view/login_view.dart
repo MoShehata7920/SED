@@ -79,25 +79,25 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _getContentWidget() {
-    return Align(
-      key: _formKey,
-      alignment: const AlignmentDirectional(-0.14, -0.08),
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            color: Color(0x19444D59),
-            image: DecorationImage(
-                fit: BoxFit.fitWidth,
-                image: AssetImage(ImageAssets.loginBackground))),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 90.0),
+    return Stack(
+      children: [
+        Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+                color: Color(0x19444D59),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(ImageAssets.loginBackground)))),
+        SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+
               const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 24.0),
+                padding:
+                    EdgeInsetsDirectional.fromSTEB(0.0, 65.0, 0.0, 24.0),
                 child: Image(
                   image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                   width: AppSize.s160,
@@ -144,8 +144,8 @@ class _LoginViewState extends State<LoginView> {
                     );
                   }),
               Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    40.0, 0.0, 40.0, 20.0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
@@ -195,11 +195,9 @@ class _LoginViewState extends State<LoginView> {
                       );
                     }),
               ),
-
-              // FIXME stat from here @Bimbum1337 
-
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    40.0, 0.0, 40.0, 20.0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outAreAllInputsValid,
                     builder: (context, snapshot) {
@@ -217,44 +215,67 @@ class _LoginViewState extends State<LoginView> {
                     }),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: AppPadding.p8,
-                  left: AppPadding.p18,
-                  right: AppPadding.p18,
-                ),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(23.0, 0, 8, 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, Routes.forgotPasswordRoute);
-                        },
-                        child: Text(
-                          AppStrings.forgetPassword,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
+                      child: Text(
+                        'Don\'t have an account?',
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, Routes.registerRoute);
+                          Navigator.pushNamed(
+                              context, Routes.registerRoute);
                         },
                         child: Text(
-                          AppStrings.registerText,
-                          style: Theme.of(context).textTheme.titleMedium,
+                          "Create Account",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  color: ColorManager.white, fontSize: 15),
                         ),
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    100.0, 0.0, 100.0, 20.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: AppSize.s40,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorsManager.dark900,
+                      ),
+                      onPressed: () {},
+                      child: const Text("Forgot Password?")),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    100.0, 0.0, 100.0, 20.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: AppSize.s40,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorsManager.dark900,
+                      ),
+                      onPressed: () {},
+                      child: const Text("Continue as Guest")),
+                ),
+              ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
