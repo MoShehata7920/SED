@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sed/presentation/resources/fonts_manager.dart';
 import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
@@ -27,6 +28,9 @@ ThemeData getApplicationTheme() {
       color: ColorManager.lightPrimary,
       elevation: AppSize.s4,
       shadowColor: ColorManager.lightPrimary,
+      systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: ColorsManager.background,
+          statusBarBrightness: Brightness.light),
       titleTextStyle:
           getRegularStyle(fontSize: FontSize.s16, color: ColorManager.white),
     ),
@@ -68,7 +72,9 @@ ThemeData getApplicationTheme() {
     inputDecorationTheme: InputDecorationTheme(
       //content padding
       contentPadding: const EdgeInsets.all(AppPadding.p8),
-
+      filled: true,
+      fillColor:
+      ColorsManager.textFormFieldBackGroundColorDark,
       //hint style
       hintStyle:
           getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s14),
@@ -82,15 +88,12 @@ ThemeData getApplicationTheme() {
       //         BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
       //     borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
-      enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
           color: Color(0x00000000),
           width: 1.0,
         ),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4.0),
-          topRight: Radius.circular(4.0),
-        ),
+        borderRadius: BorderRadius.circular(20.0),
       ),
 
       //focused border style
@@ -99,15 +102,12 @@ ThemeData getApplicationTheme() {
       //         color: ColorManager.lightPrimary, width: AppSize.s1_5),
       //     borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
-      focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
           color: Color(0x00000000),
           width: 1.0,
         ),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4.0),
-          topRight: Radius.circular(4.0),
-        ),
+        borderRadius: BorderRadius.circular(20.0),
       ),
 
       //error border style
@@ -116,15 +116,12 @@ ThemeData getApplicationTheme() {
       //         BorderSide(color: ColorManager.error, width: AppSize.s1_5),
       //     borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
-      errorBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
+      errorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
           color: Color(0x00000000),
           width: 1.0,
         ),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4.0),
-          topRight: Radius.circular(4.0),
-        ),
+        borderRadius: BorderRadius.circular(20.0),
       ),
 
       //focused border style
@@ -133,15 +130,12 @@ ThemeData getApplicationTheme() {
       //         color: ColorManager.lightPrimary, width: AppSize.s1_5),
       //     borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)))
 
-      focusedErrorBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
           color: Color(0x00000000),
           width: 1.0,
         ),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4.0),
-          topRight: Radius.circular(4.0),
-        ),
+        borderRadius: BorderRadius.circular(20.0),
       ),
     ),
   );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -24,8 +25,6 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _userNameController = TextEditingController();
 
   final TextEditingController _userPasswordController = TextEditingController();
-
-  final _formKey = GlobalKey<FormState>();
 
   _bind() {
     _viewModel.start(); //start the view model job
@@ -85,7 +84,6 @@ class _LoginViewState extends State<LoginView> {
             width: double.infinity,
             height: double.infinity,
             decoration: const BoxDecoration(
-                color: Color(0x19444D59),
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage(ImageAssets.loginBackground)))),
@@ -94,10 +92,8 @@ class _LoginViewState extends State<LoginView> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               const Padding(
-                padding:
-                    EdgeInsetsDirectional.fromSTEB(0.0, 65.0, 0.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 65.0, 0.0, 24.0),
                 child: Image(
                   image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                   width: AppSize.s160,
@@ -111,93 +107,68 @@ class _LoginViewState extends State<LoginView> {
                     return Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
                           40.0, 0.0, 40.0, 20.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: ColorsManager.primaryBackground,
-                          borderRadius: BorderRadius.circular(25.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _userNameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.email,
+                          labelStyle: TextStyle(
+                              fontSize: AppSize.s14,
+                              color: ColorsManager.secondaryText),
+                          labelText: AppStrings.email,
+                          errorText: (snapshot.data ??
+                                  true) //check if the username was null
+                              ? null //then no errors
+                              : AppStrings.emailInValid,
+                          //else present the error to the user
                         ),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 20.0, 0.0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: _userNameController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              hintText: AppStrings.email,
-                              labelStyle: TextStyle(
-                                  fontSize: AppSize.s14,
-                                  color: ColorsManager.secondaryText),
-                              labelText: AppStrings.email,
-                              errorText: (snapshot.data ??
-                                      true) //check if the username was null
-                                  ? null //then no errors
-                                  : AppStrings
-                                      .emailInValid, //else present the error to the user
-                            ),
-                            style: TextStyle(color: ColorsManager.tertiary),
-                          ),
-                        ),
+                        style: TextStyle(color: ColorsManager.secondaryText),
                       ),
                     );
                   }),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    40.0, 0.0, 40.0, 20.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
-                      return Container(
-                        width: double.infinity,
-                        height: AppSize.s50,
-                        decoration: BoxDecoration(
-                          color: ColorsManager.primaryBackground,
-                          borderRadius: BorderRadius.circular(AppSize.s25),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 20.0, 0.0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.visiblePassword,
-                            controller: _userPasswordController,
-                            obscureText: _viewModel.obscureText,
-                            decoration: InputDecoration(
-                              hintText: AppStrings.password,
-                              labelText: AppStrings.password,
-                              labelStyle: TextStyle(
-                                  fontSize: AppSize.s14,
-                                  color: ColorsManager.secondaryText),
-                              suffixIcon: InkWell(
-                                child: Icon(
-                                  _viewModel.passwordSuffixIcon,
-                                  color: ColorsManager.grayDark,
-                                  size: AppSize.s24,
-                                ),
-                                focusNode: FocusNode(skipTraversal: true),
-                                onTap: () {
-                                  setState(() {
-                                    //TODO change it to stream builder or use bloc
-                                    _viewModel.togglePasswordVisibility();
-                                  });
-                                },
-                              ),
-                              errorText: (snapshot.data ??
-                                      true) //check if the password was null
-                                  ? null //then no errors
-                                  : AppStrings
-                                      .passwordError, //else present the error to the user
+                      return TextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: _userPasswordController,
+                        obscureText: _viewModel.obscureText,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.password,
+                          labelText: AppStrings.password,
+                          labelStyle: TextStyle(
+                              fontSize: AppSize.s14,
+                              color: ColorsManager.secondaryText),
+                          suffixIcon: InkWell(
+                            focusNode: FocusNode(skipTraversal: true),
+                            onTap: () {
+                              setState(() {
+                                _viewModel.togglePasswordVisibility();
+                              });
+                            },
+                            child: Icon(
+                              _viewModel.passwordSuffixIcon,
+                              color: ColorsManager.grayDark,
+                              size: AppSize.s24,
                             ),
-                            style: TextStyle(color: ColorsManager.tertiary),
                           ),
+                          errorText: (snapshot.data ??
+                                  true) //check if the password was null
+                              ? null //then no errors
+                              : AppStrings
+                                  .passwordError, //else present the error to the user
                         ),
+                        style: TextStyle(color: ColorsManager.secondaryText),
                       );
                     }),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    40.0, 0.0, 40.0, 20.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outAreAllInputsValid,
                     builder: (context, snapshot) {
@@ -215,61 +186,46 @@ class _LoginViewState extends State<LoginView> {
                     }),
               ),
               Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(23.0, 0, 8, 10),
+                padding: const EdgeInsetsDirectional.fromSTEB(70.0, 0, 0, 10),
                 child: Row(
                   children: [
-                    Expanded(
-                      child: Text(
-                        'Don\'t have an account?',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
+                    Flexible(
+                      flex: 5,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorsManager.primaryColor,
+                          ),
+                          onPressed: () {},
+                          child: const Text("Register")),
                     ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, Routes.registerRoute);
-                        },
-                        child: Text(
-                          "Create Account",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  color: ColorManager.white, fontSize: 15),
-                        ),
-                      ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      flex: 6,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorsManager.dark900,
+                          ),
+                          onPressed: () {},
+                          child: const Text("Forgot Password?")),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    100.0, 0.0, 100.0, 20.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: AppSize.s40,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorsManager.dark900,
-                      ),
-                      onPressed: () {},
-                      child: const Text("Forgot Password?")),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                child: Text(
+                  'Or use a google account to login',
+                  style: TextStyle(color: ColorsManager.secondaryText),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    100.0, 0.0, 100.0, 20.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: AppSize.s40,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorsManager.dark900,
-                      ),
-                      onPressed: () {},
-                      child: const Text("Continue as Guest")),
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                child: IconButton(
+                  color: ColorsManager.grayIcon,
+                  icon: const FaIcon(FontAwesomeIcons.google),
+                  onPressed: () {},
                 ),
               ),
             ],
