@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
@@ -66,22 +65,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
-                  },
-                  child: Text(
-                    AppStrings.skip,
-                    style: Theme.of(context).textTheme.titleMedium,
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
-
-              // widgets indicator and arrows
-              _getBottomSheetWidget(sliderObject)
+              _getBottomSheetWidget(
+                  sliderObject) // widgets indicator and arrows
             ],
           ),
         ),
@@ -172,34 +157,105 @@ class OnBoardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         const SizedBox(
-          height: AppSize.s32,
+          height: AppSize.s20,
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppSize.s30,
+                top: AppSize.s30,
+                right: AppSize.s15,
+              ),
+              child: Image.asset(
+                ImageAssets.onBoardingLogo,
+                width: AppSize.s60,
+                height: AppSize.s60,
+                fit: BoxFit.fill,
+              ),
+            ).animateOnPageLoad(msDelay: 50, dx: 71.0, dy: 0, showDelay: 900),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: AppSize.s45,
+              ),
+              child: Text(
+                AppStrings.sed,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: AppSize.s25, color: ColorsManager.white),
+              ).animateOnPageLoad(
+                  msDelay: 150, dx: -74.0, dy: 0, showDelay: 900),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: AppSize.s100,
         ),
         Padding(
           padding: const EdgeInsets.all(AppPadding.p28),
           child: Text(
-            _sliderObject.title,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.displayLarge,
+            'Find Your\nFavorite Hotel\nTo Stay',
+            textAlign: TextAlign.start,
+            style: Theme.of(context)
+                .textTheme
+                .displayLarge
+                ?.copyWith(fontSize: AppSize.s38, height: AppSize.s1_5),
           ),
-        ),
+        ).animateOnPageLoad(msDelay: 150, dx: 71.0, dy: 0, showDelay: 900),
         const SizedBox(
           height: AppSize.s40,
         ),
-        Text(
-          _sliderObject.subTitle,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+        Padding(
+          padding: const EdgeInsets.only(left: AppSize.s20, right: AppSize.s20),
+          child: Text(
+            _sliderObject.subTitle,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        ).animateOnPageLoad(msDelay: 400, dx: 71.0, dy: 0, showDelay: 900),
         const SizedBox(
           height: AppSize.s60,
         ),
+        const SizedBox(
+          height: AppSize.s18,
+        ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Lottie.asset(_sliderObject.image),
-        )
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+          child: SizedBox(
+            width: double.infinity,
+            height: AppSize.s40,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.registerRoute);
+                },
+                child: const Text(AppStrings.register)),
+          ).animateOnPageLoad(msDelay: 550, dx: -79.0, dy: 0, showDelay: 900),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              AppStrings.loginText,
+              style: TextStyle(color: ColorsManager.secondaryText),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.loginRoute);
+              },
+              child: Text(
+                AppStrings.login,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: ColorManager.white),
+              ),
+            ),
+          ],
+        ).animateOnPageLoad(msDelay: 650, dx: -74.0, dy: 0, showDelay: 600),
       ],
     );
   }

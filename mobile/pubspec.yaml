@@ -84,6 +84,7 @@ flutter:
   assets:
     - assets/images/light_mode_logo.png
     - assets/images/dark_mode_logo.png
+    - assets/images/onboarding_logo.png
     - assets/images/login_dark_mode_logo.png
     - assets/images/login_background.png
     - assets/images/left_arrow_icon.svg
