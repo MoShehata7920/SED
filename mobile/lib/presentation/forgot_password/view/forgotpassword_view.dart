@@ -46,7 +46,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.darkBlack,
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
         backgroundColor: ColorsManager.primaryBackground,
         automaticallyImplyLeading: false,
@@ -82,104 +82,97 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   Widget _getContentWidget() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 1.0,
-      height: MediaQuery.of(context).size.height * 1.0,
-      decoration: BoxDecoration(
-        color: ColorsManager.primaryBackground,
-      ),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s20, AppSize.s20, AppSize.s20, AppSize.s0),
-                child: StreamBuilder<bool>(
-                    stream: _viewModel.outIsEmailValid,
-                    builder: (context, snapshot) {
-                      return TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          obscureText: false,
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            hintText: AppStrings.email,
-                            labelText: AppStrings.email,
-                            labelStyle: TextStyle(
-                                fontSize: AppSize.s14,
-                                color: ColorsManager.secondaryText),
-                            filled: true,
-                            fillColor: ColorsManager.secondaryBackground,
-                            errorText: (snapshot.data ??
-                                    true) //check if the username was null
-                                ? null //then no errors
-                                : AppStrings
-                                    .emailInValid, //else present the error to the user
-                          ));
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s0, AppSize.s24, AppSize.s0, AppSize.s0),
-                child: StreamBuilder<bool>(
-                    stream: _viewModel.outIsEmailValid,
-                    builder: (context, snapshotValidation) {
-                      return StreamBuilder(
-                          stream: _viewModel.outShowResend,
-                          builder: (context, snapshotResend) {
-                            bool show = (snapshotResend.data ?? false) as bool;
-                            if (show) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                  top: AppPadding.p8,
-                                  left: AppPadding.p18,
-                                  right: AppPadding.p18,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        _viewModel.getResendText(),
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return SizedBox(
-                                width: AppSize.s230,
-                                height: AppSize.s50,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: ColorManager.white,
-                                    ),
-                                    onPressed:
-                                        (snapshotValidation.data ?? false)
-                                            ? () {
-                                                _viewModel.forgotPassword();
-                                              }
-                                            : null,
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                  AppSize.s20, AppSize.s20, AppSize.s20, AppSize.s0),
+              child: StreamBuilder<bool>(
+                  stream: _viewModel.outIsEmailValid,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: false,
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.email,
+                          labelText: AppStrings.email,
+                          labelStyle: TextStyle(
+                              fontSize: AppSize.s14,
+                              color: ColorsManager.secondaryText),
+                          filled: true,
+                          fillColor: ColorsManager.secondaryBackground,
+                          errorText: (snapshot.data ??
+                                  true) //check if the username was null
+                              ? null //then no errors
+                              : AppStrings
+                                  .emailInValid, //else present the error to the user
+                        ));
+                  }),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                  AppSize.s0, AppSize.s24, AppSize.s0, AppSize.s0),
+              child: StreamBuilder<bool>(
+                  stream: _viewModel.outIsEmailValid,
+                  builder: (context, snapshotValidation) {
+                    return StreamBuilder(
+                        stream: _viewModel.outShowResend,
+                        builder: (context, snapshotResend) {
+                          bool show = (snapshotResend.data ?? false) as bool;
+                          if (show) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                top: AppPadding.p8,
+                                left: AppPadding.p18,
+                                right: AppPadding.p18,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
                                     child: Text(
-                                      AppStrings.resetPassword,
-                                      style: TextStyle(
-                                          fontSize: AppSize.s16,
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorsManager
-                                              .secondaryBackground),
-                                    )),
-                              );
-                            }
-                          });
-                    }),
-              ),
-            ],
-          ),
+                                      _viewModel.getResendText(),
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return SizedBox(
+                              width: AppSize.s230,
+                              height: AppSize.s50,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: ColorManager.white,
+                                  ),
+                                  onPressed:
+                                      (snapshotValidation.data ?? false)
+                                          ? () {
+                                              _viewModel.forgotPassword();
+                                            }
+                                          : null,
+                                  child: Text(
+                                    AppStrings.resetPassword,
+                                    style: TextStyle(
+                                        fontSize: AppSize.s16,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorsManager
+                                            .secondaryBackground),
+                                  )),
+                            );
+                          }
+                        });
+                  }),
+            ),
+          ],
         ),
       ),
     );

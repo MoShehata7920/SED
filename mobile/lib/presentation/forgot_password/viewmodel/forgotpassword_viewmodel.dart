@@ -56,8 +56,9 @@ class ForgotPasswordViewModel extends BaseViewModel
 
       _showResendStreamController.add(true);
 
-      _initTimers();
     });
+
+    _initTimers();
   }
 
   void setEmail(String email) {
