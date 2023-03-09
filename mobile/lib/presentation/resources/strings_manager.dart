@@ -35,7 +35,7 @@ class AppStrings {
 
   //forgot password screen
   static const String resendText = "Please wait %d to send again";
-  static const String forgetPassword = "Forget Password";
+  static const String forgetPassword = "Forgot Password";
   static const String resetPassword = "Reset Password";
 
   // Register Screen
@@ -45,6 +45,7 @@ class AppStrings {
   static const String passwordInValid =
       "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
   static const String loginText = "Already have an account ? Login";
+  static const String useSocialToLoginText = "Or use a google account to login";
   static const String register = "Register";
   static const String mobileNumber = "Mobile Number";
   static const String username = "User Name";

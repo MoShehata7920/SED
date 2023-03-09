@@ -6,6 +6,7 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../resources/assets_manager.dart';
@@ -93,7 +94,8 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 65.0, 0.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s0, AppSize.s65, AppSize.s0, AppSize.s24),
                 child: Image(
                   image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                   width: AppSize.s160,
@@ -106,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
                   builder: (context, snapshot) {
                     return Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
-                          40.0, 0.0, 40.0, 20.0),
+                          AppSize.s40, AppSize.s0, AppSize.s40, AppSize.s20),
                       child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: _userNameController,
@@ -128,8 +130,8 @@ class _LoginViewState extends State<LoginView> {
                     );
                   }),
               Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s40, AppSize.s0, AppSize.s40, AppSize.s20),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
@@ -167,8 +169,8 @@ class _LoginViewState extends State<LoginView> {
                     }),
               ),
               Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s40, AppSize.s0, AppSize.s40, AppSize.s20),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outAreAllInputsValid,
                     builder: (context, snapshot) {
@@ -185,46 +187,56 @@ class _LoginViewState extends State<LoginView> {
                       );
                     }),
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(70.0, 0, 0, 10),
-                child: Row(
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorsManager.primaryColor,
-                          ),
-                          onPressed: () {},
-                          child: const Text("Register")),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Flexible(
-                      flex: 6,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorsManager.dark900,
-                          ),
-                          onPressed: () {},
-                          child: const Text("Forgot Password?")),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 5,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorsManager.primaryColor,
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.registerRoute);
+                        },
+                        child: const Text(AppStrings.register)),
+                  ),
+                  const SizedBox(
+                    width: AppSize.s10,
+                  ),
+                  Flexible(
+                    flex: 6,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorsManager.dark900,
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, Routes.forgotPasswordRoute);
+                        },
+                        child: const Text(
+                          AppStrings.forgetPassword,
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        )),
+                  ),
+                ],
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s0, AppSize.s12, AppSize.s0, AppSize.s0),
                 child: Text(
-                  'Or use a google account to login',
+                  AppStrings.useSocialToLoginText,
                   style: TextStyle(color: ColorsManager.secondaryText),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    AppSize.s8, AppSize.s8, AppSize.s8, AppSize.s8),
                 child: IconButton(
                   color: ColorsManager.grayIcon,
-                  icon: const FaIcon(FontAwesomeIcons.google),
+                  icon: const FaIcon(IconsManager.google),
                   onPressed: () {},
                 ),
               ),
