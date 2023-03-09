@@ -37,7 +37,7 @@ class ColorManager {
 }
 
 class ColorsManager {
-  static Color primaryBackGroundColorDark = const Color(0xFF1A1F24);
+  static Color darkBlack = const Color(0xFF080e13);
   static Color textFormFieldBackGroundColorDark = const Color(0xff1A1F24);
   static Color dark900 = const Color(0xFF1A1F24);
   static Color grayDark = const Color(0xFF95A1AC);

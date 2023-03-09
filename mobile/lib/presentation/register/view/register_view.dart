@@ -1,6 +1,7 @@
 import 'package:country_code_picker_mp/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -110,7 +111,8 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<String?>(
                       stream: _viewModel.outputErrorUserNameValid,
                       builder: (context, snapshot) {
@@ -131,7 +133,7 @@ class _RegisterViewState extends State<RegisterView> {
                 Center(
                   child: Padding(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                        const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                     child: Row(
                       children: [
                         Expanded(
@@ -175,7 +177,8 @@ class _RegisterViewState extends State<RegisterView> {
                   height: AppSize.s18,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<String?>(
                       stream: _viewModel.outputErrorEmailValid,
                       builder: (context, snapshot) {
@@ -194,7 +197,8 @@ class _RegisterViewState extends State<RegisterView> {
                   height: AppSize.s18,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<String?>(
                       stream: _viewModel.outputErrorPasswordValid,
                       builder: (context, snapshot) {
@@ -214,7 +218,8 @@ class _RegisterViewState extends State<RegisterView> {
                   height: AppSize.s18,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<bool>(
                       stream: _viewModel.outputAreAllInputsValid,
                       builder: (context, snapshot) {
@@ -224,36 +229,56 @@ class _RegisterViewState extends State<RegisterView> {
                           child: ElevatedButton(
                               onPressed: (snapshot.data ?? false)
                                   ? () {
-                                _viewModel.register();
-                              }
+                                      _viewModel.register();
+                                    }
                                   : null,
                               child: const Text(AppStrings.register)),
                         );
                       }),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: AppPadding.p8,
-                    left: AppPadding.p18,
-                    right: AppPadding.p18,
-                  ),
-                  child:
-
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
                       AppStrings.loginText,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: TextStyle(color: ColorsManager.secondaryText),
                     ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        AppStrings.login,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(color: ColorManager.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      AppSize.s0, AppSize.s12, AppSize.s0, AppSize.s0),
+                  child: Text(
+                    AppStrings.useSocialToLoginText,
+                    style: TextStyle(color: ColorsManager.secondaryText),
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      AppSize.s8, AppSize.s8, AppSize.s8, AppSize.s8),
+                  child: IconButton(
+                    color: ColorsManager.grayIcon,
+                    icon: const FaIcon(IconsManager.google),
+                    onPressed: () {},
+                  ),
+                ),
               ],
             ),
           ),
         ),
-
       ],
     );
   }

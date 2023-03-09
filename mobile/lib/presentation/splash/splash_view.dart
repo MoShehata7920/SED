@@ -28,10 +28,10 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.backGroundLightPrimary,
+      backgroundColor: ColorsManager.darkBlack,
       body: const Center(
         child: Image(
-          image: AssetImage(ImageAssets.lightModeSplashLogo),
+          image: AssetImage(ImageAssets.darkModeSplashLogo),
         ),
       ),
     );
@@ -56,7 +56,7 @@ class _SplashViewState extends State<SplashView> {
           if (isUseLoggedIn)
             {
               // navigate to main screen
-              Navigator.pushReplacementNamed(context, Routes.loginRoute)
+              Navigator.pushReplacementNamed(context, Routes.mainScreenRoute)
             }
           else
             {

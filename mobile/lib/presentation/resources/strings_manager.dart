@@ -44,7 +44,7 @@ class AppStrings {
   static const String mobileNumberInValid = "Mobile Number is Wrong";
   static const String passwordInValid =
       "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
-  static const String loginText = "Already have an account ? Login";
+  static const String loginText = "Already have an account ?";
   static const String useSocialToLoginText = "Or use a google account to login";
   static const String register = "Register";
   static const String mobileNumber = "Mobile Number";
