@@ -60,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.dark900,
+      backgroundColor: ColorsManager.darkBlack,
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {

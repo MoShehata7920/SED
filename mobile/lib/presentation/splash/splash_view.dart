@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
+import 'package:sed/presentation/resources/values_manager.dart';
 
 import '../resources/routes_manager.dart';
 
@@ -29,9 +31,24 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsManager.darkBlack,
-      body: const Center(
-        child: Image(
-          image: AssetImage(ImageAssets.darkModeSplashLogo),
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(height: AppSize.s60,),
+            const Image(
+              image: AssetImage(ImageAssets.darkModeSplashLogo),
+            ),
+            const SpinKitSquareCircle(
+              color: Colors.white,
+              size: 50.0,
+            ),
+            Text("Powered by",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text("Eagles",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ],
         ),
       ),
     );
