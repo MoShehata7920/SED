@@ -41,8 +41,8 @@ class _SplashViewState extends State<SplashView> {
             const Image(
               image: AssetImage(ImageAssets.darkModeSplashLogo),
             ).animateOnPageLoad(msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 900),
-            const SpinKitSquareCircle(
-              color: Colors.white,
+            SpinKitSquareCircle(
+              color: ColorsManager.primaryColor,
               size: AppSize.s50,
             ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
             Text(
@@ -89,7 +89,7 @@ class _SplashViewState extends State<SplashView> {
                           {
                             // navigate to Login screen
                             Navigator.pushReplacementNamed(
-                                context, Routes.onBoardingRoute)
+                                context, Routes.loginRoute)
                           }
                         else
                           {

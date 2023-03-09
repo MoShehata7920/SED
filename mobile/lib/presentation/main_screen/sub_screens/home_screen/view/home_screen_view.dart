@@ -44,7 +44,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
+        elevation: 0,
         toolbarHeight: AppSize.s50,
         title: SizedBox(
           width: double.infinity,
@@ -76,15 +78,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
           ),
         ),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                ColorManager.lightPrimary,
-                ColorManager.thirdLightPrimary
-              ])),
         ),
+        backgroundColor: ColorsManager.primaryBackground,
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
@@ -152,10 +147,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                               horizontal: AppPadding.p4),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? ColorManager.white
-                                      : ColorManager.lightPrimary)
+                              color: (ColorsManager.grayIcon)
                                   .withOpacity(
                                       _viewModel.carouselCurrentIndex ==
                                               entry.key

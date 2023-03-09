@@ -24,8 +24,7 @@ class _MainScreenViewState extends State<MainScreenView> {
         builder: (context, snapshot) {
           return Scaffold(
             extendBody: true,
-
-            backgroundColor: ColorManager.white,
+            backgroundColor: ColorsManager.darkBlack,
             body: snapshot.data ??
                 _viewModel.mainScreenWidgets[0], //destination screen
             floatingActionButton: FloatingActionButton(
@@ -35,7 +34,7 @@ class _MainScreenViewState extends State<MainScreenView> {
                 height: AppSize.s60,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    gradient: ColorManager.firstLightPrimaryMix),
+                    color: ColorsManager.primaryBackground),
                 child: const Icon(IconsManager.add),
               ),
               onPressed: () {
@@ -49,13 +48,7 @@ class _MainScreenViewState extends State<MainScreenView> {
               // borderColor: Colors.transparent,
               inactiveColor: ColorManager.white,
               activeColor: ColorManager.fifthLightPrimary,
-              backgroundGradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                    ColorManager.secondLightPrimary,
-                    ColorManager.thirdLightPrimary
-                  ]),
+              backgroundColor: ColorsManager.primaryBackground.withOpacity(0.5),
               icons: IconsManager.iconsList,
               activeIndex: _viewModel.bottomNavIndex,
               gapLocation: GapLocation.center,

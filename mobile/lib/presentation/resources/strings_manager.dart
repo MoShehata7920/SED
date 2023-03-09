@@ -11,9 +11,9 @@ class AppStrings {
 
   //on boarding screen
   static const List<String> onBoardingTitles = [
-    'SELL YOUR PRODUCTS',
-    'EXCHANGE YOUR PRODUCTS WITH OTHERS',
-    'DONATE PRODUCTS FOR OTHERS',
+    'Sell Your \nProducts Freely\nWith Sed',
+    'Exchange Your\nUseless Products\nWith Others',
+    'Make Others\nHappier\nBy Donating',
   ];
   static const List<String> onBoardingSubTitles = [
     'You can sell your used or new products using SED ',
