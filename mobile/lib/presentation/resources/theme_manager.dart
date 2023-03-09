@@ -58,11 +58,11 @@ ThemeData getApplicationTheme() {
     //text theme
     textTheme: TextTheme(
         displayLarge:
-            getLightStyle(color: ColorManager.darkGrey, fontSize: FontSize.s22),
-        headlineLarge: getSemiBoldStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s16),
-        headlineMedium: getRegularStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s14),
+            getLightStyle(color: ColorManager.white, fontSize: FontSize.s24),
+        headlineLarge:
+            getSemiBoldStyle(color: ColorManager.white, fontSize: FontSize.s16),
+        headlineMedium:
+            getRegularStyle(color: ColorManager.white, fontSize: FontSize.s14),
         titleMedium: getMediumStyle(
             color: ColorsManager.secondaryText, fontSize: FontSize.s14),
         bodyLarge: getRegularStyle(color: ColorManager.grey1),
@@ -80,7 +80,7 @@ ThemeData getApplicationTheme() {
       labelStyle:
           getMediumStyle(color: ColorManager.grey, fontSize: FontSize.s14),
       errorStyle: getRegularStyle(color: ColorManager.error),
-      
+
       //enabled border style
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(
@@ -107,7 +107,6 @@ ThemeData getApplicationTheme() {
         ),
         borderRadius: BorderRadius.circular(20.0),
       ),
-
 
       //focused border style
       focusedErrorBorder: OutlineInputBorder(

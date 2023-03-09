@@ -53,4 +53,14 @@ class ColorsManager {
   static Color background = const Color(0xFF14181B);
   static Color grayIcon = const Color(0xFF95A1AC);
   static Color tertiary = const Color(0xFF39D2C0);
+
+  static Color darkGrey = const Color(0xff525252);
+  static Color grey = const Color(0xff737477);
+  static Color lightGrey = const Color(0xffD9D9D6);
+  static Color black = const Color(0xff000000);
+
+  static Color grey1 = const Color(0xff707070);
+  static Color grey2 = const Color(0xff797979);
+  static Color white = const Color(0xffFFFFFF);
+  static Color error = const Color(0xffe61f34);
 }

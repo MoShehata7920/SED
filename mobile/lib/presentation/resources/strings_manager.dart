@@ -4,6 +4,8 @@ class AppStrings {
   //splash screen
   static const String noRouteTitle = "404 Error";
   static const String noRouteFound = "No Route Found";
+  static const String poweredBy = "Powered by";
+  static const String eagles = "Eagles";
 
   //on boarding screen
   static const List<String> onBoardingTitles = [

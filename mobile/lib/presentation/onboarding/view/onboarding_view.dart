@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sed/app/app_preferences.dart';
@@ -51,14 +50,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       return Container();
     } else {
       return Scaffold(
-        backgroundColor: ColorManager.backGroundLightPrimary,
-        appBar: AppBar(
-          backgroundColor: ColorManager.backGroundLightPrimary,
-          elevation: AppSize.s0,
-          systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: ColorManager.lightPrimary,
-              statusBarBrightness: Brightness.dark),
-        ),
+        backgroundColor: ColorsManager.darkBlack,
         body: PageView.builder(
             controller: _pageController,
             itemCount: sliderObject.numOfSlides,
@@ -69,7 +61,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               return OnBoardingPage(sliderObject.sliderObject);
             }),
         bottomSheet: Container(
-          color: ColorManager.white,
+          color: ColorsManager.darkBlack,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -98,7 +90,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   Widget _getBottomSheetWidget(SliderViewObject sliderViewObject) {
     return Container(
-      decoration: BoxDecoration(gradient: ColorManager.secondLightPrimaryMix),
+      color: ColorsManager.darkBlack,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -157,9 +149,9 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   Widget _getProperCircles(int index, int currentIndex) {
     if (index == currentIndex) {
-      return SvgPicture.asset(ImageAssets.hollowCircleIcon);
-    } else {
       return SvgPicture.asset(ImageAssets.solidCircleIcon);
+    } else {
+      return SvgPicture.asset(ImageAssets.hollowCircleIcon);
     }
   }
 
@@ -184,7 +176,7 @@ class OnBoardingPage extends StatelessWidget {
           height: AppSize.s32,
         ),
         Padding(
-          padding: const EdgeInsets.all(AppPadding.p8),
+          padding: const EdgeInsets.all(AppPadding.p28),
           child: Text(
             _sliderObject.title,
             textAlign: TextAlign.center,
@@ -202,7 +194,10 @@ class OnBoardingPage extends StatelessWidget {
         const SizedBox(
           height: AppSize.s60,
         ),
-        Lottie.asset(_sliderObject.image)
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Lottie.asset(_sliderObject.image),
+        )
       ],
     );
   }

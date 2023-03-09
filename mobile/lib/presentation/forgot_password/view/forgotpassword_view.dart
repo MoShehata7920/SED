@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/values_manager.dart';
 
 class ForgotPasswordView extends StatefulWidget {
@@ -57,18 +55,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           child: Icon(
             Icons.chevron_left_rounded,
             color: ColorsManager.primaryText,
-            size: 32.0,
+            size: AppSize.s32,
           ),
         ),
-        title: Text(
-          'Forgot Password',
+        title: const Text(
+          AppStrings.forgetPassword,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 22.0,
+            fontSize: AppSize.s20,
           ),
         ),
         centerTitle: false,
-        elevation: 0.0,
+        elevation: AppSize.s0,
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,

@@ -6,8 +6,8 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
-
 import '../resources/routes_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -34,18 +34,22 @@ class _SplashViewState extends State<SplashView> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: AppSize.s60,),
+            const SizedBox(
+              height: AppSize.s60,
+            ),
             const Image(
               image: AssetImage(ImageAssets.darkModeSplashLogo),
             ),
             const SpinKitSquareCircle(
               color: Colors.white,
-              size: 50.0,
+              size: AppSize.s50,
             ),
-            Text("Powered by",
+            Text(
+              AppStrings.poweredBy,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            Text("Eagles",
+            Text(
+              AppStrings.eagles,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
@@ -84,7 +88,7 @@ class _SplashViewState extends State<SplashView> {
                           {
                             // navigate to Login screen
                             Navigator.pushReplacementNamed(
-                                context, Routes.loginRoute)
+                                context, Routes.onBoardingRoute)
                           }
                         else
                           {

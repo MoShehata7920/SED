@@ -93,10 +93,10 @@ class StateRenderer extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-            color: ColorManager.white,
+            color: ColorsManager.background,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(AppSize.s14),
-            boxShadow: const [BoxShadow(color: Colors.black26)]),
+            boxShadow: [BoxShadow(color: ColorsManager.white)]),
         child: _getDialogContent(context, children),
       ),
     );
@@ -135,7 +135,7 @@ class StateRenderer extends StatelessWidget {
           message,
           textAlign: TextAlign.center,
           style: getRegularStyle(
-              color: ColorManager.black, fontSize: FontSize.s18),
+              color: ColorsManager.white, fontSize: FontSize.s18),
         ),
       ),
     );
@@ -168,7 +168,7 @@ class StateRenderer extends StatelessWidget {
         child: Text(
           title,
           style: getRegularStyle(
-              color: ColorManager.black, fontSize: FontSize.s18),
+              color: ColorsManager.white, fontSize: FontSize.s18),
         ),
       ),
     );
