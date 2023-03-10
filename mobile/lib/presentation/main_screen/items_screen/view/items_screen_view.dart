@@ -31,7 +31,7 @@ class _ItemViewState extends State<ItemView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorsManager.primaryBackground,
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
@@ -66,7 +66,7 @@ class _ItemViewState extends State<ItemView> {
         snap: true,
         floating: true,
         stretch: true,
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: ColorsManager.primaryBackground,
         flexibleSpace: FlexibleSpaceBar(
             stretchModes: const [
               StretchMode.zoomBackground,
@@ -81,9 +81,9 @@ class _ItemViewState extends State<ItemView> {
               offset: const Offset(AppSize.s0, AppSize.s1),
               child: Container(
                 height: AppSize.s45,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: ColorsManager.primaryBackground,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(AppSize.s30),
                     topRight: Radius.circular(AppSize.s30),
                   ),
@@ -93,7 +93,7 @@ class _ItemViewState extends State<ItemView> {
                   width: AppSize.s50,
                   height: AppSize.s8,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: ColorsManager.secondaryText,
                     borderRadius: BorderRadius.circular(AppSize.s10),
                   ),
                 )),
@@ -104,7 +104,7 @@ class _ItemViewState extends State<ItemView> {
           delegate: SliverChildListDelegate([
         Container(
             height: MediaQuery.of(context).size.height,
-            color: ColorManager.white,
+            color: ColorsManager.primaryBackground,
             padding: const EdgeInsets.symmetric(
                 horizontal: AppSize.s20, vertical: AppSize.s5),
             child: Column(
@@ -119,11 +119,11 @@ class _ItemViewState extends State<ItemView> {
                       children: [
                         Text(
                           _viewModel.item.item.name,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: AppSize.s20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: ColorsManager.white,
+                                    fontSize: AppSize.s20,
+                                  ),
                         ),
                         const SizedBox(
                           height: AppSize.s5,
@@ -133,18 +133,21 @@ class _ItemViewState extends State<ItemView> {
                           child: Text(
                             Utils.getCategoryNameById(
                                 _viewModel.item.item.categoryId),
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                              fontSize: AppSize.s14,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: ColorsManager.primaryBtnText,
+                                      fontSize: AppSize.s14,
+                                    ),
                           ),
                         ),
                       ],
                     ),
                     Text(
                       getPrice(_viewModel.item.item.price),
-                      style: const TextStyle(
-                          color: Colors.black, fontSize: AppSize.s16),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: ColorsManager.white,
+                            fontSize: AppSize.s16,
+                          ),
                     ),
                   ],
                 ),
@@ -153,11 +156,10 @@ class _ItemViewState extends State<ItemView> {
                 ),
                 Text(
                   _viewModel.item.item.description,
-                  style: TextStyle(
-                    height: AppSize.s1_5,
-                    color: Colors.grey.shade800,
-                    fontSize: AppSize.s14,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: ColorsManager.secondaryText,
+                        fontSize: AppSize.s14,
+                      ),
                 ),
                 const SizedBox(
                   height: AppSize.s12,
@@ -176,8 +178,10 @@ class _ItemViewState extends State<ItemView> {
                         textAlign: TextAlign.start,
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s14, color: ColorManager.grey2),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorsManager.primaryBtnText,
+                              fontSize: AppSize.s14,
+                            ),
                       ),
                     ),
                     Expanded(
@@ -186,8 +190,10 @@ class _ItemViewState extends State<ItemView> {
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s14, color: ColorManager.grey2),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorsManager.primaryBtnText,
+                              fontSize: AppSize.s14,
+                            ),
                       ),
                     ),
                   ],
@@ -197,8 +203,10 @@ class _ItemViewState extends State<ItemView> {
                 ),
                 Text(
                   AppStrings.user,
-                  style: TextStyle(
-                      color: Colors.grey.shade400, fontSize: AppSize.s18),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: ColorsManager.primaryBtnText,
+                        fontSize: AppSize.s18,
+                      ),
                 ),
                 const SizedBox(
                   height: AppSize.s10,
@@ -218,7 +226,13 @@ class _ItemViewState extends State<ItemView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_viewModel.item.userData.name),
+                          Text(
+                            _viewModel.item.userData.name,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: ColorsManager.white,
+                                    ),
+                          ),
                           const SizedBox(
                             height: AppSize.s5,
                           ),
@@ -233,8 +247,12 @@ class _ItemViewState extends State<ItemView> {
                               TextButton(
                                 child: Text(
                                   AppStrings.showProfile,
-                                  style: TextStyle(
-                                      color: ColorManager.secondLightPrimary),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        color: ColorsManager.primaryColor,
+                                      ),
                                 ),
                                 onPressed: () {
                                   Navigator.pushNamed(
@@ -252,9 +270,8 @@ class _ItemViewState extends State<ItemView> {
                 Center(
                   child: TextButton.icon(
                     style: TextButton.styleFrom(
-                      textStyle:
-                          TextStyle(color: ColorManager.secondLightPrimary),
-                      backgroundColor: ColorManager.white,
+                      textStyle: TextStyle(color: ColorsManager.primaryColor),
+                      backgroundColor: ColorsManager.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(AppSize.s24),
                       ),
@@ -262,11 +279,11 @@ class _ItemViewState extends State<ItemView> {
                     onPressed: () => {},
                     icon: Icon(
                       IconsManager.chat,
-                      color: ColorManager.secondLightPrimary,
+                      color: ColorsManager.primaryBackground,
                     ),
                     label: Text(AppStrings.chat,
                         style: TextStyle(
-                          color: ColorManager.secondLightPrimary,
+                          color: ColorsManager.primaryBackground,
                         )),
                   ),
                 ),

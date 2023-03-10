@@ -55,15 +55,18 @@ class AppStrings {
   static const String username = "User Name";
   static const String countrySearchBar = "Search by name or Country's code";
 
-  static const String categories = "Categories";
+  static const String allCategories = "All Categories";
   static const String sell = "Sell";
   static const String exchange = "Exchange";
   static const String donate = "Donate";
-  static const String showAll = "Show All";
+  static const String seeMore = "See More";
+  static const String lastProducts = "Last Products";
 
-  static const String searchForSomething = "Search for something";
+  static const String searchHere = "Search here ...";
 
   static const String user = "User";
   static const String chat = "Chat";
   static const String showProfile = "Show Profile";
+  static const String topCategories = "Top Categories";
+  static const String findYourProducts = "Find your favorite product";
 }

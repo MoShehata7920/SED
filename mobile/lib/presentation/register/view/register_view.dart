@@ -102,7 +102,7 @@ class _RegisterViewState extends State<RegisterView> {
               children: [
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(
-                      AppSize.s0, AppSize.s65, AppSize.s0, AppSize.s0),
+                      AppPadding.p0, AppPadding.p65, AppPadding.p0, AppPadding.p0),
                   child: Image(
                     image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                     width: AppSize.s160,
@@ -260,7 +260,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(
-                      AppSize.s0, AppSize.s12, AppSize.s0, AppSize.s0),
+                      AppPadding.p0, AppPadding.p12, AppPadding.p0, AppPadding.p0),
                   child: Text(
                     AppStrings.useSocialToLoginText,
                     style: TextStyle(color: ColorsManager.secondaryText),
@@ -268,7 +268,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(
-                      AppSize.s8, AppSize.s8, AppSize.s8, AppSize.s8),
+                      AppPadding.p8, AppPadding.p8, AppPadding.p8, AppPadding.p8),
                   child: IconButton(
                     color: ColorsManager.grayIcon,
                     icon: const FaIcon(IconsManager.google),

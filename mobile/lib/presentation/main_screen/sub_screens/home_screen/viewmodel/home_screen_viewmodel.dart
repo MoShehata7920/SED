@@ -66,7 +66,7 @@ class HomeScreenViewModel extends BaseViewModel
       _savedStreamController.stream.map((event) => event);
 
   // private functions
-  void getHomeData() async {
+  Future getHomeData() async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 

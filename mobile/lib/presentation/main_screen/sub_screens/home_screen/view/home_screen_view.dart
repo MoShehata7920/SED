@@ -4,12 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
-import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
+import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
-import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -42,9 +41,13 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   @override
   void initState() {
     super.initState();
+    //todo fix me
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _viewModel.start();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _bind();
+      await _viewModel.getHomeData();
+
+      setState(() {});
     });
   }
 
@@ -53,7 +56,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
-        elevation: 0,
+        elevation: AppSize.s0,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -79,7 +82,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                 width: AppSize.s14,
               ),
               FaIcon(
-                FontAwesomeIcons.bell,
+                IconsManager.notification,
                 color: ColorsManager.secondaryText,
               )
             ],
@@ -88,51 +91,80 @@ class _HomeScreenViewState extends State<HomeScreenView> {
         flexibleSpace: Container(),
         backgroundColor: ColorsManager.primaryBackground,
       ),
-      drawer: Drawer(
-        child: GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          // crossAxisCount is the number of columns
-          crossAxisCount: AppValues.categoriesCrossAxisCount,
-          // This creates two columns with two items in each column
-          children: List.generate(
-              Utils.categories.length > AppValues.defaultCategoriesNumber
-                  ? AppValues.defaultCategoriesNumber
-                  : Utils.categories.length, (index) {
-            return Center(
-              child: InkWell(
-                child: Card(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p14),
-                          child: Image(
-                            image: NetworkImage(Utils.categories[index].image),
-                            fit: BoxFit.fill,
-                            width: double.infinity,
+      drawer: SafeArea(
+        child: Drawer(
+          backgroundColor: ColorsManager.background,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      AppStrings.allCategories,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: ColorsManager.white,
+                            fontSize: 21,
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppPadding.p8),
-                        child: Text(
-                          Utils.categories[index].name,
-                          maxLines: AppValues.maxItemNameLines,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                      arguments: [Views.CATEGORY, Utils.categories[index].id]);
-                },
-              ),
-            );
-          }),
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: Divider(
+                    height: 3,
+                    color: ColorsManager.white,
+                  ),
+                ),
+                for (int i = 0; i < Utils.categories.length; i++)
+                  InkWell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                                color: ColorsManager.secondaryBackground,
+                                shape: BoxShape.circle),
+                            child: Center(
+                              child: FaIcon(
+                                IconsManager.categoriesIcons[i],
+                                color: ColorsManager.secondaryText,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Text(
+                              Utils.categories[i].name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: ColorsManager.secondaryText,
+                                    fontSize: 17,
+                                  ),
+                            ),
+                          ),
+                          FaIcon(
+                            FontAwesomeIcons.arrowRight,
+                            color: ColorsManager.secondaryText,
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                          arguments: [Views.CATEGORY, Utils.categories[i].id]);
+                    },
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
       body: StreamBuilder<FlowState>(
@@ -151,6 +183,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
           return RefreshIndicator(
+            backgroundColor: ColorsManager.background,
+            color: ColorsManager.secondaryText,
             onRefresh: _onRefresh,
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -159,61 +193,66 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                 children: [
                   const SizedBox(height: AppSize.s20),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p20),
                     child: Text(
                       'Hi Alex, Let\'s',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: 24, color: ColorsManager.white),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontSize: AppSize.s24, color: ColorsManager.white),
                     ),
                   ),
                   const SizedBox(height: AppSize.s10),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p20),
                     child: Text(
-                      'Find your favorite product',
+                      AppStrings.findYourProducts,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: 19,
+                            fontSize: AppSize.s18,
                             color: ColorsManager.secondaryText,
                           ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 36, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                        AppPadding.p36, AppPadding.p0, AppPadding.p0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                AppPadding.p20,
+                                AppPadding.p0,
+                                AppPadding.p20,
+                                AppPadding.p0),
                             child: Container(
-                              width: 100,
-                              height: 55,
+                              width: AppSize.s100,
+                              height: AppSize.s55,
                               decoration: BoxDecoration(
                                 color: ColorsManager.secondaryBackground,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 15, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    AppPadding.p15,
+                                    AppPadding.p0,
+                                    AppPadding.p15,
+                                    AppPadding.p0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     FaIcon(
                                       FontAwesomeIcons.magnifyingGlass,
                                       color: ColorsManager.secondaryText,
-                                      size: 24,
+                                      size: AppSize.s24,
                                     ),
-                                    SizedBox(
-                                      width: 10,
+                                    const SizedBox(
+                                      width: AppSize.s10,
                                     ),
                                     Expanded(
                                       child: TextFormField(
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          hintText: 'Search here ...',
+                                          hintText: AppStrings.searchHere,
                                           filled: true,
                                           fillColor:
                                               ColorsManager.secondaryBackground,
@@ -224,14 +263,14 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                             ?.copyWith(
                                               color:
                                                   ColorsManager.primaryBtnText,
-                                              fontSize: 15,
+                                              fontSize: AppSize.s15,
                                             ),
                                       ),
                                     ),
                                     FaIcon(
                                       FontAwesomeIcons.calendarMinus,
                                       color: ColorsManager.secondaryText,
-                                      size: 24,
+                                      size: AppSize.s24,
                                     ),
                                   ],
                                 ),
@@ -275,58 +314,58 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       );
                     }).toList(),
                   ),
-                  SizedBox(
-                    height: 15,
+                  const SizedBox(
+                    height: AppSize.s15,
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p15),
                     child: Divider(
-                      height: 2,
+                      height: AppSize.s2,
                       color: Colors.white,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 25, left: 20.0),
+                    padding: const EdgeInsets.only(
+                        top: AppPadding.p25, left: AppPadding.p20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Top Categories',
+                          AppStrings.topCategories,
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: ColorsManager.lineColor,
-                                    fontSize: 13,
+                                    fontSize: AppSize.s14,
                                   ),
                         ),
-                        SizedBox(
-                          height: 8,
+                        const SizedBox(
+                          height: AppSize.s8,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Categories',
+                              AppStrings.allCategories,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
                                     color: ColorsManager.white,
-                                    fontSize: 21,
+                                    fontSize: AppSize.s20,
                                   ),
                             ),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.categoriesScreenRoute);
+                                  Scaffold.of(context).openDrawer();
                                 },
                                 child: Text(
-                                  'See more',
+                                  AppStrings.seeMore,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
                                         color: ColorsManager.primaryBtnText,
-                                        fontSize: 13,
+                                        fontSize: AppSize.s14,
                                       ),
                                 ))
                           ],
@@ -340,46 +379,50 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: 6,
+                      itemCount: AppValues.defaultCategoriesNumber,
                       itemBuilder: (context, index) =>
                           _getCategoryWidget(index),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppPadding.p15),
                     child: Divider(
-                      height: 2,
-                      color: Colors.white,
+                      height: AppSize.s2,
+                      color: ColorsManager.white,
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p20,
+                        top: AppPadding.p20,
+                        bottom: AppPadding.p20),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          for (int i = 0; i < 3; i++)
+                          for (int i = 0; i < Utils.sections.length; i++)
                             _getButtonWidget(Utils.sections[i]!, i)
                         ],
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20.0),
+                    padding: const EdgeInsets.only(
+                        top: AppPadding.p5, left: AppPadding.p20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Last Products',
+                          AppStrings.lastProducts,
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: ColorsManager.lineColor,
-                                    fontSize: 13,
+                                    fontSize: AppSize.s14,
                                   ),
                         ),
-                        SizedBox(
-                          height: 8,
+                        const SizedBox(
+                          height: AppSize.s8,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -391,7 +434,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   .bodyLarge
                                   ?.copyWith(
                                     color: ColorsManager.white,
-                                    fontSize: 21,
+                                    fontSize: AppSize.s20,
                                   ),
                             ),
                             TextButton(
@@ -399,22 +442,23 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   Views viewType = Views.SELL;
 
                                   if (selectedIndex == 1) {
-                                    viewType = Views.EXCHANGE;
-                                  } else if (selectedIndex == 2) {
                                     viewType = Views.DONATE;
+                                  } else if (selectedIndex == 2) {
+                                    viewType = Views.EXCHANGE;
                                   }
 
-                                  Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                                  Navigator.pushNamed(
+                                      context, Routes.showItemsScreenRoute,
                                       arguments: [viewType, 0]);
                                 },
                                 child: Text(
-                                  'See more',
+                                  AppStrings.seeMore,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
                                         color: ColorsManager.primaryBtnText,
-                                        fontSize: 13,
+                                        fontSize: AppSize.s14,
                                       ),
                                 ))
                           ],
@@ -480,8 +524,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
       child: Column(
         children: [
           Container(
-            height: 65,
-            width: 65,
+            height: AppSize.s65,
+            width: AppSize.s65,
             decoration: BoxDecoration(
                 color: ColorsManager.secondaryBackground,
                 shape: BoxShape.circle),
@@ -493,14 +537,14 @@ class _HomeScreenViewState extends State<HomeScreenView> {
             ),
           ),
           const SizedBox(
-            width: 100,
-            height: 10,
+            width: AppSize.s100,
+            height: AppSize.s10,
           ),
           Text(
             Utils.categories[index].name,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.secondaryText,
-                  fontSize: 13,
+                  fontSize: AppSize.s14,
                 ),
           ),
         ],
@@ -512,17 +556,17 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     );
   }
 
-  Widget _getButtonWidget(String Name, int index) {
+  Widget _getButtonWidget(String name, int index) {
     return InkWell(
       child: Row(
         children: [
           Container(
-            height: 50,
+            height: AppSize.s50,
             decoration: BoxDecoration(
               color: selectedIndex == index
                   ? ColorsManager.primaryColor
                   : ColorsManager.primaryBackground,
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(AppSize.s50),
               border: Border.all(
                 color: ColorsManager.secondaryBackground,
                 width: selectedIndex == index ? 0 : 3,
@@ -530,20 +574,21 @@ class _HomeScreenViewState extends State<HomeScreenView> {
             ),
             alignment: const AlignmentDirectional(0, 0),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                  AppPadding.p16, AppPadding.p0, AppPadding.p16, AppPadding.p0),
               child: Text(
-                Name,
+                name,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: selectedIndex == index
                           ? ColorsManager.primaryBackground
                           : ColorsManager.secondaryText,
-                      fontSize: 17,
+                      fontSize: AppSize.s16,
                     ),
               ),
             ),
           ),
-          SizedBox(
-            width: 15,
+          const SizedBox(
+            width: AppSize.s15,
           )
         ],
       ),
@@ -561,7 +606,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
   Widget _getItems(int sectionId, HomeScreenViewModel viewModel) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0),
+      padding: const EdgeInsets.only(left: AppPadding.p20),
       child: SizedBox(
         height: AppSize.s270,
         child: ListView.builder(
@@ -601,81 +646,79 @@ Widget _buildItem(Items item, int sectionId,
         color: ColorsManager.secondaryBackground,
         child: Column(
           children: [
-            Flexible(
-              flex: 2,
-              child: SizedBox(
-                width: AppSize.s200,
-                height: AppSize.s200,
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Container(
-                      width: double.infinity,
+            SizedBox(
+              width: AppSize.s200,
+              height: AppSize.s150,
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(AppSize.s16),
+                            topRight: Radius.circular(AppSize.s16)),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            item.image,
+                          ),
+                          fit: BoxFit.fill,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                        onPressed: () {
+                          homeScreenViewModel.toggleSavingProduct(item);
+                        },
+                        icon: StreamBuilder<bool>(
+                            stream: homeScreenViewModel.savedOutput,
+                            builder: (context, snapshot) {
+                              return CircleAvatar(
+                                radius: 14,
+                                backgroundColor: item.isSaved
+                                    ? ColorsManager.primaryColor
+                                    : ColorManager.grey2,
+                                child: Icon(
+                                  Icons.favorite_border,
+                                  size: AppSize.s12,
+                                  color: ColorsManager.white,
+                                ),
+                              );
+                            })),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p6),
+                    child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(AppSize.s16),
-                              topRight: Radius.circular(AppSize.s16)),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              item.image,
-                            ),
-                            fit: BoxFit.fill,
-                          )),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                          onPressed: () {
-                            homeScreenViewModel.toggleSavingProduct(item);
-                          },
-                          icon: StreamBuilder<bool>(
-                              stream: homeScreenViewModel.savedOutput,
-                              builder: (context, snapshot) {
-                                return CircleAvatar(
-                                  radius: 14,
-                                  backgroundColor: item.isSaved
-                                      ? ColorsManager.primaryColor
-                                      : ColorManager.grey2,
-                                  child: const Icon(
-                                    Icons.favorite_border,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                );
-                              })),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p5),
-                        child: Text(
-                          Utils.getCategoryNameById(item.categoryId),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: 12,
-                                  color: ColorsManager.secondaryText),
-                        ),
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                      ),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: AppPadding.p5),
+                      child: Text(
+                        Utils.getCategoryNameById(item.categoryId),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: AppSize.s12,
+                            color: ColorsManager.secondaryText),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: AppPadding.p8),
-              child: Text(
-                item.name,
-                maxLines: AppValues.maxItemNameLines,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 15, color: ColorsManager.secondaryText),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: AppPadding.p8),
+                child: Text(
+                  item.name,
+                  maxLines: AppValues.maxItemNameLines,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: AppSize.s15,
+                      color: ColorsManager.secondaryText),
+                ),
               ),
             ),
             if (sectionId == 0)
@@ -688,14 +731,13 @@ Widget _buildItem(Items item, int sectionId,
                 ),
               ),
             const SizedBox(
-              height: 20,
+              height: AppSize.s18,
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Flexible(
-                flex: 1,
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomLeft,
                 child: Padding(
-                  padding: EdgeInsets.all(AppPadding.p10),
+                  padding: const EdgeInsets.all(AppPadding.p10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -714,7 +756,8 @@ Widget _buildItem(Items item, int sectionId,
                               .textTheme
                               .bodyLarge
                               ?.copyWith(
-                                  fontSize: 12, color: ColorsManager.grey2),
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.grey2),
                         ),
                       ),
                       Expanded(
@@ -727,7 +770,8 @@ Widget _buildItem(Items item, int sectionId,
                               .textTheme
                               .bodyLarge
                               ?.copyWith(
-                                  fontSize: 12, color: ColorsManager.grey2),
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.grey2),
                         ),
                       ),
                     ],
@@ -787,7 +831,7 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      AppStrings.showAll,
+                      AppStrings.seeMore,
                       style: TextStyle(color: ColorManager.lightPrimary),
                     ),
                   ],

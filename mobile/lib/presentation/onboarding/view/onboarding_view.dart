@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
-import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
+import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -142,8 +141,7 @@ class OnBoardingPage extends StatelessWidget {
           height: AppSize.s40,
         ),
         Padding(
-          padding:
-              const EdgeInsets.only(left: AppSize.s20, right: AppSize.s20),
+          padding: const EdgeInsets.only(left: AppSize.s20, right: AppSize.s20),
           child: Text(
             _sliderObject.sliderObject.subTitle,
             textAlign: TextAlign.start,
@@ -225,20 +223,19 @@ class OnBoardingPage extends StatelessWidget {
             ),
           ),
           SmoothPageIndicator(
-              controller: _pageController,  // PageController
-              count:  sliderViewObject.numOfSlides,
-              effect:  ExpandingDotsEffect(expansionFactor: 4.0,
+              controller: _pageController, // PageController
+              count: sliderViewObject.numOfSlides,
+              effect: ExpandingDotsEffect(
+                expansionFactor: 4.0,
                 spacing: 8.0,
                 radius: 16.0,
                 dotWidth: 8.0,
                 dotHeight: 8.0,
-                dotColor: Color(0xFF9E9E9E),
-                activeDotColor:
-                ColorsManager.primaryColor,
-                paintStyle: PaintingStyle.fill,),  // your preferred effect
-              onDotClicked: (index){
-              }
-          ),
+                dotColor: const Color(0xFF9E9E9E),
+                activeDotColor: ColorsManager.primaryColor,
+                paintStyle: PaintingStyle.fill,
+              ), // your preferred effect
+              onDotClicked: (index) {}),
           // right arrow
           Padding(
             padding: const EdgeInsets.all(AppPadding.p14),
@@ -264,13 +261,5 @@ class OnBoardingPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget _getProperCircles(int index, int currentIndex) {
-    if (index == currentIndex) {
-      return SvgPicture.asset(ImageAssets.solidCircleIcon);
-    } else {
-      return SvgPicture.asset(ImageAssets.hollowCircleIcon);
-    }
   }
 }

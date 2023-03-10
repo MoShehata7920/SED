@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
-import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
+import 'package:sed/app/functions.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
@@ -81,19 +81,19 @@ class _ShowItemsViewState extends State<ShowItemsView> {
     });
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         toolbarHeight: AppSize.s50,
         title: Text(
           viewType.getName(categoryId: categoryId),
-          style: const TextStyle(
-              fontSize: AppSize.s30, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.lineColor,
+                fontSize: AppSize.s30,
+              ),
         ),
-        flexibleSpace: Container(
-          decoration:
-              BoxDecoration(gradient: ColorManager.secondLightPrimaryMix),
-        ),
+        backgroundColor: ColorsManager.primaryBackground,
       ),
       extendBody: true,
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorsManager.primaryBackground,
       body: StreamBuilder<FlowState>(
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
@@ -116,17 +116,23 @@ class _ShowItemsViewState extends State<ShowItemsView> {
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: AppValues.showItemCrossAxisCounts,
+            childAspectRatio: 1 / 1.6,
             physics: const NeverScrollableScrollPhysics(),
             children: List.generate(_viewModel.items.length,
-                (index) => _getItemWidget(index, viewType, context)),
+                (index) => _getItemWidget(index, viewType)),
           ),
-          if (isLoading) const CircularProgressIndicator() else const SizedBox(height: 25,),
+          if (isLoading)
+            const CircularProgressIndicator()
+          else
+            const SizedBox(
+              height: AppSize.s25,
+            ),
         ]),
       ),
     );
   }
 
-  Widget _getItemWidget(int index, Views viewType, BuildContext context) {
+  Widget _getItemWidget(int index, Views viewType) {
     final HomeScreenViewModel homeScreenViewModel =
         instance<HomeScreenViewModel>();
 
@@ -135,67 +141,79 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         elevation: 1,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s16)),
-        color: ColorManager.white,
+        color: ColorsManager.secondaryBackground,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Flexible(
-              flex: 2,
-              child: SizedBox(
-                width: AppSize.s200,
-                height: AppSize.s200,
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Image.network(
-                      _viewModel.items[index].image,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                    ),
-                    Align(
+            SizedBox(
+              width: AppSize.s200,
+              height: AppSize.s150,
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(AppSize.s16),
+                            topRight: Radius.circular(AppSize.s16)),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            _viewModel.items[index].image,
+                          ),
+                          fit: BoxFit.fill,
+                        )),
+                  ),
+                  Expanded(
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: IconButton(
                           onPressed: () {
                             homeScreenViewModel
                                 .toggleSavingProduct(_viewModel.items[index]);
-
-                            if (viewType == Views.SAVED) {
-                              setState(() {});
-                            }
                           },
                           icon: StreamBuilder<bool>(
                               stream: homeScreenViewModel.savedOutput,
                               builder: (context, snapshot) {
                                 return CircleAvatar(
-                                  radius: 14,
+                                  radius: AppSize.s14,
                                   backgroundColor:
                                       _viewModel.items[index].isSaved
-                                          ? ColorManager.thirdLightPrimary
+                                          ? ColorsManager.primaryColor
                                           : ColorManager.grey2,
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.favorite_border,
-                                    size: 12,
-                                    color: Colors.white,
+                                    size: AppSize.s12,
+                                    color: ColorsManager.white,
                                   ),
                                 );
                               })),
                     ),
-                    Container(
-                      color: Colors.black.withOpacity(0.5),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                      child: Text(
-                        Utils.getCategoryNameById(
-                            _viewModel.items[index].categoryId),
-                        style: TextStyle(
-                          fontSize: AppSize.s10,
-                          color: ColorManager.white,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p6),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16.0)),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppPadding.p5),
+                        child: Text(
+                          Utils.getCategoryNameById(
+                              _viewModel.items[index].categoryId),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.secondaryText),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -204,19 +222,25 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                 _viewModel.items[index].name,
                 maxLines: AppValues.maxItemNameLines,
                 overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: AppSize.s15, color: ColorsManager.secondaryText),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: AppPadding.p10),
-              child: Icon(
-                Icons.attach_money,
-                color: ColorManager.lightPrimary,
+              child: Text(
+                getPrice(_viewModel.items[index].price),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 15, color: ColorsManager.secondaryText),
               ),
             ),
-            Flexible(
-              flex: 1,
+            const SizedBox(
+              height: AppSize.s20,
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                padding: const EdgeInsets.all(AppPadding.p10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -231,8 +255,8 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                         textAlign: TextAlign.start,
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
                     Expanded(
@@ -241,8 +265,8 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
                   ],
