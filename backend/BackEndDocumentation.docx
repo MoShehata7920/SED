@@ -122,3 +122,10 @@ Controllers :
         > token expires after 6 hours so if user tried after 6 hours he gets error
 
         
+
+---------------
+Data Protector >> we used crypto js package to encrypt user data into our database and decypting it when needed into our server 
+---------------
+created 2 new schemas for category and for application images which are used into our application 
+
+Home Page >> we used try catch to get our items (10 of each category + carousel + sections images )  
