@@ -33,12 +33,13 @@ mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('Connected Success
 const usersRoute=require('./api/routes/users')
 const productsRoute=require('./api/routes/products')
 const authRoute=require('./api/routes/auth')     
+const homeRoute=require('./api/routes/home')
 
 //forwarding routes
 app.use('/api/users',usersRoute)
 app.use('/api/products',productsRoute)
 app.use('/google',authRoute)                    
-
+app.use('/home',homeRoute)
 
 app.get('',(req,res)=>{
     res.send('Hello Eagles <3 ')

@@ -14,9 +14,13 @@ const productSchema = mongoose.Schema({
     category: {
         type:String,
         // required:true,
-        enum:['Electronics','Fashion','Furniture','Books','Games','Health Care','example1','ex2']
+        enum:['Electronics','Fashion','Phones&Tablets','Books','Furniture','Supermarket','Body&HealthCare','Others','Sports','Vehicles']
     },
-
+    purpose:{
+        type:String,
+        required:true,
+        enum:['sell','exchange','donate']
+    },
     quantity: {
         type : Number,
         default : 1
@@ -31,6 +35,13 @@ const productSchema = mongoose.Schema({
         type : Number,
         required : true
     },
+
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+
     createdAt:{
         type:Date,
         default:Date.now()
