@@ -608,7 +608,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     return Padding(
       padding: const EdgeInsets.only(left: AppPadding.p20),
       child: SizedBox(
-        height: AppSize.s270,
+        height: AppSize.s230,
         child: ListView.builder(
           controller: _listViewScrollController,
           physics: const BouncingScrollPhysics(),
@@ -646,79 +646,82 @@ Widget _buildItem(Items item, int sectionId,
         color: ColorsManager.secondaryBackground,
         child: Column(
           children: [
-            SizedBox(
-              width: AppSize.s200,
-              height: AppSize.s150,
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(AppSize.s16),
-                            topRight: Radius.circular(AppSize.s16)),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            item.image,
-                          ),
-                          fit: BoxFit.fill,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                        onPressed: () {
-                          homeScreenViewModel.toggleSavingProduct(item);
-                        },
-                        icon: StreamBuilder<bool>(
-                            stream: homeScreenViewModel.savedOutput,
-                            builder: (context, snapshot) {
-                              return CircleAvatar(
-                                radius: 14,
-                                backgroundColor: item.isSaved
-                                    ? ColorsManager.primaryColor
-                                    : ColorManager.grey2,
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  size: AppSize.s12,
-                                  color: ColorsManager.white,
-                                ),
-                              );
-                            })),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppPadding.p6),
-                    child: Container(
+            Expanded(
+              child: SizedBox(
+                width: AppSize.s200,
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(16.0)),
-                      ),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                      child: Text(
-                        Utils.getCategoryNameById(item.categoryId),
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: AppSize.s12,
-                            color: ColorsManager.secondaryText),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(AppSize.s16),
+                              topRight: Radius.circular(AppSize.s16)),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              item.image,
+                            ),
+                            fit: BoxFit.fill,
+                          )),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                          onPressed: () {
+                            homeScreenViewModel.toggleSavingProduct(item);
+                          },
+                          icon: StreamBuilder<bool>(
+                              stream: homeScreenViewModel.savedOutput,
+                              builder: (context, snapshot) {
+                                return CircleAvatar(
+                                  radius: 14,
+                                  backgroundColor: item.isSaved
+                                      ? ColorsManager.primaryColor
+                                      : ColorManager.grey2,
+                                  child: Icon(
+                                    Icons.favorite_border,
+                                    size: AppSize.s12,
+                                    color: ColorsManager.white,
+                                  ),
+                                );
+                              })),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(AppPadding.p6),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16.0)),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppPadding.p5),
+                        child: Text(
+                          Utils.getCategoryNameById(item.categoryId),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.secondaryText),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p8),
-                child: Text(
-                  item.name,
-                  maxLines: AppValues.maxItemNameLines,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: AppSize.s15,
-                      color: ColorsManager.secondaryText),
-                ),
+            Padding(
+              padding: const EdgeInsets.only(top: AppPadding.p8),
+              child: Text(
+                item.name,
+                maxLines: AppValues.maxItemNameLines,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: AppSize.s15,
+                    color: ColorsManager.secondaryText,
+                    height: 1),
               ),
             ),
             if (sectionId == 0)
@@ -727,55 +730,47 @@ Widget _buildItem(Items item, int sectionId,
                 child: Text(
                   getPrice(item.price),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 15, color: ColorsManager.secondaryText),
+                      fontSize: 15,
+                      color: ColorsManager.secondaryText,
+                      height: 1),
                 ),
               ),
             const SizedBox(
               height: AppSize.s18,
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        IconsManager.location,
-                        size: AppSize.s12,
-                        color: ColorManager.grey2,
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      IconsManager.location,
+                      size: AppSize.s12,
+                      color: ColorManager.grey2,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Gharbiya / Tanta',
+                        textAlign: TextAlign.start,
+                        maxLines: AppValues.maxAddressLines,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
-                      Expanded(
-                        child: Text(
-                          'Gharbiya / Tanta',
-                          textAlign: TextAlign.start,
-                          maxLines: AppValues.maxAddressLines,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: AppSize.s12,
-                                  color: ColorsManager.grey2),
-                        ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        item.date,
+                        textAlign: TextAlign.end,
+                        maxLines: AppValues.maxDateLines,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
-                      Expanded(
-                        child: Text(
-                          item.date,
-                          textAlign: TextAlign.end,
-                          maxLines: AppValues.maxDateLines,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: AppSize.s12,
-                                  color: ColorsManager.grey2),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             )

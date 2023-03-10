@@ -116,7 +116,6 @@ class _ShowItemsViewState extends State<ShowItemsView> {
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: AppValues.showItemCrossAxisCounts,
-            childAspectRatio: 1 / 1.6,
             physics: const NeverScrollableScrollPhysics(),
             children: List.generate(_viewModel.items.length,
                 (index) => _getItemWidget(index, viewType)),
@@ -144,76 +143,77 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         color: ColorsManager.secondaryBackground,
         child: Column(
           children: [
-            SizedBox(
-              width: AppSize.s200,
-              height: AppSize.s150,
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(AppSize.s16),
-                            topRight: Radius.circular(AppSize.s16)),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            _viewModel.items[index].image,
-                          ),
-                          fit: BoxFit.fill,
-                        )),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                          onPressed: () {
-                            homeScreenViewModel
-                                .toggleSavingProduct(_viewModel.items[index]);
-                          },
-                          icon: StreamBuilder<bool>(
-                              stream: homeScreenViewModel.savedOutput,
-                              builder: (context, snapshot) {
-                                return CircleAvatar(
-                                  radius: AppSize.s14,
-                                  backgroundColor:
-                                      _viewModel.items[index].isSaved
-                                          ? ColorsManager.primaryColor
-                                          : ColorManager.grey2,
-                                  child: Icon(
-                                    Icons.favorite_border,
-                                    size: AppSize.s12,
-                                    color: ColorsManager.white,
-                                  ),
-                                );
-                              })),
+            Expanded(
+              child: SizedBox(
+                width: AppSize.s200,
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(AppSize.s16),
+                              topRight: Radius.circular(AppSize.s16)),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              _viewModel.items[index].image,
+                            ),
+                            fit: BoxFit.fill,
+                          )),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppPadding.p6),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16.0)),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p5),
-                        child: Text(
-                          Utils.getCategoryNameById(
-                              _viewModel.items[index].categoryId),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: AppSize.s12,
-                                  color: ColorsManager.secondaryText),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                            onPressed: () {
+                              homeScreenViewModel
+                                  .toggleSavingProduct(_viewModel.items[index]);
+                            },
+                            icon: StreamBuilder<bool>(
+                                stream: homeScreenViewModel.savedOutput,
+                                builder: (context, snapshot) {
+                                  return CircleAvatar(
+                                    radius: AppSize.s14,
+                                    backgroundColor:
+                                        _viewModel.items[index].isSaved
+                                            ? ColorsManager.primaryColor
+                                            : ColorManager.grey2,
+                                    child: Icon(
+                                      Icons.favorite_border,
+                                      size: AppSize.s12,
+                                      color: ColorsManager.white,
+                                    ),
+                                  );
+                                })),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.p6),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16.0)),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p5),
+                          child: Text(
+                            Utils.getCategoryNameById(
+                                _viewModel.items[index].categoryId),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                    fontSize: AppSize.s12,
+                                    color: ColorsManager.secondaryText),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -223,7 +223,9 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                 maxLines: AppValues.maxItemNameLines,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: AppSize.s15, color: ColorsManager.secondaryText),
+                    fontSize: AppSize.s15,
+                    color: ColorsManager.secondaryText,
+                    height: 1),
               ),
             ),
             Padding(
@@ -231,11 +233,13 @@ class _ShowItemsViewState extends State<ShowItemsView> {
               child: Text(
                 getPrice(_viewModel.items[index].price),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 15, color: ColorsManager.secondaryText),
+                    fontSize: 15,
+                    color: ColorsManager.secondaryText,
+                    height: 1),
               ),
             ),
             const SizedBox(
-              height: AppSize.s20,
+              height: AppSize.s15,
             ),
             Align(
               alignment: Alignment.bottomLeft,
