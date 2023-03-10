@@ -169,6 +169,10 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                             onPressed: () {
                               homeScreenViewModel
                                   .toggleSavingProduct(_viewModel.items[index]);
+
+                              if (viewType == Views.SAVED) {
+                                setState(() {});
+                              }
                             },
                             icon: StreamBuilder<bool>(
                                 stream: homeScreenViewModel.savedOutput,

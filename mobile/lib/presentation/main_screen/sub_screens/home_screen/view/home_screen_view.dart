@@ -195,7 +195,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   Padding(
                     padding: const EdgeInsets.only(left: AppPadding.p20),
                     child: Text(
-                      'Hi Alex, Let\'s',
+                      'Hi Firmeno, Let\'s',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: AppSize.s24, color: ColorsManager.white),
                     ),
