@@ -8,6 +8,7 @@ import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class ItemView extends StatefulWidget {
@@ -224,7 +225,11 @@ class _ItemViewState extends State<ItemView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(_viewModel.item.userData.phone),
+                              TextButton(
+                                  onPressed: () => launchUrl(Uri(
+                                      scheme: "tel",
+                                      path: _viewModel.item.userData.phone)),
+                                  child: Text(_viewModel.item.userData.phone)),
                               TextButton(
                                 child: Text(
                                   AppStrings.showProfile,
@@ -232,7 +237,8 @@ class _ItemViewState extends State<ItemView> {
                                       color: ColorManager.secondLightPrimary),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, Routes.showProfileScreenRoute,
+                                  Navigator.pushNamed(
+                                      context, Routes.showProfileScreenRoute,
                                       arguments: _viewModel.item.userData);
                                 },
                               ),

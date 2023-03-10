@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
-
+import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sed/presentation/resources/values_manager.dart';
 import '../resources/routes_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -28,10 +31,29 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.backGroundLightPrimary,
-      body: const Center(
-        child: Image(
-          image: AssetImage(ImageAssets.lightModeSplashLogo),
+      backgroundColor: ColorsManager.darkBlack,
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: AppSize.s60,
+            ),
+            const Image(
+              image: AssetImage(ImageAssets.darkModeSplashLogo),
+            ).animateOnPageLoad(msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 900),
+            SpinKitSquareCircle(
+              color: ColorsManager.primaryColor,
+              size: AppSize.s50,
+            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
+            Text(
+              AppStrings.poweredBy,
+              style: Theme.of(context).textTheme.titleMedium,
+            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
+            Text(
+              AppStrings.eagles,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
+          ],
         ),
       ),
     );

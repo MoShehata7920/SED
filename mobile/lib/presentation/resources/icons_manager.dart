@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class IconsManager {
   static const email = Icons.email_outlined;
@@ -24,4 +25,6 @@ class IconsManager {
   static const location = Icons.location_on;
 
   static const chat = Icons.chat;
+
+  static const google = FontAwesomeIcons.google;
 }

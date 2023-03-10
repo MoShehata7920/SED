@@ -5,6 +5,11 @@ const String jsonPath = 'assets/json';
 class ImageAssets {
   //splash screen
   static const String lightModeSplashLogo = '$imagePath/light_mode_logo.png';
+  static const String darkModeSplashLogo = '$imagePath/dark_mode_logo.png';
+  static const String onBoardingLogo = '$imagePath/onboarding_logo.png';
+  static const String loginDarkModeLoginLogo =
+      '$imagePath/login_dark_mode_logo.png';
+  static const String loginBackground = '$imagePath/login_background.png';
 
   static const String leftArrowIcon = "$imagePath/left_arrow_icon.svg";
   static const String rightArrowIcon = "$imagePath/right_arrow_icon.svg";

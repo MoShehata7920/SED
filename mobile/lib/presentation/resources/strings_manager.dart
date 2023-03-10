@@ -1,15 +1,19 @@
 class AppStrings {
   static const String empty = "";
 
+  static const String sed = "SED Inc.";
+
   //splash screen
   static const String noRouteTitle = "404 Error";
   static const String noRouteFound = "No Route Found";
+  static const String poweredBy = "Powered by";
+  static const String eagles = "Eagles";
 
   //on boarding screen
   static const List<String> onBoardingTitles = [
-    'SELL YOUR PRODUCTS',
-    'EXCHANGE YOUR PRODUCTS WITH OTHERS',
-    'DONATE PRODUCTS FOR OTHERS',
+    'Sell Your \nProducts Freely\nWith Sed',
+    'Exchange Your\nUseless Products\nWith Others',
+    'Make Others\nHappier\nBy Donating',
   ];
   static const List<String> onBoardingSubTitles = [
     'You can sell your used or new products using SED ',
@@ -35,7 +39,7 @@ class AppStrings {
 
   //forgot password screen
   static const String resendText = "Please wait %d to send again";
-  static const String forgetPassword = "Forget Password";
+  static const String forgetPassword = "Forgot Password";
   static const String resetPassword = "Reset Password";
 
   // Register Screen
@@ -44,7 +48,8 @@ class AppStrings {
   static const String mobileNumberInValid = "Mobile Number is Wrong";
   static const String passwordInValid =
       "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
-  static const String loginText = "Already have an account ? Login";
+  static const String loginText = "Already have an account ?";
+  static const String useSocialToLoginText = "Or use a google account to login";
   static const String register = "Register";
   static const String mobileNumber = "Mobile Number";
   static const String username = "User Name";

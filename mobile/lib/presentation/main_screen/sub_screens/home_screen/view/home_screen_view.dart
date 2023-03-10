@@ -44,7 +44,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
+        elevation: 0,
         toolbarHeight: AppSize.s50,
         title: SizedBox(
           width: double.infinity,
@@ -76,15 +78,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
           ),
         ),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                ColorManager.secondLightPrimary,
-                ColorManager.thirdLightPrimary
-              ])),
         ),
+        backgroundColor: ColorsManager.primaryBackground,
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
@@ -127,7 +122,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 horizontal: AppPadding.p4),
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(image ?? AppStrings.empty),
+                                  image:
+                                      NetworkImage(image ?? AppStrings.empty),
                                   fit: BoxFit.cover),
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(AppSize.s16)),
@@ -147,15 +143,14 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           width: AppSize.s10,
                           height: AppSize.s10,
                           margin: const EdgeInsets.symmetric(
-                              vertical: AppPadding.p8, horizontal: AppPadding.p4),
+                              vertical: AppPadding.p8,
+                              horizontal: AppPadding.p4),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? ColorManager.white
-                                      : ColorManager.lightPrimary)
+                              color: (ColorsManager.grayIcon)
                                   .withOpacity(
-                                      _viewModel.carouselCurrentIndex == entry.key
+                                      _viewModel.carouselCurrentIndex ==
+                                              entry.key
                                           ? AppSize.s0_9
                                           : AppSize.s0_4)),
                         ),
@@ -492,7 +487,6 @@ Widget _getIdentifyBar(String category, BuildContext context, int type) =>
                   } else {
                     Navigator.pushNamed(context, Routes.categoriesScreenRoute);
                   }
-                  
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
