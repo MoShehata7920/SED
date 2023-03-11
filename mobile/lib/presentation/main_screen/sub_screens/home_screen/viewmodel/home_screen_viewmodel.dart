@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
@@ -10,12 +11,6 @@ import 'package:sed/presentation/main_screen/utils/utils.dart';
 
 class HomeScreenViewModel extends BaseViewModel
     with HomeScreenViewModelInputs, HomeScreenViewModelOutputs {
-  List<String?> carouselImages = [];
-  List<Items> sellItems = [];
-  List<Items> donateItems = [];
-  List<Items> exchangeItems = [];
-  List<Section> sections = [];
-
   final HomeUseCase _homeUseCase = instance<HomeUseCase>();
 
   final StreamController _carouselStreamController =
@@ -23,6 +18,9 @@ class HomeScreenViewModel extends BaseViewModel
 
   final StreamController _savedStreamController =
       StreamController<bool>.broadcast();
+
+  final StreamController _contentStreamController =
+      StreamController<HomeContentObject>.broadcast();
 
   final SavingProductsUseCase _savingProductsUseCase =
       instance<SavingProductsUseCase>();
@@ -32,14 +30,17 @@ class HomeScreenViewModel extends BaseViewModel
   // Inputs
 
   @override
-  void start() {
+  void start() async {
     inputState.add(ContentState());
+
+    getHomeData();
   }
 
   @override
   void dispose() {
     _carouselStreamController.close();
     _savedStreamController.close();
+    _contentStreamController.close();
     super.dispose();
   }
 
@@ -55,6 +56,9 @@ class HomeScreenViewModel extends BaseViewModel
   @override
   Sink get savedInput => _savedStreamController.sink;
 
+  @override
+  Sink get contentInput => _contentStreamController.sink;
+
   // Outputs
 
   @override
@@ -65,8 +69,13 @@ class HomeScreenViewModel extends BaseViewModel
   Stream<bool> get savedOutput =>
       _savedStreamController.stream.map((event) => event);
 
+  @override
+  Stream<HomeContentObject> get contentOutput => _contentStreamController.stream
+      .map((homeContentObject) => homeContentObject);
+
   // private functions
   void getHomeData() async {
+
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
@@ -77,13 +86,16 @@ class HomeScreenViewModel extends BaseViewModel
               // left -> failure
             }, (response) {
       // right -> success
-      // navigate to main screen
-      carouselImages = response.carousel.images;
+      // post data to view
+
       Utils.categories = response.category;
-      sellItems = response.sellItems;
-      donateItems = response.donateItems;
-      exchangeItems = response.exchangeItems;
-      sections = response.sections;
+
+      contentInput.add(HomeContentObject(
+          response.carousel.images,
+          response.sellItems,
+          response.donateItems,
+          response.exchangeItems,
+          response.sections));
 
       inputState.add(ContentState());
     });
@@ -114,6 +126,8 @@ abstract class HomeScreenViewModelInputs {
 
   Sink get savedInput;
 
+  Sink get contentInput;
+
   void toggleSavingProduct(Items product);
 }
 
@@ -121,4 +135,6 @@ abstract class HomeScreenViewModelOutputs {
   Stream<void> get carouselOutput;
 
   Stream<bool> get savedOutput;
+
+  Stream<HomeContentObject> get contentOutput;
 }

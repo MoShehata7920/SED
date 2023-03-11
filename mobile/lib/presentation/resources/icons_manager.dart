@@ -27,4 +27,17 @@ class IconsManager {
   static const chat = Icons.chat;
 
   static const google = FontAwesomeIcons.google;
+
+  static List<IconData> categoriesIcons = [
+    FontAwesomeIcons.laptop,
+    FontAwesomeIcons.personHalfDress,
+    FontAwesomeIcons.mobile,
+    FontAwesomeIcons.book,
+    FontAwesomeIcons.chair,
+    FontAwesomeIcons.burger,
+    FontAwesomeIcons.flask,
+    FontAwesomeIcons.mix,
+    FontAwesomeIcons.basketball,
+    FontAwesomeIcons.car,
+  ];
 }

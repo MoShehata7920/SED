@@ -86,8 +86,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(
-                  AppSize.s20, AppSize.s20, AppSize.s20, AppSize.s0),
+              padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p20,
+                  AppPadding.p20, AppPadding.p20, AppPadding.p0),
               child: StreamBuilder<bool>(
                   stream: _viewModel.outIsEmailValid,
                   builder: (context, snapshot) {
@@ -113,7 +113,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(
-                  AppSize.s0, AppSize.s24, AppSize.s0, AppSize.s0),
+                  AppPadding.p0, AppPadding.p25, AppPadding.p0, AppPadding.p0),
               child: StreamBuilder<bool>(
                   stream: _viewModel.outIsEmailValid,
                   builder: (context, snapshotValidation) {
@@ -151,19 +151,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: ColorManager.white,
                                   ),
-                                  onPressed:
-                                      (snapshotValidation.data ?? false)
-                                          ? () {
-                                              _viewModel.forgotPassword();
-                                            }
-                                          : null,
+                                  onPressed: (snapshotValidation.data ?? false)
+                                      ? () {
+                                          _viewModel.forgotPassword();
+                                        }
+                                      : null,
                                   child: Text(
                                     AppStrings.resetPassword,
                                     style: TextStyle(
                                         fontSize: AppSize.s16,
                                         fontWeight: FontWeight.w500,
-                                        color: ColorsManager
-                                            .secondaryBackground),
+                                        color:
+                                            ColorsManager.secondaryBackground),
                                   )),
                             );
                           }

@@ -2,6 +2,11 @@ import 'package:sed/domain/model/models.dart';
 
 class Utils {
   static List<Category> categories = [];
+  static Map<int, String> sections = {
+    0: "Sell Products",
+    1: "Exchange",
+    2: "Donate",
+  };
 
   static String getCategoryNameById(int id) {
     String categoryName = "";

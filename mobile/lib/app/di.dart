@@ -20,6 +20,7 @@ import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmo
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/viewmodel/show_items_screen_viewmodel.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
@@ -69,6 +70,9 @@ Future<void> initAppModule() async {
   // home screen view
   instance
       .registerLazySingleton<HomeScreenViewModel>(() => HomeScreenViewModel());
+
+  instance
+      .registerLazySingleton<HomeScreenView>(() => const HomeScreenView());
 
   instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
 

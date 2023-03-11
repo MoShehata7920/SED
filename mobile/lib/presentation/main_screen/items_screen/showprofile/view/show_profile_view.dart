@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/items_screen/showprofile/viewmodel/show_profile_viewmodel.dart';
@@ -46,21 +48,15 @@ class _ShowProfileViewState extends State<ShowProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.lightGrey,
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
         elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                    ColorManager.secondLightPrimary,
-                    ColorManager.thirdLightPrimary
-                  ])),
-        ),
+        backgroundColor: ColorsManager.primaryBackground,
         toolbarHeight: 50,
-        actions: [Icon(Icons.report)],
+        actions: [Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: FaIcon(FontAwesomeIcons.exclamation),
+        )],
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
@@ -78,67 +74,93 @@ class _ShowProfileViewState extends State<ShowProfileView> {
         physics: const BouncingScrollPhysics(),
         child: Column(children: [
           SizedBox(height: 5),
-          Container(
-            color: ColorManager.white,
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: AppSize.s32,
-                      backgroundImage: NetworkImage(
-                          userData.image),
-                    ),
-                    const SizedBox(
-                      width: AppSize.s14,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userData.name,
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: ColorManager.thirdLightPrimary),
-                          ),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                userData.phone,
-                                style: TextStyle(
-                                    fontSize: 13, color: ColorManager.grey2),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: ColorsManager.secondaryBackground,
               ),
-            ]),
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: AppSize.s32,
+                        backgroundImage: NetworkImage(
+                            userData.image),
+                      ),
+                      const SizedBox(
+                        width: AppSize.s14,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: AppSize.s8,
+                            ),
+                            Text(
+                              userData.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                  fontSize: AppSize.s18,
+                                  color: ColorsManager.white),
+                            ),
+                            const SizedBox(
+                              height: AppSize.s15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  userData.phone,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                      fontSize: AppSize.s14,
+                                      color: ColorsManager.secondaryText),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+            ),
           ),
           SizedBox(
             height: 3,
           ),
-          Container(
-            width: double.infinity,
-            color: ColorManager.white,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "Published Items (${_viewModel.showProfileProducts.length})",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: ColorManager.secondLightPrimary),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: ColorsManager.secondaryBackground,
+              ),
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    "Published Items (${_viewModel.showProfileProducts.length})",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(
+                        fontSize: AppSize.s16,
+                        color: ColorsManager.secondaryText),
+                  ),
+                ),
               ),
             ),
           ),
@@ -157,64 +179,85 @@ class _ShowProfileViewState extends State<ShowProfileView> {
   Widget _getItemWidget(int index) {
     final HomeScreenViewModel homeScreenViewModel =
     instance<HomeScreenViewModel>();
+
     return InkWell(
       child: Card(
         elevation: 1,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s16)),
-        color: ColorManager.white,
+        color: ColorsManager.secondaryBackground,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Flexible(
-              flex: 2,
+            Expanded(
               child: SizedBox(
                 width: AppSize.s200,
-                height: AppSize.s200,
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: [
-                    Image.network(
-                      _viewModel.showProfileProducts[index].image,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                          onPressed: () {
-                            homeScreenViewModel
-                                .toggleSavingProduct(_viewModel.showProfileProducts[index]);
-
-                          },
-                          icon: StreamBuilder<bool>(
-                              stream: homeScreenViewModel.savedOutput,
-                              builder: (context, snapshot) {
-                                return CircleAvatar(
-                                  radius: 14,
-                                  backgroundColor:
-                                  _viewModel.showProfileProducts[index].isSaved
-                                      ? ColorManager.thirdLightPrimary
-                                      : ColorManager.grey2,
-                                  child: const Icon(
-                                    Icons.favorite_border,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                );
-                              })),
-                    ),
                     Container(
-                      color: Colors.black.withOpacity(0.5),
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                      child: Text(
-                        Utils.getCategoryNameById(
-                            _viewModel.showProfileProducts[index].categoryId),
-                        style: TextStyle(
-                          fontSize: AppSize.s10,
-                          color: ColorManager.white,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(AppSize.s16),
+                              topRight: Radius.circular(AppSize.s16)),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              _viewModel.showProfileProducts[index].image,
+                            ),
+                            fit: BoxFit.fill,
+                          )),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                            onPressed: () {
+                              homeScreenViewModel
+                                  .toggleSavingProduct(
+                                  _viewModel.showProfileProducts[index]);
+                            },
+                            icon: StreamBuilder<bool>(
+                                stream: homeScreenViewModel.savedOutput,
+                                builder: (context, snapshot) {
+                                  return CircleAvatar(
+                                    radius: AppSize.s14,
+                                    backgroundColor:
+                                    _viewModel.showProfileProducts[index]
+                                        .isSaved
+                                        ? ColorsManager.primaryColor
+                                        : ColorManager.grey2,
+                                    child: Icon(
+                                      Icons.favorite_border,
+                                      size: AppSize.s12,
+                                      color: ColorsManager.white,
+                                    ),
+                                  );
+                                })),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.p6),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p5),
+                          child: Text(
+                            Utils.getCategoryNameById(
+                                _viewModel.showProfileProducts[index]
+                                    .categoryId),
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                fontSize: AppSize.s12,
+                                color: ColorsManager.secondaryText),
+                          ),
                         ),
                       ),
                     ),
@@ -228,19 +271,37 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                 _viewModel.showProfileProducts[index].name,
                 maxLines: AppValues.maxItemNameLines,
                 overflow: TextOverflow.ellipsis,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(
+                    fontSize: AppSize.s15,
+                    color: ColorsManager.secondaryText,
+                    height: 1),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: AppPadding.p10),
-              child: Icon(
-                Icons.attach_money,
-                color: ColorManager.lightPrimary,
+              child: Text(
+                getPrice(_viewModel.showProfileProducts[index].price),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(
+                    fontSize: 15,
+                    color: ColorsManager.secondaryText,
+                    height: 1),
               ),
             ),
-            Flexible(
-              flex: 1,
+            const SizedBox(
+              height: AppSize.s15,
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                padding: const EdgeInsets.all(AppPadding.p10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -255,8 +316,12 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                         textAlign: TextAlign.start,
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
                     Expanded(
@@ -265,8 +330,12 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
                   ],

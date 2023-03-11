@@ -94,8 +94,8 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s0, AppSize.s65, AppSize.s0, AppSize.s24),
+                padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                    AppPadding.p65, AppPadding.p0, AppPadding.p25),
                 child: Image(
                   image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                   width: AppSize.s160,
@@ -108,7 +108,10 @@ class _LoginViewState extends State<LoginView> {
                   builder: (context, snapshot) {
                     return Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
-                          AppSize.s40, AppSize.s0, AppSize.s40, AppSize.s20),
+                          AppPadding.p40,
+                          AppPadding.p0,
+                          AppPadding.p40,
+                          AppPadding.p20),
                       child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: _userNameController,
@@ -130,8 +133,8 @@ class _LoginViewState extends State<LoginView> {
                     );
                   }),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s40, AppSize.s0, AppSize.s40, AppSize.s20),
+                padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p40,
+                    AppPadding.p0, AppPadding.p40, AppPadding.p20),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
@@ -169,8 +172,8 @@ class _LoginViewState extends State<LoginView> {
                     }),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s40, AppSize.s0, AppSize.s40, AppSize.s20),
+                padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p40,
+                    AppPadding.p0, AppPadding.p40, AppPadding.p20),
                 child: StreamBuilder<bool>(
                     stream: _viewModel.outAreAllInputsValid,
                     builder: (context, snapshot) {
@@ -224,8 +227,8 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s0, AppSize.s12, AppSize.s0, AppSize.s0),
+                padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                    AppPadding.p12, AppPadding.p0, AppPadding.p0),
                 child: Text(
                   AppStrings.useSocialToLoginText,
                   style: TextStyle(color: ColorsManager.secondaryText),
@@ -233,7 +236,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppSize.s8, AppSize.s8, AppSize.s8, AppSize.s8),
+                    AppPadding.p8, AppPadding.p8, AppPadding.p8, AppPadding.p8),
                 child: IconButton(
                   color: ColorsManager.grayIcon,
                   icon: const FaIcon(IconsManager.google),

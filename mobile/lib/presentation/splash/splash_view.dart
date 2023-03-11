@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
-import 'package:sed/presentation/common/animation_manager/animation_,manager.dart';
+import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/constants_manager.dart';
