@@ -36,7 +36,7 @@ const productSchema = mongoose.Schema({
         required : true
     },
 
-    seller: {
+    seller: {                                                           //seller id 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
@@ -45,6 +45,11 @@ const productSchema = mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now()
+    }
+    ,
+    updatedAt: {
+        type: Date,
+        default: Date.now()
     }
 })
 

@@ -28,5 +28,14 @@ const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the on
     })
 }
 
+const verifyTokenAndAuthorization=(req,res,next)=>{
+    verifyToken(req,res,()=>{
+        if(req.params.id==req.user.id || req.user.isAdmin){   // checks if the same user editing his self or an admin
+            next()
+        }else{
+            res.status(500).json('You are not authorized')
+        }
+    })
+}
 
-module.exports={verifyToken,verifyTokenAndAdmin};
+module.exports={verifyToken,verifyTokenAndAdmin,verifyTokenAndAuthorization};
