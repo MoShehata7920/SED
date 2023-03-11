@@ -31,18 +31,23 @@ const userSchema= mongoose.Schema({
         default:false,
         required:true
     } ,
+    personalInfo:{                          //  for next level 'to be updated in user profile'
+        phone:{type:Number},                //  default:""
+        government:{type : String},
+        address:{type:String}
+    } , 
+
+    wishList:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product'
+    }],
+    
     reset_password_token:{
         type:String
     } ,
     reset_password_expires:{
         type:Date
     } ,
-
-    personalInfo:{                          //  for next level 'to be updated in user profile'
-        phone:{type:Number},                //  default:""
-        government:{type : String},
-        address:{type:String}
-    } , 
 
     createdAt:{
         type:Date,

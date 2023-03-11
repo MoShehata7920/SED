@@ -129,3 +129,7 @@ Data Protector >> we used crypto js package to encrypt user data into our databa
 created 2 new schemas for category and for application images which are used into our application 
 
 Home Page >> we used try catch to get our items (10 of each category + carousel + sections images )  
+--------------
+
+added wishlist router for user 
+

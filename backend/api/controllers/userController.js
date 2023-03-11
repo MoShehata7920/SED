@@ -65,7 +65,6 @@ exports.userRegister = (req, res) => {
     });
 };
 
-
 exports.userLogin = (req,res)=>{
     User.find({email:req.body.email}).exec().then(user=>{
         if(user.length<=0){                                                                                             //if email not found 
@@ -170,6 +169,24 @@ exports.resetPassword=async (req,res) =>{
         res.status(404).json(error)
     }
 }
+
+exports.addToWishList = async (req, res) => {
+  const {id} = req.user
+  const prodId = req.body.prodId
+  try {
+    const user = await User.findById(id);
+    const alreadyExisted = user.wishList.find((element) => element.toString() === prodId ) // condition to check if the product is already exists in user wishlst or not
+    if (alreadyExisted) {
+      let user = await User.findByIdAndUpdate(id,{$pull:{wishList:prodId}},{new:true})
+      res.status(200).json(user);
+    } else {
+      let user = await User.findByIdAndUpdate(id,{$push:{wishList:prodId}},{new:true})
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
 
                                                     //for admin dashboard
 // (1) getting all users 
