@@ -805,6 +805,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  socket_io_client:
+    dependency: "direct main"
+    description:
+      name: socket_io_client
+      sha256: "0cb079918427b259cd4df66f57a5b5a7c35f2ab981961f5603e33fdb2eecd421"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  socket_io_common:
+    dependency: transitive
+    description:
+      name: socket_io_common
+      sha256: "469c7e6bb0c8d571a5158c1352112654f03aedc2f0a246533e1cbdb41efa4937"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   source_gen:
     dependency: transitive
     description:

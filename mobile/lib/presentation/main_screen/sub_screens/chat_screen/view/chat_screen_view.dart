@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 
 import '../../../../resources/values_manager.dart';
@@ -11,27 +12,41 @@ class ChatScreenView extends StatefulWidget {
 }
 
 class _ChatScreenViewState extends State<ChatScreenView> {
+  final ChatViewModel _chatViewModel = ChatViewModel();
   @override
   void initState() {
-    // TODO: implement initState
+    _chatViewModel.start();
+
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _chatViewModel.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: _chatViewModel.socketOutput,
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          return _getContentWidget(snapshot.data);
+        });
+  }
+
+  Widget _getContentWidget(snapshot) {
+    if(snapshot == null) {
+      return Container();
+    }
     return Scaffold(
       backgroundColor: ColorsManager.background,
       appBar: AppBar(
         backgroundColor: ColorsManager.background,
         automaticallyImplyLeading: false,
         title: Text(
-          "Messages",
+          snapshot,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontSize: AppSize.s16, color: ColorsManager.primaryText),
         ),
@@ -42,7 +57,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
           children: [
             Padding(
               padding:
-                  const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+              const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
               child: Wrap(
                 spacing: 0.0,
                 runSpacing: 0.0,
