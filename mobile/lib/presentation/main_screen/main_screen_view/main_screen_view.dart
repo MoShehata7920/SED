@@ -38,7 +38,7 @@ class _MainScreenViewState extends State<MainScreenView> {
                 child: const Icon(IconsManager.add),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, Routes.addProductScreenRoute);
+                Navigator.pushNamed(context, Routes.categoriesScreenRoute);
               },
               //params
             ),

@@ -40,4 +40,6 @@ class IconsManager {
     FontAwesomeIcons.basketball,
     FontAwesomeIcons.car,
   ];
+
+  static const close = Icons.close;
 }

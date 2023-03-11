@@ -55,18 +55,35 @@ class AppStrings {
   static const String username = "User Name";
   static const String countrySearchBar = "Search by name or Country's code";
 
+  // Home Screen
+  static const String welcomeMessage = "Hi SED's friend , Let's";
   static const String allCategories = "All Categories";
-  static const String sell = "Sell";
-  static const String exchange = "Exchange";
-  static const String donate = "Donate";
+  static const List appSections = ["Sell", "Exchange", "Donate"];
   static const String seeMore = "See More";
   static const String lastProducts = "Last Products";
-
   static const String searchHere = "Search here ...";
-
   static const String user = "User";
   static const String chat = "Chat";
   static const String showProfile = "Show Profile";
   static const String topCategories = "Top Categories";
   static const String findYourProducts = "Find your favorite product";
+  static const String saved = "Saved";
+
+  // Add products screen
+  static const String addAdvertizement = "Add an advertisement";
+  static const String addImage = "Add image";
+  static const String selectedCategory = "Selected Category";
+  static const String change = "change";
+  static const String selectSection = "Selected Section";
+  static const String condition = "Condition";
+  static const String used = "Used";
+  static const String newItem = "new";
+  static const String name = "name";
+  static const String productName = "Product's Name";
+  static const String price = "price";
+  static const String productPrice = "Product's price";
+  static const String description = "name";
+  static const String productDescription = "Product's description";
+  static const String submit = "Submit";
+  static const String categories = "Categories";
 }

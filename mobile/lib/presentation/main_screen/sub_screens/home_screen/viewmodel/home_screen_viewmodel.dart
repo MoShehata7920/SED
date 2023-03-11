@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
@@ -75,7 +74,6 @@ class HomeScreenViewModel extends BaseViewModel
 
   // private functions
   void getHomeData() async {
-
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 

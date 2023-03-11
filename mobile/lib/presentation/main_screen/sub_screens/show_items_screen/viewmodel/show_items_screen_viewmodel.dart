@@ -30,6 +30,8 @@ class ShowItemsViewModel extends BaseViewModel
 
   @override
   void getItems(Views viewType, int categoryId) async {
+    items = [];
+
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
@@ -41,7 +43,16 @@ class ShowItemsViewModel extends BaseViewModel
               // left -> failure
             }, (response) {
       // right -> success
-      items = response.items;
+
+      if(viewType == Views.SAVED) {
+        for (var element in response.items) {
+          if(element.isSaved) {
+            items.add(element);
+          }
+        }
+      } else {
+        items = response.items;
+      }
 
       contentInput.add(ShowItemsContentObject(items));
     });
@@ -63,7 +74,13 @@ class ShowItemsViewModel extends BaseViewModel
       // right -> success
 
       for (var element in response.items) {
-        items.add(element);
+        if(viewType == Views.SAVED) {
+          if(element.isSaved) {
+            items.add(element);
+          }
+        } else {
+          items.add(element);
+        }
       }
 
       contentInput.add(ShowItemsContentObject(items));

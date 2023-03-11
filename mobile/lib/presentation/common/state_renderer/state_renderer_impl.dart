@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
+import '../../main_screen/utils/utils.dart';
 import '../../resources/strings_manager.dart';
 
 abstract class FlowState {
@@ -112,6 +113,8 @@ extension FlowStateExtension on FlowState {
             // show content UI of screen
             return contentScreenWidget;
           } else {
+            Utils.isDialogShown = false;
+
             // full screen loading state
             return StateRenderer(
               message: getMessage(),
@@ -123,7 +126,9 @@ extension FlowStateExtension on FlowState {
 
       case ErrorState:
         {
-          dismissDialog(context);
+          if (Utils.isDialogShown) {
+            dismissDialog(context);
+          }
 
           if (getStateRendererType() == StateRendererType.popUpErrorState) {
             // show PopUp error
@@ -136,6 +141,8 @@ extension FlowStateExtension on FlowState {
             // show content UI of screen
             return contentScreenWidget;
           } else {
+            Utils.isDialogShown = false;
+
             // full screen error state
             return StateRenderer(
               message: getMessage(),
@@ -147,6 +154,8 @@ extension FlowStateExtension on FlowState {
 
       case EmptyState:
         {
+          Utils.isDialogShown = false;
+
           return StateRenderer(
             message: getMessage(),
             stateRendererType: getStateRendererType(),
@@ -156,14 +165,22 @@ extension FlowStateExtension on FlowState {
 
       case ContentState:
         {
-          dismissDialog(context);
+          if (Utils.isDialogShown) {
+            dismissDialog(context);
+          }
+
+          Utils.isDialogShown = false;
 
           return contentScreenWidget;
         }
 
       case SuccessState:
         {
-          dismissDialog(context);
+          if (Utils.isDialogShown) {
+            dismissDialog(context);
+          }
+
+          Utils.isDialogShown = false;
 
           showPopUp(
               context: context,
@@ -201,7 +218,9 @@ extension FlowStateExtension on FlowState {
 
   // to check if there is any dialog on screen
   _isCurrentDialogShown(BuildContext context) =>
-      ModalRoute.of(context) != null &&ModalRoute.of(context)!.isActive && ModalRoute.of(context)?.isCurrent != true;
+      ModalRoute.of(context) != null &&
+      ModalRoute.of(context)!.isActive &&
+      ModalRoute.of(context)?.isCurrent != true;
 
   // to remove old dialog which is opened before showing the new one
   dismissDialog(BuildContext context) {

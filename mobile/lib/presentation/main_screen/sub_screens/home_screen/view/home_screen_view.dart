@@ -6,7 +6,6 @@ import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
-import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
@@ -15,7 +14,6 @@ import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
-import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class HomeScreenView extends StatefulWidget {
@@ -46,7 +44,6 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,20 +101,20 @@ class _HomeScreenViewState extends State<HomeScreenView> {
               children: [
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(top: AppPadding.p8),
                     child: Text(
                       AppStrings.allCategories,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
-                        fontSize: 21,
-                      ),
+                            color: ColorsManager.white,
+                            fontSize: AppSize.s20,
+                          ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(AppPadding.p14),
                   child: Divider(
-                    height: 3,
+                    height: AppSize.s3,
                     color: ColorsManager.white,
                   ),
                 ),
@@ -128,8 +125,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       child: Row(
                         children: [
                           Container(
-                            height: 45,
-                            width: 45,
+                            height: AppSize.s45,
+                            width: AppSize.s45,
                             decoration: BoxDecoration(
                                 color: ColorsManager.secondaryBackground,
                                 shape: BoxShape.circle),
@@ -141,7 +138,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             ),
                           ),
                           const SizedBox(
-                            width: 20,
+                            width: AppSize.s20,
                           ),
                           Expanded(
                             child: Text(
@@ -150,9 +147,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                color: ColorsManager.secondaryText,
-                                fontSize: 17,
-                              ),
+                                    color: ColorsManager.secondaryText,
+                                    fontSize: AppSize.s16,
+                                  ),
                             ),
                           ),
                           FaIcon(
@@ -175,7 +172,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentWidget(homeContentObject),
+          return snapshot.data?.getScreenWidget(
+                  context,
+                  _getContentWidget(homeContentObject),
                   () => _viewModel.getHomeData()) ??
               _getContentWidget(homeContentObject);
         },
@@ -184,344 +183,320 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   }
 
   Widget _getContentWidget(HomeContentObject? homeContentObject) {
-    if(homeContentObject == null) {
+    if (homeContentObject == null) {
       return Container();
     } else {
       return StreamBuilder<void>(
-        stream: _viewModel.carouselOutput,
-        builder: (context, snapshot) {
-          return RefreshIndicator(
-            backgroundColor: ColorsManager.background,
-            color: ColorsManager.secondaryText,
-            onRefresh: _onRefresh,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: AppSize.s20),
-                  Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p20),
-                    child: Text(
-                      'Hi Firmeno, Let\'s',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontSize: AppSize.s24, color: ColorsManager.white),
+          stream: _viewModel.carouselOutput,
+          builder: (context, snapshot) {
+            return RefreshIndicator(
+              backgroundColor: ColorsManager.background,
+              color: ColorsManager.secondaryText,
+              onRefresh: _onRefresh,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: AppSize.s20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p20),
+                      child: Text(
+                        AppStrings.welcomeMessage,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: AppSize.s24, color: ColorsManager.white),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: AppSize.s10),
-                  Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p20),
-                    child: Text(
-                      AppStrings.findYourProducts,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: AppSize.s18,
-                            color: ColorsManager.secondaryText,
-                          ),
+                    const SizedBox(height: AppSize.s10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p20),
+                      child: Text(
+                        AppStrings.findYourProducts,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontSize: AppSize.s18,
+                              color: ColorsManager.secondaryText,
+                            ),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
-                        AppPadding.p36, AppPadding.p0, AppPadding.p0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                AppPadding.p20,
-                                AppPadding.p0,
-                                AppPadding.p20,
-                                AppPadding.p0),
-                            child: Container(
-                              width: AppSize.s100,
-                              height: AppSize.s55,
-                              decoration: BoxDecoration(
-                                color: ColorsManager.secondaryBackground,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    AppPadding.p15,
-                                    AppPadding.p0,
-                                    AppPadding.p15,
-                                    AppPadding.p0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.magnifyingGlass,
-                                      color: ColorsManager.secondaryText,
-                                      size: AppSize.s24,
-                                    ),
-                                    const SizedBox(
-                                      width: AppSize.s10,
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          hintText: AppStrings.searchHere,
-                                          filled: true,
-                                          fillColor:
-                                              ColorsManager.secondaryBackground,
-                                        ),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(
-                                              color:
-                                                  ColorsManager.primaryBtnText,
-                                              fontSize: AppSize.s15,
-                                            ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          AppPadding.p0,
+                          AppPadding.p36,
+                          AppPadding.p0,
+                          AppPadding.p0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  AppPadding.p20,
+                                  AppPadding.p0,
+                                  AppPadding.p20,
+                                  AppPadding.p0),
+                              child: Container(
+                                width: AppSize.s100,
+                                height: AppSize.s55,
+                                decoration: BoxDecoration(
+                                  color: ColorsManager.secondaryBackground,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      AppPadding.p15,
+                                      AppPadding.p0,
+                                      AppPadding.p15,
+                                      AppPadding.p0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.magnifyingGlass,
+                                        color: ColorsManager.secondaryText,
+                                        size: AppSize.s24,
                                       ),
-                                    ),
-                                    FaIcon(
-                                      FontAwesomeIcons.calendarMinus,
-                                      color: ColorsManager.secondaryText,
-                                      size: AppSize.s24,
-                                    ),
-                                  ],
+                                      const SizedBox(
+                                        width: AppSize.s10,
+                                      ),
+                                      Expanded(
+                                        child: TextFormField(
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText: AppStrings.searchHere,
+                                            filled: true,
+                                            fillColor: ColorsManager
+                                                .secondaryBackground,
+                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                color: ColorsManager
+                                                    .primaryBtnText,
+                                                fontSize: AppSize.s15,
+                                              ),
+                                        ),
+                                      ),
+                                      FaIcon(
+                                        FontAwesomeIcons.calendarMinus,
+                                        color: ColorsManager.secondaryText,
+                                        size: AppSize.s24,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: AppSize.s25,
-                  ),
-                  CarouselSlider(
-                    carouselController: _controller,
-                    options: CarouselOptions(
-                        aspectRatio: AppValues.carouselAspectRatio,
-                        height: AppSize.s200,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(
-                            seconds: AppValues.carouselAutoPlayInterval),
-                        onPageChanged: (index, reason) {
-                          _viewModel.onPageChanged(index);
-                        }),
-                    items: homeContentObject.carouselImages.map((image) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: AppPadding.p4),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      NetworkImage(image ?? AppStrings.empty),
-                                  fit: BoxFit.cover),
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(AppSize.s16)),
-                            ),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  const SizedBox(
-                    height: AppSize.s15,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p15),
-                    child: Divider(
-                      height: AppSize.s2,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: AppPadding.p25, left: AppPadding.p20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.topCategories,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: ColorsManager.lineColor,
-                                    fontSize: AppSize.s14,
-                                  ),
-                        ),
-                        const SizedBox(
-                          height: AppSize.s8,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              AppStrings.allCategories,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color: ColorsManager.white,
-                                    fontSize: AppSize.s20,
-                                  ),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  Scaffold.of(context).openDrawer();
-                                },
-                                child: Text(
-                                  AppStrings.seeMore,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        color: ColorsManager.primaryBtnText,
-                                        fontSize: AppSize.s14,
-                                      ),
-                                ))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: AppSize.s100,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: AppValues.defaultCategoriesNumber,
-                      itemBuilder: (context, index) =>
-                          _getCategoryWidget(index),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppPadding.p15),
-                    child: Divider(
-                      height: AppSize.s2,
-                      color: ColorsManager.white,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p20,
-                        top: AppPadding.p20,
-                        bottom: AppPadding.p20),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          for (int i = 0; i < Utils.sections.length; i++)
-                            _getButtonWidget(Utils.sections[i]!, i)
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: AppPadding.p5, left: AppPadding.p20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.lastProducts,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: ColorsManager.lineColor,
-                                    fontSize: AppSize.s14,
-                                  ),
-                        ),
-                        const SizedBox(
-                          height: AppSize.s8,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    const SizedBox(
+                      height: AppSize.s25,
+                    ),
+                    CarouselSlider(
+                      carouselController: _controller,
+                      options: CarouselOptions(
+                          aspectRatio: AppValues.carouselAspectRatio,
+                          height: AppSize.s200,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(
+                              seconds: AppValues.carouselAutoPlayInterval),
+                          onPageChanged: (index, reason) {
+                            _viewModel.onPageChanged(index);
+                          }),
+                      items: homeContentObject.carouselImages.map((image) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: AppPadding.p4),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        NetworkImage(image ?? AppStrings.empty),
+                                    fit: BoxFit.cover),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(AppSize.s16)),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s15,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                      child: Divider(
+                        height: AppSize.s2,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: AppPadding.p25, left: AppPadding.p20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.topCategories,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: ColorsManager.lineColor,
+                                      fontSize: AppSize.s14,
+                                    ),
+                          ),
+                          const SizedBox(
+                            height: AppSize.s8,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                AppStrings.allCategories,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: ColorsManager.white,
+                                      fontSize: AppSize.s20,
+                                    ),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Scaffold.of(context).openDrawer();
+                                  },
+                                  child: Text(
+                                    AppStrings.seeMore,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          color: ColorsManager.primaryBtnText,
+                                          fontSize: AppSize.s14,
+                                        ),
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: AppSize.s100,
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: AppValues.defaultCategoriesNumber,
+                        itemBuilder: (context, index) =>
+                            _getCategoryWidget(index),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: AppPadding.p15),
+                      child: Divider(
+                        height: AppSize.s2,
+                        color: ColorsManager.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: AppPadding.p20,
+                          top: AppPadding.p20,
+                          bottom: AppPadding.p20),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
                           children: [
-                            Text(
-                              Utils.sections[selectedIndex]!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color: ColorsManager.white,
-                                    fontSize: AppSize.s20,
-                                  ),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  Views viewType = Views.SELL;
-
-                                  if (selectedIndex == 1) {
-                                    viewType = Views.DONATE;
-                                  } else if (selectedIndex == 2) {
-                                    viewType = Views.EXCHANGE;
-                                  }
-                                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                                    Navigator.pushNamed(
-                                        context, Routes.showItemsScreenRoute,
-                                        arguments: [viewType, 0]);
-                                  });
-                                },
-                                child: Text(
-                                  AppStrings.seeMore,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        color: ColorsManager.primaryBtnText,
-                                        fontSize: AppSize.s14,
-                                      ),
-                                ))
+                            for (int i = 0; i < Utils.sections.length; i++)
+                              _getButtonWidget(Utils.sections[i]!, i)
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  _getItems(selectedIndex, _viewModel, homeContentObject),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: AppPadding.p5, left: AppPadding.p20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.lastProducts,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: ColorsManager.lineColor,
+                                      fontSize: AppSize.s14,
+                                    ),
+                          ),
+                          const SizedBox(
+                            height: AppSize.s8,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                Utils.sections[selectedIndex]!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: ColorsManager.white,
+                                      fontSize: AppSize.s20,
+                                    ),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Views viewType = Views.SELL;
 
-                  // Padding(
-                  //   padding: const EdgeInsets.all(AppPadding.p10),
-                  //   child: Image(
-                  //     height: AppSize.s150,
-                  //     width: double.infinity,
-                  //     fit: BoxFit.fill,
-                  //     image: NetworkImage(
-                  //       //TODO default image
-                  //       _viewModel.sections.isNotEmpty
-                  //           ? _viewModel.sections[1].image
-                  //           : "",
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // for (int i = 0; i < 3; i++)
-                  //   _getItems(1, _viewModel, context)[i],
-                  //
-                  // Padding(
-                  //   padding: const EdgeInsets.all(AppPadding.p10),
-                  //   child: Image(
-                  //     height: AppSize.s150,
-                  //     fit: BoxFit.fill,
-                  //     width: double.infinity,
-                  //     image: NetworkImage(
-                  //       //TODO default image
-                  //       _viewModel.sections.isNotEmpty
-                  //           ? _viewModel.sections[2].image
-                  //           : "",
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // for (int i = 0; i < 3; i++)
-                  //   _getItems(2, _viewModel, context)[i],
+                                    if (selectedIndex == 2) {
+                                      viewType = Views.DONATE;
+                                    } else if (selectedIndex == 1) {
+                                      viewType = Views.EXCHANGE;
+                                    }
+                                    SchedulerBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      Navigator.pushNamed(
+                                          context, Routes.showItemsScreenRoute,
+                                          arguments: [viewType, 0]);
+                                    });
+                                  },
+                                  child: Text(
+                                    AppStrings.seeMore,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          color: ColorsManager.primaryBtnText,
+                                          fontSize: AppSize.s14,
+                                        ),
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
 
-                  const SizedBox(
-                    height: AppSize.s100,
-                  )
-                  //preparing for the next widget maybe ?
-                ],
+                    _getItems(
+                        selectedIndex == 1
+                            ? 2
+                            : selectedIndex == 2
+                                ? 1
+                                : 0,
+                        _viewModel,
+                        homeContentObject),
+
+                    const SizedBox(
+                      height: AppSize.s100,
+                    )
+                    //preparing for the next widget maybe ?
+                  ],
+                ),
               ),
-            ),
-          );
-        });
+            );
+          });
     }
   }
 
@@ -614,7 +589,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     );
   }
 
-  Widget _getItems(int sectionId, HomeScreenViewModel viewModel, HomeContentObject homeContentObject) {
+  Widget _getItems(int sectionId, HomeScreenViewModel viewModel,
+      HomeContentObject homeContentObject) {
     return Padding(
       padding: const EdgeInsets.only(left: AppPadding.p20),
       child: SizedBox(
@@ -630,20 +606,21 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   ? homeContentObject.donateItems.length
                   : homeContentObject.exchangeItems.length,
           itemBuilder: (context, index) => _buildItem(
-              sectionId == 0
-                  ? homeContentObject.sellItems[index]
-                  : sectionId == 1
-                      ? homeContentObject.donateItems[index]
-                      : homeContentObject.exchangeItems[index],
-              sectionId,
-              viewModel,),
+            sectionId == 0
+                ? homeContentObject.sellItems[index]
+                : sectionId == 1
+                    ? homeContentObject.donateItems[index]
+                    : homeContentObject.exchangeItems[index],
+            sectionId,
+            viewModel,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildItem(Items item, int sectionId,
-      HomeScreenViewModel homeScreenViewModel) {
+  Widget _buildItem(
+      Items item, int sectionId, HomeScreenViewModel homeScreenViewModel) {
     return SizedBox(
       width: AppSize.s200,
       child: InkWell(
@@ -701,7 +678,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius:
-                            const BorderRadius.all(Radius.circular(16.0)),
+                                const BorderRadius.all(Radius.circular(16.0)),
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: AppPadding.p5),
@@ -711,8 +688,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 .textTheme
                                 .bodyLarge
                                 ?.copyWith(
-                                fontSize: AppSize.s12,
-                                color: ColorsManager.secondaryText),
+                                    fontSize: AppSize.s12,
+                                    color: ColorsManager.secondaryText),
                           ),
                         ),
                       ),
@@ -738,9 +715,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   child: Text(
                     getPrice(item.price),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontSize: 15,
+                        fontSize: AppSize.s15,
                         color: ColorsManager.secondaryText,
-                        height: 1),
+                        height: AppSize.s1),
                   ),
                 ),
               const SizedBox(
@@ -764,8 +741,12 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           textAlign: TextAlign.start,
                           maxLines: AppValues.maxAddressLines,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontSize: AppSize.s12, color: ColorsManager.grey2),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.grey2),
                         ),
                       ),
                       Expanded(
@@ -774,8 +755,12 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           textAlign: TextAlign.end,
                           maxLines: AppValues.maxDateLines,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontSize: AppSize.s12, color: ColorsManager.grey2),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.grey2),
                         ),
                       ),
                     ],
@@ -792,7 +777,4 @@ class _HomeScreenViewState extends State<HomeScreenView> {
       ),
     );
   }
-
 }
-
-

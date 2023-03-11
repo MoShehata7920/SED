@@ -3,7 +3,7 @@ import 'package:sed/app/di.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_product_screen_view.dart';
-import 'package:sed/presentation/main_screen/sub_screens/home_screen/categories_screen/view/categories_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';
@@ -74,7 +74,7 @@ class RouteGenerator {
             builder: (context) => ShowProfileView(settings.arguments));
 
       case Routes.addProductScreenRoute:
-        return MaterialPageRoute(builder: (context) => const AddProductView());
+        return MaterialPageRoute(builder: (context) => AddProductView(settings.arguments as int));
 
       default:
         return unDefinedRoute();

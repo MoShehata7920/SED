@@ -7,6 +7,8 @@ import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
+import '../../main_screen/utils/utils.dart';
+
 enum StateRendererType {
   // PopUp state
   popUpLoadingState,
@@ -86,6 +88,8 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _getPopUpDialog(BuildContext context, List<Widget> children) {
+    Utils.isDialogShown = true;
+    
     return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s14)),

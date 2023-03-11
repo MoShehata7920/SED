@@ -8,6 +8,7 @@ import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import '../../../resources/icons_manager.dart';
+import '../../../resources/strings_manager.dart';
 import '../../../resources/values_manager.dart';
 import 'viewmodel/show_items_screen_viewmodel.dart';
 
@@ -34,7 +35,7 @@ extension ViewExtension on Views {
   }
 
   Widget getCard(Items item, BuildContext context) {
-    return Container(height: 250, child: ViewCard.getCard(item, context));
+    return SizedBox(height: 250, child: ViewCard.getCard(item, context));
   }
 
   int getViewId() {
@@ -54,10 +55,10 @@ extension ViewExtension on Views {
 }
 
 class ViewsName {
-  static const String sell = "Sell";
-  static const String donate = "Donate";
-  static const String exchange = "Exchange";
-  static String saved = "Saved";
+  static String sell = AppStrings.appSections[0];
+  static String donate = AppStrings.appSections[2];
+  static String exchange = AppStrings.appSections[1];
+  static String saved = AppStrings.saved;
 }
 
 class ViewCard {
@@ -101,14 +102,14 @@ class ViewCard {
                               stream: homeScreenViewModel.savedOutput,
                               builder: (context, snapshot) {
                                 return CircleAvatar(
-                                  radius: 14,
+                                  radius: AppSize.s14,
                                   backgroundColor: item.isSaved
                                       ? ColorManager.thirdLightPrimary
                                       : ColorManager.grey2,
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.favorite_border,
-                                    size: 12,
-                                    color: Colors.white,
+                                    size: AppSize.s12,
+                                    color: ColorsManager.white,
                                   ),
                                 );
                               })),

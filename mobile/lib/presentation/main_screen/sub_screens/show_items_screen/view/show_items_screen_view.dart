@@ -188,7 +188,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                                 showItemsContentObject.items[index]);
 
                             if (viewType == Views.SAVED) {
-                              setState(() {});
+                              _viewModel.getItems(viewType, categoryId);
                             }
                           },
                           icon: StreamBuilder<bool>(
