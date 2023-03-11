@@ -27,8 +27,11 @@ class ShowItemsViewModel extends BaseViewModel
     _contentStreamController.close();
     super.dispose();
   }
+
   @override
   void getItems(Views viewType, int categoryId) async {
+    inputState.add(LoadingState(
+        stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _showItemsUseCase.execute(
         ShowItemsUseCaseInputs(viewType.getName(categoryId: categoryId), 0));
@@ -42,6 +45,8 @@ class ShowItemsViewModel extends BaseViewModel
 
       contentInput.add(ShowItemsContentObject(items));
     });
+
+    inputState.add(ContentState());
   }
 
   @override

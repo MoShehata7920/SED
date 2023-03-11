@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
@@ -29,18 +30,28 @@ class _ItemViewState extends State<ItemView> {
   _ItemViewState(this.itemId);
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsManager.primaryBackground,
-      body: StreamBuilder<FlowState>(
-        stream: _viewModel.outputState,
+    return StreamBuilder<Item>(
+        stream: _viewModel.contentOutput,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentWidget(),
-                  () => _viewModel.getItemData(itemId)) ??
-              _getContentWidget();
-        },
-      ),
-    );
+          return _buildWidget(snapshot.data);
+        });
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+
+    super.dispose();
   }
 
   void _bind() {
@@ -49,17 +60,25 @@ class _ItemViewState extends State<ItemView> {
     _viewModel.getItemData(itemId);
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _bind();
-    });
+  Widget _buildWidget(Item? item) {
+    return Scaffold(
+      backgroundColor: ColorsManager.primaryBackground,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(context, _getContentWidget(item),
+                  () => _viewModel.getItemData(itemId)) ??
+              _getContentWidget(item);
+        },
+      ),
+    );
   }
 
-  Widget _getContentWidget() {
-    return CustomScrollView(slivers: [
+  Widget _getContentWidget(Item? item) {
+    if(item == null) {
+      return Container();
+    } else {
+      return CustomScrollView(slivers: [
       SliverAppBar(
         expandedHeight: MediaQuery.of(context).size.height * 0.6,
         elevation: AppSize.s0,
@@ -72,7 +91,7 @@ class _ItemViewState extends State<ItemView> {
               StretchMode.zoomBackground,
             ],
             background: Image.network(
-              _viewModel.item.item.image,
+              item.item.image,
               fit: BoxFit.cover,
             )),
         bottom: PreferredSize(
@@ -118,7 +137,7 @@ class _ItemViewState extends State<ItemView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _viewModel.item.item.name,
+                          item.item.name,
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: ColorsManager.white,
@@ -132,7 +151,7 @@ class _ItemViewState extends State<ItemView> {
                           color: Colors.black.withOpacity(.2),
                           child: Text(
                             Utils.getCategoryNameById(
-                                _viewModel.item.item.categoryId),
+                                item.item.categoryId),
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: ColorsManager.primaryBtnText,
@@ -143,7 +162,7 @@ class _ItemViewState extends State<ItemView> {
                       ],
                     ),
                     Text(
-                      getPrice(_viewModel.item.item.price),
+                      getPrice(item.item.price),
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: ColorsManager.white,
                             fontSize: AppSize.s16,
@@ -155,7 +174,7 @@ class _ItemViewState extends State<ItemView> {
                   height: AppSize.s20,
                 ),
                 Text(
-                  _viewModel.item.item.description,
+                  item.item.description,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.secondaryText,
                         fontSize: AppSize.s14,
@@ -174,7 +193,7 @@ class _ItemViewState extends State<ItemView> {
                     ),
                     Expanded(
                       child: Text(
-                        _viewModel.item.userData.address,
+                        item.userData.address,
                         textAlign: TextAlign.start,
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
@@ -186,7 +205,7 @@ class _ItemViewState extends State<ItemView> {
                     ),
                     Expanded(
                       child: Text(
-                        _viewModel.item.item.date,
+                        item.item.date,
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,
@@ -217,7 +236,7 @@ class _ItemViewState extends State<ItemView> {
                     CircleAvatar(
                       radius: AppSize.s28,
                       backgroundImage:
-                          NetworkImage(_viewModel.item.userData.image),
+                          NetworkImage(item.userData.image),
                     ),
                     const SizedBox(
                       width: AppSize.s14,
@@ -227,7 +246,7 @@ class _ItemViewState extends State<ItemView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _viewModel.item.userData.name,
+                            item.userData.name,
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: ColorsManager.white,
@@ -242,8 +261,8 @@ class _ItemViewState extends State<ItemView> {
                               TextButton(
                                   onPressed: () => launchUrl(Uri(
                                       scheme: "tel",
-                                      path: _viewModel.item.userData.phone)),
-                                  child: Text(_viewModel.item.userData.phone)),
+                                      path: item.userData.phone)),
+                                  child: Text(item.userData.phone)),
                               TextButton(
                                 child: Text(
                                   AppStrings.showProfile,
@@ -257,7 +276,7 @@ class _ItemViewState extends State<ItemView> {
                                 onPressed: () {
                                   Navigator.pushNamed(
                                       context, Routes.showProfileScreenRoute,
-                                      arguments: _viewModel.item.userData);
+                                      arguments: item.userData);
                                 },
                               ),
                             ],
@@ -294,11 +313,6 @@ class _ItemViewState extends State<ItemView> {
             ))
       ])),
     ]);
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
+    }
   }
 }

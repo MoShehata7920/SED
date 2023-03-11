@@ -97,6 +97,9 @@ class ShowItemsContentObject {
 
   ShowItemsContentObject(this.items);
 }
+
+// Item Screen Models (Contains Item Information)
+
 class Item {
   Items item;
   UserData userData;
@@ -120,14 +123,17 @@ class ShowItems {
   ShowItems(this.items);
 }
 
-class SavingProduct {
-  bool savingProductStatus;
-
-  SavingProduct(this.savingProductStatus);
-}
+//Show Profile Models
 
 class ShowProfileRequest {
   int profileId;
 
   ShowProfileRequest(this.profileId);
 }
+
+class SavingProduct {
+  bool savingProductStatus;
+
+  SavingProduct(this.savingProductStatus);
+}
+
