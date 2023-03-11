@@ -30,6 +30,18 @@ class ForgotPassword {
 }
 
 // Home models
+
+class HomeContentObject {
+  List<String?> carouselImages;
+  List<Items> sellItems;
+  List<Items> donateItems;
+  List<Items> exchangeItems;
+  List<Section> sections;
+
+  HomeContentObject(this.carouselImages, this.sellItems, this.donateItems,
+      this.exchangeItems, this.sections);
+}
+
 class Home {
   Carousel carousel;
   List<Category> category;
@@ -78,6 +90,13 @@ class Items {
       this.categoryId, this.date, this.isSaved);
 }
 
+// Show Items Models
+
+class ShowItemsContentObject {
+  List<Items> items;
+
+  ShowItemsContentObject(this.items);
+}
 class Item {
   Items item;
   UserData userData;

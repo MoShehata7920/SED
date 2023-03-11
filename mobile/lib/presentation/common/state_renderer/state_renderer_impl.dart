@@ -201,7 +201,7 @@ extension FlowStateExtension on FlowState {
 
   // to check if there is any dialog on screen
   _isCurrentDialogShown(BuildContext context) =>
-      ModalRoute.of(context)?.isCurrent != true;
+      ModalRoute.of(context) != null &&ModalRoute.of(context)!.isActive && ModalRoute.of(context)?.isCurrent != true;
 
   // to remove old dialog which is opened before showing the new one
   dismissDialog(BuildContext context) {

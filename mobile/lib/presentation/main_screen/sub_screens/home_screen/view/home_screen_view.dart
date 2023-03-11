@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
@@ -34,25 +36,28 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
   void _bind() {
     _viewModel.start();
-
-    _viewModel.getHomeData();
   }
 
   @override
   void initState() {
-    super.initState();
-    //todo fix me
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _viewModel.start();
-
-      await _viewModel.getHomeData();
-
-      setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
     });
+
+    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<HomeContentObject>(
+        stream: _viewModel.contentOutput,
+        builder: (context, snapshot) {
+          return _buildWidget(snapshot.data);
+        });
+  }
+
+  Widget _buildWidget(HomeContentObject? homeContentObject) {
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
@@ -103,9 +108,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     child: Text(
                       AppStrings.allCategories,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: ColorsManager.white,
-                            fontSize: 21,
-                          ),
+                        color: ColorsManager.white,
+                        fontSize: 21,
+                      ),
                     ),
                   ),
                 ),
@@ -145,9 +150,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                    color: ColorsManager.secondaryText,
-                                    fontSize: 17,
-                                  ),
+                                color: ColorsManager.secondaryText,
+                                fontSize: 17,
+                              ),
                             ),
                           ),
                           FaIcon(
@@ -170,16 +175,19 @@ class _HomeScreenViewState extends State<HomeScreenView> {
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentWidget(),
+          return snapshot.data?.getScreenWidget(context, _getContentWidget(homeContentObject),
                   () => _viewModel.getHomeData()) ??
-              _getContentWidget();
+              _getContentWidget(homeContentObject);
         },
       ),
     );
   }
 
-  Widget _getContentWidget() {
-    return StreamBuilder<void>(
+  Widget _getContentWidget(HomeContentObject? homeContentObject) {
+    if(homeContentObject == null) {
+      return Container();
+    } else {
+      return StreamBuilder<void>(
         stream: _viewModel.carouselOutput,
         builder: (context, snapshot) {
           return RefreshIndicator(
@@ -295,7 +303,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         onPageChanged: (index, reason) {
                           _viewModel.onPageChanged(index);
                         }),
-                    items: _viewModel.carouselImages.map((image) {
+                    items: homeContentObject.carouselImages.map((image) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
@@ -446,10 +454,11 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   } else if (selectedIndex == 2) {
                                     viewType = Views.EXCHANGE;
                                   }
-
-                                  Navigator.pushNamed(
-                                      context, Routes.showItemsScreenRoute,
-                                      arguments: [viewType, 0]);
+                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                    Navigator.pushNamed(
+                                        context, Routes.showItemsScreenRoute,
+                                        arguments: [viewType, 0]);
+                                  });
                                 },
                                 child: Text(
                                   AppStrings.seeMore,
@@ -466,7 +475,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       ],
                     ),
                   ),
-                  _getItems(selectedIndex, _viewModel),
+                  _getItems(selectedIndex, _viewModel, homeContentObject),
 
                   // Padding(
                   //   padding: const EdgeInsets.all(AppPadding.p10),
@@ -513,6 +522,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
             ),
           );
         });
+    }
   }
 
   Future _onRefresh() async {
@@ -604,7 +614,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     );
   }
 
-  Widget _getItems(int sectionId, HomeScreenViewModel viewModel) {
+  Widget _getItems(int sectionId, HomeScreenViewModel viewModel, HomeContentObject homeContentObject) {
     return Padding(
       padding: const EdgeInsets.only(left: AppPadding.p20),
       child: SizedBox(
@@ -615,223 +625,174 @@ class _HomeScreenViewState extends State<HomeScreenView> {
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemCount: sectionId == 0
-              ? viewModel.sellItems.length
+              ? homeContentObject.sellItems.length
               : sectionId == 1
-                  ? viewModel.donateItems.length
-                  : viewModel.exchangeItems.length,
+                  ? homeContentObject.donateItems.length
+                  : homeContentObject.exchangeItems.length,
           itemBuilder: (context, index) => _buildItem(
               sectionId == 0
-                  ? viewModel.sellItems[index]
+                  ? homeContentObject.sellItems[index]
                   : sectionId == 1
-                      ? viewModel.donateItems[index]
-                      : viewModel.exchangeItems[index],
+                      ? homeContentObject.donateItems[index]
+                      : homeContentObject.exchangeItems[index],
               sectionId,
-              viewModel,
-              context),
+              viewModel,),
         ),
       ),
     );
   }
-}
 
-Widget _buildItem(Items item, int sectionId,
-    HomeScreenViewModel homeScreenViewModel, BuildContext context) {
-  return SizedBox(
-    width: AppSize.s200,
-    child: InkWell(
-      child: Card(
-        elevation: 1,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSize.s16)),
-        color: ColorsManager.secondaryBackground,
-        child: Column(
-          children: [
-            Expanded(
-              child: SizedBox(
-                width: AppSize.s200,
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(AppSize.s16),
-                              topRight: Radius.circular(AppSize.s16)),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              item.image,
-                            ),
-                            fit: BoxFit.fill,
-                          )),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                          onPressed: () {
-                            homeScreenViewModel.toggleSavingProduct(item);
-                          },
-                          icon: StreamBuilder<bool>(
-                              stream: homeScreenViewModel.savedOutput,
-                              builder: (context, snapshot) {
-                                return CircleAvatar(
-                                  radius: 14,
-                                  backgroundColor: item.isSaved
-                                      ? ColorsManager.primaryColor
-                                      : ColorManager.grey2,
-                                  child: Icon(
-                                    Icons.favorite_border,
-                                    size: AppSize.s12,
-                                    color: ColorsManager.white,
-                                  ),
-                                );
-                              })),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(AppPadding.p6),
-                      child: Container(
+  Widget _buildItem(Items item, int sectionId,
+      HomeScreenViewModel homeScreenViewModel) {
+    return SizedBox(
+      width: AppSize.s200,
+      child: InkWell(
+        child: Card(
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSize.s16)),
+          color: ColorsManager.secondaryBackground,
+          child: Column(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  width: AppSize.s200,
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16.0)),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p5),
-                        child: Text(
-                          Utils.getCategoryNameById(item.categoryId),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: AppSize.s12,
-                                  color: ColorsManager.secondaryText),
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(AppSize.s16),
+                                topRight: Radius.circular(AppSize.s16)),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                item.image,
+                              ),
+                              fit: BoxFit.fill,
+                            )),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                            onPressed: () {
+                              homeScreenViewModel.toggleSavingProduct(item);
+                            },
+                            icon: StreamBuilder<bool>(
+                                stream: homeScreenViewModel.savedOutput,
+                                builder: (context, snapshot) {
+                                  return CircleAvatar(
+                                    radius: 14,
+                                    backgroundColor: item.isSaved
+                                        ? ColorsManager.primaryColor
+                                        : ColorManager.grey2,
+                                    child: Icon(
+                                      Icons.favorite_border,
+                                      size: AppSize.s12,
+                                      color: ColorsManager.white,
+                                    ),
+                                  );
+                                })),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(AppPadding.p6),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p5),
+                          child: Text(
+                            Utils.getCategoryNameById(item.categoryId),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                fontSize: AppSize.s12,
+                                color: ColorsManager.secondaryText),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: AppPadding.p8),
-              child: Text(
-                item.name,
-                maxLines: AppValues.maxItemNameLines,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: AppSize.s15,
-                    color: ColorsManager.secondaryText,
-                    height: 1),
-              ),
-            ),
-            if (sectionId == 0)
               Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p10),
+                padding: const EdgeInsets.only(top: AppPadding.p8),
                 child: Text(
-                  getPrice(item.price),
+                  item.name,
+                  maxLines: AppValues.maxItemNameLines,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 15,
+                      fontSize: AppSize.s15,
                       color: ColorsManager.secondaryText,
                       height: 1),
                 ),
               ),
-            const SizedBox(
-              height: AppSize.s18,
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(AppPadding.p10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      IconsManager.location,
-                      size: AppSize.s12,
-                      color: ColorManager.grey2,
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Gharbiya / Tanta',
-                        textAlign: TextAlign.start,
-                        maxLines: AppValues.maxAddressLines,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: AppSize.s12, color: ColorsManager.grey2),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        item.date,
-                        textAlign: TextAlign.end,
-                        maxLines: AppValues.maxDateLines,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: AppSize.s12, color: ColorsManager.grey2),
-                      ),
-                    ),
-                  ],
+              if (sectionId == 0)
+                Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
+                  child: Text(
+                    getPrice(item.price),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 15,
+                        color: ColorsManager.secondaryText,
+                        height: 1),
+                  ),
                 ),
+              const SizedBox(
+                height: AppSize.s18,
               ),
-            )
-          ],
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(AppPadding.p10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(
+                        IconsManager.location,
+                        size: AppSize.s12,
+                        color: ColorManager.grey2,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Gharbiya / Tanta',
+                          textAlign: TextAlign.start,
+                          maxLines: AppValues.maxAddressLines,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontSize: AppSize.s12, color: ColorsManager.grey2),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          item.date,
+                          textAlign: TextAlign.end,
+                          maxLines: AppValues.maxDateLines,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontSize: AppSize.s12, color: ColorsManager.grey2),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      onTap: () {
-        Navigator.pushNamed(context, Routes.itemScreenRoute,
-            arguments: item.id);
-      },
-    ),
-  );
-}
-
-Widget _getIdentifyBar(String category, BuildContext context, int type) =>
-    Container(
-      height: AppSize.s40,
-      color: ColorManager.lightPrimary.withOpacity(0.1),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: AppSize.s10),
-            child: Text(
-              category,
-              style: getBoldStyle(
-                  color: ColorManager.lightPrimary, fontSize: AppSize.s14),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: AppPadding.p8),
-            child: TextButton(
-                onPressed: () {
-                  Views viewType = Views.CATEGORY;
-
-                  if (type == 1) {
-                    viewType = Views.SELL;
-                    Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                        arguments: [viewType, 0]);
-                  } else if (type == 2) {
-                    viewType = Views.DONATE;
-                    Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                        arguments: [viewType, 0]);
-                  } else if (type == 3) {
-                    viewType = Views.EXCHANGE;
-                    Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                        arguments: [viewType, 0]);
-                  } else {
-                    Navigator.pushNamed(context, Routes.categoriesScreenRoute);
-                  }
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      AppStrings.seeMore,
-                      style: TextStyle(color: ColorManager.lightPrimary),
-                    ),
-                  ],
-                )),
-          ),
-        ],
+        onTap: () {
+          Navigator.pushNamed(context, Routes.itemScreenRoute,
+              arguments: item.id);
+        },
       ),
     );
+  }
+
+}
+
+
