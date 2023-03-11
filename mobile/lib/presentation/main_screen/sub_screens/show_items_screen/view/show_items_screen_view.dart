@@ -77,12 +77,10 @@ class _ShowItemsViewState extends State<ShowItemsView> {
     _scrollController.dispose();
     _viewModel.dispose();
     super.dispose();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<ShowItemsContentObject>(
         stream: _viewModel.contentOutput,
         builder: (context, snapshot) {
@@ -91,7 +89,6 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   }
 
   Widget _buildWidget(ShowItemsContentObject? showItemsContentObject) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -107,15 +104,15 @@ class _ShowItemsViewState extends State<ShowItemsView> {
       ),
       extendBody: true,
       backgroundColor: ColorsManager.primaryBackground,
-        body: StreamBuilder<FlowState>(
-            stream: _viewModel.outputState,
-            builder: (context, snapshot) {
-              return snapshot.data?.getScreenWidget(
-                      context,
-                      _getContentWidget(showItemsContentObject),
-                      () => _viewModel.getItems(viewType, categoryId)) ??
-                  _getContentWidget(showItemsContentObject);
-            }),
+      body: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data?.getScreenWidget(
+                    context,
+                    _getContentWidget(showItemsContentObject),
+                    () => _viewModel.getItems(viewType, categoryId)) ??
+                _getContentWidget(showItemsContentObject);
+          }),
     );
   }
 
