@@ -104,27 +104,27 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       AppStrings.allCategories,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: ColorsManager.white,
-                            fontSize: 21,
+                            fontSize: AppSize.s20,
                           ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(AppPadding.p14),
                   child: Divider(
-                    height: 3,
+                    height: AppSize.s3,
                     color: ColorsManager.white,
                   ),
                 ),
                 for (int i = 0; i < Utils.categories.length; i++)
                   InkWell(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(AppPadding.p8),
                       child: Row(
                         children: [
                           Container(
-                            height: 45,
-                            width: 45,
+                            height: AppSize.s45,
+                            width: AppSize.s45,
                             decoration: BoxDecoration(
                                 color: ColorsManager.secondaryBackground,
                                 shape: BoxShape.circle),
@@ -136,7 +136,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             ),
                           ),
                           const SizedBox(
-                            width: 20,
+                            width: AppSize.s20,
                           ),
                           Expanded(
                             child: Text(
@@ -146,7 +146,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   .bodyLarge
                                   ?.copyWith(
                                     color: ColorsManager.secondaryText,
-                                    fontSize: 17,
+                                    fontSize: AppSize.s16,
                                   ),
                             ),
                           ),
@@ -229,7 +229,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                               height: AppSize.s55,
                               decoration: BoxDecoration(
                                 color: ColorsManager.secondaryBackground,
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius:
+                                    BorderRadius.circular(AppSize.s15),
                               ),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -692,8 +693,8 @@ Widget _buildItem(Items item, int sectionId,
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.5),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16.0)),
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(AppSize.s16)),
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.p5),
