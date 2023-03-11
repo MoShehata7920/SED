@@ -35,4 +35,7 @@ router.post('/forgot-password',
 //reset password redirect
 router.post('/reset-password', resetVerification ,userController.resetPassword )
 
+//route for user's wishlist 
+router.patch('/addToWishlist', verifyToken ,userController.addToWishList)
+
 module.exports=router;
