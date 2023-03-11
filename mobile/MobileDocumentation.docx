@@ -351,6 +351,19 @@ update 2/24/2023
 -in HomeScreenViewModel and MainScreenViewModel instances Modules we create it as registerLazySingleton bc they will be needed to create them as singleton(will be called more than once).
 -created the use case, the Mapper and the repository of the home screen.
 -and we created the response of the home screen which will be consists of many component (for now we get the response of the carousal images from dataBase).
----------------------------------3/3/2023----------------------------------------------------
+---------------------------------------------------------------------------------------------
+**************************************************************************
+**************************************************************************
+**************************************************************************
+---------------------------------11/3/2023----------------------------------------------------
+Wrap class :
+    A widget that displays its children in multiple horizontal or vertical runs.
+    A Wrap lays out each child and attempts to place the child adjacent to the previous child in the main axis, given by direction, leaving spacing space in between. If there is not enough space to fit the child, Wrap creates a new run adjacent to the existing children in the cross axis.
+    After all the children have been allocated to runs, the children within the runs are positioned according to the alignment in the main axis and according to the crossAxisAlignment in the cross axis.
+    The runs themselves are then positioned in the cross axis according to the runSpacing and runAlignment.
 
-
+PreferredSize class :
+    This widget does not impose any constraints on its child, and it doesn't affect the child's layout in any way. It just advertises a preferred size which can be used by the parent.
+    Parents like Scaffold use PreferredSizeWidget to require that their children implement that interface. To give a preferred size to an arbitrary widget so that it can be used in a child property of that type, this widget, PreferredSize, can be used.
+    Widgets like AppBar implement a PreferredSizeWidget, so that this PreferredSize widget is not necessary for them.
+---------------------------------------------------------------------------------------------
