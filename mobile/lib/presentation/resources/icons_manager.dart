@@ -19,7 +19,7 @@ class IconsManager {
   static const rightArrow = Icons.keyboard_arrow_right_outlined;
 
   static const search = Icons.search;
-  static const notification = Icons.notifications;
+  static const notification = Icons.notifications_active;
 
   static const add = Icons.add;
   static const location = Icons.location_on;
@@ -42,4 +42,14 @@ class IconsManager {
   ];
 
   static const close = Icons.close;
+
+  // settings screen
+  static const rightRoundedArrow = Icons.arrow_circle_right;
+  static const account = Icons.supervisor_account_outlined;
+  static const myAds = Icons.production_quantity_limits_outlined;
+  static const languageController = Icons.language_outlined;
+  static const themeController = Icons.color_lens;
+  static const share = Icons.share_outlined;
+  static const help = Icons.help;
+  static const questionMark = Icons.live_help_outlined;
 }

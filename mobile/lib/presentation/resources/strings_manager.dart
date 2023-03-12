@@ -88,4 +88,16 @@ class AppStrings {
   static const String submit = "Submit";
   static const String categories = "Categories";
   static const String fieldError = "This field cannot be empty";
+
+  //  setting screen
+  static const String settings = "Settings";
+  static const String general = "General";
+  static const String account = "Account";
+  static const String myAds = "My Ads";
+  static const String language = "Language";
+  static const String theme = "Theme";
+  static const String notifications = "Notifications";
+  static const String share = "Share";
+  static const String help = "Help";
+  static const String aboutUs = "About Us";
 }

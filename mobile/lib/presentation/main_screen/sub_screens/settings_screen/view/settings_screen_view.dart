@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
+import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../resources/routes_manager.dart';
+import '../../../../resources/strings_manager.dart';
 
 class SettingsScreenView extends StatefulWidget {
   const SettingsScreenView({super.key});
@@ -19,53 +20,50 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
     return Scaffold(
       backgroundColor: ColorManager.grey1.withOpacity(.2),
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                ColorManager.secondLightPrimary,
-                ColorManager.thirdLightPrimary
-              ])),
-        ),
+        elevation: 0,
         toolbarHeight: 135,
         title: Column(
           children: [
             Column(
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(
                       top: AppSize.s14, left: AppSize.s5, right: AppSize.s18),
                   child: CircleAvatar(
                     radius: AppSize.s32,
                     backgroundImage: NetworkImage(
                         "https://cdn.24.co.za/files/Cms/General/d/2559/0862e2e9206a488d996a3a37afcde0de.jpg"),
-                  ),
+                  ).animateOnPageLoad(
+                      msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 600),
                 ),
                 const SizedBox(
                   height: AppSize.s12,
                 ),
                 Column(
                   children: [
-                    const Text(
+                    Text(
                       "Shehata & Hafez",
-                      style: TextStyle(
-                        fontSize: AppSize.s20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: ColorsManager.primaryText,
+                            fontSize: AppSize.s16,
+                          ),
+                    ).animateOnPageLoad(
+                        msDelay: 150, dx: -70.0, dy: 0.0, showDelay: 600),
                     Text(
                       "Gharbya / Tanta",
-                      style: TextStyle(
-                          fontSize: AppSize.s12, color: ColorManager.grey2),
-                    ),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: ColorsManager.secondaryText,
+                            fontSize: AppSize.s10,
+                          ),
+                    ).animateOnPageLoad(
+                        msDelay: 150, dx: 70.0, dy: 0.0, showDelay: 600),
                   ],
                 ),
                 Divider(
                   height: 15,
                   color: ColorManager.grey2,
-                )
+                ).animateOnPageLoad(
+                    msDelay: 150, dx: 0.0, dy: 0.0, showDelay: 600),
               ],
             )
           ],
@@ -81,341 +79,132 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               const SizedBox(
                 height: 15,
               ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.supervised_user_circle_outlined,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "Account",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+              _getInkwell(IconsManager.account, AppStrings.account, () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+              const SizedBox(
+                height: AppSize.s5,
               ),
-              const Divider(
-                height: 1,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.production_quantity_limits_outlined,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "MY ADS",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              _getInkwell(IconsManager.myAds, AppStrings.myAds, () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 25, left: 8, right: 5, bottom: 5),
+                    top: AppPadding.p25,
+                    left: AppPadding.p8,
+                    right: AppPadding.p5,
+                    bottom: AppPadding.p5),
                 child: Text(
                   textAlign: TextAlign.start,
-                  "Settings",
-                  style: TextStyle(color: ColorManager.grey),
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.language_outlined,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "Language",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
+                  AppStrings.settings,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: ColorsManager.grey,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
                 ),
+              ).animateOnPageLoad(
+                  msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+              _getInkwell(IconsManager.languageController, AppStrings.language,
+                      () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+              const SizedBox(
+                height: AppSize.s5,
               ),
-              const Divider(
-                height: 1,
+              _getInkwell(IconsManager.themeController, AppStrings.theme, () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+              const SizedBox(
+                height: AppSize.s5,
               ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.color_lens,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "Theme",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const Divider(
-                height: 1,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.notifications_active_outlined,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "Notification",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              _getInkwell(IconsManager.notification, AppStrings.notifications,
+                      () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 25, left: 8, right: 5, bottom: 5),
+                    top: AppPadding.p25,
+                    left: AppPadding.p8,
+                    right: AppPadding.p5,
+                    bottom: AppPadding.p5),
                 child: Text(
                   textAlign: TextAlign.start,
-                  "General",
-                  style: TextStyle(color: ColorManager.grey),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Share.share(
-                      'https://instagram.com/mohamed_shehata7920?igshid=ZDdkNTZiNTM=');
-                },
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.share_outlined,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "Share",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
+                  AppStrings.general,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: ColorsManager.grey,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
                 ),
+              ).animateOnPageLoad(
+                  msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+              _getInkwell(IconsManager.share, AppStrings.share, () {
+                Share.share(
+                    'https://instagram.com/mohamed_shehata7920?igshid=ZDdkNTZiNTM=');
+              }).animateOnPageLoad(
+                  msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+              const SizedBox(
+                height: AppSize.s5,
               ),
-              const Divider(
-                height: 1,
+              _getInkwell(IconsManager.help, AppStrings.help, () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+              const SizedBox(
+                height: AppSize.s5,
               ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.help,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "Help",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const Divider(
-                height: 1,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  color: ColorManager.white,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.live_help_outlined,
-                              size: 30,
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                          Text(
-                            "About US",
-                            style: TextStyle(
-                              color: ColorManager.thirdLightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_right,
-                          color: ColorManager.thirdLightPrimary,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              _getInkwell(IconsManager.questionMark, AppStrings.aboutUs, () {})
+                  .animateOnPageLoad(
+                      msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _getInkwell(
+      IconData inkwellIcon, String inkwellTitle, Function() inkwellFunction) {
+    return InkWell(
+      onTap: () {
+        inkwellFunction();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s10)),
+            color: ColorsManager.secondaryBackground,
+          ),
+          height: AppSize.s40,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    child: Icon(
+                      inkwellIcon,
+                      size: AppSize.s30,
+                      color: ColorsManager.secondaryText,
+                    ),
+                  ),
+                  Text(
+                    inkwellTitle,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: ColorsManager.secondaryText,
+                          fontSize: AppSize.s14,
+                        ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: Icon(
+                  IconsManager.rightRoundedArrow,
+                  color: ColorsManager.secondaryText,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

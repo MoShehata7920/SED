@@ -5,6 +5,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/viewmodel/add_advertisement_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -80,12 +81,12 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
           backgroundColor: ColorsManager.primaryBackground,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
-              IconsManager.close,
-              color: ColorsManager.white,
-            ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+              icon: Icon(
+                IconsManager.close,
+                color: ColorsManager.white,
+              ),
+              onPressed: () => Navigator.pushReplacementNamed(
+                  context, Routes.mainScreenRoute)),
           title: Text(
             AppStrings.addAdvertisement,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -166,7 +167,9 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     ),
                     const Spacer(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                       child: Text(
                         AppStrings.change,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -385,11 +388,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                       stream: _viewModel.areAllInputsValidOutput,
                       builder: (context, snapshot) {
                         return ElevatedButton(
-                            onPressed: (snapshot.data ?? false)
-                                ? () {
-
-                            }
-                                : null,
+                            onPressed: (snapshot.data ?? false) ? () {} : null,
                             child: const Text(AppStrings.submit));
                       }),
                 ),

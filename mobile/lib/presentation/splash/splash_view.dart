@@ -32,28 +32,39 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsManager.darkBlack,
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: AppSize.s60,
-            ),
-            const Image(
-              image: AssetImage(ImageAssets.darkModeSplashLogo),
-            ).animateOnPageLoad(msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 900),
-            SpinKitSquareCircle(
-              color: ColorsManager.primaryColor,
-              size: AppSize.s50,
-            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
-            Text(
-              AppStrings.poweredBy,
-              style: Theme.of(context).textTheme.titleMedium,
-            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
-            Text(
-              AppStrings.eagles,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ).animateOnPageLoad(msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: AppSize.s60,
+              ),
+              Image(
+                width: MediaQuery.of(context).size.width / 2,
+                height: AppSize.s250,
+                image: const AssetImage(ImageAssets.darkModeSplashLogo),
+              ).animateOnPageLoad(
+                  msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 900),
+              const SizedBox(
+                height: AppSize.s350,
+              ),
+              SpinKitSquareCircle(
+                color: ColorsManager.primaryColor,
+                size: AppSize.s50,
+              ).animateOnPageLoad(
+                  msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
+              Text(
+                AppStrings.poweredBy,
+                style: Theme.of(context).textTheme.titleMedium,
+              ).animateOnPageLoad(
+                  msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
+              Text(
+                AppStrings.eagles,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ).animateOnPageLoad(
+                  msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
+            ],
+          ),
         ),
       ),
     );
