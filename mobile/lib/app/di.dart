@@ -28,6 +28,8 @@ import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../domain/usecase/add_advertisement_usecase.dart';
+
 final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
@@ -71,8 +73,7 @@ Future<void> initAppModule() async {
   instance
       .registerLazySingleton<HomeScreenViewModel>(() => HomeScreenViewModel());
 
-  instance
-      .registerLazySingleton<HomeScreenView>(() => const HomeScreenView());
+  instance.registerLazySingleton<HomeScreenView>(() => const HomeScreenView());
 
   instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
 
@@ -89,9 +90,12 @@ Future<void> initAppModule() async {
 
   instance.registerFactory<SavingProductsUseCase>(
       () => SavingProductsUseCase(instance()));
-      
+
   instance.registerFactory<ShowProfileUseCase>(
       () => ShowProfileUseCase(instance()));
+
+  instance.registerFactory<AddAdvertisementUseCase>(
+      () => AddAdvertisementUseCase(instance()));
 }
 
 initLoginModule() async {

@@ -137,3 +137,16 @@ class SavingProduct {
   SavingProduct(this.savingProductStatus);
 }
 
+// Add Advertisement
+class AddAdvertisement {
+  String image;
+  String name;
+  String price;
+  String description;
+  int sectionId;
+  int categoryId;
+  int conditionId;
+
+  AddAdvertisement(this.image, this.name, this.price, this.description,
+      this.sectionId, this.categoryId, this.conditionId);
+}

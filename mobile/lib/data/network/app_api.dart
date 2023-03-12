@@ -54,4 +54,15 @@ abstract class AppServiceClient {
   Future<ShowItemsResponse> getShowProfileData(
     @Path("profileId") int profileId,
   );
+
+  @POST("/customers/AddAdvertisement")
+  Future<AddAdvertisementResponse> addAdvertisement(
+    @Field("image") String image,
+    @Field("name") String name,
+    @Field("price") String price,
+    @Field("description") String description,
+    @Field("sectionId") int sectionId,
+    @Field("categoryId") int categoryId,
+    @Field("conditionId") int conditionId,
+  );
 }

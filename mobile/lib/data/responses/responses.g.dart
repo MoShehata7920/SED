@@ -224,3 +224,31 @@ Map<String, dynamic> _$SavingProductResponseToJson(
       'message': instance.message,
       'savingProductStatus': instance.savingProductStatus,
     };
+
+AddAdvertisementResponse _$AddAdvertisementResponseFromJson(
+        Map<String, dynamic> json) =>
+    AddAdvertisementResponse(
+      json['image'] as String?,
+      json['name'] as String?,
+      json['price'] as String?,
+      json['description'] as String?,
+      json['sectionId'] as int?,
+      json['categoryId'] as int?,
+      json['conditionId'] as int?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$AddAdvertisementResponseToJson(
+        AddAdvertisementResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'image': instance.image,
+      'name': instance.name,
+      'price': instance.price,
+      'description': instance.description,
+      'sectionId': instance.sectionId,
+      'categoryId': instance.categoryId,
+      'conditionId': instance.conditionId,
+    };

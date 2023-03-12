@@ -21,6 +21,9 @@ abstract class RemoteDataSource {
 
   Future<SavingProductResponse> toggleSavingProduct(
       SavingProductRequest savingProductRequest);
+
+  Future<AddAdvertisementResponse> addAdvertisement(
+      AddAdvertisementRequest addAdvertisementRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -73,10 +76,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     return await _appServiceClient
         .toggleSavingProduct(savingProductRequest.productId);
   }
-  
+
   @override
-  Future<ShowItemsResponse> getShowProfile(ShowProfileRequest showProfileRequest) async{
-        return await _appServiceClient.getShowProfileData(
-        showProfileRequest.profileId);
+  Future<ShowItemsResponse> getShowProfile(
+      ShowProfileRequest showProfileRequest) async {
+    return await _appServiceClient
+        .getShowProfileData(showProfileRequest.profileId);
+  }
+
+  @override
+  Future<AddAdvertisementResponse> addAdvertisement(
+      AddAdvertisementRequest addAdvertisementRequest) async {
+    return await _appServiceClient.addAdvertisement(
+        addAdvertisementRequest.image,
+        addAdvertisementRequest.name,
+        addAdvertisementRequest.price,
+        addAdvertisementRequest.description,
+        addAdvertisementRequest.sectionId,
+        addAdvertisementRequest.categoryId,
+        addAdvertisementRequest.conditionId);
   }
 }

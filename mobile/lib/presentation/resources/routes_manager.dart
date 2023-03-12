@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
-import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_product_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
@@ -74,7 +74,9 @@ class RouteGenerator {
             builder: (context) => ShowProfileView(settings.arguments));
 
       case Routes.addProductScreenRoute:
-        return MaterialPageRoute(builder: (context) => AddProductView(settings.arguments as int));
+        return MaterialPageRoute(
+            builder: (context) =>
+                AddAdvertisementView(settings.arguments as int));
 
       default:
         return unDefinedRoute();

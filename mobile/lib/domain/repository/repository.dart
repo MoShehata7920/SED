@@ -25,4 +25,7 @@ abstract class Repository {
 
   Future<Either<Failure, SavingProduct>> toggleSavingProduct(
       SavingProductRequest savingProductRequest);
+
+  Future<Either<Failure, AddAdvertisement>> addAdvertisement(
+      AddAdvertisementRequest addAdvertisementRequest);
 }

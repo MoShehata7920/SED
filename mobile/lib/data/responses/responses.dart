@@ -240,3 +240,37 @@ class SavingProductResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$SavingProductResponseToJson(this);
 }
+
+@JsonSerializable()
+class AddAdvertisementResponse extends BaseResponse {
+  @JsonKey(name: "image")
+  String? image;
+
+  @JsonKey(name: "name")
+  String? name;
+
+  @JsonKey(name: "price")
+  String? price;
+
+  @JsonKey(name: "description")
+  String? description;
+
+  @JsonKey(name: "sectionId")
+  int? sectionId;
+
+  @JsonKey(name: "categoryId")
+  int? categoryId;
+
+  @JsonKey(name: "conditionId")
+  int? conditionId;
+
+  AddAdvertisementResponse(this.image, this.name, this.price, this.description,
+      this.sectionId, this.categoryId, this.conditionId);
+
+  // From Json
+  factory AddAdvertisementResponse.fromJson(Map<String, dynamic> json) =>
+      _$AddAdvertisementResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$AddAdvertisementResponseToJson(this);
+}

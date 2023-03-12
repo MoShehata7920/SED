@@ -34,3 +34,16 @@ class SavingProductRequest {
 
   SavingProductRequest(this.productId);
 }
+
+class AddAdvertisementRequest {
+  String image;
+  String name;
+  String price;
+  String description;
+  int sectionId;
+  int categoryId;
+  int conditionId;
+
+  AddAdvertisementRequest(this.image, this.name, this.price, this.description,
+      this.sectionId, this.categoryId, this.conditionId);
+}

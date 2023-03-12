@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/viewmodel/add_advertisement_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -8,20 +9,22 @@ import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../resources/color_manager.dart';
 
-class AddProductView extends StatefulWidget {
-  AddProductView(this.categoryId, {super.key});
+class AddAdvertisementView extends StatefulWidget {
+  AddAdvertisementView(this.categoryId, {super.key});
 
   int categoryId;
 
   @override
-  State<AddProductView> createState() => _AddProductViewState(categoryId);
+  State<AddAdvertisementView> createState() =>
+      _AddAdvertisementViewState(categoryId);
 }
 
-class _AddProductViewState extends State<AddProductView> {
+class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   int categoryId;
   int selectedIndex = 0;
+  final AddAdvertisementViewModel _viewModel = AddAdvertisementViewModel();
 
-  _AddProductViewState(this.categoryId);
+  _AddAdvertisementViewState(this.categoryId);
 
   List<DropdownMenuItem<dynamic>> dropDownItems = <DropdownMenuItem<dynamic>>[];
   final ImagePicker _picker = ImagePicker();
@@ -30,14 +33,7 @@ class _AddProductViewState extends State<AddProductView> {
 
   @override
   void initState() {
-    for (var element in Utils.categories) {
-      var dropDownItem = DropdownMenuItem(
-        value: element.id,
-        child: Text(element.name),
-      );
-
-      dropDownItems.add(dropDownItem);
-    }
+    _viewModel.start();
 
     super.initState();
   }
@@ -334,5 +330,12 @@ class _AddProductViewState extends State<AddProductView> {
             ),
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+
+    super.dispose();
   }
 }

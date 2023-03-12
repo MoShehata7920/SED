@@ -96,8 +96,8 @@ extension ItemsResponseMapper on ItemsResponse? {
 
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
-    return UserData(this?.id ?? 0, this?.name ?? "", this?.phone ?? "", this?.address ?? "",
-        this?.image ?? "");
+    return UserData(this?.id ?? 0, this?.name ?? "", this?.phone ?? "",
+        this?.address ?? "", this?.image ?? "");
   }
 }
 
@@ -117,5 +117,19 @@ extension ShowItemsResponseMapper on ShowItemsResponse? {
 extension SavingProductResponseMapper on SavingProductResponse? {
   SavingProduct toDomain() {
     return SavingProduct(this?.savingProductStatus ?? false);
+  }
+}
+
+extension AddAdvertisementMapper on AddAdvertisementResponse? {
+  AddAdvertisement toDomain() {
+    return AddAdvertisement(
+      this?.image ?? "",
+      this?.name ?? "",
+      this?.price ?? "",
+      this?.description ?? "",
+      this?.sectionId ?? 0,
+      this?.categoryId ?? 0,
+      this?.conditionId ?? 0,
+    );
   }
 }
