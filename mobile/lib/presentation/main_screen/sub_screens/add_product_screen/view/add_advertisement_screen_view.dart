@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/viewmodel/add_advertisement_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -16,6 +17,7 @@ class AddAdvertisementView extends StatefulWidget {
 
   @override
   State<AddAdvertisementView> createState() =>
+      // ignore: no_logic_in_create_state
       _AddAdvertisementViewState(categoryId);
 }
 
@@ -30,16 +32,48 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   final ImagePicker _picker = ImagePicker();
 
   // for selecting sell,exchange or donate
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
     _viewModel.start();
+
+    _nameController.addListener(() => _viewModel.setName(_nameController.text));
+
+    _priceController
+        .addListener(() => _viewModel.setPrice(_priceController.text));
+
+    _descriptionController.addListener(
+        () => _viewModel.setDescription(_descriptionController.text));
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: ColorsManager.darkBlack,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(
+                  context, _getContentWidget(), () => () {}) ??
+              _getContentWidget();
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+
+    super.dispose();
+  }
+
+  Widget _getContentWidget() {
     return Scaffold(
         backgroundColor: ColorsManager.primaryBackground,
         appBar: AppBar(
@@ -53,7 +87,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
             onPressed: () => Navigator.of(context).pop(),
           ),
           title: Text(
-            AppStrings.addAdvertizement,
+            AppStrings.addAdvertisement,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.lineColor,
                   fontSize: AppSize.s20,
@@ -253,18 +287,27 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 const SizedBox(
                   height: AppSize.s12,
                 ),
-                TextFormField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: AppStrings.productName,
-                    filled: true,
-                    fillColor: ColorsManager.secondaryBackground,
-                  ),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.primaryBtnText,
-                        fontSize: AppSize.s15,
-                      ),
-                ),
+                StreamBuilder<bool>(
+                    stream: _viewModel.isNameValidOutput,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        controller: _nameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.productName,
+                          filled: true,
+                          fillColor: ColorsManager.secondaryBackground,
+                          errorText: (snapshot.data ??
+                                  true) //check if the password was null
+                              ? null //then no errors
+                              : AppStrings.fieldError,
+                        ),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorsManager.primaryBtnText,
+                              fontSize: AppSize.s15,
+                            ),
+                      );
+                    }),
                 const SizedBox(
                   height: AppSize.s20,
                 ),
@@ -278,18 +321,27 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 const SizedBox(
                   height: AppSize.s12,
                 ),
-                TextFormField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: AppStrings.productPrice,
-                    filled: true,
-                    fillColor: ColorsManager.secondaryBackground,
-                  ),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.primaryBtnText,
-                        fontSize: AppSize.s15,
-                      ),
-                ),
+                StreamBuilder<bool>(
+                    stream: _viewModel.isPriceValidOutput,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        controller: _priceController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.productPrice,
+                          filled: true,
+                          fillColor: ColorsManager.secondaryBackground,
+                          errorText: (snapshot.data ??
+                                  true) //check if the password was null
+                              ? null //then no errors
+                              : AppStrings.fieldError,
+                        ),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorsManager.primaryBtnText,
+                              fontSize: AppSize.s15,
+                            ),
+                      );
+                    }),
                 const SizedBox(
                   height: AppSize.s20,
                 ),
@@ -303,25 +355,43 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 const SizedBox(
                   height: AppSize.s12,
                 ),
-                TextFormField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: AppStrings.productDescription,
-                    filled: true,
-                    fillColor: ColorsManager.secondaryBackground,
-                  ),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.primaryBtnText,
-                        fontSize: AppSize.s15,
-                      ),
-                ),
+                StreamBuilder<bool>(
+                    stream: _viewModel.isDescriptionValidOutput,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        controller: _descriptionController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: AppStrings.productDescription,
+                          filled: true,
+                          fillColor: ColorsManager.secondaryBackground,
+                          errorText: (snapshot.data ??
+                                  true) //check if the password was null
+                              ? null //then no errors
+                              : AppStrings.fieldError,
+                        ),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorsManager.primaryBtnText,
+                              fontSize: AppSize.s15,
+                            ),
+                      );
+                    }),
                 const SizedBox(
                   height: AppSize.s20,
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {}, child: const Text(AppStrings.submit)),
+                  child: StreamBuilder<bool>(
+                      stream: _viewModel.areAllInputsValidOutput,
+                      builder: (context, snapshot) {
+                        return ElevatedButton(
+                            onPressed: (snapshot.data ?? false)
+                                ? () {
+
+                            }
+                                : null,
+                            child: const Text(AppStrings.submit));
+                      }),
                 ),
                 const SizedBox(
                   height: AppSize.s20,
@@ -330,12 +400,5 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
             ),
           ),
         ));
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-
-    super.dispose();
   }
 }

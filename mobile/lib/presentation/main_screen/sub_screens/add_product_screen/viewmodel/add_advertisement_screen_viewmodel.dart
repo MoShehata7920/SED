@@ -1,9 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:sed/presentation/base/baseviewmodel.dart';
+import 'package:sed/presentation/common/freezed_data_classes.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class AddAdvertisementViewModel extends BaseViewModel
     with AddAdvertisementViewModelInputs, AddAdvertisementViewModelOutputs {
+  AdvertisementObject advertisementObject =
+      AdvertisementObject("", "", "", "", 0, 0, 0);
+
   final StreamController _imageValidationStreamController =
       StreamController<String>.broadcast();
 
@@ -21,7 +26,9 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   // inputs
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentState());
+  }
 
   @override
   void dispose() {
@@ -89,26 +96,76 @@ class AddAdvertisementViewModel extends BaseViewModel
   }
 
   bool _areAllInputsValid() {
-    return _isImageValid(image) &&
-        _isNameValid() &&
-        _isPriceValid() &&
-        _isDescriptionValid();
+    return _isNameValid(advertisementObject.name) &&
+        _isPriceValid(advertisementObject.price) &&
+        _isDescriptionValid(advertisementObject.description);
+  }
+
+  @override
+  void setDescription(String description) {
+    descriptionInput.add(description);
+    advertisementObject =
+        advertisementObject.copyWith(description: description);
+    areAllInputsValidInput.add(null);
+  }
+
+  @override
+  void setIds(int sectionId, int categoryId, int conditionId) {
+    advertisementObject = advertisementObject.copyWith(
+        sectionId: sectionId, categoryId: categoryId, conditionId: conditionId);
+  }
+
+  @override
+  void setImage(String image) {
+    imageInput.add(image);
+    advertisementObject = advertisementObject.copyWith(image: image);
+    areAllInputsValidInput.add(null);
+  }
+
+  @override
+  void setName(String name) {
+    nameInput.add(name);
+    advertisementObject = advertisementObject.copyWith(name: name);
+    areAllInputsValidInput.add(null);
+  }
+
+  @override
+  void setPrice(String price) {
+    priceInput.add(price);
+    advertisementObject = advertisementObject.copyWith(price: price);
+    areAllInputsValidInput.add(null);
   }
 }
 
 abstract class AddAdvertisementViewModelInputs {
   Sink get imageInput;
+
   Sink get nameInput;
+
   Sink get priceInput;
+
   Sink get descriptionInput;
 
   Sink get areAllInputsValidInput;
+
+  void setImage(String image);
+
+  void setName(String name);
+
+  void setPrice(String price);
+
+  void setDescription(String description);
+
+  void setIds(int sectionId, int categoryId, int conditionId);
 }
 
 abstract class AddAdvertisementViewModelOutputs {
   Stream<bool> get isImageValidOutput;
+
   Stream<bool> get isNameValidOutput;
+
   Stream<bool> get isPriceValidOutput;
+
   Stream<bool> get isDescriptionValidOutput;
 
   Stream<bool> get areAllInputsValidOutput;

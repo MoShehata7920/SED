@@ -80,7 +80,7 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, Routes.addProductScreenRoute,
-                      arguments: Utils.categories[i].id);
+                      arguments: i);
                 },
               ),
           ],

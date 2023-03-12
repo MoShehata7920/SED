@@ -10,11 +10,20 @@ class LoginObject with _$LoginObject {
 
 @freezed
 class RegisterObject with _$RegisterObject {
-  factory RegisterObject(
-    String userName,
-    String countryMobileCode,
-    String mobileNumber,
-    String email,
-    String password,
-  ) = _registerObject;
+  factory RegisterObject(String userName,
+      String countryMobileCode,
+      String mobileNumber,
+      String email,
+      String password,) = _registerObject;
+}
+
+@freezed
+class AdvertisementObject with _$AdvertisementObject {
+  factory AdvertisementObject(String image,
+      String name,
+      String price,
+      String description,
+      int sectionId,
+      int categoryId,
+      int conditionId) = _AdvertisementObject;
 }

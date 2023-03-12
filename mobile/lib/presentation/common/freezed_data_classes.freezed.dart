@@ -351,3 +351,244 @@ abstract class _registerObject implements RegisterObject {
   _$$_registerObjectCopyWith<_$_registerObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$AdvertisementObject {
+  String get image => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  int get sectionId => throw _privateConstructorUsedError;
+  int get categoryId => throw _privateConstructorUsedError;
+  int get conditionId => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AdvertisementObjectCopyWith<AdvertisementObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AdvertisementObjectCopyWith<$Res> {
+  factory $AdvertisementObjectCopyWith(
+          AdvertisementObject value, $Res Function(AdvertisementObject) then) =
+      _$AdvertisementObjectCopyWithImpl<$Res, AdvertisementObject>;
+  @useResult
+  $Res call(
+      {String image,
+      String name,
+      String price,
+      String description,
+      int sectionId,
+      int categoryId,
+      int conditionId});
+}
+
+/// @nodoc
+class _$AdvertisementObjectCopyWithImpl<$Res, $Val extends AdvertisementObject>
+    implements $AdvertisementObjectCopyWith<$Res> {
+  _$AdvertisementObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? image = null,
+    Object? name = null,
+    Object? price = null,
+    Object? description = null,
+    Object? sectionId = null,
+    Object? categoryId = null,
+    Object? conditionId = null,
+  }) {
+    return _then(_value.copyWith(
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      sectionId: null == sectionId
+          ? _value.sectionId
+          : sectionId // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      conditionId: null == conditionId
+          ? _value.conditionId
+          : conditionId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_AdvertisementObjectCopyWith<$Res>
+    implements $AdvertisementObjectCopyWith<$Res> {
+  factory _$$_AdvertisementObjectCopyWith(_$_AdvertisementObject value,
+          $Res Function(_$_AdvertisementObject) then) =
+      __$$_AdvertisementObjectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String image,
+      String name,
+      String price,
+      String description,
+      int sectionId,
+      int categoryId,
+      int conditionId});
+}
+
+/// @nodoc
+class __$$_AdvertisementObjectCopyWithImpl<$Res>
+    extends _$AdvertisementObjectCopyWithImpl<$Res, _$_AdvertisementObject>
+    implements _$$_AdvertisementObjectCopyWith<$Res> {
+  __$$_AdvertisementObjectCopyWithImpl(_$_AdvertisementObject _value,
+      $Res Function(_$_AdvertisementObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? image = null,
+    Object? name = null,
+    Object? price = null,
+    Object? description = null,
+    Object? sectionId = null,
+    Object? categoryId = null,
+    Object? conditionId = null,
+  }) {
+    return _then(_$_AdvertisementObject(
+      null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == sectionId
+          ? _value.sectionId
+          : sectionId // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == conditionId
+          ? _value.conditionId
+          : conditionId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AdvertisementObject implements _AdvertisementObject {
+  _$_AdvertisementObject(this.image, this.name, this.price, this.description,
+      this.sectionId, this.categoryId, this.conditionId);
+
+  @override
+  final String image;
+  @override
+  final String name;
+  @override
+  final String price;
+  @override
+  final String description;
+  @override
+  final int sectionId;
+  @override
+  final int categoryId;
+  @override
+  final int conditionId;
+
+  @override
+  String toString() {
+    return 'AdvertisementObject(image: $image, name: $name, price: $price, description: $description, sectionId: $sectionId, categoryId: $categoryId, conditionId: $conditionId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AdvertisementObject &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.sectionId, sectionId) ||
+                other.sectionId == sectionId) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
+            (identical(other.conditionId, conditionId) ||
+                other.conditionId == conditionId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, image, name, price, description,
+      sectionId, categoryId, conditionId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AdvertisementObjectCopyWith<_$_AdvertisementObject> get copyWith =>
+      __$$_AdvertisementObjectCopyWithImpl<_$_AdvertisementObject>(
+          this, _$identity);
+}
+
+abstract class _AdvertisementObject implements AdvertisementObject {
+  factory _AdvertisementObject(
+      final String image,
+      final String name,
+      final String price,
+      final String description,
+      final int sectionId,
+      final int categoryId,
+      final int conditionId) = _$_AdvertisementObject;
+
+  @override
+  String get image;
+  @override
+  String get name;
+  @override
+  String get price;
+  @override
+  String get description;
+  @override
+  int get sectionId;
+  @override
+  int get categoryId;
+  @override
+  int get conditionId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AdvertisementObjectCopyWith<_$_AdvertisementObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}

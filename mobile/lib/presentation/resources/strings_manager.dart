@@ -58,7 +58,7 @@ class AppStrings {
   // Home Screen
   static const String welcomeMessage = "Hi SED's friend , Let's";
   static const String allCategories = "All Categories";
-  static const List appSections = ["Sell", "Exchange", "Donate"];
+  static const List appSections = ["Sell Products", "Exchange", "Donate"];
   static const String seeMore = "See More";
   static const String lastProducts = "Last Products";
   static const String searchHere = "Search here ...";
@@ -70,7 +70,7 @@ class AppStrings {
   static const String saved = "Saved";
 
   // Add products screen
-  static const String addAdvertizement = "Add an advertisement";
+  static const String addAdvertisement = "Add an advertisement";
   static const String addImage = "Add image";
   static const String selectedCategory = "Selected Category";
   static const String change = "change";
@@ -82,8 +82,9 @@ class AppStrings {
   static const String productName = "Product's Name";
   static const String price = "price";
   static const String productPrice = "Product's price";
-  static const String description = "name";
+  static const String description = "description";
   static const String productDescription = "Product's description";
   static const String submit = "Submit";
   static const String categories = "Categories";
+  static const String fieldError = "This field cannot be empty";
 }
