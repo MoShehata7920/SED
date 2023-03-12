@@ -55,7 +55,7 @@ extension ViewExtension on Views {
 }
 
 class ViewsName {
-  static String sell = AppStrings.appSections[0];
+  static String sell = AppStrings.sell;
   static String donate = AppStrings.appSections[2];
   static String exchange = AppStrings.appSections[1];
   static String saved = AppStrings.saved;

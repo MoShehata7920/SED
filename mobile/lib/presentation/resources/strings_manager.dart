@@ -68,6 +68,7 @@ class AppStrings {
   static const String topCategories = "Top Categories";
   static const String findYourProducts = "Find your favorite product";
   static const String saved = "Saved";
+  static const String sell = "Sell";
 
   // Add products screen
   static const String addAdvertisement = "Add an advertisement";
