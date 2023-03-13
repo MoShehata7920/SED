@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,7 +33,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   _AddAdvertisementViewState(this.categoryId);
 
   List<DropdownMenuItem<dynamic>> dropDownItems = <DropdownMenuItem<dynamic>>[];
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker _imagePicker = ImagePicker();
 
   // for selecting sell,exchange or donate
   final TextEditingController _nameController = TextEditingController();
@@ -102,30 +105,17 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: AppSize.s150,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(AppSize.s20)),
-                    color: ColorsManager.secondaryBackground,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add_circle_rounded,
-                          color: ColorsManager.lineColor),
-                      const SizedBox(
-                        width: AppSize.s2,
-                      ),
-                      Text(
-                        AppStrings.addImage,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: ColorsManager.lineColor,
-                              fontSize: AppSize.s14,
-                            ),
-                      ),
-                    ],
-                  ),
+                InkWell(
+                  child: StreamBuilder<String>(
+                      stream: _viewModel.imageOutput,
+                      builder: (context, snapshot) {
+                        return _getImage(snapshot.data);
+                      }),
+                  onTap: () async {
+                    var image = await _imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    _viewModel.setImage(image);
+                  },
                 ),
                 const SizedBox(
                   height: AppSize.s25,
@@ -399,5 +389,36 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
             ),
           ),
         ));
+  }
+
+  Widget _getImage(String? image) {
+    print(image);
+    if (image == null) {
+      return Container(
+        height: AppSize.s150,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+          color: ColorsManager.secondaryBackground,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add_circle_rounded, color: ColorsManager.lineColor),
+            const SizedBox(
+              width: AppSize.s2,
+            ),
+            Text(
+              AppStrings.addImage,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.lineColor,
+                    fontSize: AppSize.s14,
+                  ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Text('hello world');
+    }
   }
 }

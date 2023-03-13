@@ -43,9 +43,10 @@ class AddAdvertisementRequest {
   int sectionId;
   int categoryId;
   int conditionId;
+  String token;
 
   AddAdvertisementRequest(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId);
+      this.sectionId, this.categoryId, this.conditionId, this.token);
 }
 
 class GetMyProfileAdsRequest {
@@ -56,7 +57,6 @@ class GetMyProfileAdsRequest {
 }
 
 class RemoveAdRequest {
-
   int itemId;
 
   RemoveAdRequest(this.itemId);

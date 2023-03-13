@@ -96,13 +96,15 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<AddAdvertisementResponse> addAdvertisement(
       AddAdvertisementRequest addAdvertisementRequest) async {
     return await _appServiceClient.addAdvertisement(
-        addAdvertisementRequest.image,
-        addAdvertisementRequest.name,
-        addAdvertisementRequest.price,
-        addAdvertisementRequest.description,
-        addAdvertisementRequest.sectionId,
-        addAdvertisementRequest.categoryId,
-        addAdvertisementRequest.conditionId);
+      addAdvertisementRequest.image,
+      addAdvertisementRequest.name,
+      addAdvertisementRequest.price,
+      addAdvertisementRequest.description,
+      addAdvertisementRequest.sectionId,
+      addAdvertisementRequest.categoryId,
+      addAdvertisementRequest.conditionId,
+      addAdvertisementRequest.token,
+    );
   }
 
   @override

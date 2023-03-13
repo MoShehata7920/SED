@@ -130,6 +130,7 @@ extension AddAdvertisementMapper on AddAdvertisementResponse? {
       this?.sectionId ?? 0,
       this?.categoryId ?? 0,
       this?.conditionId ?? 0,
+      this?.token ?? "",
     );
   }
 }

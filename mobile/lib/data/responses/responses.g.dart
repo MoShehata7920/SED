@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -237,6 +235,7 @@ AddAdvertisementResponse _$AddAdvertisementResponseFromJson(
       json['sectionId'] as int?,
       json['categoryId'] as int?,
       json['conditionId'] as int?,
+      json['token'] as String?,
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -253,6 +252,7 @@ Map<String, dynamic> _$AddAdvertisementResponseToJson(
       'sectionId': instance.sectionId,
       'categoryId': instance.categoryId,
       'conditionId': instance.conditionId,
+      'token': instance.token,
     };
 
 GetMyProfileDataResponse _$GetMyProfileDataResponseFromJson(

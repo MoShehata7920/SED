@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/freezed_data_classes.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'dart:convert';
 
 class AddAdvertisementViewModel extends BaseViewModel
     with AddAdvertisementViewModelInputs, AddAdvertisementViewModelOutputs {
   AdvertisementObject advertisementObject =
       AdvertisementObject("", "", "", "", 0, 0, 0);
+
+  final StreamController _imageStreamController =
+      StreamController<String>.broadcast();
 
   final StreamController _imageValidationStreamController =
       StreamController<String>.broadcast();
@@ -56,6 +62,10 @@ class AddAdvertisementViewModel extends BaseViewModel
   Sink get areAllInputsValidInput => _areAllValidationStreamController.sink;
 
   // outputs
+  @override
+  Stream<String> get imageOutput =>
+      _imageStreamController.stream.map((file) => file);
+
   @override
   Stream<bool> get isImageValidOutput => _imageValidationStreamController.stream
       .map((image) => _isImageValid(image));
@@ -115,9 +125,17 @@ class AddAdvertisementViewModel extends BaseViewModel
   }
 
   @override
-  void setImage(String image) {
-    imageInput.add(image);
-    advertisementObject = advertisementObject.copyWith(image: image);
+  void setImage(image) {
+    XFile imageMapping = image ?? XFile("");
+
+    File imageFile = File(imageMapping.path);
+
+    imageInput.add(imageMapping.path);
+    inputState.add(ContentState());
+
+    List<int> imageBytes = imageFile.readAsBytesSync();
+    String base64Image = base64.encode(imageBytes);
+    advertisementObject = advertisementObject.copyWith(image: base64Image);
     areAllInputsValidInput.add(null);
   }
 
@@ -147,7 +165,7 @@ abstract class AddAdvertisementViewModelInputs {
 
   Sink get areAllInputsValidInput;
 
-  void setImage(String image);
+  void setImage(XFile? image);
 
   void setName(String name);
 
@@ -159,6 +177,8 @@ abstract class AddAdvertisementViewModelInputs {
 }
 
 abstract class AddAdvertisementViewModelOutputs {
+  Stream<String> get imageOutput;
+
   Stream<bool> get isImageValidOutput;
 
   Stream<bool> get isNameValidOutput;

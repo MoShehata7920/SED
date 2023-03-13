@@ -5,7 +5,6 @@ import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/base_usecase.dart';
 
-
 class AddAdvertisementUseCase
     implements
         BaseUseCase<AddAdvertisementUseCaseUseCaseInput, AddAdvertisement> {
@@ -24,6 +23,7 @@ class AddAdvertisementUseCase
       input.sectionId,
       input.categoryId,
       input.conditionId,
+      input.token,
     ));
   }
 }
@@ -36,7 +36,8 @@ class AddAdvertisementUseCaseUseCaseInput {
   int sectionId;
   int categoryId;
   int conditionId;
+  String token;
 
   AddAdvertisementUseCaseUseCaseInput(this.image, this.name, this.price,
-      this.description, this.sectionId, this.categoryId, this.conditionId);
+      this.description, this.sectionId, this.categoryId, this.conditionId, this.token);
 }

@@ -264,8 +264,11 @@ class AddAdvertisementResponse extends BaseResponse {
   @JsonKey(name: "conditionId")
   int? conditionId;
 
+  @JsonKey(name: "token")
+  String? token;
+
   AddAdvertisementResponse(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId);
+      this.sectionId, this.categoryId, this.conditionId, this.token);
 
   // From Json
   factory AddAdvertisementResponse.fromJson(Map<String, dynamic> json) =>

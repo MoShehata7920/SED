@@ -146,9 +146,10 @@ class AddAdvertisement {
   int sectionId;
   int categoryId;
   int conditionId;
+  String token;
 
   AddAdvertisement(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId);
+      this.sectionId, this.categoryId, this.conditionId, this.token);
 }
 
 // My Profile Models

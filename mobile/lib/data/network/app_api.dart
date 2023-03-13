@@ -64,6 +64,7 @@ abstract class AppServiceClient {
     @Field("sectionId") int sectionId,
     @Field("categoryId") int categoryId,
     @Field("conditionId") int conditionId,
+    @Header("Authorization") String token
   );
 
   @GET("/MyProfile")
@@ -77,6 +78,6 @@ abstract class AppServiceClient {
   @POST("/MyProfile/DeleteAd")
   Future<RemoveAdResponse> removeAd(
     @Field("itemId") int itemId,
-    @Header("Authorization") String token
+    @Header("token") String token
   );
 }
