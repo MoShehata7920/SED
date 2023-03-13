@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -18,7 +19,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.grey1.withOpacity(.2),
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 135,
@@ -27,9 +28,9 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       top: AppSize.s14, left: AppSize.s5, right: AppSize.s18),
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     radius: AppSize.s32,
                     backgroundImage: NetworkImage(
                         "https://cdn.24.co.za/files/Cms/General/d/2559/0862e2e9206a488d996a3a37afcde0de.jpg"),
@@ -85,9 +86,10 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               const SizedBox(
                 height: AppSize.s5,
               ),
-              _getInkwell(IconsManager.myAds, AppStrings.myAds, () {})
-                  .animateOnPageLoad(
-                      msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+              _getInkwell(IconsManager.myAds, AppStrings.myAds, () {
+                Navigator.pushNamed(context, Routes.myAdsScreenRoute);
+              }).animateOnPageLoad(
+                  msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
               Padding(
                 padding: const EdgeInsets.only(
                     top: AppPadding.p25,
