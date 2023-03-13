@@ -226,7 +226,7 @@ extension FlowStateExtension on FlowState {
               context: context,
               stateRendererType: getStateRendererType(),
               message: getMessage(),
-              title: getTitle(), function: () => getFunction());
+              title: getTitle(), function: () => (){});
 
           return contentScreenWidget;
         }

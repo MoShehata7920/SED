@@ -166,7 +166,7 @@ class AddAdvertisementViewModel extends BaseViewModel
         .execute(AddAdvertisementUseCaseUseCaseInput(
       advertisementObject.image,
       advertisementObject.name,
-      advertisementObject.price,
+      advertisementObject.price.isEmpty ? "0" : advertisementObject.price,
       advertisementObject.description,
       advertisementObject.sectionId,
       advertisementObject.categoryId,
@@ -182,10 +182,10 @@ class AddAdvertisementViewModel extends BaseViewModel
             }, (response) {
       // right -> success
       inputState.add(SuccessState(
-          StateRendererType.popUpSuccessState,
+          StateRendererType.popUpSuccessStateAndNavigate,
           "Succesfully added Item",
           AppStrings.success,
-          () => Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute)));
+          (){}));
       // navigate to main screen
     });
   }
