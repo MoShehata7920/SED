@@ -10,6 +10,8 @@ abstract class FlowState {
   String getMessage();
 
   String getTitle();
+
+  Function getFunction();
 }
 
 // loading state (PopUp , FullScreen)
@@ -29,6 +31,9 @@ class LoadingState extends FlowState {
 
   @override
   String getTitle() => title ?? AppStrings.title;
+
+  @override
+  Function getFunction() => () {};
 }
 
 // Error state (PopUp , FullScreen)
@@ -47,6 +52,9 @@ class ErrorState extends FlowState {
 
   @override
   String getTitle() => title ?? AppStrings.title;
+
+  @override
+  Function getFunction() => () {};
 }
 
 // Content state
@@ -61,6 +69,9 @@ class ContentState extends FlowState {
 
   @override
   String getTitle() => Constants.empty;
+
+  @override
+  Function getFunction() => () {};
 }
 
 // Empty state
@@ -78,6 +89,9 @@ class EmptyState extends FlowState {
 
   @override
   String getTitle() => Constants.empty;
+
+  @override
+  Function getFunction() => () {};
 }
 
 class SuccessState extends FlowState {
@@ -95,6 +109,31 @@ class SuccessState extends FlowState {
 
   @override
   String getTitle() => title;
+
+  @override
+  Function getFunction() => () {};
+}
+
+class ConfirmationState extends FlowState {
+  StateRendererType stateRendererType;
+  String message;
+  String title;
+  Function function;
+
+  ConfirmationState(
+      this.stateRendererType, this.message, this.title, this.function);
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() => stateRendererType;
+
+  @override
+  String getTitle() => title;
+
+  @override
+  Function getFunction() => function;
 }
 
 extension FlowStateExtension on FlowState {
@@ -108,7 +147,7 @@ extension FlowStateExtension on FlowState {
             showPopUp(
                 context: context,
                 stateRendererType: getStateRendererType(),
-                message: getMessage());
+                message: getMessage(),function: () => (){});
 
             // show content UI of screen
             return contentScreenWidget;
@@ -136,7 +175,7 @@ extension FlowStateExtension on FlowState {
             showPopUp(
                 context: context,
                 stateRendererType: getStateRendererType(),
-                message: getMessage());
+                message: getMessage(), function: () => (){});
 
             // show content UI of screen
             return contentScreenWidget;
@@ -186,9 +225,33 @@ extension FlowStateExtension on FlowState {
               context: context,
               stateRendererType: getStateRendererType(),
               message: getMessage(),
-              title: getTitle());
+              title: getTitle(), function: () => (){});
 
           return contentScreenWidget;
+        }
+
+      case ConfirmationState:
+        {
+          if (getStateRendererType() ==
+              StateRendererType.popUpConfirmationState) {
+            // show PopUp loading
+            showPopUp(
+                context: context,
+                stateRendererType: getStateRendererType(),
+                message: getMessage(),function: getFunction());
+
+            // show content UI of screen
+            return contentScreenWidget;
+          } else {
+            Utils.isDialogShown = false;
+
+            // full screen loading state
+            return StateRenderer(
+              message: getMessage(),
+              stateRendererType: getStateRendererType(),
+              retryActionFunction: retryActionFunction,
+            );
+          }
         }
 
       default:
@@ -204,12 +267,12 @@ extension FlowStateExtension on FlowState {
       {required BuildContext context,
       required StateRendererType stateRendererType,
       required String message,
-      String title = ""}) {
+      String title = "",required Function function}) {
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
           context: context,
           builder: (BuildContext context) => StateRenderer(
             stateRendererType: stateRendererType,
-            retryActionFunction: () {},
+            retryActionFunction: function,
             message: message,
             title: title,
           ),

@@ -14,6 +14,7 @@ enum StateRendererType {
   popUpLoadingState,
   popUpErrorState,
   popUpSuccessState,
+  popUpConfirmationState,
 
   // Full screen state
   fullScreenLoadingState,
@@ -64,6 +65,14 @@ class StateRenderer extends StatelessWidget {
           _getRetryButton(AppStrings.ok, context)
         ]);
 
+      case StateRendererType.popUpConfirmationState:
+        return _getPopUpDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getTitle(title),
+          _getMessage(message),
+          _getConfirmationRetryButton("Confirm", context),
+        ]);
+
       case StateRendererType.fullScreenLoadingState:
         return _getItemsColumn(
             [_getAnimatedImage(JsonAssets.loading), _getMessage(message)]);
@@ -89,7 +98,7 @@ class StateRenderer extends StatelessWidget {
 
   Widget _getPopUpDialog(BuildContext context, List<Widget> children) {
     Utils.isDialogShown = true;
-    
+
     return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s14)),
@@ -154,13 +163,42 @@ class StateRenderer extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () {
                   if (stateRendererType ==
-                      StateRendererType.fullScreenErrorState) {
+                          StateRendererType.fullScreenErrorState) {
                     retryActionFunction.call();
                   } else {
                     Navigator.of(context).pop();
                   }
                 },
                 child: Text(buttonTitle))),
+      ),
+    );
+  }
+
+  Widget _getConfirmationRetryButton(String buttonTitle, BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p8),
+        child: SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        retryActionFunction.call();
+                      },
+                      child: Text(buttonTitle)),
+                ),
+                SizedBox(width: 10,),
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Cancel")),
+                ),
+              ],
+            )),
       ),
     );
   }
