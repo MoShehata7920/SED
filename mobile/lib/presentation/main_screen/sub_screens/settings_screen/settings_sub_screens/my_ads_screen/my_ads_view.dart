@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
 import '../../../../../resources/color_manager.dart';
@@ -19,7 +21,9 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
 
   @override
   void initState() {
-    _viewModel.start();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _viewModel.start();
+    });
 
     super.initState();
   }
@@ -33,39 +37,40 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FlowState>(
-      stream: _viewModel.outputState,
-      builder: (context, snapshot) {
-        return snapshot.data
-                ?.getScreenWidget(context, _getContentWidget(), () {}) ??
-            _getContentWidget();
-      },
+    return StreamBuilder<GetMyProfileAds>(
+        stream: _viewModel.contentOutput,
+        builder: (context, snapshot) {
+          return _getContentWidget(snapshot.data);
+        });
+  }
+
+  Widget _getContentWidget(GetMyProfileAds? getMyProfileAds) {
+    return Scaffold(
+      backgroundColor: ColorsManager.primaryBackground,
+      appBar: AppBar(
+        elevation: 0,
+        toolbarHeight: AppSize.s50,
+        title: Text(
+          AppStrings.myAds,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.lineColor,
+                fontSize: AppSize.s30,
+              ),
+        ),
+        backgroundColor: ColorsManager.primaryBackground,
+      ),
+      body: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data?.getScreenWidget(
+                    context, _getContent(getMyProfileAds), () => () {}) ??
+                _getContent(getMyProfileAds);
+          }),
     );
   }
 
-  Widget _getContentWidget() => Scaffold(
-        backgroundColor: ColorsManager.primaryBackground,
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: AppSize.s50,
-          title: Text(
-            AppStrings.myAds,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: ColorsManager.lineColor,
-                  fontSize: AppSize.s30,
-                ),
-          ),
-          backgroundColor: ColorsManager.primaryBackground,
-        ),
-        body: StreamBuilder<GetMyProfileData>(
-            stream: _viewModel.contentOutput,
-            builder: (context, snapshot) {
-              return _getContent(snapshot.data);
-            }),
-      );
-
-  Widget _getContent(GetMyProfileData? getMyProfileData) {
-    if (getMyProfileData == null) {
+  Widget _getContent(GetMyProfileAds? getMyProfileAds) {
+    if (getMyProfileAds == null) {
       return Container();
     } else {
       return SingleChildScrollView(
@@ -78,8 +83,8 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
             ListView.builder(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (context, index) => _getProduct(getMyProfileData),
+              itemCount: getMyProfileAds.items.length,
+              itemBuilder: (context, index) => _getProduct(getMyProfileAds.items[index]),
             ),
           ],
         ),
@@ -87,10 +92,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
     }
   }
 
-  Widget _getProduct(GetMyProfileData? getMyProfileData) {
-    if (getMyProfileData == null) {
-      return Container();
-    } else {
+  Widget _getProduct(Items item) {
       return Center(
         child: Column(
           children: [
@@ -125,7 +127,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                         bottomLeft:
                                             Radius.circular(AppSize.s8)),
                                     image: DecorationImage(
-                                      image: NetworkImage("image"),
+                                      image: NetworkImage(item.image),
                                       fit: BoxFit.fill,
                                     )),
                               ),
@@ -140,7 +142,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                       horizontal: AppSize.s5,
                                       vertical: AppSize.s2),
                                   child: Text(
-                                    "Sell",
+                                    item.name,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -160,7 +162,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "productName",
+                                  item.name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
@@ -172,7 +174,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "price",
+                                    getPrice(item.price),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -184,7 +186,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                 ),
                                 // Spacer(),
                                 Text(
-                                  "date",
+                                  item.date,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
@@ -232,6 +234,5 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
           ],
         ),
       );
-    }
   }
 }

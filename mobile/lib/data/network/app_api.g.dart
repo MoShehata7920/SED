@@ -266,10 +266,10 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<GetMyProfileDataResponse> getMyProfileData(contentType) async {
+  Future<GetMyProfileDataResponse> getMyProfileData(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': contentType};
+    final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -290,17 +290,17 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<ShowItemsResponse> getMyProfileAds(
+  Future<GetMyProfileAdsResponse> getMyProfileAds(
     pageId,
-      token,
+    contentType,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'Authorization': contentType};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ShowItemsResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetMyProfileAdsResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -312,7 +312,7 @@ class _AppServiceClient implements AppServiceClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ShowItemsResponse.fromJson(_result.data!);
+    final value = GetMyProfileAdsResponse.fromJson(_result.data!);
     return value;
   }
 

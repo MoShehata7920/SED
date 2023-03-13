@@ -270,3 +270,23 @@ Map<String, dynamic> _$GetMyProfileDataResponseToJson(
       'message': instance.message,
       'user': instance.user,
     };
+
+GetMyProfileAdsResponse _$GetMyProfileAdsResponseFromJson(
+        Map<String, dynamic> json) =>
+    GetMyProfileAdsResponse(
+      (json['items'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : ItemsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$GetMyProfileAdsResponseToJson(
+        GetMyProfileAdsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'items': instance.items,
+    };

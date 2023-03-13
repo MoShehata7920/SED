@@ -31,4 +31,7 @@ abstract class Repository {
 
   Future<Either<Failure, GetMyProfileData>> getMyProfileData(
       String token);
+
+  Future<Either<Failure, GetMyProfileAds>> getMyProfileAds(
+      GetMyProfileAdsRequest getMyProfileAdsRequest);
 }

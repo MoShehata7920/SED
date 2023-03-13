@@ -158,8 +158,8 @@ class GetMyProfileData {
   GetMyProfileData(this.user);
 }
 
-class MyProfileDataContentObject {
-  UserData user;
+class GetMyProfileAds {
+  List<Items> items;
 
-  MyProfileDataContentObject(this.user);
+  GetMyProfileAds(this.items);
 }

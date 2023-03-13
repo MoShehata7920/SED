@@ -71,7 +71,7 @@ abstract class AppServiceClient {
       @Header("Authorization") String token);
 
   @GET("/MyProfile/Ads/{pageId}")
-  Future<ShowItemsResponse> getMyProfileAds(
+  Future<GetMyProfileAdsResponse> getMyProfileAds(
       @Path("pageId") int pageId,
       @Header("Authorization") String contentType);
 }

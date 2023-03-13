@@ -47,3 +47,10 @@ class AddAdvertisementRequest {
   AddAdvertisementRequest(this.image, this.name, this.price, this.description,
       this.sectionId, this.categoryId, this.conditionId);
 }
+
+class GetMyProfileAdsRequest {
+  int pageId;
+  String token;
+
+  GetMyProfileAdsRequest(this.pageId, this.token);
+}

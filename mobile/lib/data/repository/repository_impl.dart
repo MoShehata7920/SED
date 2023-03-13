@@ -258,12 +258,39 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, GetMyProfileData>> getMyProfileData(String token) async{
+  Future<Either<Failure, GetMyProfileData>> getMyProfileData(
+      String token) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
-        final response =
-            await _remoteDataSource.getMyProfileData(token);
+        final response = await _remoteDataSource.getMyProfileData(token);
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetMyProfileAds>> getMyProfileAds(
+      GetMyProfileAdsRequest getMyProfileAdsRequest) async{
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response = await _remoteDataSource.getMyProfileAds(getMyProfileAdsRequest);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data

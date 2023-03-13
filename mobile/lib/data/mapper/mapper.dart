@@ -140,3 +140,9 @@ extension GetMyProfileMapper on GetMyProfileDataResponse? {
         this?.user.toDomain() ?? UserData(0, "", "", "", ""));
   }
 }
+
+extension GetMyProfileAdsMapper on GetMyProfileAdsResponse? {
+  GetMyProfileAds toDomain() {
+    return GetMyProfileAds(this?.items?.toDomain() ?? <Items>[]);
+  }
+}

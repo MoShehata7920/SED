@@ -289,3 +289,18 @@ class GetMyProfileDataResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$GetMyProfileDataResponseToJson(this);
 }
+
+@JsonSerializable()
+class GetMyProfileAdsResponse extends BaseResponse {
+  @JsonKey(name: "items")
+  List<ItemsResponse?>? items;
+
+  GetMyProfileAdsResponse(this.items);
+
+  // From Json
+  factory GetMyProfileAdsResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetMyProfileAdsResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$GetMyProfileAdsResponseToJson(this);
+}

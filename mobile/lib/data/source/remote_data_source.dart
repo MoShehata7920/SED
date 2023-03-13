@@ -26,6 +26,9 @@ abstract class RemoteDataSource {
       AddAdvertisementRequest addAdvertisementRequest);
 
   Future<GetMyProfileDataResponse> getMyProfileData(String token);
+
+  Future<GetMyProfileAdsResponse> getMyProfileAds(
+      GetMyProfileAdsRequest getMyProfileAdsRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -102,5 +105,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<GetMyProfileDataResponse> getMyProfileData(String token) async {
     return await _appServiceClient.getMyProfileData(token);
+  }
+
+  @override
+  Future<GetMyProfileAdsResponse> getMyProfileAds(
+      GetMyProfileAdsRequest getMyProfileAdsRequest) async{
+    return await _appServiceClient.getMyProfileAds(
+        getMyProfileAdsRequest.pageId, getMyProfileAdsRequest.token);
   }
 }

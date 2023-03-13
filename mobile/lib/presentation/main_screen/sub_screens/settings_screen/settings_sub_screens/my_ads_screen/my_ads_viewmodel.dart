@@ -4,6 +4,7 @@ import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/myprofile_data_usecase.dart';
+import 'package:sed/domain/usecase/myprofile_get_ads_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -11,14 +12,16 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 class MyAdsViewModel extends BaseViewModel
     with MyAdsViewModelInputs, MyAdsViewModelOutputs {
   final StreamController _contentStreamController =
-      StreamController<MyProfileDataContentObject>.broadcast();
+      StreamController<GetMyProfileAds>.broadcast();
 
-  final MyProfileDataUseCase _myProfileDataUseCase =
-      instance<MyProfileDataUseCase>();
+  final MyProfileAdsUseCase _myProfileAdsUseCase =
+      instance<MyProfileAdsUseCase>();
 
   @override
   void start() {
     inputState.add(ContentState());
+
+    getMyProfileAds();
   }
 
   @override
@@ -26,20 +29,20 @@ class MyAdsViewModel extends BaseViewModel
     super.dispose();
   }
 
-    @override
+  @override
   Sink get contentInput => _contentStreamController.sink;
 
   @override
-  Stream<GetMyProfileData> get contentOutput =>
-      _contentStreamController.stream
-          .map((myProfileData) => myProfileData);
+  Stream<GetMyProfileAds> get contentOutput =>
+      _contentStreamController.stream.map((myProfileAds) => myProfileAds);
 
   @override
-  void getMyProfileData(String token) async {
+  void getMyProfileAds() async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var response = await _myProfileDataUseCase.execute(Constants.token);
+    var response = await _myProfileAdsUseCase
+        .execute(GetMyProfileAdsInput(0, Constants.token));
 
     response.fold(
         (failure) => {
@@ -51,8 +54,7 @@ class MyAdsViewModel extends BaseViewModel
 
       inputState.add(ContentState());
 
-      contentInput.add(GetMyProfileData(response.user));
-
+      contentInput.add(GetMyProfileAds(response.items));
     });
   }
 }
@@ -60,9 +62,9 @@ class MyAdsViewModel extends BaseViewModel
 abstract class MyAdsViewModelInputs {
   Sink get contentInput;
 
-  void getMyProfileData(String token);
+  void getMyProfileAds();
 }
 
 abstract class MyAdsViewModelOutputs {
-  Stream<GetMyProfileData> get contentOutput;
+  Stream<GetMyProfileAds> get contentOutput;
 }
