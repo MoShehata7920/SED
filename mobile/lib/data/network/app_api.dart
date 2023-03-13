@@ -65,4 +65,13 @@ abstract class AppServiceClient {
     @Field("categoryId") int categoryId,
     @Field("conditionId") int conditionId,
   );
+
+  @GET("/MyProfile")
+  Future<GetMyProfileDataResponse> getMyProfileData(
+      @Header("Authorization") String token);
+
+  @GET("/MyProfile/Ads/{pageId}")
+  Future<ShowItemsResponse> getMyProfileAds(
+      @Path("pageId") int pageId,
+      @Header("Authorization") String contentType);
 }

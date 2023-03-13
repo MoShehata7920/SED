@@ -133,3 +133,10 @@ extension AddAdvertisementMapper on AddAdvertisementResponse? {
     );
   }
 }
+
+extension GetMyProfileMapper on GetMyProfileDataResponse? {
+  GetMyProfileData toDomain() {
+    return GetMyProfileData(
+        this?.user.toDomain() ?? UserData(0, "", "", "", ""));
+  }
+}

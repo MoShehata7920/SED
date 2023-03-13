@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
@@ -26,6 +28,8 @@ class RegisterViewModel extends BaseViewModel
 
   StreamController isUserRegisteredSuccessfullyStreamController =
       StreamController<bool>();
+
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   final RegisterUseCase _registerUseCase;
   var registerObject = RegisterObject("", "", "", "", "");
@@ -154,6 +158,9 @@ class RegisterViewModel extends BaseViewModel
               inputState.add(ErrorState(
                   StateRendererType.popUpErrorState, failure.message))
             }, (response) {
+
+      _appPreferences.setToken(response.token ?? AppStrings.empty);
+
       // right -> success
       //inputState.add(SuccessState(StateRendererType.popUpSuccessState, response.token.toString(), AppStrings.success));
       isUserRegisteredSuccessfullyStreamController.add(true);

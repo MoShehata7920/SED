@@ -150,3 +150,16 @@ class AddAdvertisement {
   AddAdvertisement(this.image, this.name, this.price, this.description,
       this.sectionId, this.categoryId, this.conditionId);
 }
+
+// My Profile Models
+class GetMyProfileData {
+  UserData user;
+
+  GetMyProfileData(this.user);
+}
+
+class MyProfileDataContentObject {
+  UserData user;
+
+  MyProfileDataContentObject(this.user);
+}

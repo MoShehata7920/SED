@@ -274,3 +274,18 @@ class AddAdvertisementResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$AddAdvertisementResponseToJson(this);
 }
+
+@JsonSerializable()
+class GetMyProfileDataResponse extends BaseResponse {
+  @JsonKey(name: "user")
+  UserDataResponse? user;
+
+  GetMyProfileDataResponse(this.user);
+
+  // From Json
+  factory GetMyProfileDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetMyProfileDataResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$GetMyProfileDataResponseToJson(this);
+}

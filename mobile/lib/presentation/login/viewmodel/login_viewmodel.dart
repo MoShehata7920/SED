@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../../domain/usecase/login_usecase.dart';
 import '../../common/freezed_data_classes.dart';
 
@@ -20,6 +23,9 @@ class LoginViewModel extends BaseViewModel
   // for login button to activate it or disable it
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
+
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
 
   // i didn't create it as private bc i will call it in view directly
   StreamController isUserLoggedInSuccessfullyStreamController =
@@ -90,6 +96,9 @@ class LoginViewModel extends BaseViewModel
       // right -> success
       inputState.add(ContentState());
       // navigate to main screen
+
+      _appPreferences.setToken(response.token ?? AppStrings.empty);
+
       isUserLoggedInSuccessfullyStreamController.add(true);
     });
   }

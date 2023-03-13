@@ -21,6 +21,8 @@ class DioFactory {
 
     String language = await _appPreferences.getAppLanguage();
 
+    Constants.token = await _appPreferences.getToken();
+
     // it will accept Json data
     Map<String, String> headers = {
       CONTENT_TYPE: APPLICATION_JSON,
