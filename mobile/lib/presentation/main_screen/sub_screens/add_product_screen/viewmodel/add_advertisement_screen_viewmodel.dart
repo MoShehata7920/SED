@@ -1,18 +1,23 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sed/app/constants.dart';
+import 'package:sed/app/di.dart';
+import 'package:sed/domain/usecase/add_advertisement_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/freezed_data_classes.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'dart:convert';
+
+import 'package:sed/presentation/resources/strings_manager.dart';
 
 class AddAdvertisementViewModel extends BaseViewModel
     with AddAdvertisementViewModelInputs, AddAdvertisementViewModelOutputs {
   AdvertisementObject advertisementObject =
       AdvertisementObject("", "", "", "", 0, 0, 0);
-
-  final StreamController _imageStreamController =
-      StreamController<String>.broadcast();
 
   final StreamController _imageValidationStreamController =
       StreamController<String>.broadcast();
@@ -28,6 +33,9 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   final StreamController _areAllValidationStreamController =
       StreamController<void>.broadcast();
+
+  final AddAdvertisementUseCase _addAdvertisementUseCase =
+      instance<AddAdvertisementUseCase>();
 
   // inputs
   @override
@@ -62,13 +70,10 @@ class AddAdvertisementViewModel extends BaseViewModel
   Sink get areAllInputsValidInput => _areAllValidationStreamController.sink;
 
   // outputs
-  @override
-  Stream<String> get imageOutput =>
-      _imageStreamController.stream.map((file) => file);
 
   @override
-  Stream<bool> get isImageValidOutput => _imageValidationStreamController.stream
-      .map((image) => _isImageValid(image));
+  Stream<String> get imageOutput =>
+      _imageValidationStreamController.stream.map((image) => image);
 
   @override
   Stream<bool> get isNameValidOutput =>
@@ -106,7 +111,7 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   bool _areAllInputsValid() {
     return _isNameValid(advertisementObject.name) &&
-        _isPriceValid(advertisementObject.price) &&
+        _isImageValid(advertisementObject.image) &&
         _isDescriptionValid(advertisementObject.description);
   }
 
@@ -130,13 +135,12 @@ class AddAdvertisementViewModel extends BaseViewModel
 
     File imageFile = File(imageMapping.path);
 
-    imageInput.add(imageMapping.path);
-    inputState.add(ContentState());
-
     List<int> imageBytes = imageFile.readAsBytesSync();
     String base64Image = base64.encode(imageBytes);
     advertisementObject = advertisementObject.copyWith(image: base64Image);
+
     areAllInputsValidInput.add(null);
+    imageInput.add(imageMapping.path);
   }
 
   @override
@@ -152,11 +156,42 @@ class AddAdvertisementViewModel extends BaseViewModel
     advertisementObject = advertisementObject.copyWith(price: price);
     areAllInputsValidInput.add(null);
   }
+
+  @override
+  void addAdvertisement(BuildContext context) async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+
+    var response = await _addAdvertisementUseCase
+        .execute(AddAdvertisementUseCaseUseCaseInput(
+      advertisementObject.image,
+      advertisementObject.name,
+      advertisementObject.price,
+      advertisementObject.description,
+      advertisementObject.sectionId,
+      advertisementObject.categoryId,
+      advertisementObject.conditionId,
+      Constants.token,
+    ));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+              inputState.add(ErrorState(
+                  StateRendererType.popUpErrorState, failure.message))
+            }, (response) {
+      // right -> success
+      inputState.add(SuccessState(
+          StateRendererType.popUpSuccessState,
+          "Succesfully added Item",
+          AppStrings.success,
+          () => Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute)));
+      // navigate to main screen
+    });
+  }
 }
 
 abstract class AddAdvertisementViewModelInputs {
-  Sink get imageInput;
-
   Sink get nameInput;
 
   Sink get priceInput;
@@ -164,6 +199,8 @@ abstract class AddAdvertisementViewModelInputs {
   Sink get descriptionInput;
 
   Sink get areAllInputsValidInput;
+
+  Sink get imageInput;
 
   void setImage(XFile? image);
 
@@ -174,12 +211,12 @@ abstract class AddAdvertisementViewModelInputs {
   void setDescription(String description);
 
   void setIds(int sectionId, int categoryId, int conditionId);
+
+  void addAdvertisement(BuildContext context);
 }
 
 abstract class AddAdvertisementViewModelOutputs {
   Stream<String> get imageOutput;
-
-  Stream<bool> get isImageValidOutput;
 
   Stream<bool> get isNameValidOutput;
 

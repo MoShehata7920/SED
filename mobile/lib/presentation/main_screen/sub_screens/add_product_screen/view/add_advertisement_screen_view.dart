@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -106,11 +108,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                  child: StreamBuilder<String>(
-                      stream: _viewModel.imageOutput,
-                      builder: (context, snapshot) {
-                        return _getImage(snapshot.data);
-                      }),
+                  child: _getImage(),
                   onTap: () async {
                     var image = await _imagePicker.pickImage(
                         source: ImageSource.gallery);
@@ -304,40 +302,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 const SizedBox(
                   height: AppSize.s20,
                 ),
-                Text(
-                  AppStrings.price,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
-                        fontSize: AppSize.s10,
-                      ),
-                ),
-                const SizedBox(
-                  height: AppSize.s12,
-                ),
-                StreamBuilder<bool>(
-                    stream: _viewModel.isPriceValidOutput,
-                    builder: (context, snapshot) {
-                      return TextFormField(
-                        controller: _priceController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          hintText: AppStrings.productPrice,
-                          filled: true,
-                          fillColor: ColorsManager.secondaryBackground,
-                          errorText: (snapshot.data ??
-                                  true) //check if the password was null
-                              ? null //then no errors
-                              : AppStrings.fieldError,
-                        ),
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: ColorsManager.primaryBtnText,
-                              fontSize: AppSize.s15,
-                            ),
-                      );
-                    }),
-                const SizedBox(
-                  height: AppSize.s20,
-                ),
+                if (selectedIndex == 0) _getPriceWidget(),
                 Text(
                   AppStrings.description,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -378,7 +343,11 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                       stream: _viewModel.areAllInputsValidOutput,
                       builder: (context, snapshot) {
                         return ElevatedButton(
-                            onPressed: (snapshot.data ?? false) ? () {} : null,
+                            onPressed: (snapshot.data ?? false) ? () {
+                              _viewModel.setIds(selectedIndex +1 , categoryId +1, 0);
+
+                              _viewModel.addAdvertisement(context);
+                            } : null,
                             child: const Text(AppStrings.submit));
                       }),
                 ),
@@ -391,34 +360,94 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
         ));
   }
 
-  Widget _getImage(String? image) {
-    print(image);
-    if (image == null) {
-      return Container(
-        height: AppSize.s150,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
-          color: ColorsManager.secondaryBackground,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.add_circle_rounded, color: ColorsManager.lineColor),
-            const SizedBox(
-              width: AppSize.s2,
+  Widget _getImage() {
+    return StreamBuilder<String>(
+      stream: _viewModel.imageOutput,
+      builder: (context, snapshot) {
+        return Container(
+            height: AppSize.s150,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.all(Radius.circular(AppSize.s20)),
+              color: ColorsManager.secondaryBackground,
             ),
-            Text(
-              AppStrings.addImage,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: ColorsManager.lineColor,
-                    fontSize: AppSize.s14,
-                  ),
-            ),
-          ],
+            child: snapshot.data == null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add_circle_rounded,
+                          color: ColorsManager.lineColor),
+                      const SizedBox(
+                        width: AppSize.s2,
+                      ),
+                      Text(
+                        AppStrings.addImage,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorsManager.lineColor,
+                              fontSize: AppSize.s14,
+                            ),
+                      ),
+                    ],
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(20), // Image border
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(48),
+                      child: Image.file(
+                        File(snapshot.data!),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ));
+      },
+    );
+  }
+
+  Widget _getPriceWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppStrings.price,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.white,
+                fontSize: AppSize.s10,
+              ),
         ),
-      );
-    } else {
-      return Text('hello world');
-    }
+        const SizedBox(
+          height: AppSize.s15,
+        ),
+        StreamBuilder<bool>(
+            stream: _viewModel.isPriceValidOutput,
+            builder: (context, snapshot) {
+              return TextFormField(
+                keyboardType: TextInputType.number,
+                controller: _priceController,
+                obscureText: false,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                decoration: InputDecoration(
+                  hintText: AppStrings.productPrice,
+                  filled: true,
+                  fillColor: ColorsManager.secondaryBackground,
+                  errorText:
+                      (snapshot.data ?? true) //check if the password was null
+                          ? null //then no errors
+                          : AppStrings.fieldError,
+                ),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorsManager.primaryBtnText,
+                      fontSize: AppSize.s15,
+                    ),
+              );
+            }),
+        const SizedBox(
+          height: AppSize.s20,
+        ),
+      ],
+    );
   }
 }

@@ -98,8 +98,9 @@ class SuccessState extends FlowState {
   StateRendererType stateRendererType;
   String message;
   String title;
+  Function function;
 
-  SuccessState(this.stateRendererType, this.message, this.title);
+  SuccessState(this.stateRendererType, this.message, this.title, this.function);
 
   @override
   String getMessage() => message;
@@ -111,7 +112,7 @@ class SuccessState extends FlowState {
   String getTitle() => title;
 
   @override
-  Function getFunction() => () {};
+  Function getFunction() => function;
 }
 
 class ConfirmationState extends FlowState {
@@ -225,7 +226,7 @@ extension FlowStateExtension on FlowState {
               context: context,
               stateRendererType: getStateRendererType(),
               message: getMessage(),
-              title: getTitle(), function: () => (){});
+              title: getTitle(), function: () => getFunction());
 
           return contentScreenWidget;
         }
