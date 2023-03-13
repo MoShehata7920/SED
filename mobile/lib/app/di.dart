@@ -8,6 +8,7 @@ import 'package:sed/data/network/network_info.dart';
 import 'package:sed/data/repository/repository_impl.dart';
 import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/repository/repository.dart';
+import 'package:sed/domain/usecase/delete_item_usecase.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/domain/usecase/item_usecase.dart';
@@ -103,7 +104,10 @@ Future<void> initAppModule() async {
       () => MyProfileDataUseCase(instance()));
 
   instance.registerFactory<MyProfileAdsUseCase>(
-          () => MyProfileAdsUseCase(instance()));
+      () => MyProfileAdsUseCase(instance()));
+
+  instance
+      .registerFactory<RemoveAdUseCase>(() => RemoveAdUseCase(instance()));
 }
 
 initLoginModule() async {

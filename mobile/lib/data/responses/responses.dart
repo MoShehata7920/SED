@@ -304,3 +304,18 @@ class GetMyProfileAdsResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$GetMyProfileAdsResponseToJson(this);
 }
+
+@JsonSerializable()
+class RemoveAdResponse extends BaseResponse {
+  @JsonKey(name: "itemId")
+  int? itemId;
+
+  RemoveAdResponse(this.itemId);
+
+  // From Json
+  factory RemoveAdResponse.fromJson(Map<String, dynamic> json) =>
+      _$RemoveAdResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$RemoveAdResponseToJson(this);
+}

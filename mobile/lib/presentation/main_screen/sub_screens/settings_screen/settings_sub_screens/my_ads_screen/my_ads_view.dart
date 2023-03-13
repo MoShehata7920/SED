@@ -21,7 +21,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.start();
     });
 
@@ -84,7 +84,8 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: getMyProfileAds.items.length,
-              itemBuilder: (context, index) => _getProduct(getMyProfileAds.items[index]),
+              itemBuilder: (context, index) =>
+                  _getProduct(getMyProfileAds.items[index]),
             ),
           ],
         ),
@@ -93,75 +94,77 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
   }
 
   Widget _getProduct(Items item) {
-      return Center(
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: 120,
-              decoration: BoxDecoration(
-                color: ColorsManager.secondaryBackground,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: Padding(
-                  padding: EdgeInsetsDirectional.all(10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Stack(
-                            alignment: Alignment.topLeft,
-                            children: [
-                              Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                    color: ColorsManager.secondaryBackground,
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(AppSize.s8),
-                                        bottomLeft:
-                                            Radius.circular(AppSize.s8)),
-                                    image: DecorationImage(
-                                      image: NetworkImage(item.image),
-                                      fit: BoxFit.fill,
-                                    )),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.4),
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: 120,
+            decoration: BoxDecoration(
+              color: ColorsManager.secondaryBackground,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: Padding(
+                padding: EdgeInsetsDirectional.all(10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Stack(
+                          alignment: Alignment.topLeft,
+                          children: [
+                            Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  color: ColorsManager.secondaryBackground,
                                   borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(8.0)),
+                                      topLeft: Radius.circular(AppSize.s8),
+                                      bottomLeft: Radius.circular(AppSize.s8)),
+                                  image: DecorationImage(
+                                    image: NetworkImage(item.image),
+                                    fit: BoxFit.fill,
+                                  )),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.4),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8.0)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: AppSize.s5,
+                                    vertical: AppSize.s2),
+                                child: Text(
+                                  item.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                          fontSize: AppSize.s12,
+                                          color: ColorsManager.primaryText),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: AppSize.s5,
-                                      vertical: AppSize.s2),
-                                  child: Text(
-                                    item.name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            fontSize: AppSize.s12,
-                                            color: ColorsManager.primaryText),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.all(10),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.all(10),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Text(
                                   item.name,
                                   style: Theme.of(context)
                                       .textTheme
@@ -170,69 +173,74 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                         color: ColorsManager.primaryText,
                                         fontSize: AppSize.s18,
                                       ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    getPrice(item.price),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                          color: ColorsManager.secondaryText,
-                                          fontSize: AppSize.s14,
-                                        ),
-                                  ),
-                                ),
-                                // Spacer(),
-                                Text(
-                                  item.date,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  getPrice(item.price),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                        color: ColorsManager.grey,
-                                        fontSize: AppSize.s12,
+                                        color: ColorsManager.secondaryText,
+                                        fontSize: AppSize.s14,
                                       ),
-                                  textAlign: TextAlign.end,
                                 ),
-                              ],
-                            ),
+                              ),
+                              // Spacer(),
+                              Text(
+                                item.date,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: ColorsManager.grey,
+                                      fontSize: AppSize.s12,
+                                    ),
+                                textAlign: TextAlign.end,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            splashColor: ColorsManager.primaryColor,
-                            icon: Icon(
-                              Icons.edit_outlined,
-                              color: ColorsManager.primaryColor,
-                              size: 20,
-                            ),
-                            onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          splashColor: ColorsManager.primaryColor,
+                          icon: Icon(
+                            Icons.edit_outlined,
+                            color: ColorsManager.primaryColor,
+                            size: 20,
                           ),
-                          IconButton(
-                            splashColor: ColorsManager.primaryColor,
-                            icon: Icon(
-                              Icons.delete,
-                              color: ColorsManager.primaryColor,
-                              size: 20,
-                            ),
-                            onPressed: () {},
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          splashColor: ColorsManager.primaryColor,
+                          icon: Icon(
+                            Icons.delete,
+                            color: ColorsManager.primaryColor,
+                            size: 20,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                          onPressed: () {
+                            _viewModel.removeAd(item.id);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
-      );
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+    );
   }
 }

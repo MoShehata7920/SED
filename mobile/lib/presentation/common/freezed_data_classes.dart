@@ -1,5 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sed/domain/model/models.dart';
 
 part 'freezed_data_classes.freezed.dart';
 
@@ -10,20 +11,28 @@ class LoginObject with _$LoginObject {
 
 @freezed
 class RegisterObject with _$RegisterObject {
-  factory RegisterObject(String userName,
-      String countryMobileCode,
-      String mobileNumber,
-      String email,
-      String password,) = _registerObject;
+  factory RegisterObject(
+    String userName,
+    String countryMobileCode,
+    String mobileNumber,
+    String email,
+    String password,
+  ) = _registerObject;
 }
 
 @freezed
 class AdvertisementObject with _$AdvertisementObject {
-  factory AdvertisementObject(String image,
+  factory AdvertisementObject(
+      String image,
       String name,
       String price,
       String description,
       int sectionId,
       int categoryId,
       int conditionId) = _AdvertisementObject;
+}
+
+@freezed
+class MyProfileAds with _$MyProfileAds {
+  factory MyProfileAds(List<Items> items) = _MyProfileAds;
 }

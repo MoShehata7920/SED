@@ -22,8 +22,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
               padding:
                   const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
               child: InkWell(
-                onTap: () async {
-                },
+                onTap: () async {},
               ),
             ),
           )),

@@ -72,6 +72,11 @@ abstract class AppServiceClient {
 
   @GET("/MyProfile/Ads/{pageId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(
-      @Path("pageId") int pageId,
-      @Header("Authorization") String contentType);
+      @Path("pageId") int pageId, @Header("Authorization") String contentType);
+
+  @POST("/MyProfile/DeleteAd")
+  Future<RemoveAdResponse> removeAd(
+    @Field("itemId") int itemId,
+    @Header("Authorization") String token
+  );
 }

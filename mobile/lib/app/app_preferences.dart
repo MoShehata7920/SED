@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:sed/app/constants.dart';
-import 'package:sed/presentation/resources/constants_manager.dart';
 import 'package:sed/presentation/resources/language_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 

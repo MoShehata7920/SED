@@ -54,3 +54,10 @@ class GetMyProfileAdsRequest {
 
   GetMyProfileAdsRequest(this.pageId, this.token);
 }
+
+class RemoveAdRequest {
+
+  int itemId;
+
+  RemoveAdRequest(this.itemId);
+}

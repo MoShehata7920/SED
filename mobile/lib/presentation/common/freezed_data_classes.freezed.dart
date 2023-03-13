@@ -592,3 +592,126 @@ abstract class _AdvertisementObject implements AdvertisementObject {
   _$$_AdvertisementObjectCopyWith<_$_AdvertisementObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$MyProfileAds {
+  List<Items> get items => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $MyProfileAdsCopyWith<MyProfileAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MyProfileAdsCopyWith<$Res> {
+  factory $MyProfileAdsCopyWith(
+          MyProfileAds value, $Res Function(MyProfileAds) then) =
+      _$MyProfileAdsCopyWithImpl<$Res, MyProfileAds>;
+  @useResult
+  $Res call({List<Items> items});
+}
+
+/// @nodoc
+class _$MyProfileAdsCopyWithImpl<$Res, $Val extends MyProfileAds>
+    implements $MyProfileAdsCopyWith<$Res> {
+  _$MyProfileAdsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? items = null,
+  }) {
+    return _then(_value.copyWith(
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<Items>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_MyProfileAdsCopyWith<$Res>
+    implements $MyProfileAdsCopyWith<$Res> {
+  factory _$$_MyProfileAdsCopyWith(
+          _$_MyProfileAds value, $Res Function(_$_MyProfileAds) then) =
+      __$$_MyProfileAdsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Items> items});
+}
+
+/// @nodoc
+class __$$_MyProfileAdsCopyWithImpl<$Res>
+    extends _$MyProfileAdsCopyWithImpl<$Res, _$_MyProfileAds>
+    implements _$$_MyProfileAdsCopyWith<$Res> {
+  __$$_MyProfileAdsCopyWithImpl(
+      _$_MyProfileAds _value, $Res Function(_$_MyProfileAds) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? items = null,
+  }) {
+    return _then(_$_MyProfileAds(
+      null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<Items>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_MyProfileAds implements _MyProfileAds {
+  _$_MyProfileAds(final List<Items> items) : _items = items;
+
+  final List<Items> _items;
+  @override
+  List<Items> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
+
+  @override
+  String toString() {
+    return 'MyProfileAds(items: $items)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_MyProfileAds &&
+            const DeepCollectionEquality().equals(other._items, _items));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_MyProfileAdsCopyWith<_$_MyProfileAds> get copyWith =>
+      __$$_MyProfileAdsCopyWithImpl<_$_MyProfileAds>(this, _$identity);
+}
+
+abstract class _MyProfileAds implements MyProfileAds {
+  factory _MyProfileAds(final List<Items> items) = _$_MyProfileAds;
+
+  @override
+  List<Items> get items;
+  @override
+  @JsonKey(ignore: true)
+  _$$_MyProfileAdsCopyWith<_$_MyProfileAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}

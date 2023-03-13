@@ -1,3 +1,4 @@
+import 'package:sed/app/constants.dart';
 import 'package:sed/data/network/app_api.dart';
 import 'package:sed/data/network/requests.dart';
 import 'package:sed/data/responses/responses.dart';
@@ -29,6 +30,8 @@ abstract class RemoteDataSource {
 
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest);
+
+  Future<RemoveAdResponse> removeAd(int itemId);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -109,8 +112,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<GetMyProfileAdsResponse> getMyProfileAds(
-      GetMyProfileAdsRequest getMyProfileAdsRequest) async{
+      GetMyProfileAdsRequest getMyProfileAdsRequest) async {
     return await _appServiceClient.getMyProfileAds(
         getMyProfileAdsRequest.pageId, getMyProfileAdsRequest.token);
+  }
+
+  @override
+  Future<RemoveAdResponse> removeAd(int itemId) async {
+    return await _appServiceClient.removeAd(itemId, Constants.token);
   }
 }

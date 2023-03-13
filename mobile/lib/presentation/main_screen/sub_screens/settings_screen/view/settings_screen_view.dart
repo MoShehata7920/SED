@@ -24,7 +24,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.start();
     });
 
@@ -58,8 +58,8 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(
-              context, _getBody(), () => (){}) ??
+          return snapshot.data
+                  ?.getScreenWidget(context, _getBody(), () => () {}) ??
               _getBody();
         },
       ),
@@ -163,7 +163,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
     }
   }
 
-  Widget _getBody(){
+  Widget _getBody() {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
@@ -176,7 +176,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             ),
             _getInkwell(IconsManager.account, AppStrings.account, () {})
                 .animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
@@ -194,29 +194,28 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                 textAlign: TextAlign.start,
                 AppStrings.settings,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: ColorsManager.grey,
-                ),
+                      color: ColorsManager.grey,
+                    ),
               ),
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
-            _getInkwell(IconsManager.languageController,
-                AppStrings.language, () {})
+            _getInkwell(
+                    IconsManager.languageController, AppStrings.language, () {})
                 .animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+            const SizedBox(
+              height: AppSize.s5,
+            ),
+            _getInkwell(IconsManager.themeController, AppStrings.theme, () {})
+                .animateOnPageLoad(
+                    msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
             _getInkwell(
-                IconsManager.themeController, AppStrings.theme, () {})
+                    IconsManager.notification, AppStrings.notifications, () {})
                 .animateOnPageLoad(
-                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
-            const SizedBox(
-              height: AppSize.s5,
-            ),
-            _getInkwell(IconsManager.notification, AppStrings.notifications,
-                    () {})
-                .animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             Padding(
               padding: const EdgeInsets.only(
                   top: AppPadding.p25,
@@ -227,8 +226,8 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                 textAlign: TextAlign.start,
                 AppStrings.general,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: ColorsManager.grey,
-                ),
+                      color: ColorsManager.grey,
+                    ),
               ),
             ).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
@@ -242,14 +241,13 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             ),
             _getInkwell(IconsManager.help, AppStrings.help, () {})
                 .animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(
-                IconsManager.questionMark, AppStrings.aboutUs, () {})
+            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs, () {})
                 .animateOnPageLoad(
-                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+                    msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
           ],
         ),
       ],

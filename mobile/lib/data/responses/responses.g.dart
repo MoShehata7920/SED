@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element
+
 part of 'responses.dart';
 
 // **************************************************************************
@@ -289,4 +291,18 @@ Map<String, dynamic> _$GetMyProfileAdsResponseToJson(
       'status': instance.status,
       'message': instance.message,
       'items': instance.items,
+    };
+
+RemoveAdResponse _$RemoveAdResponseFromJson(Map<String, dynamic> json) =>
+    RemoveAdResponse(
+      json['itemId'] as int?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$RemoveAdResponseToJson(RemoveAdResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'itemId': instance.itemId,
     };

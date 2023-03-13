@@ -146,3 +146,11 @@ extension GetMyProfileAdsMapper on GetMyProfileAdsResponse? {
     return GetMyProfileAds(this?.items?.toDomain() ?? <Items>[]);
   }
 }
+
+extension RemoveAdMapper on RemoveAdResponse? {
+  RemoveAd toDomain() {
+    return RemoveAd(
+      this?.itemId ?? 0,
+    );
+  }
+}

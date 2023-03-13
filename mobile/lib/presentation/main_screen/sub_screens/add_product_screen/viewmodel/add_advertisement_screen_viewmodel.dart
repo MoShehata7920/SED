@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/freezed_data_classes.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';

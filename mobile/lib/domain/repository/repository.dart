@@ -29,9 +29,11 @@ abstract class Repository {
   Future<Either<Failure, AddAdvertisement>> addAdvertisement(
       AddAdvertisementRequest addAdvertisementRequest);
 
-  Future<Either<Failure, GetMyProfileData>> getMyProfileData(
-      String token);
+  Future<Either<Failure, GetMyProfileData>> getMyProfileData(String token);
 
   Future<Either<Failure, GetMyProfileAds>> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest);
+
+  Future<Either<Failure, RemoveAd>> removeAd(
+      RemoveAdRequest removeAdRequest);
 }

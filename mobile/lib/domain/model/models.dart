@@ -163,3 +163,9 @@ class GetMyProfileAds {
 
   GetMyProfileAds(this.items);
 }
+
+class RemoveAd {
+  int itemId;
+
+  RemoveAd(this.itemId);
+}
