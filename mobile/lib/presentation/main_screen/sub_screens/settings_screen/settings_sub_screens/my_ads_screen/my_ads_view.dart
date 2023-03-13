@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -52,10 +53,14 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
         toolbarHeight: AppSize.s50,
         title: Text(
           AppStrings.myAds,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.lineColor,
-                fontSize: AppSize.s30,
-              ),
+          style: Theme
+              .of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(
+            color: ColorsManager.lineColor,
+            fontSize: AppSize.s30,
+          ),
         ),
         backgroundColor: ColorsManager.primaryBackground,
       ),
@@ -63,7 +68,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
             return snapshot.data?.getScreenWidget(
-                    context, _getContent(getMyProfileAds), () => () {}) ??
+                context, _getContent(getMyProfileAds), () => () {}) ??
                 _getContent(getMyProfileAds);
           }),
     );
@@ -98,8 +103,10 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
       child: Column(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 120,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9,
             decoration: BoxDecoration(
               color: ColorsManager.secondaryBackground,
               borderRadius: BorderRadius.circular(8),
@@ -143,12 +150,13 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                     vertical: AppSize.s2),
                                 child: Text(
                                   item.name,
-                                  style: Theme.of(context)
+                                  style: Theme
+                                      .of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          fontSize: AppSize.s12,
-                                          color: ColorsManager.primaryText),
+                                      fontSize: AppSize.s12,
+                                      color: ColorsManager.primaryText),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -163,16 +171,20 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.3,
                                 child: Text(
                                   item.name,
-                                  style: Theme.of(context)
+                                  style: Theme
+                                      .of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                        color: ColorsManager.primaryText,
-                                        fontSize: AppSize.s18,
-                                      ),
+                                    color: ColorsManager.primaryText,
+                                    fontSize: AppSize.s18,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
@@ -181,25 +193,27 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   getPrice(item.price),
-                                  style: Theme.of(context)
+                                  style: Theme
+                                      .of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                        color: ColorsManager.secondaryText,
-                                        fontSize: AppSize.s14,
-                                      ),
+                                    color: ColorsManager.secondaryText,
+                                    fontSize: AppSize.s14,
+                                  ),
                                 ),
                               ),
                               // Spacer(),
                               Text(
                                 item.date,
-                                style: Theme.of(context)
+                                style: Theme
+                                    .of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                      color: ColorsManager.grey,
-                                      fontSize: AppSize.s12,
-                                    ),
+                                  color: ColorsManager.grey,
+                                  fontSize: AppSize.s12,
+                                ),
                                 textAlign: TextAlign.end,
                               ),
                             ],
@@ -226,7 +240,9 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                             size: 20,
                           ),
                           onPressed: () {
-                            _viewModel.removeAd(item.id);
+                            _viewModel.inputState.add(ConfirmationState(
+                                StateRendererType.popUpConfirmationState, "Are you sure that you want to delete ${item.name} ?",
+                                "",() => _viewModel.removeAd(item.id)));
                           },
                         ),
                       ],
