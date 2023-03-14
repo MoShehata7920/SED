@@ -190,7 +190,6 @@ class AddAdvertisementViewModel extends BaseViewModel
           AppStrings.success,
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));
-      // navigate to main screen
     });
   }
 

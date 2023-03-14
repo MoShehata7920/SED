@@ -38,6 +38,16 @@ class AppStrings {
   static const String success = "Success";
   static const String cancel = "Cancel";
 
+  // error handler
+  static const String badRequest = "Bad request, Try again later";
+  static const String unAuthorized = "User is unauthorized, Try again later";
+  static const String forbidden = "Forbidden request, Try again later";
+  static const String somethingWrong = "Something went wrong, Try again later";
+  static const String timeOut = "Time out error, Try again later";
+  static const String cancelRequest = "Request was cancelled, Try again later";
+  static const String cacheError = "Cache error, Try again later";
+  static const String noInternet = "Please check your internet connection";
+
   //forgot password screen
   static const String resendText = "Please wait %d to send again";
   static const String forgetPassword = "Forgot Password";
@@ -101,8 +111,9 @@ class AppStrings {
   static const String share = "Share";
   static const String help = "Help";
   static const String aboutUs = "About Us";
-  
-  // add and update screen 
+
+  // add and update screen
   static const String successfullyAddedAd = "Successfully added Advertisement";
-  static const String successfullyUpdatedAd = "Successfully updated Advertisement";
+  static const String successfullyUpdatedAd =
+      "Successfully updated Advertisement";
 }

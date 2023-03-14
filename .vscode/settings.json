@@ -29,7 +29,18 @@
         "viewmodel",
         "xhdpi",
         "xxhdpi",
-        "xxxhdpi"
+        "xxxhdpi",
+        "اتصال",
+        "الإنترنت",
+        "الانتظار",
+        "التبرع",
+        "التحقق",
+        "الخاص",
+        "الذاكرة",
+        "العثور",
+        "شركة",
+        "مشغل",
+        "منتجات"
     ],
     "cmake.sourceDirectory": "${workspaceFolder}/mobile/linux"
 }

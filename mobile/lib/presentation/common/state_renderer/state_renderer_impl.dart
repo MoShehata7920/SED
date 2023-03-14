@@ -148,7 +148,8 @@ extension FlowStateExtension on FlowState {
             showPopUp(
                 context: context,
                 stateRendererType: getStateRendererType(),
-                message: getMessage(),function: () => (){});
+                message: getMessage(),
+                function: () => () {});
 
             // show content UI of screen
             return contentScreenWidget;
@@ -176,7 +177,8 @@ extension FlowStateExtension on FlowState {
             showPopUp(
                 context: context,
                 stateRendererType: getStateRendererType(),
-                message: getMessage(), function: () => (){});
+                message: getMessage(),
+                function: () => () {});
 
             // show content UI of screen
             return contentScreenWidget;
@@ -226,7 +228,8 @@ extension FlowStateExtension on FlowState {
               context: context,
               stateRendererType: getStateRendererType(),
               message: getMessage(),
-              title: getTitle(), function: () => (){});
+              title: getTitle(),
+              function: () => () {});
 
           return contentScreenWidget;
         }
@@ -239,7 +242,8 @@ extension FlowStateExtension on FlowState {
             showPopUp(
                 context: context,
                 stateRendererType: getStateRendererType(),
-                message: getMessage(),function: getFunction());
+                message: getMessage(),
+                function: getFunction());
 
             // show content UI of screen
             return contentScreenWidget;
@@ -268,7 +272,8 @@ extension FlowStateExtension on FlowState {
       {required BuildContext context,
       required StateRendererType stateRendererType,
       required String message,
-      String title = "",required Function function}) {
+      String title = "",
+      required Function function}) {
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
           context: context,
           builder: (BuildContext context) => StateRenderer(

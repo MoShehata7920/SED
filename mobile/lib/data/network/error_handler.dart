@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:sed/data/network/failure.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
 
 class ErrorHandler implements Exception {
   late Failure failure;
@@ -135,29 +136,28 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String SUCCESS = "success"; // success with data
+  static const String SUCCESS = AppStrings.success; // success with data
   static const String NO_CONTENT =
-      "success"; // success with no data (no content)
+      AppStrings.success; // success with no data (no content)
   static const String BAD_REQUEST =
-      "Bad request, Try again later"; // failure, API rejected request
+      AppStrings.badRequest; // failure, API rejected request
   static const String UNAUTHORIZED =
-      "User is unauthorized, Try again later"; // failure, user is not authorized
+      AppStrings.unAuthorized; // failure, user is not authorized
   static const String FORBIDDEN =
-      "Forbidden request, Try again later"; //  failure, API rejected request
+      AppStrings.forbidden; //  failure, API rejected request
   static const String INTERNAL_SERVER_ERROR =
-      "Something went wrong, Try again later"; // failure, crash in server side
+      AppStrings.somethingWrong; // failure, crash in server side
   static const String NOT_FOUND =
-      "Something went wrong, Try again later"; // failure, data not found
+      AppStrings.somethingWrong; // failure, data not found
 
   // local status code
-  static const String CONNECT_TIMEOUT = "Time out error, Try again later";
-  static const String CANCEL = "Request was cancelled, Try again later";
-  static const String RECEIVE_TIMEOUT = "Time out error, Try again later";
-  static const String SEND_TIMEOUT = "Time out error, Try again later";
-  static const String CACHE_ERROR = "Cache error, Try again later";
-  static const String NO_INTERNET_CONNECTION =
-      "Please check your internet connection";
-  static const String DEFAULT = "something went wrong , try again later";
+  static const String CONNECT_TIMEOUT = AppStrings.timeOut;
+  static const String CANCEL = AppStrings.cancelRequest;
+  static const String RECEIVE_TIMEOUT = AppStrings.timeOut;
+  static const String SEND_TIMEOUT = AppStrings.timeOut;
+  static const String CACHE_ERROR = AppStrings.cacheError;
+  static const String NO_INTERNET_CONNECTION = AppStrings.noInternet;
+  static const String DEFAULT = AppStrings.somethingWrong;
 }
 
 class ApiInternalStatus {
