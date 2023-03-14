@@ -206,7 +206,9 @@ class StateRenderer extends StatelessWidget {
                       },
                       child: Text(buttonTitle)),
                 ),
-                SizedBox(width: 10,),
+                const SizedBox(
+                  width: AppSize.s10,
+                ),
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () {
