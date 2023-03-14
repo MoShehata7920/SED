@@ -3,7 +3,8 @@ import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
-import 'package:sed/presentation/main_screen/utils/utils.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
 import '../../../../../resources/color_manager.dart';
@@ -53,14 +54,10 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
         toolbarHeight: AppSize.s50,
         title: Text(
           AppStrings.myAds,
-          style: Theme
-              .of(context)
-              .textTheme
-              .bodyLarge
-              ?.copyWith(
-            color: ColorsManager.lineColor,
-            fontSize: AppSize.s30,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.lineColor,
+                fontSize: AppSize.s30,
+              ),
         ),
         backgroundColor: ColorsManager.primaryBackground,
       ),
@@ -68,7 +65,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
             return snapshot.data?.getScreenWidget(
-                context, _getContent(getMyProfileAds), () => () {}) ??
+                    context, _getContent(getMyProfileAds), () => () {}) ??
                 _getContent(getMyProfileAds);
           }),
     );
@@ -82,8 +79,8 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
-              height: 10,
+            const SizedBox(
+              height: AppSize.s10,
             ),
             ListView.builder(
               physics: const BouncingScrollPhysics(),
@@ -103,18 +100,15 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
       child: Column(
         children: [
           Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width * 0.9,
+            width: MediaQuery.of(context).size.width * 0.9,
             decoration: BoxDecoration(
               color: ColorsManager.secondaryBackground,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppSize.s8),
             ),
             child: Material(
               color: Colors.transparent,
               child: Padding(
-                padding: EdgeInsetsDirectional.all(10),
+                padding: const EdgeInsetsDirectional.all(AppPadding.p10),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,8 +120,8 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                           alignment: Alignment.topLeft,
                           children: [
                             Container(
-                              width: 100,
-                              height: 100,
+                              width: AppSize.s100,
+                              height: AppSize.s100,
                               decoration: BoxDecoration(
                                   color: ColorsManager.secondaryBackground,
                                   borderRadius: const BorderRadius.only(
@@ -142,7 +136,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                               decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.4),
                                 borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(8.0)),
+                                    topLeft: Radius.circular(AppSize.s8)),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -150,13 +144,12 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                     vertical: AppSize.s2),
                                 child: Text(
                                   "Sell",
-                                  style: Theme
-                                      .of(context)
+                                  style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                      fontSize: AppSize.s12,
-                                      color: ColorsManager.primaryText),
+                                          fontSize: AppSize.s12,
+                                          color: ColorsManager.primaryText),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -164,56 +157,51 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.all(10),
+                          padding:
+                              const EdgeInsetsDirectional.all(AppPadding.p10),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
                                 child: Text(
                                   item.name,
-                                  style: Theme
-                                      .of(context)
+                                  style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                    color: ColorsManager.primaryText,
-                                    fontSize: AppSize.s18,
-                                  ),
+                                        color: ColorsManager.primaryText,
+                                        fontSize: AppSize.s18,
+                                      ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(AppPadding.p8),
                                 child: Text(
                                   getPrice(item.price),
-                                  style: Theme
-                                      .of(context)
+                                  style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                    color: ColorsManager.secondaryText,
-                                    fontSize: AppSize.s14,
-                                  ),
+                                        color: ColorsManager.secondaryText,
+                                        fontSize: AppSize.s14,
+                                      ),
                                 ),
                               ),
                               // Spacer(),
                               Text(
                                 item.date,
-                                style: Theme
-                                    .of(context)
+                                style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                  color: ColorsManager.grey,
-                                  fontSize: AppSize.s12,
-                                ),
+                                      color: ColorsManager.grey,
+                                      fontSize: AppSize.s12,
+                                    ),
                                 textAlign: TextAlign.end,
                               ),
                             ],
@@ -226,23 +214,29 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                         IconButton(
                           splashColor: ColorsManager.primaryColor,
                           icon: Icon(
-                            Icons.edit_outlined,
+                            IconsManager.update,
                             color: ColorsManager.primaryColor,
-                            size: 20,
+                            size: AppSize.s20,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, Routes.addProductScreenRoute,
+                                arguments: [item.categoryId - 1, item]);
+                          },
                         ),
                         IconButton(
                           splashColor: ColorsManager.primaryColor,
                           icon: Icon(
-                            Icons.delete,
+                            IconsManager.delete,
                             color: ColorsManager.primaryColor,
-                            size: 20,
+                            size: AppSize.s20,
                           ),
                           onPressed: () {
                             _viewModel.inputState.add(ConfirmationState(
-                                StateRendererType.popUpConfirmationState, "Are you sure that you want to delete ${item.name} ?",
-                                "",() => _viewModel.removeAd(item.id)));
+                                StateRendererType.popUpConfirmationState,
+                                "Are you sure that you want to delete ${item.name} ?",
+                                "",
+                                () => _viewModel.removeAd(item.id)));
                           },
                         ),
                       ],
@@ -253,7 +247,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: AppSize.s10,
           ),
         ],
       ),

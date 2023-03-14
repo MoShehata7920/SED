@@ -57,15 +57,14 @@ abstract class AppServiceClient {
 
   @POST("/customers/AddAdvertisement")
   Future<AddAdvertisementResponse> addAdvertisement(
-    @Field("image") String image,
-    @Field("name") String name,
-    @Field("price") String price,
-    @Field("description") String description,
-    @Field("sectionId") int sectionId,
-    @Field("categoryId") int categoryId,
-    @Field("conditionId") int conditionId,
-    @Header("Authorization") String token
-  );
+      @Field("image") String image,
+      @Field("name") String name,
+      @Field("price") String price,
+      @Field("description") String description,
+      @Field("sectionId") int sectionId,
+      @Field("categoryId") int categoryId,
+      @Field("conditionId") int conditionId,
+      @Header("Authorization") String token);
 
   @GET("/MyProfile")
   Future<GetMyProfileDataResponse> getMyProfileData(
@@ -77,7 +76,18 @@ abstract class AppServiceClient {
 
   @POST("/MyProfile/DeleteAd")
   Future<RemoveAdResponse> removeAd(
+      @Field("itemId") int itemId, @Header("token") String token);
+
+  @POST("/MyProfile/UpdateAd")
+  Future<UpdateAdResponse> updateAd(
     @Field("itemId") int itemId,
-    @Header("token") String token
+    @Header("token") String token,
+    @Field("image") String image,
+    @Field("name") String name,
+    @Field("price") String price,
+    @Field("description") String description,
+    @Field("sectionId") int sectionId,
+    @Field("categoryId") int categoryId,
+    @Field("conditionId") int conditionId,
   );
 }

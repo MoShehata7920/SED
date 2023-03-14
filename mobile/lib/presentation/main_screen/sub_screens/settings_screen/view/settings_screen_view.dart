@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -52,7 +51,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
       backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
         elevation: 0,
-        toolbarHeight: 135,
+        toolbarHeight: AppSize.s140,
         title: _getProfileInformation(getMyProfileData),
       ),
       body: StreamBuilder<FlowState>(
@@ -172,7 +171,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 15,
+              height: AppSize.s15,
             ),
             _getInkwell(IconsManager.account, AppStrings.account, () {})
                 .animateOnPageLoad(

@@ -9,6 +9,7 @@ import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import '../../domain/model/models.dart';
 import '../forgot_password/view/forgotpassword_view.dart';
 import '../main_screen/items_screen/view/items_screen_view.dart';
 import '../main_screen/main_screen_view/main_screen_view.dart';
@@ -76,9 +77,11 @@ class RouteGenerator {
             builder: (context) => ShowProfileView(settings.arguments));
 
       case Routes.addProductScreenRoute:
+        List<dynamic> args = settings.arguments as List<dynamic>;
+
         return MaterialPageRoute(
             builder: (context) =>
-                AddAdvertisementView(settings.arguments as int));
+                AddAdvertisementView(args[0] as int, args[1] as Items?));
 
       case Routes.myAdsScreenRoute:
         return MaterialPageRoute(builder: (context) => const MyAdsScreenView());

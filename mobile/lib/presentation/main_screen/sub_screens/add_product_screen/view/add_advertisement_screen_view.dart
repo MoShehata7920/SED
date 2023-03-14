@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/viewmodel/add_advertisement_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
@@ -17,22 +15,24 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../resources/color_manager.dart';
 
 class AddAdvertisementView extends StatefulWidget {
-  AddAdvertisementView(this.categoryId, {super.key});
+  AddAdvertisementView(this.categoryId, this.item, {super.key});
 
   int categoryId;
-
+  Items? item;
   @override
   State<AddAdvertisementView> createState() =>
       // ignore: no_logic_in_create_state
-      _AddAdvertisementViewState(categoryId);
+      _AddAdvertisementViewState(categoryId, item);
 }
 
 class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   int categoryId;
   int selectedIndex = 0;
+  Items? item;
+
   final AddAdvertisementViewModel _viewModel = AddAdvertisementViewModel();
 
-  _AddAdvertisementViewState(this.categoryId);
+  _AddAdvertisementViewState(this.categoryId, this.item);
 
   List<DropdownMenuItem<dynamic>> dropDownItems = <DropdownMenuItem<dynamic>>[];
   final ImagePicker _imagePicker = ImagePicker();
@@ -54,6 +54,13 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
     _descriptionController.addListener(
         () => _viewModel.setDescription(_descriptionController.text));
 
+    if (item != null) {
+      _nameController.text = item!.name;
+      _priceController.text = item!.price.toString();
+      _descriptionController.text = item!.description;
+
+      selectedIndex = 0;
+    }
     super.initState();
   }
 
@@ -156,7 +163,8 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     const Spacer(),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushNamed(
+                            context, Routes.categoriesScreenRoute);
                       },
                       child: Text(
                         AppStrings.change,
@@ -343,11 +351,17 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                       stream: _viewModel.areAllInputsValidOutput,
                       builder: (context, snapshot) {
                         return ElevatedButton(
-                            onPressed: (snapshot.data ?? false) ? () {
-                              _viewModel.setIds(selectedIndex +1 , categoryId +1, 0);
-
-                              _viewModel.addAdvertisement(context);
-                            } : null,
+                            onPressed: (snapshot.data ?? false)
+                                ? () {
+                                    _viewModel.setIds(
+                                        selectedIndex + 1, categoryId + 1, 0);
+                                    if (item == null) {
+                                      _viewModel.addAdvertisement(context);
+                                    } else {
+                                      _viewModel.updateAd(context, item!.id);
+                                    }
+                                  }
+                                : null,
                             child: const Text(AppStrings.submit));
                       }),
                 ),
@@ -372,30 +386,42 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   const BorderRadius.all(Radius.circular(AppSize.s20)),
               color: ColorsManager.secondaryBackground,
             ),
-            child: snapshot.data == null
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add_circle_rounded,
-                          color: ColorsManager.lineColor),
-                      const SizedBox(
-                        width: AppSize.s2,
-                      ),
-                      Text(
-                        AppStrings.addImage,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: ColorsManager.lineColor,
-                              fontSize: AppSize.s14,
-                            ),
-                      ),
-                    ],
-                  )
+            child: item == null
+                ? snapshot.data == null
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add_circle_rounded,
+                              color: ColorsManager.lineColor),
+                          const SizedBox(
+                            width: AppSize.s2,
+                          ),
+                          Text(
+                            AppStrings.addImage,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: ColorsManager.lineColor,
+                                      fontSize: AppSize.s14,
+                                    ),
+                          ),
+                        ],
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(AppSize.s20), // Image border
+                        child: SizedBox.fromSize(
+                          size: const Size.fromRadius(AppSize.s48),
+                          child: Image.file(
+                            File(snapshot.data!),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      )
                 : ClipRRect(
-                    borderRadius: BorderRadius.circular(20), // Image border
+                    borderRadius: BorderRadius.circular(AppSize.s20), // Image border
                     child: SizedBox.fromSize(
-                      size: const Size.fromRadius(48),
-                      child: Image.file(
-                        File(snapshot.data!),
+                      size: const Size.fromRadius(AppSize.s48),
+                      child: Image.network(
+                        item!.image,
                         fit: BoxFit.fill,
                       ),
                     ),

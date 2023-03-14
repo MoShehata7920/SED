@@ -61,3 +61,26 @@ class RemoveAdRequest {
 
   RemoveAdRequest(this.itemId);
 }
+
+class UpdateAdRequest {
+  int itemId;
+  String image;
+  String name;
+  String price;
+  String description;
+  int sectionId;
+  int categoryId;
+  int conditionId;
+  String token;
+
+  UpdateAdRequest(
+      this.itemId,
+      this.image,
+      this.name,
+      this.price,
+      this.description,
+      this.sectionId,
+      this.categoryId,
+      this.conditionId,
+      this.token);
+}

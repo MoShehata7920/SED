@@ -286,11 +286,12 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, GetMyProfileAds>> getMyProfileAds(
-      GetMyProfileAdsRequest getMyProfileAdsRequest) async{
+      GetMyProfileAdsRequest getMyProfileAdsRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
-        final response = await _remoteDataSource.getMyProfileAds(getMyProfileAdsRequest);
+        final response =
+            await _remoteDataSource.getMyProfileAds(getMyProfileAdsRequest);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data
@@ -313,11 +314,39 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, RemoveAd>> removeAd(
-      RemoveAdRequest removeAdRequest) async{
+      RemoveAdRequest removeAdRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
-        final response = await _remoteDataSource.removeAd(removeAdRequest.itemId);
+        final response =
+            await _remoteDataSource.removeAd(removeAdRequest.itemId);
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UpdateAd>> updateAd(
+      UpdateAdRequest updateAdRequest) async {
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response = await _remoteDataSource.updateAd(updateAdRequest);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data

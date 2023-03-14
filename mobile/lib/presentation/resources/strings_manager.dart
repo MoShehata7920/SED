@@ -36,6 +36,7 @@ class AppStrings {
   static const String retryAgain = "Retry again!";
   static const String ok = "Ok";
   static const String success = "Success";
+  static const String cancel = "Cancel";
 
   //forgot password screen
   static const String resendText = "Please wait %d to send again";
@@ -100,4 +101,8 @@ class AppStrings {
   static const String share = "Share";
   static const String help = "Help";
   static const String aboutUs = "About Us";
+  
+  // add and update screen 
+  static const String successfullyAddedAd = "Successfully added Advertisement";
+  static const String successfullyUpdatedAd = "Successfully updated Advertisement";
 }

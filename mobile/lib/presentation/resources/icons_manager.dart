@@ -52,4 +52,8 @@ class IconsManager {
   static const share = Icons.share_outlined;
   static const help = Icons.help;
   static const questionMark = Icons.live_help_outlined;
+
+  // my Ads screen
+  static const update = Icons.edit;
+  static const delete = Icons.delete;
 }

@@ -6,8 +6,8 @@ import 'package:socket_io_client/socket_io_client.dart';
 
 class ChatViewModel extends BaseViewModel
     with ChatViewModelInputs, ChatViewModelOutputs {
-
-  final StreamController _socketStreamController = StreamController<String>.broadcast();
+  final StreamController _socketStreamController =
+      StreamController<String>.broadcast();
 
   @override
   void start() {
@@ -25,12 +25,12 @@ class ChatViewModel extends BaseViewModel
   Sink get socketInput => _socketStreamController.sink;
 
   @override
-  Stream<String> get socketOutput => _socketStreamController.stream.map((response) => response);
+  Stream<String> get socketOutput =>
+      _socketStreamController.stream.map((response) => response);
 
   void connectAndListen() {
     IO.Socket socket = IO.io('http://192.168.1.2:9001',
-        OptionBuilder()
-            .setTransports(['websocket']).build());
+        OptionBuilder().setTransports(['websocket']).build());
     socket.onConnect((_) {
       print('connect');
       socket.emit('token', 'test');
@@ -39,7 +39,7 @@ class ChatViewModel extends BaseViewModel
     //When an event recieved from server, data is added to the stream
     socket.on('event', (data) => print(data));
     socket.onDisconnect((_) => print('disconnect'));
-    socket.emit("event","{0,12}00");
+    socket.emit("event", "{0,12}00");
   }
 }
 

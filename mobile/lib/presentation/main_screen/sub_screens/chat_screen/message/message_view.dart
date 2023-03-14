@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/values_manager.dart';
 
 class MessagingScreenView extends StatefulWidget {
   const MessagingScreenView({super.key});
@@ -14,13 +15,13 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
     return Scaffold(
       backgroundColor: ColorsManager.background,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(AppSize.s70),
           child: AppBar(
             backgroundColor: ColorsManager.background,
             automaticallyImplyLeading: false,
             leading: Padding(
               padding:
-                  const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                  const EdgeInsetsDirectional.fromSTEB(AppPadding.p24, AppPadding.p0, AppPadding.p0, AppPadding.p0),
               child: InkWell(
                 onTap: () async {},
               ),

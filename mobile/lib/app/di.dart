@@ -32,6 +32,7 @@ import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/usecase/add_advertisement_usecase.dart';
+import '../domain/usecase/update_ad_usecase.dart';
 
 final instance = GetIt.instance;
 
@@ -108,6 +109,9 @@ Future<void> initAppModule() async {
 
   instance
       .registerFactory<RemoveAdUseCase>(() => RemoveAdUseCase(instance()));
+
+  instance
+      .registerFactory<UpdateAdUseCase>(() => UpdateAdUseCase(instance()));
 }
 
 initLoginModule() async {

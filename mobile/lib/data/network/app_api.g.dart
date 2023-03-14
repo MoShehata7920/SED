@@ -325,7 +325,7 @@ class _AppServiceClient implements AppServiceClient {
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'token': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = {'itemId': itemId};
     final _result = await _dio
@@ -342,6 +342,49 @@ class _AppServiceClient implements AppServiceClient {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoveAdResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpdateAdResponse> updateAd(
+    itemId,
+    token,
+    image,
+    name,
+    price,
+    description,
+    sectionId,
+    categoryId,
+    conditionId,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'token': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {
+      'itemId': itemId,
+      'image': image,
+      'name': name,
+      'price': price,
+      'description': description,
+      'sectionId': sectionId,
+      'categoryId': categoryId,
+      'conditionId': conditionId,
+    };
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UpdateAdResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/MyProfile/UpdateAd',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpdateAdResponse.fromJson(_result.data!);
     return value;
   }
 

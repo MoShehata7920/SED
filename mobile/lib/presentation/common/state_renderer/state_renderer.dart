@@ -189,13 +189,13 @@ class StateRenderer extends StatelessWidget {
                       },
                       child: Text(buttonTitle)),
                 ),
-                SizedBox(width: 10,),
+                const SizedBox(width: AppSize.s10,),
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Cancel")),
+                      child: const Text(AppStrings.cancel)),
                 ),
               ],
             )),

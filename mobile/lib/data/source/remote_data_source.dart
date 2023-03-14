@@ -32,6 +32,8 @@ abstract class RemoteDataSource {
       GetMyProfileAdsRequest getMyProfileAdsRequest);
 
   Future<RemoveAdResponse> removeAd(int itemId);
+
+  Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -122,5 +124,19 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<RemoveAdResponse> removeAd(int itemId) async {
     return await _appServiceClient.removeAd(itemId, Constants.token);
+  }
+
+  @override
+  Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest) async {
+    return await _appServiceClient.updateAd(
+        updateAdRequest.itemId,
+        updateAdRequest.token,
+        updateAdRequest.image,
+        updateAdRequest.name,
+        updateAdRequest.price,
+        updateAdRequest.description,
+        updateAdRequest.sectionId,
+        updateAdRequest.categoryId,
+        updateAdRequest.conditionId);
   }
 }

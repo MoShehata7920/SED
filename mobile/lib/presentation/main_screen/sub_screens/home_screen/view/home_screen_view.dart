@@ -660,7 +660,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 stream: homeScreenViewModel.savedOutput,
                                 builder: (context, snapshot) {
                                   return CircleAvatar(
-                                    radius: 14,
+                                    radius: AppSize.s14,
                                     backgroundColor: item.isSaved
                                         ? ColorsManager.primaryColor
                                         : ColorManager.grey2,

@@ -34,6 +34,7 @@ abstract class Repository {
   Future<Either<Failure, GetMyProfileAds>> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest);
 
-  Future<Either<Failure, RemoveAd>> removeAd(
-      RemoveAdRequest removeAdRequest);
+  Future<Either<Failure, RemoveAd>> removeAd(RemoveAdRequest removeAdRequest);
+
+  Future<Either<Failure, UpdateAd>> updateAd(UpdateAdRequest updateAdRequest);
 }

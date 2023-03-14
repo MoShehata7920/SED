@@ -170,3 +170,18 @@ class RemoveAd {
 
   RemoveAd(this.itemId);
 }
+
+class UpdateAd {
+  int itemId;
+  String image;
+  String name;
+  String price;
+  String description;
+  int sectionId;
+  int categoryId;
+  int conditionId;
+  String token;
+
+  UpdateAd(this.itemId, this.image, this.name, this.price, this.description,
+      this.sectionId, this.categoryId, this.conditionId, this.token);
+}

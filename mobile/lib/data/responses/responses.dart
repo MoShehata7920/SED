@@ -322,3 +322,51 @@ class RemoveAdResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$RemoveAdResponseToJson(this);
 }
+
+@JsonSerializable()
+class UpdateAdResponse extends BaseResponse {
+  @JsonKey(name: "itemId")
+  int? itemId;
+
+  @JsonKey(name: "image")
+  String? image;
+
+  @JsonKey(name: "name")
+  String? name;
+
+  @JsonKey(name: "price")
+  String? price;
+
+  @JsonKey(name: "description")
+  String? description;
+
+  @JsonKey(name: "sectionId")
+  int? sectionId;
+
+  @JsonKey(name: "categoryId")
+  int? categoryId;
+
+  @JsonKey(name: "conditionId")
+  int? conditionId;
+
+  @JsonKey(name: "token")
+  String? token;
+
+  UpdateAdResponse(
+      this.itemId,
+      this.image,
+      this.name,
+      this.price,
+      this.description,
+      this.sectionId,
+      this.categoryId,
+      this.conditionId,
+      this.token);
+
+  // From Json
+  factory UpdateAdResponse.fromJson(Map<String, dynamic> json) =>
+      _$UpdateAdResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$UpdateAdResponseToJson(this);
+}

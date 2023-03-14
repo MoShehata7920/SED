@@ -14,6 +14,8 @@ import 'dart:convert';
 
 import 'package:sed/presentation/resources/strings_manager.dart';
 
+import '../../../../../domain/usecase/update_ad_usecase.dart';
+
 class AddAdvertisementViewModel extends BaseViewModel
     with AddAdvertisementViewModelInputs, AddAdvertisementViewModelOutputs {
   AdvertisementObject advertisementObject =
@@ -36,6 +38,8 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   final AddAdvertisementUseCase _addAdvertisementUseCase =
       instance<AddAdvertisementUseCase>();
+
+  final UpdateAdUseCase _updateAdUseCase = instance<UpdateAdUseCase>();
 
   // inputs
   @override
@@ -111,7 +115,6 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   bool _areAllInputsValid() {
     return _isNameValid(advertisementObject.name) &&
-        _isImageValid(advertisementObject.image) &&
         _isDescriptionValid(advertisementObject.description);
   }
 
@@ -183,9 +186,43 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          "Succesfully added Item",
+          AppStrings.successfullyAddedAd,
           AppStrings.success,
-          () => Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute)));
+          () => Navigator.of(context)
+              .pushReplacementNamed(Routes.mainScreenRoute)));
+      // navigate to main screen
+    });
+  }
+
+  void updateAd(BuildContext context, int itemId) async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+
+    var response = await _updateAdUseCase.execute(UpdateAdUseCaseInput(
+      itemId,
+      advertisementObject.image,
+      advertisementObject.name,
+      advertisementObject.price,
+      advertisementObject.description,
+      advertisementObject.sectionId,
+      advertisementObject.categoryId,
+      advertisementObject.conditionId,
+      Constants.token,
+    ));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+              inputState.add(ErrorState(
+                  StateRendererType.popUpErrorState, failure.message))
+            }, (response) {
+      // right -> success
+      inputState.add(SuccessState(
+          StateRendererType.popUpSuccessState,
+          AppStrings.successfullyUpdatedAd,
+          AppStrings.success,
+          () => Navigator.of(context)
+              .pushReplacementNamed(Routes.mainScreenRoute)));
       // navigate to main screen
     });
   }

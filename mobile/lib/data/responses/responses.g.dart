@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element
+
 part of 'responses.dart';
 
 // **************************************************************************
@@ -305,4 +307,34 @@ Map<String, dynamic> _$RemoveAdResponseToJson(RemoveAdResponse instance) =>
       'status': instance.status,
       'message': instance.message,
       'itemId': instance.itemId,
+    };
+
+UpdateAdResponse _$UpdateAdResponseFromJson(Map<String, dynamic> json) =>
+    UpdateAdResponse(
+      json['itemId'] as int?,
+      json['image'] as String?,
+      json['name'] as String?,
+      json['price'] as String?,
+      json['description'] as String?,
+      json['sectionId'] as int?,
+      json['categoryId'] as int?,
+      json['conditionId'] as int?,
+      json['token'] as String?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$UpdateAdResponseToJson(UpdateAdResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'itemId': instance.itemId,
+      'image': instance.image,
+      'name': instance.name,
+      'price': instance.price,
+      'description': instance.description,
+      'sectionId': instance.sectionId,
+      'categoryId': instance.categoryId,
+      'conditionId': instance.conditionId,
+      'token': instance.token,
     };

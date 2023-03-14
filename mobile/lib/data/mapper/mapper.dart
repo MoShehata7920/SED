@@ -155,3 +155,19 @@ extension RemoveAdMapper on RemoveAdResponse? {
     );
   }
 }
+
+extension UpdateAdMapper on UpdateAdResponse? {
+  UpdateAd toDomain() {
+    return UpdateAd(
+      this?.itemId ?? 0,
+      this?.image ?? "",
+      this?.name ?? "",
+      this?.price ?? "",
+      this?.description ?? "",
+      this?.sectionId ?? 0,
+      this?.categoryId ?? 0,
+      this?.conditionId ?? 0,
+      this?.token ?? "",
+    );
+  }
+}

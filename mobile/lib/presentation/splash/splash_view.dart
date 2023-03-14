@@ -39,16 +39,16 @@ class _SplashViewState extends State<SplashView> {
               height: AppSize.s60,
             ),
             Expanded(
-              child: Image(
+              child: const Image(
                 height: AppSize.s250,
-                image: const AssetImage(ImageAssets.darkModeSplashLogo),
+                image: AssetImage(ImageAssets.darkModeSplashLogo),
               ).animateOnPageLoad(
                   msDelay: 150, dx: 0.0, dy: -70.0, showDelay: 900),
             ),
-            Spacer(),
+            const Spacer(),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(bottom: 40.0),
+                padding: const EdgeInsets.only(bottom: AppPadding.p40),
                 child: Column(
                   children: [
                     SpinKitSquareCircle(
