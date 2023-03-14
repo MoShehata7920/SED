@@ -169,7 +169,7 @@ class AddAdvertisementViewModel extends BaseViewModel
         .execute(AddAdvertisementUseCaseUseCaseInput(
       advertisementObject.image,
       advertisementObject.name,
-      advertisementObject.price,
+      advertisementObject.price.isEmpty ? "0" : advertisementObject.price,
       advertisementObject.description,
       advertisementObject.sectionId,
       advertisementObject.categoryId,
@@ -186,43 +186,9 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyAddedAd,
+          "Succesfully added Item",
           AppStrings.success,
-          () => Navigator.of(context)
-              .pushReplacementNamed(Routes.mainScreenRoute)));
-      // navigate to main screen
-    });
-  }
-
-  void updateAd(BuildContext context, int itemId) async {
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
-
-    var response = await _updateAdUseCase.execute(UpdateAdUseCaseInput(
-      itemId,
-      advertisementObject.image,
-      advertisementObject.name,
-      advertisementObject.price,
-      advertisementObject.description,
-      advertisementObject.sectionId,
-      advertisementObject.categoryId,
-      advertisementObject.conditionId,
-      Constants.token,
-    ));
-
-    response.fold(
-        (failure) => {
-              // left -> failure
-              inputState.add(ErrorState(
-                  StateRendererType.popUpErrorState, failure.message))
-            }, (response) {
-      // right -> success
-      inputState.add(SuccessState(
-          StateRendererType.popUpSuccessState,
-          AppStrings.successfullyUpdatedAd,
-          AppStrings.success,
-          () => Navigator.of(context)
-              .pushReplacementNamed(Routes.mainScreenRoute)));
+          () => Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute)));
       // navigate to main screen
     });
   }

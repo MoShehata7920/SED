@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/fonts_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/styles_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
@@ -14,6 +15,7 @@ enum StateRendererType {
   popUpLoadingState,
   popUpErrorState,
   popUpSuccessState,
+  popUpSuccessStateAndNavigate,
   popUpConfirmationState,
 
   // Full screen state
@@ -62,7 +64,15 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.success),
           _getTitle(title),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.ok, context),
+        ]);
+
+      case StateRendererType.popUpSuccessStateAndNavigate:
+        return _getPopUpDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getTitle(title),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context),
         ]);
 
       case StateRendererType.popUpConfirmationState:
@@ -70,7 +80,7 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.success),
           _getTitle(title),
           _getMessage(message),
-          _getConfirmationRetryButton("Confirm", context),
+          _getConfirmationRetryButton(AppStrings.ok, context)
         ]);
 
       case StateRendererType.fullScreenLoadingState:
@@ -163,10 +173,17 @@ class StateRenderer extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () {
                   if (stateRendererType ==
-                          StateRendererType.fullScreenErrorState) {
+                      StateRendererType.fullScreenErrorState) {
                     retryActionFunction.call();
                   } else {
                     Navigator.of(context).pop();
+
+                    if (stateRendererType ==
+                        StateRendererType.popUpSuccessStateAndNavigate) {
+                      Navigator.of(context).pop();
+
+                      Navigator.pushNamed(context, Routes.mainScreenRoute);
+                    }
                   }
                 },
                 child: Text(buttonTitle))),
@@ -189,7 +206,7 @@ class StateRenderer extends StatelessWidget {
                       },
                       child: Text(buttonTitle)),
                 ),
-                const SizedBox(width: AppSize.s10,),
+                SizedBox(width: 10,),
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () {
