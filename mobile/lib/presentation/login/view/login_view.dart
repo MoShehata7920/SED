@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -117,15 +118,15 @@ class _LoginViewState extends State<LoginView> {
                         controller: _userNameController,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: AppStrings.email,
+                          hintText: AppStrings.email.tr(),
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),
-                          labelText: AppStrings.email,
+                          labelText: AppStrings.email.tr(),
                           errorText: (snapshot.data ??
                                   true) //check if the username was null
                               ? null //then no errors
-                              : AppStrings.emailInValid,
+                              : AppStrings.emailInValid.tr(),
                           //else present the error to the user
                         ),
                         style: TextStyle(color: ColorsManager.secondaryText),
@@ -143,8 +144,8 @@ class _LoginViewState extends State<LoginView> {
                         controller: _userPasswordController,
                         obscureText: _viewModel.obscureText,
                         decoration: InputDecoration(
-                          hintText: AppStrings.password,
-                          labelText: AppStrings.password,
+                          hintText: AppStrings.password.tr(),
+                          labelText: AppStrings.password.tr(),
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),
@@ -164,8 +165,8 @@ class _LoginViewState extends State<LoginView> {
                           errorText: (snapshot.data ??
                                   true) //check if the password was null
                               ? null //then no errors
-                              : AppStrings
-                                  .passwordError, //else present the error to the user
+                              : AppStrings.passwordError
+                                  .tr(), //else present the error to the user
                         ),
                         style: TextStyle(color: ColorsManager.secondaryText),
                       );
@@ -186,7 +187,7 @@ class _LoginViewState extends State<LoginView> {
                                     _viewModel.login();
                                   }
                                 : null,
-                            child: const Text(AppStrings.login)),
+                            child: Text(AppStrings.login.tr())),
                       );
                     }),
               ),
@@ -203,7 +204,7 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.registerRoute);
                         },
-                        child: const Text(AppStrings.register)),
+                        child: Text(AppStrings.register.tr())),
                   ),
                   const SizedBox(
                     width: AppSize.s10,
@@ -218,9 +219,9 @@ class _LoginViewState extends State<LoginView> {
                           Navigator.pushNamed(
                               context, Routes.forgotPasswordRoute);
                         },
-                        child: const Text(
-                          AppStrings.forgetPassword,
-                          style: TextStyle(
+                        child: Text(
+                          AppStrings.forgetPassword.tr(),
+                          style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold),
                         )),
                   ),
@@ -230,7 +231,7 @@ class _LoginViewState extends State<LoginView> {
                 padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
                     AppPadding.p12, AppPadding.p0, AppPadding.p0),
                 child: Text(
-                  AppStrings.useSocialToLoginText,
+                  AppStrings.useSocialToLoginText.tr(),
                   style: TextStyle(color: ColorsManager.secondaryText),
                 ),
               ),

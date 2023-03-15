@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -9,6 +11,8 @@ import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../../app/app_preferences.dart';
+import '../../../../../app/di.dart';
 import '../../../../resources/strings_manager.dart';
 
 class SettingsScreenView extends StatefulWidget {
@@ -19,6 +23,7 @@ class SettingsScreenView extends StatefulWidget {
 }
 
 class _SettingsScreenViewState extends State<SettingsScreenView> {
+  final AppPreferences _appPreferences = instance<AppPreferences>();
   final SettingsScreenViewModel _viewModel = SettingsScreenViewModel();
 
   @override
@@ -173,13 +178,13 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s15,
             ),
-            _getInkwell(IconsManager.account, AppStrings.account, () {})
+            _getInkwell(IconsManager.account, AppStrings.account.tr(), () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.myAds, AppStrings.myAds, () {
+            _getInkwell(IconsManager.myAds, AppStrings.myAds.tr(), () {
               Navigator.pushNamed(context, Routes.myAdsScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
@@ -191,7 +196,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                   bottom: AppPadding.p5),
               child: Text(
                 textAlign: TextAlign.start,
-                AppStrings.settings,
+                AppStrings.settings.tr(),
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: ColorsManager.grey,
                     ),
@@ -199,20 +204,23 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             _getInkwell(
-                    IconsManager.languageController, AppStrings.language, () {})
-                .animateOnPageLoad(
-                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                IconsManager.languageController, AppStrings.language.tr(), () {
+              _appPreferences.changeAppLanguage();
+              Phoenix.rebirth(context);
+            }).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.themeController, AppStrings.theme, () {})
+            _getInkwell(
+                    IconsManager.themeController, AppStrings.theme.tr(), () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(
-                    IconsManager.notification, AppStrings.notifications, () {})
+            _getInkwell(IconsManager.notification,
+                    AppStrings.notifications.tr(), () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             Padding(
@@ -223,14 +231,14 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                   bottom: AppPadding.p5),
               child: Text(
                 textAlign: TextAlign.start,
-                AppStrings.general,
+                AppStrings.general.tr(),
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: ColorsManager.grey,
                     ),
               ),
             ).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
-            _getInkwell(IconsManager.share, AppStrings.share, () {
+            _getInkwell(IconsManager.share, AppStrings.share.tr(), () {
               Share.share(
                   'https://instagram.com/mohamed_shehata7920?igshid=ZDdkNTZiNTM=');
             }).animateOnPageLoad(
@@ -238,13 +246,14 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.help, AppStrings.help, () {})
+            _getInkwell(IconsManager.help, AppStrings.help.tr(), () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs, () {})
+            _getInkwell(
+                    IconsManager.questionMark, AppStrings.aboutUs.tr(), () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
           ],

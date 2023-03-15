@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -100,7 +101,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
               onPressed: () => Navigator.pushReplacementNamed(
                   context, Routes.mainScreenRoute)),
           title: Text(
-            AppStrings.addAdvertisement,
+            AppStrings.addAdvertisement.tr(),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.lineColor,
                   fontSize: AppSize.s20,
@@ -126,7 +127,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   height: AppSize.s25,
                 ),
                 Text(
-                  AppStrings.selectedCategory,
+                  AppStrings.selectedCategory.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.white,
                         fontSize: AppSize.s16,
@@ -167,7 +168,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                             context, Routes.categoriesScreenRoute);
                       },
                       child: Text(
-                        AppStrings.change,
+                        AppStrings.change.tr(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: ColorsManager.primaryColor,
                               fontSize: AppSize.s12,
@@ -187,7 +188,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   height: AppSize.s20,
                 ),
                 Text(
-                  AppStrings.selectSection,
+                  AppStrings.selectSection.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.white,
                         fontSize: AppSize.s16,
@@ -209,11 +210,11 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     activeFgColor: Colors.white,
                     inactiveBgColor: ColorsManager.secondaryBackground,
                     inactiveFgColor: ColorsManager.primaryText,
-                    totalSwitches: AppStrings.appSections.length,
+                    totalSwitches: AppValues.appSections,
                     labels: [
-                      AppStrings.appSections[0],
-                      AppStrings.appSections[1],
-                      AppStrings.appSections[2]
+                      AppStrings.sellProducts.tr(),
+                      AppStrings.exchange.tr(),
+                      AppStrings.donate.tr()
                     ],
                     dividerColor: ColorsManager.alternate,
                     activeBgColors: [
@@ -239,7 +240,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   height: AppSize.s20,
                 ),
                 Text(
-                  AppStrings.condition,
+                  AppStrings.condition.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.white,
                         fontSize: AppSize.s16,
@@ -261,7 +262,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     inactiveFgColor: ColorsManager.white,
                     initialLabelIndex: 0,
                     totalSwitches: 2,
-                    labels: const [AppStrings.newItem, AppStrings.used],
+                    labels: [AppStrings.newItem.tr(), AppStrings.used.tr()],
                     radiusStyle: true,
                     onToggle: (index) {},
                   ),
@@ -277,7 +278,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   height: AppSize.s20,
                 ),
                 Text(
-                  AppStrings.name,
+                  AppStrings.name.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.white,
                         fontSize: AppSize.s10,
@@ -293,13 +294,13 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                         controller: _nameController,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: AppStrings.productName,
+                          hintText: AppStrings.productName.tr(),
                           filled: true,
                           fillColor: ColorsManager.secondaryBackground,
                           errorText: (snapshot.data ??
                                   true) //check if the password was null
                               ? null //then no errors
-                              : AppStrings.fieldError,
+                              : AppStrings.fieldError.tr(),
                         ),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: ColorsManager.primaryBtnText,
@@ -312,7 +313,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 ),
                 if (selectedIndex == 0) _getPriceWidget(),
                 Text(
-                  AppStrings.description,
+                  AppStrings.description.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.white,
                         fontSize: AppSize.s10,
@@ -328,13 +329,13 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                         controller: _descriptionController,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: AppStrings.productDescription,
+                          hintText: AppStrings.productDescription.tr(),
                           filled: true,
                           fillColor: ColorsManager.secondaryBackground,
                           errorText: (snapshot.data ??
                                   true) //check if the password was null
                               ? null //then no errors
-                              : AppStrings.fieldError,
+                              : AppStrings.fieldError.tr(),
                         ),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: ColorsManager.primaryBtnText,
@@ -362,7 +363,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                                     }
                                   }
                                 : null,
-                            child: const Text(AppStrings.submit));
+                            child: Text(AppStrings.submit.tr()));
                       }),
                 ),
                 const SizedBox(
@@ -397,7 +398,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                             width: AppSize.s2,
                           ),
                           Text(
-                            AppStrings.addImage,
+                            AppStrings.addImage.tr(),
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: ColorsManager.lineColor,
@@ -407,7 +408,8 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                         ],
                       )
                     : ClipRRect(
-                        borderRadius: BorderRadius.circular(AppSize.s20), // Image border
+                        borderRadius:
+                            BorderRadius.circular(AppSize.s20), // Image border
                         child: SizedBox.fromSize(
                           size: const Size.fromRadius(AppSize.s48),
                           child: Image.file(
@@ -417,7 +419,8 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                         ),
                       )
                 : ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSize.s20), // Image border
+                    borderRadius:
+                        BorderRadius.circular(AppSize.s20), // Image border
                     child: SizedBox.fromSize(
                       size: const Size.fromRadius(AppSize.s48),
                       child: Image.network(
@@ -435,7 +438,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppStrings.price,
+          AppStrings.price.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.white,
                 fontSize: AppSize.s10,
@@ -456,13 +459,13 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   FilteringTextInputFormatter.digitsOnly
                 ],
                 decoration: InputDecoration(
-                  hintText: AppStrings.productPrice,
+                  hintText: AppStrings.productPrice.tr(),
                   filled: true,
                   fillColor: ColorsManager.secondaryBackground,
                   errorText:
                       (snapshot.data ?? true) //check if the password was null
                           ? null //then no errors
-                          : AppStrings.fieldError,
+                          : AppStrings.fieldError.tr(),
                 ),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.primaryBtnText,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
@@ -52,7 +53,7 @@ class ForgotPasswordViewModel extends BaseViewModel
     }, (response) {
       // right -> success
       inputState.add(SuccessState(
-          StateRendererType.popUpSuccessState, response, AppStrings.success,(){}));
+          StateRendererType.popUpSuccessState, response, AppStrings.success.tr(),(){}));
 
       _showResendStreamController.add(true);
 
@@ -108,7 +109,7 @@ class ForgotPasswordViewModel extends BaseViewModel
     }
   }
 
-  String getResendText() => sprintf(AppStrings.resendText, [_secondsLeft]);
+  String getResendText() => sprintf(AppStrings.resendText.tr(), [_secondsLeft]);
 }
 
 abstract class ForgotPasswordViewModelInputs {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sed/app/app_preferences.dart';
@@ -57,12 +58,12 @@ class _SplashViewState extends State<SplashView> {
                     ).animateOnPageLoad(
                         msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
                     Text(
-                      AppStrings.poweredBy,
+                      AppStrings.poweredBy.tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ).animateOnPageLoad(
                         msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
                     Text(
-                      AppStrings.eagles,
+                      AppStrings.eagles.tr(),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ).animateOnPageLoad(
                         msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),

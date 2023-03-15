@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
@@ -53,7 +54,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
         elevation: 0,
         toolbarHeight: AppSize.s50,
         title: Text(
-          AppStrings.myAds,
+          AppStrings.myAds.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.lineColor,
                 fontSize: AppSize.s30,

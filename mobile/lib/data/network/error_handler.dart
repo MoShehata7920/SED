@@ -1,6 +1,7 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
@@ -136,28 +137,28 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String SUCCESS = AppStrings.success; // success with data
-  static const String NO_CONTENT =
-      AppStrings.success; // success with no data (no content)
-  static const String BAD_REQUEST =
-      AppStrings.badRequest; // failure, API rejected request
-  static const String UNAUTHORIZED =
-      AppStrings.unAuthorized; // failure, user is not authorized
-  static const String FORBIDDEN =
-      AppStrings.forbidden; //  failure, API rejected request
-  static const String INTERNAL_SERVER_ERROR =
-      AppStrings.somethingWrong; // failure, crash in server side
-  static const String NOT_FOUND =
-      AppStrings.somethingWrong; // failure, data not found
+  static String SUCCESS = AppStrings.success.tr(); // success with data
+  static String NO_CONTENT =
+      AppStrings.success.tr(); // success with no data (no content)
+  static String BAD_REQUEST =
+      AppStrings.badRequest.tr(); // failure, API rejected request
+  static String UNAUTHORIZED =
+      AppStrings.unAuthorized.tr(); // failure, user is not authorized
+  static String FORBIDDEN =
+      AppStrings.forbidden.tr(); //  failure, API rejected request
+  static String INTERNAL_SERVER_ERROR =
+      AppStrings.somethingWrong.tr(); // failure, crash in server side
+  static String NOT_FOUND =
+      AppStrings.somethingWrong.tr(); // failure, data not found
 
   // local status code
-  static const String CONNECT_TIMEOUT = AppStrings.timeOut;
-  static const String CANCEL = AppStrings.cancelRequest;
-  static const String RECEIVE_TIMEOUT = AppStrings.timeOut;
-  static const String SEND_TIMEOUT = AppStrings.timeOut;
-  static const String CACHE_ERROR = AppStrings.cacheError;
-  static const String NO_INTERNET_CONNECTION = AppStrings.noInternet;
-  static const String DEFAULT = AppStrings.somethingWrong;
+  static String CONNECT_TIMEOUT = AppStrings.timeOut.tr();
+  static String CANCEL = AppStrings.cancelRequest.tr();
+  static String RECEIVE_TIMEOUT = AppStrings.timeOut.tr();
+  static String SEND_TIMEOUT = AppStrings.timeOut.tr();
+  static String CACHE_ERROR = AppStrings.cacheError.tr();
+  static String NO_INTERNET_CONNECTION = AppStrings.noInternet.tr();
+  static String DEFAULT = AppStrings.somethingWrong.tr();
 }
 
 class ApiInternalStatus {

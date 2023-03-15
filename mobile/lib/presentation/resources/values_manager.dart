@@ -82,6 +82,7 @@ class AppValues {
   static const int defaultCategoriesNumber = 6;
 
   static const int maxDateLines = 2;
+  static const int appSections = 3;
   static const int maxItemNameLines = 1;
   static const int maxAddressLines = 2;
   static const int showItemCrossAxisCounts = 2;

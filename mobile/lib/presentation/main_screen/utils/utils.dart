@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
 class Utils {
   static List<Category> categories = [];
   static Map<int, String> sections = {
-    0: AppStrings.appSections[0],
-    1: AppStrings.appSections[1],
-    2: AppStrings.appSections[2],
+    0: AppStrings.sellProducts.tr(),
+    1: AppStrings.exchange.tr(),
+    2: AppStrings.donate.tr(),
   };
 
   static String getCategoryNameById(int id) {

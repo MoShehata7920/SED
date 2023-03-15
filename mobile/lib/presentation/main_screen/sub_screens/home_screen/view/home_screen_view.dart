@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,7 +104,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: AppPadding.p8),
                     child: Text(
-                      AppStrings.allCategories,
+                      AppStrings.allCategories.tr(),
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: ColorsManager.white,
                             fontSize: AppSize.s20,
@@ -202,7 +203,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     Padding(
                       padding: const EdgeInsets.only(left: AppPadding.p20),
                       child: Text(
-                        AppStrings.welcomeMessage,
+                        AppStrings.welcomeMessage.tr(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: AppSize.s24, color: ColorsManager.white),
                       ),
@@ -211,7 +212,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     Padding(
                       padding: const EdgeInsets.only(left: AppPadding.p20),
                       child: Text(
-                        AppStrings.findYourProducts,
+                        AppStrings.findYourProducts.tr(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontSize: AppSize.s18,
                               color: ColorsManager.secondaryText,
@@ -262,7 +263,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         child: TextFormField(
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            hintText: AppStrings.searchHere,
+                                            hintText:
+                                                AppStrings.searchHere.tr(),
                                             filled: true,
                                             fillColor: ColorsManager
                                                 .secondaryBackground,
@@ -313,8 +315,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   horizontal: AppPadding.p4),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image:
-                                        NetworkImage(image ?? AppStrings.empty),
+                                    image: NetworkImage(
+                                        image ?? AppStrings.empty),
                                     fit: BoxFit.cover),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(AppSize.s16)),
@@ -341,7 +343,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppStrings.topCategories,
+                            AppStrings.topCategories.tr(),
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: ColorsManager.lineColor,
@@ -355,7 +357,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppStrings.allCategories,
+                                AppStrings.allCategories.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -369,7 +371,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     Scaffold.of(context).openDrawer();
                                   },
                                   child: Text(
-                                    AppStrings.seeMore,
+                                    AppStrings.seeMore.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -424,7 +426,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppStrings.lastProducts,
+                            AppStrings.lastProducts.tr(),
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: ColorsManager.lineColor,
@@ -464,7 +466,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     });
                                   },
                                   child: Text(
-                                    AppStrings.seeMore,
+                                    AppStrings.seeMore.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge

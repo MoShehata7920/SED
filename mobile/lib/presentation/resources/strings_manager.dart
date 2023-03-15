@@ -1,119 +1,118 @@
 class AppStrings {
-  static const String empty = "";
+  static const String empty = "empty";
 
-  static const String sed = "SED Inc.";
+  static const String sed = "sed";
 
   //splash screen
-  static const String noRouteTitle = "404 Error";
-  static const String noRouteFound = "No Route Found";
-  static const String poweredBy = "Powered by";
-  static const String eagles = "Eagles";
+  static const String noRouteTitle = "no_route_title";
+  static const String noRouteFound = "no_route_found";
+  static const String poweredBy = "powered_by";
+  static const String eagles = "eagles";
 
   //on boarding screen
   static const List<String> onBoardingTitles = [
-    'Sell Your \nProducts Freely\nWith Sed',
-    'Exchange Your\nUseless Products\nWith Others',
-    'Make Others\nHappier\nBy Donating',
+    "Sell Your \nProducts Freely\nWith Sed",
+    "Exchange Your\nUseless Products\nWith Others",
+    "Make Others\nHappier\nBy Donating"
   ];
   static const List<String> onBoardingSubTitles = [
-    'You can sell your used or new products using SED ',
-    'You can exchange products which you don\'t use with others by other products will be more useful for you using SED',
-    'You can help others by donating the products which you don\'t use and let others get use it using SED people should help each other if we want better world',
+    "You can sell your used or new products using SED",
+    "You can exchange products which you don't use with others by other products will be more useful for you using SED",
+    "You can help others by donating the products which you don't use and let others get use it using SED people should help each other if we want better world"
   ];
-  static const String skip = "SKIP";
 
   //login screen
-  static const String email = "Email";
-  static const String emailInValid = "Please Check your Email format";
-  static const String password = "Password";
-  static const String passwordError = "Please enter your password.";
-  static const String login = "Login";
-  static const String registerText = "Not a member ? Sign up";
+  static const String email = "email";
+  static const String emailInValid = "email_in_valid";
+  static const String password = "password";
+  static const String passwordError = "password_error";
+  static const String login = "login";
 
   //state renderer
-  static const String loading = "Loading...";
-  static const String title = "SED TITLE";
-  static const String retryAgain = "Retry again!";
-  static const String ok = "Ok";
-  static const String success = "Success";
-  static const String cancel = "Cancel";
+  static const String loading = "loading";
+  static const String title = "title";
+  static const String retryAgain = "retry_again";
+  static const String ok = "ok";
+  static const String success = "success";
+  static const String cancel = "cancel";
 
   // error handler
-  static const String badRequest = "Bad request, Try again later";
-  static const String unAuthorized = "User is unauthorized, Try again later";
-  static const String forbidden = "Forbidden request, Try again later";
-  static const String somethingWrong = "Something went wrong, Try again later";
-  static const String timeOut = "Time out error, Try again later";
-  static const String cancelRequest = "Request was cancelled, Try again later";
-  static const String cacheError = "Cache error, Try again later";
-  static const String noInternet = "Please check your internet connection";
+  static const String badRequest = "bad_request";
+  static const String unAuthorized = "un_authorized";
+  static const String forbidden = "forbidden";
+  static const String somethingWrong = "something_wrong";
+  static const String timeOut = "time_out";
+  static const String cancelRequest = "cancel_request";
+  static const String cacheError = "cache_error";
+  static const String noInternet = "no_internet";
 
   //forgot password screen
-  static const String resendText = "Please wait %d to send again";
-  static const String forgetPassword = "Forgot Password";
-  static const String resetPassword = "Reset Password";
+  static const String resendText = "resend_text";
+  static const String forgetPassword = "forget_password";
+  static const String resetPassword = "reset_password";
 
   // Register Screen
-  static const String userNameInValid = "UserName should be at least 6 chars ";
+  static const String userNameInValid = "user_name_in_valid";
 
-  static const String mobileNumberInValid = "Mobile Number is Wrong";
-  static const String passwordInValid =
-      "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character";
-  static const String loginText = "Already have an account ?";
-  static const String useSocialToLoginText = "Or use a google account to login";
-  static const String register = "Register";
-  static const String mobileNumber = "Mobile Number";
-  static const String username = "User Name";
-  static const String countrySearchBar = "Search by name or Country's code";
+  static const String mobileNumberInValid = "mobile_number_in_valid";
+  static const String passwordInValid = "password_in_valid";
+  static const String loginText = "login_text";
+  static const String useSocialToLoginText = "use_social_to_login_text";
+  static const String register = "register";
+  static const String mobileNumber = "mobile_number";
+  static const String username = "user_name";
+  static const String countrySearchBar = "country_search_bar";
 
   // Home Screen
-  static const String welcomeMessage = "Hi SED's friend , Let's";
-  static const String allCategories = "All Categories";
-  static const List appSections = ["Sell Products", "Exchange", "Donate"];
-  static const String seeMore = "See More";
-  static const String lastProducts = "Last Products";
-  static const String searchHere = "Search here ...";
-  static const String user = "User";
-  static const String chat = "Chat";
-  static const String showProfile = "Show Profile";
-  static const String topCategories = "Top Categories";
-  static const String findYourProducts = "Find your favorite product";
-  static const String saved = "Saved";
-  static const String sell = "Sell";
+  static const String welcomeMessage = "welcome_message";
+  static const String allCategories = "all_categories";
+
+  static const String sellProducts = "sell_products";
+  static const String exchange = "exchange";
+  static const String donate = "donate";
+  static const String seeMore = "see_more";
+  static const String lastProducts = "last_products";
+  static const String searchHere = "search_here";
+  static const String user = "user";
+  static const String chat = "chat";
+  static const String showProfile = "show_profile";
+  static const String topCategories = "top_categories";
+  static const String findYourProducts = "find_your_products";
+  static const String saved = "saved";
+  static const String sell = "sell";
 
   // Add products screen
-  static const String addAdvertisement = "Add an advertisement";
-  static const String addImage = "Add image";
-  static const String selectedCategory = "Selected Category";
+  static const String addAdvertisement = "add_advertisement";
+  static const String addImage = "add_image";
+  static const String selectedCategory = "selected_category";
   static const String change = "change";
-  static const String selectSection = "Selected Section";
-  static const String condition = "Condition";
-  static const String used = "Used";
-  static const String newItem = "new";
+  static const String selectSection = "select_section";
+  static const String condition = "condition";
+  static const String used = "used";
+  static const String newItem = "new_item";
   static const String name = "name";
-  static const String productName = "Product's Name";
+  static const String productName = "product_name";
   static const String price = "price";
-  static const String productPrice = "Product's price";
+  static const String productPrice = "product_price";
   static const String description = "description";
-  static const String productDescription = "Product's description";
-  static const String submit = "Submit";
-  static const String categories = "Categories";
-  static const String fieldError = "This field cannot be empty";
+  static const String productDescription = "product_description";
+  static const String submit = "submit";
+  static const String categories = "categories";
+  static const String fieldError = "field_error";
 
   //  setting screen
-  static const String settings = "Settings";
-  static const String general = "General";
-  static const String account = "Account";
-  static const String myAds = "My Ads";
-  static const String language = "Language";
-  static const String theme = "Theme";
-  static const String notifications = "Notifications";
-  static const String share = "Share";
-  static const String help = "Help";
-  static const String aboutUs = "About Us";
+  static const String settings = "settings";
+  static const String general = "general";
+  static const String account = "account";
+  static const String myAds = "my_ads";
+  static const String language = "language";
+  static const String theme = "theme";
+  static const String notifications = "notifications";
+  static const String share = "share";
+  static const String help = "help";
+  static const String aboutUs = "about_us";
 
   // add and update screen
-  static const String successfullyAddedAd = "Successfully added Advertisement";
-  static const String successfullyUpdatedAd =
-      "Successfully updated Advertisement";
+  static const String successfullyAddedAd = "successfully_added_ad";
+  static const String successfullyUpdatedAd = "successfully_updated_ad";
 }

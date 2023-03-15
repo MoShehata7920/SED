@@ -1,27 +1,14 @@
 {
-  "empty" : "",
   "sed" : "SED Inc.",
   "no_route_title" : "404 Error",
   "no_route_found" : "No Route Found",
   "powered_by" : "Powered by",
   "eagles" : "Eagles",
-  "on_boarding_titles" : [
-    "Sell Your \nProducts Freely\nWith Sed",
-    "Exchange Your\nUseless Products\nWith Others",
-    "Make Others\nHappier\nBy Donating"
-  ],
-  "on_boarding_sub_titles" : [
-    "You can sell your used or new products using SED" ,
-    "You can exchange products which you don't use with others by other products will be more useful for you using SED",
-    "You can help others by donating the products which you don't use and let others get use it using SED people should help each other if we want better world"
-  ],
-  "skip" : "SKIP",
   "email" : "Email",
   "email_in_valid" : "Please Check your Email format",
   "password" : "Password",
   "password_error" : "Please enter your password.",
   "login" : "Login",
-  "register_text" : "Not a member ? Sign up",
   "loading" : "Loading...",
   "title" : "SED TITLE",
   "retry_again" : "Retry again!",
@@ -50,7 +37,9 @@
   "country_search_bar" : "Search by name or Country's code",
   "welcome_message" : "Hi SED's friend , Let's",
   "all_categories" : "All Categories",
-  "app_sections" : ["Sell Products", "Exchange", "Donate"],
+  "sell_products" : "Sell Products",
+  "exchange" : "Exchange",
+  "donate" : "Donate",
   "see_more" : "See More",
   "last_products" : "Last Products",
   "search_here" : "Search here ...",

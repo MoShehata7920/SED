@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
@@ -56,7 +57,7 @@ class StateRenderer extends StatelessWidget {
         return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.ok.tr(), context)
         ]);
 
       case StateRendererType.popUpSuccessState:
@@ -64,7 +65,7 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.success),
           _getTitle(title),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context),
+          _getRetryButton(AppStrings.ok.tr(), context),
         ]);
 
       case StateRendererType.popUpSuccessStateAndNavigate:
@@ -72,7 +73,7 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.success),
           _getTitle(title),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context),
+          _getRetryButton(AppStrings.ok.tr(), context),
         ]);
 
       case StateRendererType.popUpConfirmationState:
@@ -80,7 +81,7 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.success),
           _getTitle(title),
           _getMessage(message),
-          _getConfirmationRetryButton(AppStrings.ok, context)
+          _getConfirmationRetryButton(AppStrings.ok.tr(), context)
         ]);
 
       case StateRendererType.fullScreenLoadingState:
@@ -91,7 +92,7 @@ class StateRenderer extends StatelessWidget {
         return _getItemsColumn([
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.retryAgain, context)
+          _getRetryButton(AppStrings.retryAgain.tr(), context)
         ]);
 
       case StateRendererType.fullScreenEmptyState:
@@ -214,7 +215,7 @@ class StateRenderer extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text(AppStrings.cancel)),
+                      child: Text(AppStrings.cancel.tr())),
                 ),
               ],
             )),

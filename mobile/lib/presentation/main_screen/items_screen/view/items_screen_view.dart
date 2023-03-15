@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
@@ -226,7 +227,7 @@ class _ItemViewState extends State<ItemView> {
                     height: AppSize.s20,
                   ),
                   Text(
-                    AppStrings.user,
+                    AppStrings.user.tr(),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: ColorsManager.primaryBtnText,
                           fontSize: AppSize.s18,
@@ -271,7 +272,7 @@ class _ItemViewState extends State<ItemView> {
                                     child: Text(item.userData.phone)),
                                 TextButton(
                                   child: Text(
-                                    AppStrings.showProfile,
+                                    AppStrings.showProfile.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -306,7 +307,7 @@ class _ItemViewState extends State<ItemView> {
                         IconsManager.chat,
                         color: ColorsManager.primaryBackground,
                       ),
-                      label: Text(AppStrings.chat,
+                      label: Text(AppStrings.chat.tr(),
                           style: TextStyle(
                             color: ColorsManager.primaryBackground,
                           )),

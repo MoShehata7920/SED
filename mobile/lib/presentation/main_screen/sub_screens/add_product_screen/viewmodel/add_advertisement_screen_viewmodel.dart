@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/constants.dart';
@@ -186,8 +187,8 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyAddedAd,
-          AppStrings.success,
+          AppStrings.successfullyAddedAd.tr(),
+          AppStrings.success.tr(),
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));
     });
@@ -218,8 +219,8 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyAddedAd,
-          AppStrings.success,
+          AppStrings.successfullyUpdatedAd.tr(),
+          AppStrings.success.tr(),
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));
     });

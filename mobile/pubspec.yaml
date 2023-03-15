@@ -59,6 +59,8 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   socket_io_client: ^1.0.0
   toggle_switch: ^2.0.1
+  flutter_phoenix: ^1.1.0
+  easy_localization: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -101,6 +103,8 @@ flutter:
     - assets/json/on_boarding_sell.json
     - assets/json/on_boarding_exchange.json
     - assets/json/on_boarding_donate.json
+    - assets/translation/ar-EG.json
+    - assets/translation/en-US.json
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

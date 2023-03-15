@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/resources/language_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -25,6 +27,28 @@ class AppPreferences {
       return language;
     } else {
       return LanguageType.ENGLISH.getValue(); // return default lang
+    }
+  }
+
+  Future<void> changeAppLanguage() async {
+    String currentLanguage = await getAppLanguage();
+
+    if (currentLanguage == LanguageType.ARABIC.getValue()) {
+      // set english
+      _sharedPreferences.setString(keyLang, LanguageType.ENGLISH.getValue());
+    } else {
+      // set arabic
+      _sharedPreferences.setString(keyLang, LanguageType.ARABIC.getValue());
+    }
+  }
+
+  Future<Locale> getLocal() async {
+    String currentLanguage = await getAppLanguage();
+
+    if (currentLanguage == LanguageType.ARABIC.getValue()) {
+      return arabicLocal;
+    } else {
+      return englishLocal;
     }
   }
 

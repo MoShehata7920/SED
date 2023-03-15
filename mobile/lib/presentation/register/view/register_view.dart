@@ -1,4 +1,5 @@
 import 'package:country_code_picker_mp/country_code_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -120,8 +121,8 @@ class _RegisterViewState extends State<RegisterView> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _userNameEditingController,
                             decoration: InputDecoration(
-                              hintText: AppStrings.username,
-                              labelText: AppStrings.username,
+                              hintText: AppStrings.username.tr(),
+                              labelText: AppStrings.username.tr(),
                               errorText: snapshot
                                   .data, //else present the error to the user
                             ));
@@ -143,7 +144,7 @@ class _RegisterViewState extends State<RegisterView> {
                                   _viewModel.setMobileCountryCode(
                                       country.code ?? Constants.token),
                               searchDecoration: InputDecoration(
-                                  hintText: AppStrings.countrySearchBar,
+                                  hintText: AppStrings.countrySearchBar.tr(),
                                   prefixIconColor: ColorManager.lightPrimary),
                               initialSelection: 'EG',
                               favorite: const ['EG'],
@@ -162,8 +163,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     keyboardType: TextInputType.phone,
                                     controller: _mobileNumberEditingController,
                                     decoration: InputDecoration(
-                                      hintText: AppStrings.mobileNumber,
-                                      labelText: AppStrings.mobileNumber,
+                                      hintText: AppStrings.mobileNumber.tr(),
+                                      labelText: AppStrings.mobileNumber.tr(),
                                       errorText: snapshot
                                           .data, //else present the error to the user
                                     ));
@@ -186,8 +187,8 @@ class _RegisterViewState extends State<RegisterView> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailEditingController,
                             decoration: InputDecoration(
-                              hintText: AppStrings.email,
-                              labelText: AppStrings.email,
+                              hintText: AppStrings.email.tr(),
+                              labelText: AppStrings.email.tr(),
                               errorText: snapshot
                                   .data, //else present the error to the user
                             ));
@@ -206,8 +207,8 @@ class _RegisterViewState extends State<RegisterView> {
                             keyboardType: TextInputType.visiblePassword,
                             controller: _passwordEditingController,
                             decoration: InputDecoration(
-                              hintText: AppStrings.password,
-                              labelText: AppStrings.password,
+                              hintText: AppStrings.password.tr(),
+                              labelText: AppStrings.password.tr(),
                               errorMaxLines: 3,
                               errorText: snapshot
                                   .data, //else present the error to the user
@@ -232,7 +233,7 @@ class _RegisterViewState extends State<RegisterView> {
                                       _viewModel.register();
                                     }
                                   : null,
-                              child: const Text(AppStrings.register)),
+                              child: Text(AppStrings.register.tr())),
                         );
                       }),
                 ),
@@ -241,7 +242,7 @@ class _RegisterViewState extends State<RegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppStrings.loginText,
+                      AppStrings.loginText.tr(),
                       style: TextStyle(color: ColorsManager.secondaryText),
                     ),
                     TextButton(
@@ -249,7 +250,7 @@ class _RegisterViewState extends State<RegisterView> {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        AppStrings.login,
+                        AppStrings.login.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
@@ -262,7 +263,7 @@ class _RegisterViewState extends State<RegisterView> {
                   padding: const EdgeInsetsDirectional.fromSTEB(
                       AppPadding.p0, AppPadding.p12, AppPadding.p0, AppPadding.p0),
                   child: Text(
-                    AppStrings.useSocialToLoginText,
+                    AppStrings.useSocialToLoginText.tr(),
                     style: TextStyle(color: ColorsManager.secondaryText),
                   ),
                 ),

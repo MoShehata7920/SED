@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
@@ -58,9 +59,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             size: AppSize.s32,
           ),
         ),
-        title: const Text(
-          AppStrings.forgetPassword,
-          style: TextStyle(
+        title: Text(
+          AppStrings.forgetPassword.tr(),
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: AppSize.s20,
           ),
@@ -96,8 +97,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         obscureText: false,
                         controller: _emailController,
                         decoration: InputDecoration(
-                          hintText: AppStrings.email,
-                          labelText: AppStrings.email,
+                          hintText: AppStrings.email.tr(),
+                          labelText: AppStrings.email.tr(),
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),
@@ -106,8 +107,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           errorText: (snapshot.data ??
                                   true) //check if the username was null
                               ? null //then no errors
-                              : AppStrings
-                                  .emailInValid, //else present the error to the user
+                              : AppStrings.emailInValid
+                                  .tr(), //else present the error to the user
                         ));
                   }),
             ),
@@ -157,7 +158,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                         }
                                       : null,
                                   child: Text(
-                                    AppStrings.resetPassword,
+                                    AppStrings.resetPassword.tr(),
                                     style: TextStyle(
                                         fontSize: AppSize.s16,
                                         fontWeight: FontWeight.w500,

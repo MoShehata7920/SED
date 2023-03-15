@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
@@ -55,10 +56,10 @@ extension ViewExtension on Views {
 }
 
 class ViewsName {
-  static String sell = AppStrings.sell;
-  static String donate = AppStrings.appSections[2];
-  static String exchange = AppStrings.appSections[1];
-  static String saved = AppStrings.saved;
+  static String sell = AppStrings.sell.tr();
+  static String donate = AppStrings.donate.tr();
+  static String exchange = AppStrings.exchange.tr();
+  static String saved = AppStrings.saved.tr();
 }
 
 class ViewCard {
