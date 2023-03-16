@@ -5,6 +5,8 @@ import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/about_us_screen/aboutus_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/help_screen/help_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/my_ads_screen/my_ads_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
@@ -29,6 +31,8 @@ class Routes {
   static const String showProfileScreenRoute = "/showProfile";
   static const String addProductScreenRoute = "/addProduct";
   static const String myAdsScreenRoute = "/myAds";
+  static const String aboutUsScreenRoute = "/aboutUs";
+  static const String helpScreenRoute = "/help";
 }
 
 class RouteGenerator {
@@ -87,6 +91,12 @@ class RouteGenerator {
       case Routes.myAdsScreenRoute:
         return MaterialPageRoute(builder: (context) => const MyAdsScreenView());
 
+      case Routes.aboutUsScreenRoute:
+        return MaterialPageRoute(builder: (context) => AboutUsScreen());
+
+      case Routes.helpScreenRoute:
+        return MaterialPageRoute(builder: (context) => HelpScreen());
+
       default:
         return unDefinedRoute();
     }
@@ -98,7 +108,7 @@ class RouteGenerator {
               appBar: AppBar(
                 title: Text(AppStrings.noRouteTitle.tr()),
               ),
-              body:  Center(child: Text(AppStrings.noRouteFound.tr())),
+              body: Center(child: Text(AppStrings.noRouteFound.tr())),
             ));
   }
 }

@@ -246,16 +246,17 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.help, AppStrings.help.tr(), () {})
-                .animateOnPageLoad(
-                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+            _getInkwell(IconsManager.help, AppStrings.help.tr(), () {
+              Navigator.pushNamed(context, Routes.helpScreenRoute);
+            }).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(
-                    IconsManager.questionMark, AppStrings.aboutUs.tr(), () {})
-                .animateOnPageLoad(
-                    msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs.tr(), () {
+              Navigator.pushNamed(context, Routes.aboutUsScreenRoute);
+            }).animateOnPageLoad(
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
           ],
         ),
       ],
