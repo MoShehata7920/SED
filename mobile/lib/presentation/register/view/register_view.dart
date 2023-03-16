@@ -145,7 +145,7 @@ class _RegisterViewState extends State<RegisterView> {
                                       country.code ?? Constants.token),
                               searchDecoration: InputDecoration(
                                   hintText: AppStrings.countrySearchBar.tr(),
-                                  prefixIconColor: ColorManager.lightPrimary),
+                                  prefixIconColor: ColorsManager.primaryColor),
                               initialSelection: 'EG',
                               favorite: const ['EG'],
                               hideMainText: true,
@@ -254,7 +254,7 @@ class _RegisterViewState extends State<RegisterView> {
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
-                            ?.copyWith(color: ColorManager.white),
+                            ?.copyWith(color: ColorsManager.white),
                       ),
                     ),
                   ],

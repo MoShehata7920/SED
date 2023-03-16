@@ -28,7 +28,7 @@ class _MainScreenViewState extends State<MainScreenView> {
             body: snapshot.data ??
                 _viewModel.mainScreenWidgets[0], //destination screen
             floatingActionButton: FloatingActionButton(
-              backgroundColor: ColorManager.lightPrimary,
+              backgroundColor: ColorsManager.primaryColor,
               child: Container(
                 width: AppSize.s60,
                 height: AppSize.s60,
@@ -46,7 +46,7 @@ class _MainScreenViewState extends State<MainScreenView> {
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: AnimatedBottomNavigationBar(
               // borderColor: Colors.transparent,
-              inactiveColor: ColorManager.white,
+              inactiveColor: ColorsManager.white,
               activeColor: ColorsManager.primaryColor,
               backgroundColor: ColorsManager.primaryBackground.withOpacity(0.5),
               icons: IconsManager.iconsList,

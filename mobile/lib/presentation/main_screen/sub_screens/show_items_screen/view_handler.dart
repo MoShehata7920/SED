@@ -75,7 +75,7 @@ class ViewCard {
         elevation: 1,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s16)),
-        color: ColorManager.white,
+        color: ColorsManager.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,8 +105,8 @@ class ViewCard {
                                 return CircleAvatar(
                                   radius: AppSize.s14,
                                   backgroundColor: item.isSaved
-                                      ? ColorManager.thirdLightPrimary
-                                      : ColorManager.grey2,
+                                      ? ColorsManager.primaryColor
+                                      : ColorsManager.grey2,
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: AppSize.s12,
@@ -123,7 +123,7 @@ class ViewCard {
                         Utils.getCategoryNameById(item.categoryId),
                         style: TextStyle(
                           fontSize: AppSize.s10,
-                          color: ColorManager.white,
+                          color: ColorsManager.white,
                         ),
                       ),
                     ),
@@ -143,7 +143,7 @@ class ViewCard {
               padding: const EdgeInsets.only(top: AppPadding.p10),
               child: Icon(
                 Icons.attach_money,
-                color: ColorManager.lightPrimary,
+                color: ColorsManager.primaryColor,
               ),
             ),
             Flexible(
@@ -156,7 +156,7 @@ class ViewCard {
                     Icon(
                       IconsManager.location,
                       size: AppSize.s12,
-                      color: ColorManager.grey2,
+                      color: ColorsManager.grey2,
                     ),
                     Expanded(
                       child: Text(
@@ -165,7 +165,7 @@ class ViewCard {
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
                     Expanded(
@@ -175,7 +175,7 @@ class ViewCard {
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: AppSize.s12, color: ColorManager.grey2),
+                            fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
                   ],

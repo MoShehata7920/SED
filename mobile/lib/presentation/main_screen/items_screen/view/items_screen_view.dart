@@ -193,7 +193,7 @@ class _ItemViewState extends State<ItemView> {
                       Icon(
                         IconsManager.location,
                         size: AppSize.s12,
-                        color: ColorManager.grey2,
+                        color: ColorsManager.grey2,
                       ),
                       Expanded(
                         child: Text(

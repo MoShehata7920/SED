@@ -9,17 +9,17 @@ import 'color_manager.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
     //main colors
-    primaryColorLight: ColorManager.lightPrimary,
-    primaryColorDark: ColorManager.darkPrimary,
-    disabledColor: ColorManager.grey1,
-    splashColor: ColorManager.lightPrimary,
+    primaryColorLight: ColorsManager.primaryColor,
+    primaryColorDark: ColorsManager.primaryColor,
+    disabledColor: ColorsManager.grey1,
+    splashColor: ColorsManager.primaryColor,
     // todo , use colorScheme instead of backgroundColor
-    backgroundColor: ColorManager.backGroundLightPrimary,
+    backgroundColor: ColorsManager.primaryColor,
 
     //cardView  Theme
     cardTheme: CardTheme(
-        color: ColorManager.white,
-        shadowColor: ColorManager.grey,
+        color: ColorsManager.white,
+        shadowColor: ColorsManager.grey,
         elevation: AppSize.s4),
 
     //app bar theme
@@ -27,7 +27,7 @@ ThemeData getApplicationTheme() {
       centerTitle: true,
       backgroundColor: ColorsManager.primaryBackground,
       elevation: AppSize.s4,
-      shadowColor: ColorManager.lightPrimary,
+      shadowColor: ColorsManager.primaryColor,
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: ColorsManager.background,
           statusBarBrightness: Brightness.light),
@@ -38,16 +38,16 @@ ThemeData getApplicationTheme() {
     //button Theme
     buttonTheme: ButtonThemeData(
       shape: const StadiumBorder(),
-      disabledColor: ColorManager.grey1,
-      buttonColor: ColorManager.lightPrimary,
-      splashColor: ColorManager.lightPrimary,
+      disabledColor: ColorsManager.grey1,
+      buttonColor: ColorsManager.primaryColor,
+      splashColor: ColorsManager.primaryColor,
     ),
 
     //elevated button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           textStyle: getRegularStyle(
-              fontSize: FontSize.s17, color: ColorManager.white),
+              fontSize: FontSize.s17, color: ColorsManager.white),
           backgroundColor: ColorsManager.primaryColor,
           disabledBackgroundColor: ColorsManager.background,
           shape: RoundedRectangleBorder(
@@ -58,15 +58,15 @@ ThemeData getApplicationTheme() {
     //text theme
     textTheme: TextTheme(
         displayLarge:
-            getLightStyle(color: ColorManager.white, fontSize: FontSize.s24),
+            getLightStyle(color: ColorsManager.white, fontSize: FontSize.s24),
         headlineLarge:
-            getSemiBoldStyle(color: ColorManager.white, fontSize: FontSize.s16),
+            getSemiBoldStyle(color: ColorsManager.white, fontSize: FontSize.s16),
         headlineMedium:
-            getRegularStyle(color: ColorManager.white, fontSize: FontSize.s14),
+            getRegularStyle(color: ColorsManager.white, fontSize: FontSize.s14),
         titleMedium: getMediumStyle(
             color: ColorsManager.secondaryText, fontSize: FontSize.s14),
-        bodyLarge: getRegularStyle(color: ColorManager.grey1),
-        bodySmall: getRegularStyle(color: ColorManager.grey)),
+        bodyLarge: getRegularStyle(color: ColorsManager.grey1),
+        bodySmall: getRegularStyle(color: ColorsManager.grey)),
 
     //input decoration Theme (Text form field)
     inputDecorationTheme: InputDecorationTheme(
@@ -76,10 +76,10 @@ ThemeData getApplicationTheme() {
       fillColor: ColorsManager.textFormFieldBackGroundColorDark,
       //hint style
       hintStyle:
-          getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s14),
+          getRegularStyle(color: ColorsManager.grey, fontSize: FontSize.s14),
       labelStyle:
-          getMediumStyle(color: ColorManager.grey, fontSize: FontSize.s14),
-      errorStyle: getRegularStyle(color: ColorManager.error),
+          getMediumStyle(color: ColorsManager.grey, fontSize: FontSize.s14),
+      errorStyle: getRegularStyle(color: ColorsManager.error),
 
       //enabled border style
       enabledBorder: OutlineInputBorder(
@@ -118,4 +118,8 @@ ThemeData getApplicationTheme() {
       ),
     ),
   );
+}
+
+class ThemeManager {
+  static bool isDarkMode = true;
 }

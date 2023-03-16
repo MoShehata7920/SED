@@ -245,7 +245,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                                   showItemsContentObject.items[index]
                                       .isSaved
                                       ? ColorsManager.primaryColor
-                                      : ColorManager.grey2,
+                                      : ColorsManager.grey2,
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: AppSize.s12,
@@ -325,7 +325,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                     Icon(
                       IconsManager.location,
                       size: AppSize.s12,
-                      color: ColorManager.grey2,
+                      color: ColorsManager.grey2,
                     ),
                     Expanded(
                       child: Text(

@@ -184,7 +184,7 @@ class OnBoardingPage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
-                    ?.copyWith(color: ColorManager.white),
+                    ?.copyWith(color: ColorsManager.white),
               ),
             ),
           ],

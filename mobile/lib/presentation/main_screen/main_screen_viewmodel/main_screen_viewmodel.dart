@@ -20,7 +20,6 @@ class MainScreenViewModel extends BaseViewModel
     ShowItemsView(Views.SAVED),
     const SettingsScreenView(),
   ];
-
   // Inputs
   @override
   void start() {}

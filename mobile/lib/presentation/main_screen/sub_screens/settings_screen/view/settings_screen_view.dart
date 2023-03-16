@@ -8,6 +8,7 @@ import 'package:sed/presentation/main_screen/sub_screens/settings_screen/viewmod
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
+import 'package:sed/presentation/resources/theme_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -160,7 +161,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
           ),
           Divider(
             height: 15,
-            color: ColorManager.grey2,
+            color: ColorsManager.grey2,
           ).animateOnPageLoad(msDelay: 150, dx: 0.0, dy: 0.0, showDelay: 600),
         ],
       );
@@ -212,10 +213,13 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(
-                    IconsManager.themeController, AppStrings.theme.tr(), () {})
-                .animateOnPageLoad(
-                    msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+            _getInkwell(IconsManager.themeController, AppStrings.theme.tr(),
+                () {
+              setState(() {
+                ThemeManager.isDarkMode = !ThemeManager.isDarkMode;
+              });
+            }).animateOnPageLoad(
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
