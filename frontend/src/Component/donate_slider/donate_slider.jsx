@@ -1,8 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function DonateSlider({ donate }) {
   return (
-    <NavLink to={`/items/${donate.ID}`} className="text-decoration-none ">
+    <Link to={`/items/${donate.ID}`} className="text-decoration-none ">
       <div className="item slider-style2 mb-1">
         <div className="slider-service-div  text-center  ">
           <div className="slider-service-img ">
@@ -28,13 +28,13 @@ export default function DonateSlider({ donate }) {
 
           <div className="slider-service-btn">
             <button className="btn btn-primary mt-2 mb-3">
-              <NavLink to={"n"} className="text-decoration-none text-white">
+              <Link to={"n"} className="text-decoration-none text-white">
                 ADD TO CARD
-              </NavLink>
+              </Link>
             </button>
           </div>
         </div>
       </div>
-    </NavLink>
+    </Link>
   );
 }

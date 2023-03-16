@@ -39,9 +39,9 @@ export default function Footer() {
             <div className="footer-text1 text-white">
               <h1 className="mb-3">SED</h1>
               <p className=" fs-7">
-                Xcite: The Ultimate Online Shopping Destination in Kuwait | Buy
-                100% genuine consumer electronics and home appliances from
-                Xcite, the largest online electronics store in Kuwait.
+                SED: The Ultimate Online Shopping Destination in Egypt | Buy
+                100% genuine consumer and home appliances from SED, the largest
+                online store in Egypt.
               </p>
             </div>
           </div>

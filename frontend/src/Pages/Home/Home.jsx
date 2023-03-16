@@ -5,8 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
-
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import Footer from "../../Component/footer/Footer";
@@ -45,6 +44,7 @@ export default function Home() {
       console.log(err.message);
     }
   };
+
   // async function GetDeta(mediatype, callback) {
   //   let respond = await Axios.get(
   //     `http://103.48.193.225:9000/home/${mediatype}`
@@ -98,7 +98,10 @@ export default function Home() {
       <section>
         <div className="row">
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <NavLink to={"aa"} className="  text-decoration-none">
+            <Link
+              to={`/Categories/Electronics`}
+              className="  text-decoration-none"
+            >
               <div className="catogiry-div  position-relative  ">
                 <div className=" position-absolute h-100 w-100">
                   <img
@@ -108,13 +111,13 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text  w-100 text-center">
-                  <h4 className=" pb-3 ">Phone & accsessories</h4>
+                  <h4 className=" pb-3 ">Electronics</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12">
-            <NavLink to={"a"} className=" text-decoration-none">
+            <Link to={`/Categories/Fashion`} className=" text-decoration-none">
               <div className="catogiry-div  position-relative ">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -124,13 +127,13 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Home Intertainment</h4>
+                  <h4 className=" pb-3 ">Fashion</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <NavLink to={"a"} className="  text-decoration-none">
+            <Link to={`/Categories/Fashion`} className="  text-decoration-none">
               <div className="catogiry-div  position-relative   ">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -140,13 +143,13 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Phone & accsessories</h4>
+                  <h4 className=" pb-3 ">Phones & Tablets</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <NavLink to={"a"} className="  text-decoration-none  ">
+            <Link to={"a"} className="  text-decoration-none  ">
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -156,10 +159,10 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ms-3 ">Computer & Tablet</h4>
+                  <h4 className=" pb-3 ms-3 ">Books</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
         </div>
       </section>
@@ -179,7 +182,7 @@ export default function Home() {
       <section>
         <div className="row ">
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <NavLink to={"a"} className="  text-decoration-none">
+            <Link to={"a"} className="  text-decoration-none">
               <div className="catogiry-div  position-relative  ">
                 <div className=" position-absolute h-100 w-100">
                   <img
@@ -189,13 +192,13 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text  w-100 text-center">
-                  <h4 className=" pb-3 ">Lage Home Appliances</h4>
+                  <h4 className=" pb-3 ">Furniture</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12">
-            <NavLink to={"a"} className=" text-decoration-none">
+            <Link to={"a"} className=" text-decoration-none">
               <div className="catogiry-div  position-relative ">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -205,13 +208,13 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Personla Care</h4>
+                  <h4 className=" pb-3 ">Body & Health Care</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <NavLink to={"a"} className="  text-decoration-none">
+            <Link to={"a"} className="  text-decoration-none">
               <div className="catogiry-div  position-relative   ">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -224,10 +227,10 @@ export default function Home() {
                   <h4 className=" pb-3 ">Gaming</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <NavLink to={"a"} className="  text-decoration-none  ">
+            <Link to={"a"} className="  text-decoration-none  ">
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -237,10 +240,10 @@ export default function Home() {
                   />
                 </div>
                 <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ms-3 ">Computer & Tablet</h4>
+                  <h4 className=" pb-3 ms-3 ">Sports</h4>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </div>
         </div>
       </section>
@@ -257,9 +260,9 @@ export default function Home() {
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-10 ">SELL</h1>
-              <NavLink to={"a"}>
+              <Link to={"/SeeAllData/Sell"}>
                 <p className="text-black fs-3 "> see all</p>
-              </NavLink>
+              </Link>
             </div>
           </SwiperSlide>
 
@@ -283,9 +286,9 @@ export default function Home() {
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-9 ">EXCHANGE</h1>
-              <NavLink to={"a"}>
+              <Link to={"/SeeAllData/Exchange"}>
                 <p className="text-black fs-3 "> see all</p>
-              </NavLink>
+              </Link>
             </div>
           </SwiperSlide>
 
@@ -300,9 +303,9 @@ export default function Home() {
         <OwlCarousel className=" owl-theme  " {...options2}>
           <div className="item text-center">
             <h1 className=" fs-9 ">DONATE</h1>
-            <NavLink to={"a"}>
+            <Link to={"a"}>
               <p className="text-black fs-3 "> see all</p>
-            </NavLink>
+            </Link>
           </div>
           {Detadonat.map((donate, donateindex) => (
             <DonateSlider key={donateindex} donate={donate} />
@@ -322,9 +325,9 @@ export default function Home() {
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-9 ">DONATE</h1>
-              <NavLink to={"a"}>
+              <Link to={"/SeeAllData/Donate"}>
                 <p className="text-black fs-3 "> see all</p>
-              </NavLink>
+              </Link>
             </div>
           </SwiperSlide>
           {Detadonat.map((donate, donateindex) => (

@@ -3,6 +3,7 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 import Navebar from "../../Component/navebar/navbar";
 import "./dataitems.css";
+import Footer from "../../Component/footer/Footer";
 
 export default function Dataitems() {
   let { id } = useParams();
@@ -44,6 +45,9 @@ export default function Dataitems() {
             </div>
           </div>
         </div>
+      </section>
+      <section>
+        <Footer />
       </section>
     </>
   );

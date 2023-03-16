@@ -1,15 +1,33 @@
 import "./navbar.css";
 import { CiUser } from "react-icons/ci";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 function Navebar() {
+  let [SearchData, setSearchData] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    try {
+      navigate({
+        pathname: "/search",
+        search: `?query=${SearchData}`,
+        replace: true,
+      });
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">
         <div className="container">
           <div className="col-xl-2 col-lg-1 col-xxl-3 col-md-2 col-sm-10 col-10">
-            <NavLink className="navbar-brand text-white fs-3" to={"/"}>
+            <Link className="navbar-brand text-white fs-3" to={"/"}>
               SED
-            </NavLink>
+            </Link>
           </div>
           <div className="  col-">
             <button
@@ -30,74 +48,89 @@ function Navebar() {
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li className="nav-item dropdown ">
-                <NavLink
-                  className="nav-NavLink dropdown-toggle text-white fs-4 "
+                <Link
+                  className="nav-Link dropdown-toggle text-white fs-4 "
                   to={"a"}
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Categories
-                </NavLink>
+                </Link>
                 <ul className="dropdown-menu ">
                   <li>
-                    <NavLink className="dropdown-item " to={"a"}>
-                      Action
-                    </NavLink>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Electronics"}
+                    >
+                      Electronics
+                    </Link>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item " to={"a"}>
-                      Another action
-                    </NavLink>
+                    <Link to={"/Categories/Fashion"} className="dropdown-item ">
+                      Fashion
+                    </Link>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item " to={"a"}>
+                    <Link className="dropdown-item " to={"a"}>
                       Something else here
-                    </NavLink>
+                    </Link>
                   </li>
                 </ul>
               </li>
               <li className="nav-item dropdown">
-                <NavLink
-                  className="nav-NavLink dropdown-toggle text-white fs-4 ms-2 me-2"
+                <Link
+                  className="nav-Link dropdown-toggle text-white fs-4 ms-2 me-2"
                   to={"a"}
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Services
-                </NavLink>
+                </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink className="dropdown-item text-black" to={"a"}>
+                    <Link
+                      to={"/SeeAllData/Sell"}
+                      className="dropdown-item text-black"
+                    >
                       SELL
-                    </NavLink>
+                    </Link>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item text-black" to={"a"}>
+                    <Link
+                      to={"/SeeAllData/Exchange"}
+                      className="dropdown-item text-black"
+                    >
                       EXCHANGE
-                    </NavLink>
+                    </Link>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item text-black" to={"a"}>
+                    <Link
+                      to={"/SeeAllData/Donate"}
+                      className="dropdown-item text-black"
+                    >
                       DONAT
-                    </NavLink>
+                    </Link>
                   </li>
                 </ul>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-NavLink text-white fs-4" to={"a"}>
+                <Link className="nav-Link text-white fs-4" to={"a"}>
                   Brand Stores
-                </NavLink>
+                </Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
+
+            <form onSubmit={handleSubmit} className="d-flex" role="search">
               <div className="input-group me-5">
                 <input
                   type="text"
                   aria-label="First name"
                   className="form-control"
                   placeholder="Search . . ."
+                  value={SearchData}
+                  onChange={(event) => setSearchData(event.target.value)}
                 />
                 <button
                   className="btn btn-outline-success text-white"
@@ -107,14 +140,15 @@ function Navebar() {
                 </button>
               </div>
             </form>
+
             <ul className="navbar-nav ">
               <li className="nav-item">
-                <NavLink
+                <Link
                   to={"SignIn"}
-                  className="text-white nav-NavLink fs-1 d-flex align-items-center justify-content-center "
+                  className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
                 >
                   <CiUser />
-                </NavLink>
+                </Link>
               </li>
             </ul>
           </div>
