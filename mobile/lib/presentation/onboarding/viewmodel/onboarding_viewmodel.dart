@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
-
 import '../../../domain/model/models.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/strings_manager.dart';

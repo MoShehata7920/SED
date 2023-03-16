@@ -1,5 +1,17 @@
 {
   "sed" : "SED Inc.",
+  "our_team" : "OUR TEAM",
+  "mohamed_shehata" : "Mohamed Shehata",
+  "mahmoud_hafez" : "Mahmoud Hafez",
+  "abdullah_ragab" : "Abdullah Ragab",
+  "mahmoud_elamrosy" : "Mahmoud Elamrosy",
+  "mohamed_adel" : "Mohamed Adel",
+  "abdElrahman_ezzat" : "AbdElrahman Ezzat",
+  "mobile_developer" : "Mobile Developer",
+  "backend_developer" : "BackEnd Developer",
+  "front_developer" : "FrontEnd Developer",
+  "dr_elshwimy_supervisor" : "Project Supervisor: Dr. Mahmoud Elshwimy",
+  "eagles_team" : "Eagles Team",
   "no_route_title" : "404 Error",
   "no_route_found" : "No Route Found",
   "powered_by" : "Powered by",
@@ -59,7 +71,7 @@
   "used" : "Used",
   "new_item" : "new",
   "name" : "name",
-  "product_name" : "Product's Name",
+  "Product_name" : "Product's Name",
   "price" : "price",
   "product_price" : "Product's price",
   "description" : "description",
@@ -78,5 +90,10 @@
   "help" : "Help",
   "about_us" : "About Us",
   "successfully_added_ad" : "Successfully added Advertisement",
-  "successfully_updated_ad" : "Successfully updated Advertisement"
+  "successfully_updated_ad" : "Successfully updated Advertisement",
+  "needHelp" : "Need help?",
+  "ifYouNeedHelp" : "If you have any questions or issues with our app, please feel free to contact us:",
+  "phone" : "Phone",
+  "appreciateFeedBack" : "We appreciate your feedback!",
+  "byEaglesTeam" : "By Eagles Team"
 }

@@ -1,87 +1,95 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
+
+import '../../../../../resources/color_manager.dart';
+import '../../../../../resources/values_manager.dart';
 
 class AboutUsScreen extends StatelessWidget {
+  const AboutUsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.black,
+        backgroundColor: ColorsManager.primaryBackground,
         title: Text(
-          'About Us',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          AppStrings.aboutUs.tr(),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.primaryText,
+                fontWeight: FontWeight.bold,
+                fontSize: AppSize.s18,
+              ),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: ColorsManager.primaryBtnText),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'OUR TEAM',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
+              AppStrings.ourTeam.tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.primaryText,
+                    fontWeight: FontWeight.bold,
+                    fontSize: AppSize.s22,
+                  ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: 'Mohamed Shehata',
-              title: 'Mobile Developer',
-              imageUrl: 'http://i.epvpimg.com/tRsTeab.png',
+              name: AppStrings.mohamedShehata.tr(),
+              title: AppStrings.mobileDeveloper.tr(),
+              imageUrl: AppStrings.mohamedShehataImageUrl,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: 'Mahmoud Hafez',
-              title: 'Mobile Developer',
-              imageUrl: 'http://i.epvpimg.com/y6anfab.png',
+              name: AppStrings.mahmoudHafez.tr(),
+              title: AppStrings.mobileDeveloper.tr(),
+              imageUrl: AppStrings.mahmoudHafezImageUrl,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: 'Abdullah Ragab',
-              title: 'BackEnd Developer',
-              imageUrl: 'http://i.epvpimg.com/EKVpeab.png',
+              name: AppStrings.abdullahRagab.tr(),
+              title: AppStrings.backendDeveloper.tr(),
+              imageUrl: AppStrings.abdullahRagabImageUrl,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: 'Mahmoud Elamrosy',
-              title: 'BackEnd Developer',
-              imageUrl: 'http://i.epvpimg.com/ioIcfab.png',
+              name: AppStrings.mahmoudElamrosy.tr(),
+              title: AppStrings.backendDeveloper.tr(),
+              imageUrl: AppStrings.mahmoudElamrosyImageUrl,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: 'Mohamed Adel',
-              title: 'FrontEnd Developer',
-              imageUrl: 'http://i.epvpimg.com/vTCgeab.png',
+              name: AppStrings.mohamedAdel.tr(),
+              title: AppStrings.frontDeveloper.tr(),
+              imageUrl: AppStrings.mohamedAdelImageUrl,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: 'Abdelrahman Ezat',
-              title: 'FrontEnd Developer',
-              imageUrl: 'http://i.epvpimg.com/hB5oeab.png',
+              name: AppStrings.abdElrahmanEzzat.tr(),
+              title: AppStrings.frontDeveloper.tr(),
+              imageUrl: AppStrings.abdElrahmanEzzatImageUrl,
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: AppSize.s32),
             Text(
-              'Eagles Team',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
+              AppStrings.eaglesTeam.tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.primaryText,
+                    fontWeight: FontWeight.bold,
+                    fontSize: AppSize.s22,
+                  ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: AppSize.s8),
             Text(
-              'Project Supervisor: Dr. Mahmoud Elshewimy',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
+              AppStrings.drElshwimySupervisor.tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.secondaryText,
+                    fontSize: AppSize.s14,
+                  ),
             ),
           ],
         ),
@@ -95,27 +103,27 @@ class AboutUsScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-          radius: 24,
+          radius: AppSize.s24,
           backgroundImage: NetworkImage(imageUrl),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: AppSize.s16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               name,
               style: TextStyle(
-                color: Colors.white,
+                color: ColorsManager.primaryColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: AppSize.s18,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: AppSize.s4),
             Text(
               title,
               style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
+                color: ColorsManager.secondaryText,
+                fontSize: AppSize.s16,
               ),
             ),
           ],

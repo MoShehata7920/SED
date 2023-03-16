@@ -61,6 +61,7 @@ dependencies:
   toggle_switch: ^2.0.1
   flutter_phoenix: ^1.1.0
   easy_localization: ^3.0.1
+  flutter_local_notifications: ^13.0.0
 
 dev_dependencies:
   flutter_test:

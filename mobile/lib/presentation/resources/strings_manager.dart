@@ -1,5 +1,27 @@
 class AppStrings {
-  static const String empty = "empty";
+  static const String ourTeam = "our_team";
+  static const String mohamedShehata = "mohamed_shehata";
+  static const String mahmoudHafez = "mahmoud_hafez";
+  static const String abdullahRagab = "abdullah_ragab";
+  static const String mahmoudElamrosy = "mahmoud_elamrosy";
+  static const String mohamedAdel = "mohamed_adel";
+  static const String abdElrahmanEzzat = "abdElrahman_ezzat";
+  static const String mobileDeveloper = "mobile_developer";
+  static const String backendDeveloper = "backend_developer";
+  static const String frontDeveloper = "front_developer";
+  static const String mohamedShehataImageUrl =
+      'http://i.epvpimg.com/tRsTeab.png';
+  static const String mahmoudHafezImageUrl = 'http://i.epvpimg.com/y6anfab.png';
+  static const String abdullahRagabImageUrl =
+      'http://i.epvpimg.com/EKVpeab.png';
+  static const String mahmoudElamrosyImageUrl =
+      'http://i.epvpimg.com/ioIcfab.png';
+  static const String mohamedAdelImageUrl = 'http://i.epvpimg.com/vTCgeab.png';
+  static const String abdElrahmanEzzatImageUrl =
+      'http://i.epvpimg.com/hB5oeab.png';
+  static const String drElshwimySupervisor = "dr_elshwimy_supervisor";
+
+  static const String empty = "";
 
   static const String sed = "sed";
 
@@ -8,6 +30,7 @@ class AppStrings {
   static const String noRouteFound = "no_route_found";
   static const String poweredBy = "powered_by";
   static const String eagles = "eagles";
+  static const String eaglesTeam = "eagles_team";
 
   //on boarding screen
   static const List<String> onBoardingTitles = [
@@ -115,4 +138,11 @@ class AppStrings {
   // add and update screen
   static const String successfullyAddedAd = "successfully_added_ad";
   static const String successfullyUpdatedAd = "successfully_updated_ad";
+
+  // help screen
+  static const String needHelp = "needHelp";
+  static const String ifYouNeedHelp = "ifYouNeedHelp";
+  static const String phone = "phone";
+  static const String appreciateFeedBack = "appreciateFeedBack";
+  static const String byEaglesTeam = "byEaglesTeam";
 }

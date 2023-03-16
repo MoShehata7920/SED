@@ -116,7 +116,8 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   bool _areAllInputsValid() {
     return _isNameValid(advertisementObject.name) &&
-        _isDescriptionValid(advertisementObject.description);
+        _isDescriptionValid(advertisementObject.description) &&
+        _isImageValid(advertisementObject.image);
   }
 
   @override

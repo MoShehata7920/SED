@@ -1,72 +1,111 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sed/presentation/resources/values_manager.dart';
+
+import '../../../../../resources/color_manager.dart';
 
 class HelpScreen extends StatelessWidget {
+  const HelpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Help'),
-        backgroundColor: Colors.black,
+        title: Text(
+          AppStrings.help.tr(),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.primaryText,
+                fontSize: AppSize.s22,
+              ),
+        ),
+        elevation: 0,
+        backgroundColor: ColorsManager.primaryBackground,
+        iconTheme: IconThemeData(color: ColorsManager.primaryBtnText),
       ),
       body: Container(
-        color: Colors.black,
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        color: ColorsManager.primaryBackground,
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p20, vertical: AppPadding.p10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20.0),
+            const SizedBox(height: AppSize.s20),
             Text(
-              'Need help?',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              AppStrings.needHelp.tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.primaryText,
+                    fontWeight: FontWeight.bold,
+                    fontSize: AppSize.s28,
+                  ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: AppSize.s20),
             Text(
-              'If you have any questions or issues with our app, please feel free to contact us:',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.grey[400],
-              ),
+              AppStrings.ifYouNeedHelp.tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.secondaryText,
+                    fontSize: AppSize.s18,
+                  ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: AppSize.s20),
             ListTile(
-              leading: Icon(Icons.email, color: Colors.white),
-              title: Text('Email', style: TextStyle(color: Colors.white)),
-              subtitle: Text('support@example.com',
-                  style: TextStyle(color: Colors.grey[400])),
+              leading:
+                  Icon(IconsManager.email, color: ColorsManager.primaryText),
+              title: Text(
+                AppStrings.email.tr(),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorsManager.primaryText,
+                      fontSize: AppSize.s18,
+                    ),
+              ),
+              subtitle: Text(
+                'support@example.com',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorsManager.secondaryText,
+                    ),
+              ),
               onTap: () {
                 // Handle email tap
               },
             ),
             ListTile(
-              leading: Icon(Icons.phone, color: Colors.white),
-              title: Text('Phone', style: TextStyle(color: Colors.white)),
-              subtitle: Text('+1 (555) 123-4567',
-                  style: TextStyle(color: Colors.grey[400])),
+              leading:
+                  Icon(IconsManager.phone, color: ColorsManager.primaryText),
+              title: Text(
+                AppStrings.phone.tr(),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorsManager.primaryText,
+                      fontSize: AppSize.s18,
+                    ),
+              ),
+              subtitle: Text(
+                '+1 (555) 123-4567',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorsManager.secondaryText,
+                    ),
+              ),
               onTap: () {
                 // Handle phone tap
               },
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: AppSize.s20),
             Text(
-              'We appreciate your feedback!',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.grey[400],
-              ),
+              AppStrings.appreciateFeedBack.tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: ColorsManager.secondaryText,
+                    fontSize: AppSize.s16,
+                  ),
             ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  'By Eagles Team',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.grey[400],
-                  ),
+                  AppStrings.byEaglesTeam.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: ColorsManager.secondaryText,
+                        fontSize: AppSize.s14,
+                      ),
                 ),
               ),
             ),

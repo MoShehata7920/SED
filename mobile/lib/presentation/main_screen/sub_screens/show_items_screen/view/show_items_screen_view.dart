@@ -96,7 +96,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         title: Text(
           viewType.getName(categoryId: categoryId),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.lineColor,
+                color: ColorsManager.primaryText,
                 fontSize: AppSize.s30,
               ),
         ),

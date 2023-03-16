@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/resources/language_manager.dart';

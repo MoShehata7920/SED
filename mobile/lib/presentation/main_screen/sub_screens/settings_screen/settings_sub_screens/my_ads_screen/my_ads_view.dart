@@ -144,7 +144,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                                     horizontal: AppSize.s5,
                                     vertical: AppSize.s2),
                                 child: Text(
-                                  "Sell",
+                                  AppStrings.sell.tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge

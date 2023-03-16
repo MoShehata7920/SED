@@ -92,10 +92,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const MyAdsScreenView());
 
       case Routes.aboutUsScreenRoute:
-        return MaterialPageRoute(builder: (context) => AboutUsScreen());
+        return MaterialPageRoute(builder: (context) => const AboutUsScreen());
 
       case Routes.helpScreenRoute:
-        return MaterialPageRoute(builder: (context) => HelpScreen());
+        return MaterialPageRoute(builder: (context) => const HelpScreen());
 
       default:
         return unDefinedRoute();
