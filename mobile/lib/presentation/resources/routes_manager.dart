@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
+import 'package:sed/presentation/main_screen/search_screen/search_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/about_us_screen/aboutus_view.dart';
@@ -33,6 +34,7 @@ class Routes {
   static const String myAdsScreenRoute = "/myAds";
   static const String aboutUsScreenRoute = "/aboutUs";
   static const String helpScreenRoute = "/help";
+  static const String searchScreenRoute = "/search";
 }
 
 class RouteGenerator {
@@ -96,6 +98,9 @@ class RouteGenerator {
 
       case Routes.helpScreenRoute:
         return MaterialPageRoute(builder: (context) => const HelpScreen());
+
+      case Routes.searchScreenRoute:
+        return MaterialPageRoute(builder: (context) => SearchView());
 
       default:
         return unDefinedRoute();

@@ -28,7 +28,7 @@ class _MainScreenViewState extends State<MainScreenView> {
             body: snapshot.data ??
                 _viewModel.mainScreenWidgets[0], //destination screen
             floatingActionButton: FloatingActionButton(
-              backgroundColor: ColorsManager.primaryColor,
+              backgroundColor: ColorsManager.darkBlack,
               child: Container(
                 width: AppSize.s60,
                 height: AppSize.s60,
@@ -44,18 +44,33 @@ class _MainScreenViewState extends State<MainScreenView> {
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: AnimatedBottomNavigationBar(
-              // borderColor: Colors.transparent,
-              inactiveColor: ColorsManager.white,
-              activeColor: ColorsManager.primaryColor,
-              backgroundColor: ColorsManager.primaryBackground.withOpacity(0.5),
-              icons: IconsManager.iconsList,
+            bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+              itemCount: 4,
+              tabBuilder: (index, isSelected) {
+                final iconData = IconsManager.iconsList[index];
+                final selectedColor = ColorsManager.primaryColor;
+                final unselectedColor = ColorsManager.primaryText;
+
+                if(index == 1) {
+                  return Center(
+                    child: Badge(
+                      label: Text('+99'),
+                      child: Icon(iconData,
+                        color: isSelected ? selectedColor : unselectedColor,
+                      ),
+                    ),
+                  );
+                }
+                return Icon(iconData,
+                  color: isSelected ? selectedColor : unselectedColor,
+                );
+              },
               activeIndex: _viewModel.bottomNavIndex,
+              onTap: (index) => _viewModel.onIndexChange(index),
+              height: 60,
               gapLocation: GapLocation.center,
               notchSmoothness: NotchSmoothness.verySmoothEdge,
-              onTap: (index) => _viewModel.onIndexChange(index),
-
-              //other params
+              backgroundColor: ColorsManager.primaryBackground, // Set the background color to primary background color
             ),
           );
         });

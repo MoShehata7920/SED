@@ -84,9 +84,12 @@ class _HomeScreenViewState extends State<HomeScreenView> {
               const SizedBox(
                 width: AppSize.s14,
               ),
-              FaIcon(
-                IconsManager.notification,
-                color: ColorsManager.secondaryText,
+              Badge(
+                label: Text('12'),
+                child: FaIcon(
+                  IconsManager.notification,
+                  color: ColorsManager.secondaryText,
+                ),
               )
             ],
           ).animateOnPageLoad(msDelay: 150, dx: 0, dy: -57, showDelay: 900),
@@ -261,6 +264,10 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                       ),
                                       Expanded(
                                         child: TextFormField(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.searchScreenRoute);
+                                          },
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             hintText:
@@ -315,8 +322,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   horizontal: AppPadding.p4),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: NetworkImage(
-                                        image ?? AppStrings.empty),
+                                    image:
+                                        NetworkImage(image ?? AppStrings.empty),
                                     fit: BoxFit.cover),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(AppSize.s16)),
