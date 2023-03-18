@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sprintf/sprintf.dart';
 
 class Utils {
   static List<Category> categories = [];
@@ -24,4 +25,30 @@ class Utils {
   }
 
   static bool isDialogShown = false;
+
+  static String getCreatedTime(DateTime dt) {
+    var timeSpan = DateTime.now().toUtc().difference(dt);
+
+    if (timeSpan.inSeconds <= 60) {
+      return sprintf("%d seconds ago", [timeSpan.inSeconds]);
+    }
+
+    if (timeSpan.inMinutes <= 60) {
+      return sprintf("%d minutes ago", [timeSpan.inMinutes]);
+    }
+
+    if (timeSpan.inHours <= 24) {
+      return sprintf("%d hours ago", [timeSpan.inHours]);
+    }
+
+    if (timeSpan.inDays <= 30) {
+      return sprintf("%d days ago", [timeSpan.inDays]);
+    }
+
+    if (timeSpan.inDays <= 365) {
+      return sprintf("%d months ago", [(timeSpan.inDays / 30).round()]);
+    }
+
+    return sprintf("%d years ago", [(timeSpan.inDays / 365).round()]);
+  }
 }

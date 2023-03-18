@@ -15,6 +15,7 @@ import 'package:sed/domain/usecase/item_usecase.dart';
 import 'package:sed/domain/usecase/login_usecase.dart';
 import 'package:sed/domain/usecase/myprofile_data_usecase.dart';
 import 'package:sed/domain/usecase/myprofile_get_ads_usecase.dart';
+import 'package:sed/domain/usecase/notifications.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
 import 'package:sed/domain/usecase/show_items_usecase.dart';
@@ -107,11 +108,12 @@ Future<void> initAppModule() async {
   instance.registerFactory<MyProfileAdsUseCase>(
       () => MyProfileAdsUseCase(instance()));
 
-  instance
-      .registerFactory<RemoveAdUseCase>(() => RemoveAdUseCase(instance()));
+  instance.registerFactory<RemoveAdUseCase>(() => RemoveAdUseCase(instance()));
 
-  instance
-      .registerFactory<UpdateAdUseCase>(() => UpdateAdUseCase(instance()));
+  instance.registerFactory<UpdateAdUseCase>(() => UpdateAdUseCase(instance()));
+
+  instance.registerFactory<NotificationsUseCase>(
+      () => NotificationsUseCase(instance()));
 }
 
 initLoginModule() async {

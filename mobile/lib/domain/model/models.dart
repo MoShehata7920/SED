@@ -37,9 +37,10 @@ class HomeContentObject {
   List<Items> donateItems;
   List<Items> exchangeItems;
   List<Section> sections;
+  int notificationsCount;
 
   HomeContentObject(this.carouselImages, this.sellItems, this.donateItems,
-      this.exchangeItems, this.sections);
+      this.exchangeItems, this.sections, this.notificationsCount);
 }
 
 class Home {
@@ -49,9 +50,9 @@ class Home {
   List<Items> donateItems;
   List<Items> exchangeItems;
   List<Section> sections;
-
+  int notificationsCount;
   Home(this.carousel, this.category, this.sellItems, this.donateItems,
-      this.exchangeItems, this.sections);
+      this.exchangeItems, this.sections, this.notificationsCount);
 }
 
 class Section {
@@ -184,4 +185,21 @@ class UpdateAd {
 
   UpdateAd(this.itemId, this.image, this.name, this.price, this.description,
       this.sectionId, this.categoryId, this.conditionId, this.token);
+}
+
+class Notification {
+  int id;
+  String title;
+  String description;
+  DateTime dateTime;
+  bool isSeen;
+
+  Notification(
+      this.id, this.title, this.description, this.dateTime, this.isSeen);
+}
+
+class Notifications {
+  List<Notification> notifications;
+
+  Notifications(this.notifications);
 }

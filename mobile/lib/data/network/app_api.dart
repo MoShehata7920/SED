@@ -32,7 +32,7 @@ abstract class AppServiceClient {
   );
 
   @GET("/home/")
-  Future<HomeResponse> getHomeData();
+  Future<HomeResponse> getHomeData(@Header("token") String token,);
 
   @GET("/Items/{itemId}")
   Future<ItemResponse> getItemData(
@@ -89,5 +89,10 @@ abstract class AppServiceClient {
     @Field("sectionId") int sectionId,
     @Field("categoryId") int categoryId,
     @Field("conditionId") int conditionId,
+  );
+
+  @GET("/Notifications")
+  Future<NotificationsResponse> notifications(
+    @Header("token") String token,
   );
 }

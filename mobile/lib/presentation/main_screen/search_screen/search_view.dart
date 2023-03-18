@@ -14,10 +14,12 @@ class _SearchViewState extends State<SearchView> {
     _viewModel.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -76,7 +76,8 @@ extension HomeResponseMapper on HomeResponse? {
         this?.sellItems?.toDomain() as List<Items>,
         this?.donateItems?.toDomain() as List<Items>,
         this?.exchangeItems?.toDomain() as List<Items>,
-        this?.sections?.toDomain() as List<Section>);
+        this?.sections?.toDomain() as List<Section>,
+        this?.notificationsCount ?? 0);
   }
 }
 
@@ -169,5 +170,28 @@ extension UpdateAdMapper on UpdateAdResponse? {
       this?.conditionId ?? 0,
       this?.token ?? "",
     );
+  }
+}
+
+extension NotificationMapper on List<NotificationResponse>? {
+  List<Notification> toDomain() {
+    List<Notification> notification = [];
+
+    this?.forEach((element) {
+      notification.add(Notification(
+          element.id ?? 0,
+          element.title ?? "",
+          element.description ?? "",
+          element.dateTime ?? DateTime.now(),
+          element.isSeen ?? false));
+    });
+
+    return notification;
+  }
+}
+
+extension NotificationsMapper on NotificationsResponse? {
+  Notifications toDomain() {
+    return Notifications(this?.notifications.toDomain() ?? []);
   }
 }

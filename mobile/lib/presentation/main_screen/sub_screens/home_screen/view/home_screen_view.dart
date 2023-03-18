@@ -84,12 +84,24 @@ class _HomeScreenViewState extends State<HomeScreenView> {
               const SizedBox(
                 width: AppSize.s14,
               ),
-              Badge(
-                label: Text('12'),
-                child: FaIcon(
-                  IconsManager.notification,
-                  color: ColorsManager.secondaryText,
-                ),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.notificationsScreenRoute);
+                },
+                icon: (homeContentObject != null &&
+                        homeContentObject.notificationsCount > 0)
+                    ? Badge(
+                        label: Text(
+                            homeContentObject.notificationsCount.toString()),
+                        child: FaIcon(
+                          IconsManager.notification,
+                          color: ColorsManager.secondaryText,
+                        ),
+                      )
+                    : FaIcon(
+                        IconsManager.notification,
+                        color: ColorsManager.secondaryText,
+                      ),
               )
             ],
           ).animateOnPageLoad(msDelay: 150, dx: 0, dy: -57, showDelay: 900),

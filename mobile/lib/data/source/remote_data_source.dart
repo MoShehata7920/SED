@@ -34,6 +34,8 @@ abstract class RemoteDataSource {
   Future<RemoveAdResponse> removeAd(int itemId);
 
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest);
+
+  Future<NotificationsResponse> notifications();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -65,7 +67,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<HomeResponse> getHomeData() async {
-    return await _appServiceClient.getHomeData();
+    return await _appServiceClient.getHomeData(Constants.token);
   }
 
   @override
@@ -138,5 +140,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         updateAdRequest.sectionId,
         updateAdRequest.categoryId,
         updateAdRequest.conditionId);
+  }
+
+  @override
+  Future<NotificationsResponse> notifications() async {
+    return await _appServiceClient.notifications(
+      Constants.token
+    );
   }
 }

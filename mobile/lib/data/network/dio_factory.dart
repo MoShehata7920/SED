@@ -37,11 +37,11 @@ class DioFactory {
         receiveTimeout: Constants.apiTimeOut,
         sendTimeout: Constants.apiTimeOut);
 
-    if (!kReleaseMode) {
-      //debug mode
-      dio.interceptors.add(PrettyDioLogger(
-          requestHeader: true, requestBody: true, responseHeader: true));
-    }
+    // if (!kReleaseMode) {
+    //   //debug mode
+    //   dio.interceptors.add(PrettyDioLogger(
+    //       requestHeader: true, requestBody: true, responseHeader: true));
+    // }
 
     return dio;
   }

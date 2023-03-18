@@ -82,20 +82,22 @@ class HomeScreenViewModel extends BaseViewModel
     response.fold(
         (failure) => {
               // left -> failure
+
             }, (response) {
       // right -> success
       // post data to view
 
       Utils.categories = response.category;
-
       contentInput.add(HomeContentObject(
           response.carousel.images,
           response.sellItems,
           response.donateItems,
           response.exchangeItems,
-          response.sections));
+          response.sections,
+          response.notificationsCount));
 
       inputState.add(ContentState());
+
     });
   }
 
