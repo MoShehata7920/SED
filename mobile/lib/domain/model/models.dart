@@ -37,10 +37,9 @@ class HomeContentObject {
   List<Items> donateItems;
   List<Items> exchangeItems;
   List<Section> sections;
-  int notificationsCount;
 
   HomeContentObject(this.carouselImages, this.sellItems, this.donateItems,
-      this.exchangeItems, this.sections, this.notificationsCount);
+      this.exchangeItems, this.sections);
 }
 
 class Home {

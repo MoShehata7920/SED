@@ -21,6 +21,9 @@ class HomeScreenViewModel extends BaseViewModel
   final StreamController _contentStreamController =
       StreamController<HomeContentObject>.broadcast();
 
+  final StreamController _notificationsStreamController =
+      StreamController<int>.broadcast();
+
   final SavingProductsUseCase _savingProductsUseCase =
       instance<SavingProductsUseCase>();
 
@@ -88,13 +91,15 @@ class HomeScreenViewModel extends BaseViewModel
       // post data to view
 
       Utils.categories = response.category;
+
       contentInput.add(HomeContentObject(
           response.carousel.images,
           response.sellItems,
           response.donateItems,
           response.exchangeItems,
-          response.sections,
-          response.notificationsCount));
+          response.sections));
+
+      notificationInput.add(response.notificationsCount);
 
       inputState.add(ContentState());
 
@@ -119,6 +124,17 @@ class HomeScreenViewModel extends BaseViewModel
       // right -> success
     });
   }
+
+  @override
+  Sink get notificationInput => _notificationsStreamController.sink;
+
+  @override
+  Stream<int> get notificationOutput => _notificationsStreamController.stream.map((count) => count);
+
+  @override
+  void setNotificationsCount(int count) {
+    notificationInput.add(count);
+  }
 }
 
 abstract class HomeScreenViewModelInputs {
@@ -128,13 +144,19 @@ abstract class HomeScreenViewModelInputs {
 
   Sink get contentInput;
 
+  Sink get notificationInput;
+
   void toggleSavingProduct(Items product);
+
+  void setNotificationsCount(int count);
 }
 
 abstract class HomeScreenViewModelOutputs {
   Stream<void> get carouselOutput;
 
   Stream<bool> get savedOutput;
+
+  Stream<int> get notificationOutput;
 
   Stream<HomeContentObject> get contentOutput;
 }
