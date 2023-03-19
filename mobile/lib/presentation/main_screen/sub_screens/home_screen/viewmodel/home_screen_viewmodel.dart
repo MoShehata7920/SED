@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/app/noti.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
@@ -37,6 +40,16 @@ class HomeScreenViewModel extends BaseViewModel
     inputState.add(ContentState());
 
     getHomeData();
+
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
+
+    Constants.socket.on("notification", (data) => {
+      _notificationsCount += 1,
+
+      notificationInput.add(_notificationsCount),
+
+      Noti.showBigTextNotification(title: data[0], description: data[1],summary: data[2], fln: flutterLocalNotificationsPlugin)
+    });
   }
 
   @override
@@ -100,7 +113,7 @@ class HomeScreenViewModel extends BaseViewModel
           response.exchangeItems,
           response.sections));
 
-      notificationInput.add(response.notificationsCount);
+      setNotificationsCount(response.notificationsCount);
 
       inputState.add(ContentState());
 

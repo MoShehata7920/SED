@@ -68,24 +68,19 @@ class MainScreenViewModel extends BaseViewModel
   }
 
   void connectAndListen() {
-    IO.Socket socket = IO.io('http://103.48.193.225:9001',
-        OptionBuilder().setTransports(['websocket']).build());
 
-    socket.onConnect((_) {
-      socket.emit('token', Constants.token);
+    Constants.socket.onConnect((_) {
+      Constants.socket.emit('token', Constants.token);
     });
 
     //When an event recieved from server, data is added to the stream
-    socket.on('event', (data) => print(data));
-    socket.onDisconnect((_) => print('disconnect'));
-    socket.emit("event", "{0,12}00");
+    Constants.socket.on('event', (data) => print(data));
+    Constants.socket.onDisconnect((_) => print('disconnect'));
+    Constants.socket.emit("event", "{0,12}00");
 
-    socket.on('message', (data) => socketInput.add(data));
+    Constants.socket.on('message', (data) => socketInput.add(data));
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
 
-    socket.on("notification", (data) => {
-      Noti.showBigTextNotification(title: data[0], description: data[1],summary: data[2], fln: flutterLocalNotificationsPlugin)
-    });
   }
 }
 
