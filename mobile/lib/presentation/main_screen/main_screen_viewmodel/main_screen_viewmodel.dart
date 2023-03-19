@@ -1,11 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sed/app/constants.dart';
+import 'package:sed/app/di.dart';
+import 'package:sed/app/noti.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/view/chat_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/view/settings_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
+import 'package:socket_io_client/socket_io_client.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class MainScreenViewModel extends BaseViewModel
     with MainScreenViewModelInputs, MainScreenViewModelOutputs {
@@ -13,6 +19,9 @@ class MainScreenViewModel extends BaseViewModel
       StreamController<int>.broadcast();
 
   int bottomNavIndex = 0;
+
+  final StreamController _socketStreamController =
+  StreamController<String>.broadcast();
 
   final List<Widget> mainScreenWidgets = [
     const HomeScreenView(),
@@ -22,13 +31,25 @@ class MainScreenViewModel extends BaseViewModel
   ];
   // Inputs
   @override
-  void start() {}
+  void start() {
+    connectAndListen();
+  }
 
   @override
   void dispose() {
+    _socketStreamController.close();
+
     _mainViewStreamController.close();
+
     super.dispose();
   }
+
+  @override
+  Sink get socketInput => _socketStreamController.sink;
+
+  @override
+  Stream<String> get socketOutput =>
+      _socketStreamController.stream.map((response) => response);
 
   @override
   Sink get mainViewInput => _mainViewStreamController.sink;
@@ -44,6 +65,27 @@ class MainScreenViewModel extends BaseViewModel
     bottomNavIndex = index;
 
     mainViewInput.add(index);
+  }
+
+  void connectAndListen() {
+    IO.Socket socket = IO.io('http://103.48.193.225:9001',
+        OptionBuilder().setTransports(['websocket']).build());
+
+    socket.onConnect((_) {
+      socket.emit('token', Constants.token);
+    });
+
+    //When an event recieved from server, data is added to the stream
+    socket.on('event', (data) => print(data));
+    socket.onDisconnect((_) => print('disconnect'));
+    socket.emit("event", "{0,12}00");
+
+    socket.on('message', (data) => socketInput.add(data));
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
+
+    socket.on("notification", (data) => {
+      Noti.showBigTextNotification(title: data[0], description: data[1],summary: data[2], fln: flutterLocalNotificationsPlugin)
+    });
   }
 }
 

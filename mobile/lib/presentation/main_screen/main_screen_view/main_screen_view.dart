@@ -18,6 +18,12 @@ class _MainScreenViewState extends State<MainScreenView> {
   final MainScreenViewModel _viewModel = instance<MainScreenViewModel>();
 
   @override
+  void initState() {
+    _viewModel.start();
+
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<Widget>(
         stream: _viewModel.mainViewOutput,

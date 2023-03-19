@@ -29,6 +29,7 @@ class HomeScreenViewModel extends BaseViewModel
 
   int carouselCurrentIndex = 0;
 
+  int _notificationsCount = 0;
   // Inputs
 
   @override
@@ -133,6 +134,8 @@ class HomeScreenViewModel extends BaseViewModel
 
   @override
   void setNotificationsCount(int count) {
+    _notificationsCount = count;
+
     notificationInput.add(count);
   }
 }

@@ -89,7 +89,7 @@ class NotificationScreenViewState extends State<NotificationScreenView> {
                 subtitle: Text(
                   notifications.notifications[index].description,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.primaryText,
+                        color: ColorsManager.secondaryText,
                         fontSize: AppSize.s12,
                       ),
                 ),

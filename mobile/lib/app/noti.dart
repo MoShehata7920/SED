@@ -11,7 +11,7 @@ class Noti{
     await flutterLocalNotificationsPlugin.initialize(initializationsSettings );
   }
 
-  static Future showBigTextNotification({var id =0,required String title, required String body,
+  static Future showBigTextNotification({var id =0,required String title, required String description,String summary = "",
     var payload, required FlutterLocalNotificationsPlugin fln
   } ) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
@@ -23,9 +23,9 @@ class Noti{
       importance: Importance.max,
       priority: Priority.high,
       styleInformation: BigTextStyleInformation(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        description,
         contentTitle: title,
-        summaryText: 'Notification summary',
+        summaryText: summary,
         htmlFormatContent: true,
         htmlFormatTitle: true,
       ),
@@ -37,7 +37,7 @@ class Noti{
     var not= NotificationDetails(android: androidPlatformChannelSpecifics,
         iOS: const DarwinNotificationDetails()
     );
-    await fln.show(0, title, body, not);
+    await fln.show(0, title, description, not);
   }
 
 }

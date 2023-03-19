@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sed/app/app_preferences.dart';
@@ -34,6 +35,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/usecase/add_advertisement_usecase.dart';
 import '../domain/usecase/update_ad_usecase.dart';
+import 'noti.dart';
 
 final instance = GetIt.instance;
 
@@ -72,7 +74,7 @@ Future<void> initAppModule() async {
 
   // main screen view
   instance
-      .registerLazySingleton<MainScreenViewModel>(() => MainScreenViewModel());
+      .registerFactory<MainScreenViewModel>(() => MainScreenViewModel());
 
   // home screen view
   instance
@@ -114,6 +116,8 @@ Future<void> initAppModule() async {
 
   instance.registerFactory<NotificationsUseCase>(
       () => NotificationsUseCase(instance()));
+
+  await initNotificationModule();
 }
 
 initLoginModule() async {
@@ -151,4 +155,12 @@ initRegisterModule() async {
     instance.registerFactory<RegisterViewModel>(
         () => RegisterViewModel(instance()));
   }
+}
+
+initNotificationModule() async {
+  // Notification use case
+  instance
+      .registerFactory<FlutterLocalNotificationsPlugin>(() => FlutterLocalNotificationsPlugin());
+
+  Noti.initialize(instance<FlutterLocalNotificationsPlugin>());
 }

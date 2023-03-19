@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
+import 'package:sed/app/noti.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
@@ -30,6 +32,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   final HomeScreenViewModel _viewModel = instance<HomeScreenViewModel>();
 
   final ScrollController _listViewScrollController = ScrollController();
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
 
   int selectedIndex = 0;
 
@@ -90,6 +94,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         context, Routes.notificationsScreenRoute);
 
                     _viewModel.setNotificationsCount(0);
+
                   },
                   icon: StreamBuilder<int>(
                       stream: _viewModel.notificationOutput,
