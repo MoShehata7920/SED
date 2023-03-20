@@ -1,6 +1,5 @@
 
 const http = require('http');
-const socketIO = require('socket.io');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -25,8 +24,7 @@ var usersRouter=require('./api/routes/users');
 var chatRouter=require('./api/routes/chat');
 
 var app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+
 
 
 
