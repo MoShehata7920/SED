@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 
 import '../../../../resources/values_manager.dart';
 
@@ -29,15 +30,11 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _chatViewModel.socketOutput,
-        builder: (context, AsyncSnapshot<String> snapshot) {
-          return _getContentWidget(snapshot.data);
-        });
+    return _getContentWidget("asd");
   }
 
   Widget _getContentWidget(snapshot) {
-    if(snapshot == null) {
+    if (snapshot == null) {
       return Container();
     }
     return Scaffold(
@@ -45,6 +42,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
       appBar: AppBar(
         backgroundColor: ColorsManager.background,
         automaticallyImplyLeading: false,
+        elevation: 0,
         title: Text(
           snapshot,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -57,7 +55,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
           children: [
             Padding(
               padding:
-              const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
               child: Wrap(
                 spacing: 0.0,
                 runSpacing: 0.0,
@@ -77,6 +75,10 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                         height: 5,
                       ),
                       InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, Routes.messagingScreenRoute);
+                        },
                         child: _messageObject(
                             context,
                             "http://i.epvpimg.com/tRsTeab.png",
@@ -166,6 +168,15 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                   height: 10.0,
                   decoration: BoxDecoration(
                     color: ColorsManager.primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                )
+              else
+                Container(
+                  width: 10.0,
+                  height: 10.0,
+                  decoration: BoxDecoration(
+                    color: ColorsManager.background,
                     shape: BoxShape.circle,
                   ),
                 ),

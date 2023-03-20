@@ -6,6 +6,7 @@ import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_
 import 'package:sed/presentation/main_screen/search_screen/search_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/chat_screen/message/message_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/notification_screen/view/notifications_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/about_us_screen/aboutus_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/help_screen/help_screen_view.dart';
@@ -39,6 +40,7 @@ class Routes {
   static const String searchScreenRoute = "/search";
   static const String notificationsScreenRoute = "/notifications";
   static const String myAccountScreenRoute = "/myAccount";
+  static const String messagingScreenRoute = "/messaging";
 }
 
 class RouteGenerator {
@@ -113,6 +115,10 @@ class RouteGenerator {
       case Routes.myAccountScreenRoute:
         return MaterialPageRoute(
             builder: (context) => const MyAccountScreenView());
+
+      case Routes.messagingScreenRoute:
+        return MaterialPageRoute(
+            builder: (context) => const MessagingScreenView());
 
       default:
         return unDefinedRoute();
