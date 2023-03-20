@@ -27,7 +27,10 @@ class Utils {
   static bool isDialogShown = false;
 
   static String getCreatedTime(DateTime dt) {
-    var timeSpan = DateTime.now().toUtc().difference(dt);
+    var now =  DateTime.now().toUtc();
+    var dtUtc = DateTime.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second);
+
+    var timeSpan =now.difference(dtUtc);
 
     if (timeSpan.inSeconds <= 60) {
       return sprintf("%d seconds ago", [timeSpan.inSeconds]);

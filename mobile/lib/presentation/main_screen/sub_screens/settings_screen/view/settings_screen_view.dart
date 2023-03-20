@@ -179,9 +179,10 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s15,
             ),
-            _getInkwell(IconsManager.account, AppStrings.account.tr(), () {})
-                .animateOnPageLoad(
-                    msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+            _getInkwell(IconsManager.account, AppStrings.account.tr(), () {
+              Navigator.pushNamed(context, Routes.myAccountScreenRoute);
+            }).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
