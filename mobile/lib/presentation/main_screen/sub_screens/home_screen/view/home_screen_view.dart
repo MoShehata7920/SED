@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
+import 'package:sed/app/noti.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
@@ -30,6 +32,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
   final HomeScreenViewModel _viewModel = instance<HomeScreenViewModel>();
 
   final ScrollController _listViewScrollController = ScrollController();
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
 
   int selectedIndex = 0;
 
@@ -84,13 +88,30 @@ class _HomeScreenViewState extends State<HomeScreenView> {
               const SizedBox(
                 width: AppSize.s14,
               ),
-              Badge(
-                label: Text('12'),
-                child: FaIcon(
-                  IconsManager.notification,
-                  color: ColorsManager.secondaryText,
-                ),
-              )
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, Routes.notificationsScreenRoute);
+
+                    _viewModel.setNotificationsCount(0);
+
+                  },
+                  icon: StreamBuilder<int>(
+                      stream: _viewModel.notificationOutput,
+                      builder: (context, snapshot) {
+                        return (snapshot.data != null && snapshot.data != 0)
+                            ? Badge(
+                                label: Text(snapshot.data.toString()),
+                                child: FaIcon(
+                                  IconsManager.notification,
+                                  color: ColorsManager.secondaryText,
+                                ),
+                              )
+                            : FaIcon(
+                                IconsManager.notification,
+                                color: ColorsManager.secondaryText,
+                              );
+                      }))
             ],
           ).animateOnPageLoad(msDelay: 150, dx: 0, dy: -57, showDelay: 900),
         ),

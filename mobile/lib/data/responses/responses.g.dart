@@ -74,6 +74,7 @@ HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
               ? null
               : ItemsResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['notificationsCount'] as int?,
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?
@@ -93,6 +94,7 @@ Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
       'donateItems': instance.donateItems,
       'exchangeItems': instance.exchangeItems,
       'sections': instance.sections,
+      'notificationsCount': instance.notificationsCount,
     };
 
 SectionResponse _$SectionResponseFromJson(Map<String, dynamic> json) =>
@@ -337,4 +339,44 @@ Map<String, dynamic> _$UpdateAdResponseToJson(UpdateAdResponse instance) =>
       'categoryId': instance.categoryId,
       'conditionId': instance.conditionId,
       'token': instance.token,
+    };
+
+NotificationResponse _$NotificationResponseFromJson(
+        Map<String, dynamic> json) =>
+    NotificationResponse(
+      json['id'] as int?,
+      json['title'] as String?,
+      json['description'] as String?,
+      json['dateTime'] == null
+          ? null
+          : DateTime.parse(json['dateTime'] as String),
+      json['isSeen'] as bool?,
+    );
+
+Map<String, dynamic> _$NotificationResponseToJson(
+        NotificationResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'description': instance.description,
+      'dateTime': instance.dateTime?.toIso8601String(),
+      'isSeen': instance.isSeen,
+    };
+
+NotificationsResponse _$NotificationsResponseFromJson(
+        Map<String, dynamic> json) =>
+    NotificationsResponse(
+      (json['notifications'] as List<dynamic>?)
+          ?.map((e) => NotificationResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$NotificationsResponseToJson(
+        NotificationsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'notifications': instance.notifications,
     };

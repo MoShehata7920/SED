@@ -61,8 +61,10 @@ class HomeResponse extends BaseResponse {
   @JsonKey(name: "sections")
   List<SectionResponse?>? sections;
 
+  @JsonKey(name: "notificationsCount")
+  int? notificationsCount;
   HomeResponse(this.carousel, this.categories, this.sellItems, this.donateItems,
-      this.exchangeItems);
+      this.exchangeItems, this.notificationsCount);
 
   // From Json
   factory HomeResponse.fromJson(Map<String, dynamic> json) =>
@@ -369,4 +371,47 @@ class UpdateAdResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$UpdateAdResponseToJson(this);
+}
+
+@JsonSerializable()
+class NotificationResponse {
+  @JsonKey(name: "id")
+  int? id;
+
+  @JsonKey(name: "title")
+  String? title;
+
+  @JsonKey(name: "description")
+  String? description;
+
+  @JsonKey(name: "dateTime")
+  DateTime? dateTime;
+
+  @JsonKey(name: "isSeen")
+  bool? isSeen;
+
+  NotificationResponse(
+      this.id, this.title, this.description, this.dateTime, this.isSeen);
+
+  // From Json
+  factory NotificationResponse.fromJson(Map<String, dynamic> json) =>
+      _$NotificationResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$NotificationResponseToJson(this);
+}
+
+@JsonSerializable()
+class NotificationsResponse extends BaseResponse {
+  @JsonKey(name: "notifications")
+  List<NotificationResponse>? notifications;
+
+  NotificationsResponse(this.notifications);
+
+  // From Json
+  factory NotificationsResponse.fromJson(Map<String, dynamic> json) =>
+      _$NotificationsResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$NotificationsResponseToJson(this);
 }

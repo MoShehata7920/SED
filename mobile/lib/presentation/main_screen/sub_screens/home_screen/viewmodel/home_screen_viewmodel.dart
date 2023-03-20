@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/app/noti.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
@@ -21,11 +24,15 @@ class HomeScreenViewModel extends BaseViewModel
   final StreamController _contentStreamController =
       StreamController<HomeContentObject>.broadcast();
 
+  final StreamController _notificationsStreamController =
+      StreamController<int>.broadcast();
+
   final SavingProductsUseCase _savingProductsUseCase =
       instance<SavingProductsUseCase>();
 
   int carouselCurrentIndex = 0;
 
+  int _notificationsCount = 0;
   // Inputs
 
   @override
@@ -33,6 +40,16 @@ class HomeScreenViewModel extends BaseViewModel
     inputState.add(ContentState());
 
     getHomeData();
+
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
+
+    Constants.socket.on("notification", (data) => {
+      _notificationsCount += 1,
+
+      notificationInput.add(_notificationsCount),
+
+      Noti.showBigTextNotification(title: data[0], description: data[1],summary: data[2], fln: flutterLocalNotificationsPlugin)
+    });
   }
 
   @override
@@ -82,6 +99,7 @@ class HomeScreenViewModel extends BaseViewModel
     response.fold(
         (failure) => {
               // left -> failure
+
             }, (response) {
       // right -> success
       // post data to view
@@ -95,7 +113,10 @@ class HomeScreenViewModel extends BaseViewModel
           response.exchangeItems,
           response.sections));
 
+      setNotificationsCount(response.notificationsCount);
+
       inputState.add(ContentState());
+
     });
   }
 
@@ -117,6 +138,19 @@ class HomeScreenViewModel extends BaseViewModel
       // right -> success
     });
   }
+
+  @override
+  Sink get notificationInput => _notificationsStreamController.sink;
+
+  @override
+  Stream<int> get notificationOutput => _notificationsStreamController.stream.map((count) => count);
+
+  @override
+  void setNotificationsCount(int count) {
+    _notificationsCount = count;
+
+    notificationInput.add(count);
+  }
 }
 
 abstract class HomeScreenViewModelInputs {
@@ -126,13 +160,19 @@ abstract class HomeScreenViewModelInputs {
 
   Sink get contentInput;
 
+  Sink get notificationInput;
+
   void toggleSavingProduct(Items product);
+
+  void setNotificationsCount(int count);
 }
 
 abstract class HomeScreenViewModelOutputs {
   Stream<void> get carouselOutput;
 
   Stream<bool> get savedOutput;
+
+  Stream<int> get notificationOutput;
 
   Stream<HomeContentObject> get contentOutput;
 }
