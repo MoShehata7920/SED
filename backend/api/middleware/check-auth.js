@@ -5,9 +5,8 @@ const verifyToken=(req,res,next)=>{
         const token=req.headers.authentication.split(' ')
         const checker=jwt.verify(token[1] , process.env.SECRET_KEY , (err,decoded)=>{
             if(err){
-                res.status(403).json('Token Not Vaild')
+                return res.status(403).json('Token Not Vaild')
             }
-            // console.log("the decoded data : " + JSON.stringify(decoded)) 
             req.user=decoded
             next()    // to continue to the next function 
 
@@ -16,7 +15,7 @@ const verifyToken=(req,res,next)=>{
         console.log(error);
         res.status(500).json({message:"Error Authentication Failed"})
     }
-}
+};
 
 const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the one who tries to access something is loggedin & admin
     verifyToken(req,res,()=>{
@@ -26,7 +25,7 @@ const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the on
             res.status(403).json({message:'You Are Not Allowed to do that'})
         }
     })
-}
+};
 
 const verifyTokenAndAuthorization=(req,res,next)=>{
     verifyToken(req,res,()=>{
@@ -36,6 +35,6 @@ const verifyTokenAndAuthorization=(req,res,next)=>{
             res.status(500).json('You are not authorized')
         }
     })
-}
+};
 
 module.exports={verifyToken,verifyTokenAndAdmin,verifyTokenAndAuthorization};

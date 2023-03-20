@@ -1,4 +1,3 @@
-const Conversation = require('../models/conversation');
 const Message = require('../models/messages');
 
 module.exports = function (io) {

@@ -1,5 +1,3 @@
-
-const http = require('http');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -56,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'SEDimages')));
 app.set('view engine', 'hbs'); // Set view engine to HBS
 app.set('views', path.join(__dirname, 'views')); // Set views directory
 hbs.registerPartials(path.join(__dirname, 'views/partials')); // Register partials directory
+
 // using routers
 app.use('/', homeRouter);
 app.use('/products', productsRouter);

@@ -147,7 +147,7 @@ exports.forgotPassword=async (req,res)=>{
         from : "sedfamily@gmail.com",
         to :    user.email,
         subject : "SED Support team , Reset Your Account Password",
-        html :  generateForgotPasswordTemplate(`http://localhost:3000/api/users/reset-password?token=${token}&id=${user._id} `)
+        html :  generateForgotPasswordTemplate(`http://localhost:3000/api/users/reset-password?token=${token}`)
     })
 
     res.status(200).json({message:'Reset password email has been sent successfuly to your email address'})

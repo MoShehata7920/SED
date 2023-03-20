@@ -21,11 +21,6 @@ const productSchema = mongoose.Schema({
         required:true,
         enum:['sell','exchange','donate']
     },
-    quantity: {
-        type : Number,
-        default : 1
-    },
-
     productImage: {
         type : String,
         required : true
@@ -53,5 +48,8 @@ const productSchema = mongoose.Schema({
     }
 })
 
+productSchema.index({ purpose: 1 });
+
+productSchema.index({category:1});
 
 module.exports=mongoose.model('Product',productSchema)
