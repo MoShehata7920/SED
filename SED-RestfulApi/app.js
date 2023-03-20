@@ -25,9 +25,6 @@ var chatRouter=require('./api/routes/chat');
 
 var app = express();
 
-
-
-
 // connecting Database
 (async () => {
   try {
