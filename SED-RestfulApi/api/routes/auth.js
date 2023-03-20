@@ -18,8 +18,8 @@ router.post('/register',
         return true;
     }),
     authController.registerController);
-
-router.get('/login',
+    
+router.post('/login',
     body('loginOption').not().isEmpty().withMessage('Empty Mail Or Phone Field'),
     body('password').not().isEmpty().withMessage('Empty Password Field'),
     authController.loginController);
