@@ -65,7 +65,9 @@ dependencies:
   badges: ^3.0.2
   dob_input_field: ^2.0.0
   syncfusion_flutter_datepicker: ^20.4.54
-  
+  firebase_core: ^2.8.0
+  firebase_messaging: ^14.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
