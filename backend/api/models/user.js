@@ -32,7 +32,7 @@ const userSchema = mongoose.Schema({
         required: true
     },
     personalInfo: {                          //  for next level 'to be updated in user profile'
-        phone: { type: Number, unique: true },                //  default:""
+        phone: { type: String, unique: true },                //  default:""
         government: { type: String },
         address: { type: String }
     },
@@ -44,7 +44,6 @@ const userSchema = mongoose.Schema({
 
     reset_password_token: {
         type: String,
-        unique:true,
     },
     reset_password_expires: {
         type: Date

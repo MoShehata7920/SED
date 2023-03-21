@@ -1,39 +1,31 @@
-const nodemailer=require('nodemailer')
-const mailtrap=require('mailtrap')
-const crypto=require('crypto')
+const nodemailer = require('nodemailer')
+const crypto = require('crypto')
 
 exports.generateOTP = () => {
-    let otp=''
-    for (let index = 0; index <= 3; index++) {
-        const randomValue = Math.round(Math.random()*9)
-        otp +=randomValue
-    }
-    return otp
+  return crypto.randomInt(100000, 999999).toString();
 }
 
 exports.mailTransport = () =>  //{
-     nodemailer.createTransport({
-       host: "sandbox.smtp.mailtrap.io",
-       port: 2525,
-       auth: {
-         user: process.env.MAILTRAP_USERNAME,
-         pass:process.env.MAILTRAP_PASSWORD,
-       },
-     });
+  nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: process.env.MYMAIL,
+      pass: process.env.MAILPASSWORDSED
+    }
+  });
 //}
 
-exports.creatResetToken= () =>
-  new Promise((resolve,reject)=>{
-    crypto.randomBytes(30,(err,buff)=>{
-      if(err) reject(err)
-      
-      const token=buff.toString('hex')
+exports.creatResetToken = () =>
+  new Promise((resolve, reject) => {
+    crypto.randomBytes(30, (err, buff) => {
+      if (err) reject(err)
+
+      const token = buff.toString('hex')
       resolve(token)
     })
   })
 
-
-exports.generateForgotPasswordTemplate= url =>{
+exports.generateForgotPasswordTemplate = url => {
   return `
   <!doctype html>
   <html lang="en-US">
@@ -44,6 +36,14 @@ exports.generateForgotPasswordTemplate= url =>{
       <meta name="description" content="Reset Password Email Template.">
       <style type="text/css">
           a:hover {text-decoration: underline !important;}
+          /* Add styles to the logo */
+      .logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
       </style>
   </head>
   
@@ -59,13 +59,6 @@ exports.generateForgotPasswordTemplate= url =>{
                           <td style="height:80px;">&nbsp;</td>
                       </tr>
                       <tr>
-                          <td style="text-align:center;">
-                            <a href="http://localhost:3000" title="logo" target="_blank">
-                              <img width="60" src="https://raw.githubusercontent.com/MoShehata7920/SED/main/SED.png" title="logo" alt="logo">
-                            </a>
-                          </td>
-                      </tr>
-                      <tr>
                           <td style="height:20px;">&nbsp;</td>
                       </tr>
                       <tr>
@@ -77,7 +70,8 @@ exports.generateForgotPasswordTemplate= url =>{
                                   </tr>
                                   <tr>
                                       <td style="padding:0 35px;">
-                                          <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">You have
+                                      <img class="logo"  src="https://i.pinimg.com/originals/ea/6a/73/ea6a73674b0a6ab38e171afc421ceaa1.png" title="logo" alt="logo">
+                                          <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:18px;font-family:'Rubik',sans-serif;">You have
                                               requested to reset your password</h1>
                                           <span
                                               style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
@@ -101,7 +95,7 @@ exports.generateForgotPasswordTemplate= url =>{
                       </tr>
                       <tr>
                           <td style="text-align:center;">
-                              <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">&copy; <strong>www.rakeshmandal.com</strong></p>
+                              <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">&copy; <strong>www.sedapp.com</strong></p>
                           </td>
                       </tr>
                       <tr>
@@ -113,6 +107,214 @@ exports.generateForgotPasswordTemplate= url =>{
       </table>
       <!--/100% body table-->
   </body>
-  
   </html>`
-}  
+};
+
+
+exports.generateResetedPasswordTemplate = email => {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Password Reset Done</title>
+    <style type="text/css">
+      /* Set default font styles */
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+      }
+      /* Center the content */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /* Add styles to the logo */
+      .logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      /* Add styles to the subject */
+      .subject {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 30px;
+        text-align: center;
+      }
+      /* Add styles to the message content */
+      .message {
+        margin-top: 20px;
+      }
+      /* Add styles to the footer */
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+    </style>
+  </head>
+      <body>
+      <div class="container">
+        <img class="logo" src="https://i.pinimg.com/originals/ea/6a/73/ea6a73674b0a6ab38e171afc421ceaa1.png" alt="Logo" />
+        <h4 class="subject">New Password Confirmiation</h4>
+        <div class="message">
+        <p>Hello,</p>
+        <p>This is a confirmation that the password for your account ${email} has just been changed.</p>
+        <p>Regards,</p>
+        <p>The SED App Team</p>
+        </div>
+        <div class="footer">
+        <p>Copyright © 2023 SED App.
+        </p>
+      </div>
+        </div>
+      </body>
+    </html>
+  `
+};
+
+exports.generateVerifyEmailTemplate = otp => {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Verification OTP for your account</title>
+    <style type="text/css">
+      /* Set default font styles */
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+      }
+      /* Center the content */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /* Add styles to the logo */
+      .logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      /* Add styles to the subject */
+      .subject {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 30px;
+        text-align: center;
+      }
+      /* Add styles to the message content */
+      .message {
+        margin-top: 20px;
+      }
+      /* Add styles to the footer */
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+    </style>
+  </head>
+      <body>
+      <div class="container">
+        <img class="logo" src="https://i.pinimg.com/originals/ea/6a/73/ea6a73674b0a6ab38e171afc421ceaa1.png" alt="Logo" />
+        <h4 class="subject">Email Verification</h4>
+        <div class="message">
+        <p>Thank you for registering with SED App. As part of our security measures, we require all new users to verify their account.</p>
+        <p>Your account verification ode is: ${otp}. Please enter this code on the verification page to complete the process.</p>
+        <p>Note that this Code is valid for a limited time only and will expire in 1 Hour. If you do not verify your account within this time, you may need to request a new OTP.</p>
+        <p>If you did not register for this service, please disregard this email and contact us immediately at [sedteam@outlook.com / 01556727311].</p>
+        <p>Thank you for using SED</p>
+        <p>The SED App Team</p>
+        </div>
+        <div class="footer">
+        <p>Copyright © 2023 SED App.
+        </p>
+      </div>
+        </div>
+      </body>
+    </html>
+  `
+};
+
+exports.generateOtpVerifiedEmailTemplate = username => {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Account Verification Successful</title>
+    <style type="text/css">
+      /* Set default font styles */
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+      }
+      /* Center the content */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /* Add styles to the logo */
+      .logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      /* Add styles to the subject */
+      .subject {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 30px;
+        text-align: center;
+      }
+      /* Add styles to the message content */
+      .message {
+        margin-top: 20px;
+      }
+      /* Add styles to the footer */
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+    </style>
+  </head>
+      <body>
+      <div class="container">
+        <img class="logo" src="https://i.pinimg.com/originals/ea/6a/73/ea6a73674b0a6ab38e171afc421ceaa1.png" alt="Logo" />
+        <h4 class="subject">Account Verification Successful</h4>
+        <div class="message">
+        <p>Dear ${username},</p>
+        <p>We are pleased to inform you that your account has been successfully verified. You can now access all the features and services of our platform.</p>
+        <p>We take security seriously and this extra step is necessary to ensure the safety of your account and data. Please keep your account details safe and secure and do not share them with anyone.</p>
+        <p>If you have any questions or concerns, please do not hesitate to contact our support team at [sedteam@outlook.com / 01556727311].</p>
+        <p>Thank you for choosing SED</p>
+        <p>The SED App Team</p>
+        </div>
+        <div class="footer">
+        <p>Copyright © 2023 SED App.
+        </p>
+      </div>
+        </div>
+      </body>
+    </html>
+  `
+};

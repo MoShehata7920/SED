@@ -17,7 +17,6 @@ passport.use(
 
         async (request, accessToken, refreshToken, profile, done) => {
             try {
-                console.log(profile._json)
                 const user = await User.findOne({
                     $or: [{ email: profile._json.email },
                     { googleId: profile._json.sub }]

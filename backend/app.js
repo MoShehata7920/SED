@@ -35,10 +35,11 @@ const productsRoute=require('./api/routes/products')
 const authRoute=require('./api/routes/auth')     
 const homeRoute=require('./api/routes/home')
 
+
 //forwarding routes
 app.use('/api/users',usersRoute)
 app.use('/api/products',productsRoute)
-app.use('/google',authRoute)                    
+app.use('/auth',authRoute)                    
 app.use('/home',homeRoute)
 
 app.get('',(req,res)=>{
