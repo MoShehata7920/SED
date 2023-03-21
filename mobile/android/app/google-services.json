@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "602406913114",
+    "project_id": "sed-inc",
+    "storage_bucket": "sed-inc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602406913114:android:d74d89896e0db7a8928463",
+        "android_client_info": {
+          "package_name": "com.example.sed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602406913114-n0ekltbq1095rnr9fm6rnd55vb3eo25p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE101wWvMSUKfwqnNrOvaChkAXx9tKOU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602406913114-n0ekltbq1095rnr9fm6rnd55vb3eo25p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
