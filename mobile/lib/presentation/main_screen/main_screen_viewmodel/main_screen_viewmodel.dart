@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sed/app/constants.dart';
@@ -67,10 +68,14 @@ class MainScreenViewModel extends BaseViewModel
     mainViewInput.add(index);
   }
 
-  void connectAndListen() {
+  Future<void> connectAndListen() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+    print('Device Token: $token');
 
     Constants.socket.onConnect((_) {
       Constants.socket.emit('token', Constants.token);
+      Constants.socket.emit('tokenDevice', token);
     });
 
     //When an event recieved from server, data is added to the stream

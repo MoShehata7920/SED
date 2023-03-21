@@ -26,10 +26,6 @@ void main() async {
       PushNotificationService();
   await pushNotificationService.initialize();
 
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-  String? token = await messaging.getToken();
-  print('Device Token: $token');
-  
   runApp(EasyLocalization(
       supportedLocales: const [arabicLocal, englishLocal],
       path: assetPathLocalization,
