@@ -4,11 +4,6 @@ const userController = require('../controllers/userController')
 const authController = require('../controllers/auth')
 
 
-
-
-
-
-
 //updating user info
 router.patch("/update/:userId", verifyToken, userController.updateUser)
 
