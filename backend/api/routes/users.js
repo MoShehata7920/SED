@@ -1,41 +1,39 @@
-const router=require('express').Router()
-const { body, validationResult } = require('express-validator')
+const router = require('express').Router()
 const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
-const {resetVerification} = require('../middleware/check-reset')
-const userController=require('../controllers/userController')
+const userController = require('../controllers/userController')
+const authController = require('../controllers/auth')
 
-// new user sign up 
-router.post('/register',
-    [body('password').isLength({min:5}).withMessage('Please enter a valid password with at least 5 chars')]
-    , userController.userRegister )
 
-// user login
-router.post('/login', userController.userLogin )
 
-// getting all users , must be an admin
-router.get('/getallusers' , verifyTokenAndAdmin , userController.getAllUsers)
 
-// To find a Single User , must be and admin or the userhim self
-router.get('/:userId',verifyToken,userController.getSingleUser)
+
+
 
 //updating user info
-router.patch("/update/:userId", verifyToken ,userController.updateUser)
+router.patch("/update/:userId", verifyToken, userController.updateUser)
 
 //deleting user by it's Id
-router.delete('/delete/:userId',verifyTokenAndAdmin,userController.deleteUser)
+router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
 
-// verify email
-router.post('/verify-email',userController.verifyEmail)
+//if needed to verify another email after registration
 
-//forgot password 
-router.post('/forgot-password',
-    [body('email').notEmpty().withMessage(' invalid parameter \'email\' ').isEmail().withMessage('Please Enter A valid email address')]
-    ,userController.forgotPassword
-)
-//reset password redirect
-router.post('/reset-password', resetVerification ,userController.resetPassword )
+// send verify email otp
+router.get('/verifyrequest', authController.verifyEmail);
+
+// check verify email otp
+router.post('/verifyemail', authController.otpVerification);
 
 //route for user's wishlist 
-router.patch('/addToWishlist', verifyToken ,userController.addToWishList)
+router.patch('/addToWishlist', verifyToken, userController.addToWishList);
 
-module.exports=router;
+router.get('/getWishlist', verifyToken, userController.getWishlist);
+
+// To find a Single User , must be and admin or the userhim self
+router.get('/get/:userId', verifyToken, userController.getSingleUser)
+
+// getting all users , must be an admin
+router.get('/getallusers', verifyTokenAndAdmin, userController.getAllUsers)
+
+
+
+module.exports = router;

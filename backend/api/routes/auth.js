@@ -13,6 +13,9 @@ router.post('/register',
         return true;
     }), authController.registerController);
 
+// verify email
+router.post('/verifyemail',authController.otpVerification);
+
 router.post('/login',
     body('loginOption').not().isEmpty().withMessage('Empty Mail Or Phone Field'),
     body('password').not().isEmpty().withMessage('Empty Password Field'),
@@ -26,6 +29,7 @@ router.get('/google', passport.authenticate('google', {
     scope:
         ['email', 'profile']
 }));
+
 router.get('/google/redirect', passport.authenticate('google', { failureRedirect: '/' })
     , authController.googleLogin);
 
