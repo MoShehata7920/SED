@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sed/presentation/main_screen/search_screen/search_viewmodel.dart';
 
 class SearchView extends StatefulWidget {
+  const SearchView({super.key});
+
   @override
-  _SearchViewState createState() => _SearchViewState();
+  SearchViewState createState() => SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView> {
+class SearchViewState extends State<SearchView> {
   final SearchViewModel _viewModel = SearchViewModel();
 
   @override

@@ -197,7 +197,7 @@ class _ItemViewState extends State<ItemView> {
                       ),
                       Expanded(
                         child: Text(
-                          item.userData.name,
+                          item.userData.address,
                           textAlign: TextAlign.start,
                           maxLines: AppValues.maxAddressLines,
                           overflow: TextOverflow.ellipsis,
@@ -251,7 +251,7 @@ class _ItemViewState extends State<ItemView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item.userData.address,
+                              item.userData.name,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge

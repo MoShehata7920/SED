@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:sed/app/constants.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:socket_io_client/socket_io_client.dart';
 
 class ChatViewModel extends BaseViewModel
@@ -30,14 +30,14 @@ class ChatViewModel extends BaseViewModel
       _socketStreamController.stream.map((response) => response);
 
   void connectAndListen() {
-    IO.Socket socket = IO.io('http://192.168.1.2:9001',
+    io.Socket socket = io.io('http://192.168.1.2:9001',
         OptionBuilder().setTransports(['websocket']).build());
 
     socket.onConnect((_) {
       socket.emit('token', Constants.token);
     });
 
-    //When an event recieved from server, data is added to the stream
+    //When an event received from server, data is added to the stream
     socket.on('event', (data) => print(data));
     socket.onDisconnect((_) => print('disconnect'));
     socket.emit("event", "{0,12}00");

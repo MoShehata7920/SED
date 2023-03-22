@@ -1,6 +1,6 @@
 // * why don't we just use app strings ?
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class Constants {
   //dio constants
@@ -14,6 +14,6 @@ class Constants {
   static String token = "SEND TOKEN HERE";
   static const int apiTimeOut = 60000;
 
-  static IO.Socket socket = IO.io('http://103.48.193.225:9001',
+  static io.Socket socket = io.io('http://103.48.193.225:9001',
       OptionBuilder().setTransports(['websocket']).build());
 }

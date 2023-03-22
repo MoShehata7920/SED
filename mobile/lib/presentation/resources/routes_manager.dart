@@ -106,7 +106,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const HelpScreen());
 
       case Routes.searchScreenRoute:
-        return MaterialPageRoute(builder: (context) => SearchView());
+        return MaterialPageRoute(builder: (context) => const SearchView());
 
       case Routes.notificationsScreenRoute:
         return MaterialPageRoute(
