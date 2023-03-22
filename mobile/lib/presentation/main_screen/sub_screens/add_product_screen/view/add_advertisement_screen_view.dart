@@ -110,6 +110,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
           centerTitle: true,
         ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
             child: Column(

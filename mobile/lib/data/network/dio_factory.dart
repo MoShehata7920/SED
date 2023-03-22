@@ -1,8 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/constants.dart';
 

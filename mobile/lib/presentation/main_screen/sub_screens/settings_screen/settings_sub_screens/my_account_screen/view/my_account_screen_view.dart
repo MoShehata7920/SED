@@ -47,6 +47,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
         title: Text('My Account', style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(

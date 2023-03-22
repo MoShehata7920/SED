@@ -23,6 +23,7 @@ class _MainScreenViewState extends State<MainScreenView> {
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Widget>(
@@ -57,17 +58,19 @@ class _MainScreenViewState extends State<MainScreenView> {
                 final selectedColor = ColorsManager.primaryColor;
                 final unselectedColor = ColorsManager.primaryText;
 
-                if(index == 1) {
+                if (index == 1) {
                   return Center(
                     child: Badge(
                       label: Text('+99'),
-                      child: Icon(iconData,
+                      child: Icon(
+                        iconData,
                         color: isSelected ? selectedColor : unselectedColor,
                       ),
                     ),
                   );
                 }
-                return Icon(iconData,
+                return Icon(
+                  iconData,
                   color: isSelected ? selectedColor : unselectedColor,
                 );
               },
@@ -76,7 +79,8 @@ class _MainScreenViewState extends State<MainScreenView> {
               height: 60,
               gapLocation: GapLocation.center,
               notchSmoothness: NotchSmoothness.verySmoothEdge,
-              backgroundColor: ColorsManager.primaryBackground, // Set the background color to primary background color
+              backgroundColor: ColorsManager
+                  .primaryBackground, // Set the background color to primary background color
             ),
           );
         });

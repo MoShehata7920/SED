@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
-import 'package:sed/app/noti.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
@@ -33,7 +32,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
   final ScrollController _listViewScrollController = ScrollController();
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = instance<FlutterLocalNotificationsPlugin>();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      instance<FlutterLocalNotificationsPlugin>();
 
   int selectedIndex = 0;
 
@@ -94,7 +94,6 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         context, Routes.notificationsScreenRoute);
 
                     _viewModel.setNotificationsCount(0);
-
                   },
                   icon: StreamBuilder<int>(
                       stream: _viewModel.notificationOutput,

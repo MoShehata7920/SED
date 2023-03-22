@@ -15,14 +15,14 @@ import '../../../../resources/values_manager.dart';
 
 // ignore: must_be_immutable
 class ShowProfileView extends StatefulWidget {
-
   Object? userData;
 
   ShowProfileView(this.userData, {Key? key}) : super(key: key);
 
   @override
   // ignore: no_logic_in_create_state
-  State<ShowProfileView> createState() => _ShowProfileViewState(userData as UserData);
+  State<ShowProfileView> createState() =>
+      _ShowProfileViewState(userData as UserData);
 }
 
 class _ShowProfileViewState extends State<ShowProfileView> {
@@ -31,7 +31,6 @@ class _ShowProfileViewState extends State<ShowProfileView> {
   _ShowProfileViewState(this.userData);
 
   final ShowProfileViewModel _viewModel = ShowProfileViewModel();
-
 
   @override
   void initState() {
@@ -58,15 +57,19 @@ class _ShowProfileViewState extends State<ShowProfileView> {
         elevation: 0,
         backgroundColor: ColorsManager.primaryBackground,
         toolbarHeight: AppSize.s50,
-        actions: const [Padding(
-          padding: EdgeInsets.all(AppPadding.p15),
-          child: FaIcon(FontAwesomeIcons.exclamation),
-        )],
+        actions: const [
+          Padding(
+            padding: EdgeInsets.all(AppPadding.p15),
+            child: FaIcon(FontAwesomeIcons.exclamation),
+          )
+        ],
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentWidget(showItemsContentObject),
+          return snapshot.data?.getScreenWidget(
+                  context,
+                  _getContentWidget(showItemsContentObject),
                   () => _viewModel.getShowProfile(userData.id)) ??
               _getContentWidget(showItemsContentObject);
         },
@@ -88,7 +91,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
   }
 
   Widget _getContentWidget(ShowItemsContentObject? showItemsContentObject) {
-    if(showItemsContentObject == null) {
+    if (showItemsContentObject == null) {
       return Container();
     } else {
       return SingleChildScrollView(
@@ -99,7 +102,8 @@ class _ShowProfileViewState extends State<ShowProfileView> {
             padding: const EdgeInsets.all(AppSize.s20),
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(AppSize.s20)),
                 color: ColorsManager.secondaryBackground,
               ),
               child: Column(children: [
@@ -110,8 +114,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                     children: [
                       CircleAvatar(
                         radius: AppSize.s32,
-                        backgroundImage: NetworkImage(
-                            userData.image),
+                        backgroundImage: NetworkImage(userData.image),
                       ),
                       const SizedBox(
                         width: AppSize.s14,
@@ -129,8 +132,8 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                  fontSize: AppSize.s18,
-                                  color: ColorsManager.white),
+                                      fontSize: AppSize.s18,
+                                      color: ColorsManager.white),
                             ),
                             const SizedBox(
                               height: AppSize.s15,
@@ -144,8 +147,8 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                      fontSize: AppSize.s14,
-                                      color: ColorsManager.secondaryText),
+                                          fontSize: AppSize.s14,
+                                          color: ColorsManager.secondaryText),
                                 ),
                               ],
                             ),
@@ -165,7 +168,8 @@ class _ShowProfileViewState extends State<ShowProfileView> {
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(AppSize.s20)),
                 color: ColorsManager.secondaryBackground,
               ),
               width: double.infinity,
@@ -174,10 +178,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                 child: Center(
                   child: Text(
                     "Published Items (${showItemsContentObject.items.length})",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: AppSize.s16,
                         color: ColorsManager.secondaryText),
                   ),
@@ -185,22 +186,25 @@ class _ShowProfileViewState extends State<ShowProfileView> {
               ),
             ),
           ),
-          const SizedBox(height: AppSize.s3,),
+          const SizedBox(
+            height: AppSize.s3,
+          ),
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: AppValues.showItemCrossAxisCounts,
             physics: const NeverScrollableScrollPhysics(),
             children: List.generate(showItemsContentObject.items.length,
-                    (index) => _getItemWidget(index, showItemsContentObject)),
+                (index) => _getItemWidget(index, showItemsContentObject)),
           ),
         ]),
       );
     }
   }
 
-  Widget _getItemWidget(int index, ShowItemsContentObject showItemsContentObject) {
+  Widget _getItemWidget(
+      int index, ShowItemsContentObject showItemsContentObject) {
     final HomeScreenViewModel homeScreenViewModel =
-    instance<HomeScreenViewModel>();
+        instance<HomeScreenViewModel>();
     return InkWell(
       child: Card(
         elevation: 1,
@@ -232,8 +236,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                       alignment: Alignment.topLeft,
                       child: IconButton(
                           onPressed: () {
-                            homeScreenViewModel
-                                .toggleSavingProduct(
+                            homeScreenViewModel.toggleSavingProduct(
                                 showItemsContentObject.items[index]);
                           },
                           icon: StreamBuilder<bool>(
@@ -241,9 +244,8 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                               builder: (context, snapshot) {
                                 return CircleAvatar(
                                   radius: AppSize.s14,
-                                  backgroundColor:
-                                  showItemsContentObject.items[index]
-                                      .isSaved
+                                  backgroundColor: showItemsContentObject
+                                          .items[index].isSaved
                                       ? ColorsManager.primaryColor
                                       : ColorsManager.grey2,
                                   child: Icon(
@@ -260,21 +262,19 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.5),
                           borderRadius:
-                          const BorderRadius.all(Radius.circular(16.0)),
+                              const BorderRadius.all(Radius.circular(16.0)),
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.p5),
                         child: Text(
                           Utils.getCategoryNameById(
-                              showItemsContentObject.items[index]
-                                  .categoryId),
-                          style: Theme
-                              .of(context)
+                              showItemsContentObject.items[index].categoryId),
+                          style: Theme.of(context)
                               .textTheme
                               .bodyLarge
                               ?.copyWith(
-                              fontSize: AppSize.s12,
-                              color: ColorsManager.secondaryText),
+                                  fontSize: AppSize.s12,
+                                  color: ColorsManager.secondaryText),
                         ),
                       ),
                     ),
@@ -288,11 +288,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                 showItemsContentObject.items[index].name,
                 maxLines: AppValues.maxItemNameLines,
                 overflow: TextOverflow.ellipsis,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: AppSize.s15,
                     color: ColorsManager.secondaryText,
                     height: 1),
@@ -302,11 +298,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
               padding: const EdgeInsets.only(top: AppPadding.p10),
               child: Text(
                 getPrice(showItemsContentObject.items[index].price),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: 15,
                     color: ColorsManager.secondaryText,
                     height: 1),
@@ -333,11 +325,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                         textAlign: TextAlign.start,
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
@@ -347,11 +335,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: AppSize.s12, color: ColorsManager.grey2),
                       ),
                     ),
@@ -368,5 +352,4 @@ class _ShowProfileViewState extends State<ShowProfileView> {
       },
     );
   }
-
 }

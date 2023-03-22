@@ -60,6 +60,7 @@ class NotificationScreenViewState extends State<NotificationScreenView> {
       return Container();
     } else {
       return ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: notifications.notifications.length,
         itemBuilder: (context, index) {
           notifications.notifications[index];
