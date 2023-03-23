@@ -140,8 +140,14 @@ exports.getProductsByParams = async (req, res, next) => {
 
 exports.getProductsByQuery=async (req, res, next) => {
     const page = req.query.page || 1;
-    const ProductFor = req.query.productFor;
-    const Category = req.query.category;
+    var ProductFor = req.query.productFor;
+    var Category = req.query.category;
+    if(!ProductFor){
+        ProductFor='all'
+    }
+    if(!Category){
+        Category='all'
+    }
     const perPage = 10;
     const skip = (page - 1) * perPage;
     try {
