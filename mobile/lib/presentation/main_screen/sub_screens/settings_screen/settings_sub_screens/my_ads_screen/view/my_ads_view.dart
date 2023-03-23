@@ -8,9 +8,9 @@ import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
-import '../../../../../resources/color_manager.dart';
-import '../../../../../resources/values_manager.dart';
-import 'my_ads_viewmodel.dart';
+import '../../../../../../resources/color_manager.dart';
+import '../../../../../../resources/values_manager.dart';
+import '../viewmodel/my_ads_viewmodel.dart';
 
 class MyAdsScreenView extends StatefulWidget {
   const MyAdsScreenView({super.key});
@@ -53,6 +53,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: AppSize.s50,
+        iconTheme: IconThemeData(color: ColorsManager.secondaryText),
         title: Text(
           AppStrings.myAds.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(

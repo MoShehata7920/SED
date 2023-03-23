@@ -93,10 +93,11 @@ class _ShowItemsViewState extends State<ShowItemsView> {
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: AppSize.s50,
+        iconTheme: IconThemeData(color: ColorsManager.secondaryText),
         title: Text(
           viewType.getName(categoryId: categoryId),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.primaryText,
+                color: ColorsManager.secondaryText,
                 fontSize: AppSize.s30,
               ),
         ),

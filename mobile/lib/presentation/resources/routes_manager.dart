@@ -19,7 +19,7 @@ import '../forgot_password/view/forgotpassword_view.dart';
 import '../main_screen/items_screen/view/items_screen_view.dart';
 import '../main_screen/main_screen_view/main_screen_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/view/my_account_screen_view.dart';
-import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_ads_screen/my_ads_view.dart';
+import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_ads_screen/view/my_ads_view.dart';
 import '../splash/splash_view.dart';
 
 class Routes {

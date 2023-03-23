@@ -18,7 +18,7 @@ class AboutUsScreen extends StatelessWidget {
         title: Text(
           AppStrings.aboutUs.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.primaryText,
+                color: ColorsManager.secondaryText,
                 fontWeight: FontWeight.bold,
                 fontSize: AppSize.s18,
               ),
