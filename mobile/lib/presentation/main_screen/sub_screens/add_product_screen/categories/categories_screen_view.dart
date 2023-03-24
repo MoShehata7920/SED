@@ -24,7 +24,7 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
         backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(IconsManager.close, color: ColorsManager.white),
+          icon: Icon(IconsManager.close, color: ColorsManager.secondaryText),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
@@ -73,7 +73,7 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
                         ),
                       ),
                       FaIcon(
-                        FontAwesomeIcons.arrowRight,
+                        IconsManager.rightArrow,
                         color: ColorsManager.secondaryText,
                       ),
                     ],

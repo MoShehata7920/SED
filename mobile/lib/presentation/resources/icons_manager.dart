@@ -1,30 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sed/presentation/resources/icon_broken.dart';
 
 class IconsManager {
-  static const email = CupertinoIcons.mail_solid;
-  static const lock = CupertinoIcons.lock_fill;
+  static const email = CupertinoIcons.mail;
+  static const lock = IconBroken.lock;
   static const passwordVisible = CupertinoIcons.eye_fill;
   static const passwordNotVisible = CupertinoIcons.eye_slash_fill;
-  static const useName = CupertinoIcons.profile_circled;
-  static const phone = CupertinoIcons.phone_solid;
+  static const phone = IconBroken.call;
 
   static const List<IconData> iconsList = [
-    CupertinoIcons.home,
-    CupertinoIcons.conversation_bubble,
-    CupertinoIcons.heart_fill,
-    CupertinoIcons.settings_solid,
+    IconBroken.home,
+    IconBroken.chat,
+    IconBroken.heart,
+    IconBroken.setting,
   ];
+  static const barsStaggered = FontAwesomeIcons.barsStaggered;
+  static const filter = IconBroken.filter2;
+  static const saved = IconBroken.heart;
+  static const category = IconBroken.category;
 
-  static const rightArrow = CupertinoIcons.forward;
+  static const rightArrow = IconBroken.arrowRight;
 
-  static const search = CupertinoIcons.search;
-  static const notification = CupertinoIcons.bell;
+  static const search = IconBroken.search;
+  static const notification = IconBroken.notification;
 
   static const add = CupertinoIcons.add;
-  static const location = CupertinoIcons.location_solid;
+  static const location = IconBroken.location;
 
-  static const chat = CupertinoIcons.chat_bubble_2_fill;
+  static const chat = IconBroken.chat;
 
   static const google = FontAwesomeIcons.google;
 
@@ -41,19 +45,22 @@ class IconsManager {
     FontAwesomeIcons.car,
   ];
 
+  // add item screen
+  static const addRounded = IconBroken.plus;
+
   static const close = CupertinoIcons.xmark;
 
   // settings screen
-  static const rightRoundedArrow = CupertinoIcons.arrow_right_circle;
-  static const account = CupertinoIcons.group_solid;
-  static const myAds = CupertinoIcons.collections_solid;
+  static const rightRoundedArrow = IconBroken.arrowRightCircle;
+  static const account = IconBroken.profile;
+  static const myAds = IconBroken.folder;
   static const languageController = CupertinoIcons.globe;
   static const themeController = CupertinoIcons.color_filter;
   static const share = CupertinoIcons.share_up;
   static const help = CupertinoIcons.info;
-  static const questionMark = CupertinoIcons.question_circle_fill;
+  static const questionMark = IconBroken.infoCircle;
 
   // my Ads screen
-  static const update = CupertinoIcons.pencil;
-  static const delete = CupertinoIcons.trash;
+  static const update = IconBroken.edit;
+  static const delete = IconBroken.delete;
 }

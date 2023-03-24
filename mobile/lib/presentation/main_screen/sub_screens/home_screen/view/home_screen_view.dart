@@ -68,7 +68,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
           builder: (BuildContext context) {
             return IconButton(
               icon: FaIcon(
-                FontAwesomeIcons.barsStaggered,
+                IconsManager.barsStaggered,
                 color: ColorsManager.secondaryText,
               ),
               onPressed: () {
@@ -126,12 +126,22 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: AppPadding.p8),
-                    child: Text(
-                      AppStrings.allCategories.tr(),
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: ColorsManager.white,
-                            fontSize: AppSize.s20,
-                          ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          IconsManager.category,
+                          color: ColorsManager.primaryText,
+                        ),
+                        Text(
+                          AppStrings.allCategories.tr(),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: ColorsManager.primaryText,
+                                    fontSize: AppSize.s20,
+                                  ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -177,7 +187,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                             ),
                           ),
                           FaIcon(
-                            FontAwesomeIcons.arrowRight,
+                            IconsManager.rightArrow,
                             color: ColorsManager.secondaryText,
                           ),
                         ],
@@ -275,7 +285,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       FaIcon(
-                                        FontAwesomeIcons.magnifyingGlass,
+                                        IconsManager.search,
                                         color: ColorsManager.secondaryText,
                                         size: AppSize.s24,
                                       ),
@@ -307,7 +317,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         ),
                                       ),
                                       FaIcon(
-                                        FontAwesomeIcons.calendarMinus,
+                                        IconsManager.filter,
                                         color: ColorsManager.secondaryText,
                                         size: AppSize.s24,
                                       ),
@@ -694,7 +704,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         ? ColorsManager.primaryColor
                                         : ColorsManager.grey2,
                                     child: Icon(
-                                      Icons.favorite_border,
+                                      IconsManager.saved,
                                       size: AppSize.s12,
                                       color: ColorsManager.white,
                                     ),

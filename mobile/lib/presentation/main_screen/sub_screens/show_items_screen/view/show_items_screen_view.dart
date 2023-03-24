@@ -202,7 +202,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                                       ? ColorsManager.primaryColor
                                       : ColorsManager.grey2,
                                   child: Icon(
-                                    Icons.favorite_border,
+                                    IconsManager.saved,
                                     size: AppSize.s12,
                                     color: ColorsManager.white,
                                   ),
