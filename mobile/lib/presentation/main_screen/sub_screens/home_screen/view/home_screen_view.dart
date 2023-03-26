@@ -281,47 +281,41 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                       AppPadding.p0,
                                       AppPadding.p15,
                                       AppPadding.p0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      FaIcon(
-                                        IconsManager.search,
-                                        color: ColorsManager.secondaryText,
-                                        size: AppSize.s24,
-                                      ),
-                                      const SizedBox(
-                                        width: AppSize.s10,
-                                      ),
-                                      Expanded(
-                                        child: TextFormField(
-                                          onTap: () {
-                                            Navigator.pushNamed(context,
-                                                Routes.searchScreenRoute);
-                                          },
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            hintText:
-                                                AppStrings.searchHere.tr(),
-                                            filled: true,
-                                            fillColor: ColorsManager
-                                                .secondaryBackground,
-                                          ),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                                color: ColorsManager
-                                                    .primaryBtnText,
-                                                fontSize: AppSize.s15,
-                                              ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.searchScreenRoute);
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        FaIcon(
+                                          IconsManager.search,
+                                          color: ColorsManager.secondaryText,
+                                          size: AppSize.s24,
                                         ),
-                                      ),
-                                      FaIcon(
-                                        IconsManager.filter,
-                                        color: ColorsManager.secondaryText,
-                                        size: AppSize.s24,
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          width: AppSize.s10,
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            color: ColorsManager
+                                                .secondaryBackground,
+                                            child: Text(
+                                              AppStrings.searchHere.tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                    color: ColorsManager
+                                                        .primaryBtnText,
+                                                    fontSize: AppSize.s15,
+                                                  ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
