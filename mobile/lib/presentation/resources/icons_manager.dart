@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/presentation/resources/icon_broken.dart';
 
@@ -56,11 +57,15 @@ class IconsManager {
   static const myAds = IconBroken.folder;
   static const languageController = CupertinoIcons.globe;
   static const themeController = CupertinoIcons.color_filter;
-  static const share = CupertinoIcons.share_up;
+  static const share = Icons.share_outlined;
   static const help = CupertinoIcons.info;
   static const questionMark = IconBroken.infoCircle;
 
   // my Ads screen
   static const update = IconBroken.edit;
   static const delete = IconBroken.delete;
+
+  // search screen
+  static const micOn = CupertinoIcons.mic;
+  static const micOff = CupertinoIcons.mic_off;
 }

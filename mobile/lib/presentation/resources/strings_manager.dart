@@ -145,4 +145,7 @@ class AppStrings {
   static const String phone = "phone";
   static const String appreciateFeedBack = "appreciateFeedBack";
   static const String byEaglesTeam = "byEaglesTeam";
+
+  // search Screen
+  static const String enterSearchTerm = "enter_search_term";
 }

@@ -26,13 +26,14 @@ ThemeData getApplicationTheme() {
     appBarTheme: AppBarTheme(
       centerTitle: true,
       backgroundColor: ColorsManager.primaryBackground,
+      iconTheme: IconThemeData(color: ColorsManager.secondaryText),
       elevation: AppSize.s4,
       shadowColor: ColorsManager.primaryColor,
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: ColorsManager.background,
           statusBarBrightness: Brightness.light),
-      titleTextStyle:
-          getRegularStyle(fontSize: FontSize.s16, color: ColorsManager.darkBlack),
+      titleTextStyle: getRegularStyle(
+          fontSize: FontSize.s22, color: ColorsManager.secondaryText),
     ),
 
     //button Theme
@@ -59,8 +60,8 @@ ThemeData getApplicationTheme() {
     textTheme: TextTheme(
         displayLarge:
             getLightStyle(color: ColorsManager.white, fontSize: FontSize.s24),
-        headlineLarge:
-            getSemiBoldStyle(color: ColorsManager.white, fontSize: FontSize.s16),
+        headlineLarge: getSemiBoldStyle(
+            color: ColorsManager.white, fontSize: FontSize.s16),
         headlineMedium:
             getRegularStyle(color: ColorsManager.white, fontSize: FontSize.s14),
         titleMedium: getMediumStyle(

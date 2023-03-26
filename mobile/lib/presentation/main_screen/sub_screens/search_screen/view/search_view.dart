@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:sed/presentation/main_screen/search_screen/search_viewmodel.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/strings_manager.dart';
+import '../viewmodel/search_viewmodel.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -20,6 +23,7 @@ class SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
+    _viewModel.initSpeechRecognition();
   }
 
   @override
@@ -31,10 +35,26 @@ class SearchViewState extends State<SearchView> {
           autofocus: true,
           onChanged: _viewModel.onSearchTextChanged,
           decoration: InputDecoration(
-            hintText: 'Search...',
+            hintText: AppStrings.searchHere.tr(),
             border: InputBorder.none,
           ),
         ),
+        actions: [
+          StreamBuilder<bool>(
+              stream: _viewModel.micOutput,
+              builder: (context, snapshot) {
+                return IconButton(
+                  icon: Icon((snapshot.data ?? true)
+                      ? IconsManager.micOn
+                      : IconsManager.micOff),
+                  onPressed: () {
+                    (_viewModel.speech.isNotListening)
+                        ? _viewModel.startListening()
+                        : _viewModel.stopListening();
+                  },
+                );
+              }),
+        ],
       ),
       body: StreamBuilder<String>(
         stream: _viewModel.onSearchChanged,
@@ -44,7 +64,7 @@ class SearchViewState extends State<SearchView> {
             // TODO: use search term to fetch data and display it
           }
           return Center(
-            child: Text('Enter a search term'),
+            child: Text(AppStrings.enterSearchTerm.tr()),
           );
         },
       ),
