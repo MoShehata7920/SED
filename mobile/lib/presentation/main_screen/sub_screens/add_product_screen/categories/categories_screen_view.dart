@@ -21,12 +21,7 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
-        backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(IconsManager.close, color: ColorsManager.secondaryText),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
         title: Text(
           AppStrings.categories.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(

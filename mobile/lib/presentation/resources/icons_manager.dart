@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,11 +11,12 @@ class IconsManager {
   static const passwordNotVisible = CupertinoIcons.eye_slash_fill;
   static const phone = IconBroken.call;
 
-  static const List<IconData> iconsList = [
-    IconBroken.home,
-    IconBroken.chat,
-    IconBroken.heart,
-    IconBroken.setting,
+  static const List<TabItem> iconsList = [
+    TabItem(icon: Icons.home, title: 'Home'),
+    TabItem(icon: IconBroken.chat, title: 'Chat'),
+    TabItem(icon: Icons.add, title: 'Add'),
+    TabItem(icon: IconBroken.heart, title: 'Saved'),
+    TabItem(icon: IconBroken.setting, title: 'Settings'),
   ];
   static const barsStaggered = FontAwesomeIcons.barsStaggered;
   static const filter = IconBroken.filter2;
