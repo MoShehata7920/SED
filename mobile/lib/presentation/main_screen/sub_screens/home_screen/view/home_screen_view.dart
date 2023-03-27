@@ -1,9 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
@@ -34,6 +38,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       instance<FlutterLocalNotificationsPlugin>();
+
+  final ImagePicker _imagePicker = ImagePicker();
 
   int selectedIndex = 0;
 
@@ -254,43 +260,87 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     ),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
-                          AppPadding.p0,
+                          AppPadding.p20,
                           AppPadding.p36,
-                          AppPadding.p0,
+                          AppPadding.p20,
                           AppPadding.p0),
                       child: Row(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  AppPadding.p20,
-                                  AppPadding.p0,
-                                  AppPadding.p20,
-                                  AppPadding.p0),
+                            child: Container(
+                              height: AppSize.s55,
+                              decoration: BoxDecoration(
+                                color: ColorsManager.secondaryBackground,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, Routes.searchScreenRoute);
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      FaIcon(
+                                        IconsManager.search,
+                                        color: ColorsManager.secondaryText,
+                                        size: AppSize.s24,
+                                      ),
+                                      const SizedBox(
+                                        width: AppSize.s10,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          color: ColorsManager.secondaryBackground,
+                                          child: Text(
+                                            AppStrings.searchHere.tr(),
+                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                              color: ColorsManager.primaryBtnText,
+                                              fontSize: AppSize.s15,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 15,),
+                          Expanded(
+                            child: Badge(
+                              label: const Text("New!"),
+                              alignment: AlignmentDirectional.topStart,
+                              backgroundColor: ColorsManager.primaryColor,
                               child: Container(
-                                width: AppSize.s100,
                                 height: AppSize.s55,
                                 decoration: BoxDecoration(
                                   color: ColorsManager.secondaryBackground,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      AppPadding.p15,
-                                      AppPadding.p0,
-                                      AppPadding.p15,
-                                      AppPadding.p0),
+                                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
                                   child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.searchScreenRoute);
+                                    onTap: () async {
+                                      var image = await _imagePicker.pickImage(
+                                          source: ImageSource.gallery);
+
+                                      File imageFile = File(image!.path);
+
+                                      List<int> imageBytes = imageFile.readAsBytesSync();
+                                      String base64Image = base64.encode(imageBytes);
+
+                                      Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                                          arguments: [Views.SEARCHIMAGE, 0 , base64Image]);
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         FaIcon(
-                                          IconsManager.search,
+                                          Icons.camera,
                                           color: ColorsManager.secondaryText,
                                           size: AppSize.s24,
                                         ),
@@ -299,18 +349,13 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         ),
                                         Expanded(
                                           child: Container(
-                                            color: ColorsManager
-                                                .secondaryBackground,
+                                            color: ColorsManager.secondaryBackground,
                                             child: Text(
-                                              AppStrings.searchHere.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(
-                                                    color: ColorsManager
-                                                        .primaryBtnText,
-                                                    fontSize: AppSize.s15,
-                                                  ),
+                                              "Search by image",
+                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                color: ColorsManager.primaryBtnText,
+                                                fontSize: AppSize.s15,
+                                              ),
                                             ),
                                           ),
                                         )

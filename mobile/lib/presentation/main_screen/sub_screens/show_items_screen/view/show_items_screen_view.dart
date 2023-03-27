@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
@@ -14,14 +15,15 @@ import 'package:sed/presentation/resources/values_manager.dart';
 
 // ignore: must_be_immutable
 class ShowItemsView extends StatefulWidget {
-  ShowItemsView(this.type, {this.categoryId = 0, super.key});
+  ShowItemsView(this.type, {this.categoryId = 0, this.image, super.key});
 
   Views type;
   int categoryId;
+  String? image;
 
   @override
   // ignore: no_logic_in_create_state
-  State<ShowItemsView> createState() => _ShowItemsViewState(type, categoryId);
+  State<ShowItemsView> createState() => _ShowItemsViewState(type, categoryId, image);
 }
 
 class _ShowItemsViewState extends State<ShowItemsView> {
@@ -30,8 +32,9 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   int pageId = 0;
   double currentIntent = 0;
   bool isLoading = false;
+  String? image;
 
-  _ShowItemsViewState(this.viewType, this.categoryId);
+  _ShowItemsViewState(this.viewType, this.categoryId, this.image);
 
   final ScrollController _scrollController = ScrollController(
     initialScrollOffset: 0.0,
@@ -43,7 +46,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItems(viewType, categoryId);
+    _viewModel.getItems(viewType, categoryId,image: image);
 
     _scrollController.addListener(() async {
       if (_scrollController.position.maxScrollExtent ==

@@ -22,6 +22,5 @@ class ShowItemsUseCase
 class ShowItemsUseCaseInputs {
   String type;
   int offset;
-
   ShowItemsUseCaseInputs(this.type, this.offset);
 }

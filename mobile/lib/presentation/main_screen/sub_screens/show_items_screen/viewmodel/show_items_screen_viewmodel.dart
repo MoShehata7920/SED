@@ -29,7 +29,7 @@ class ShowItemsViewModel extends BaseViewModel
   }
 
   @override
-  void getItems(Views viewType, int categoryId) async {
+  void getItems(Views viewType, int categoryId, {String? image}) async {
     items = [];
 
     inputState.add(LoadingState(

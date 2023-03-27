@@ -74,10 +74,20 @@ class RouteGenerator {
 
       case Routes.showItemsScreenRoute:
         List<dynamic> args = settings.arguments as List<dynamic>;
+
+        if(args.length <=2) {
+          return MaterialPageRoute(
+              builder: (context) => ShowItemsView(
+                args[0],
+                categoryId: args[1],
+              ));
+        }
+
         return MaterialPageRoute(
             builder: (context) => ShowItemsView(
                   args[0],
                   categoryId: args[1],
+                  image: args[2],
                 ));
 
       case Routes.categoriesScreenRoute:
