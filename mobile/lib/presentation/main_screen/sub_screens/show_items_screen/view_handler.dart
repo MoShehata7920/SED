@@ -13,7 +13,7 @@ import '../../../resources/strings_manager.dart';
 import '../../../resources/values_manager.dart';
 import 'viewmodel/show_items_screen_viewmodel.dart';
 
-enum Views { SELL, DONATE, EXCHANGE, CATEGORY, SAVED }
+enum Views { SELL, DONATE, EXCHANGE, CATEGORY, SAVED, SEARCHIMAGE }
 
 extension ViewExtension on Views {
   String getName({int categoryId = 0}) {
@@ -32,6 +32,9 @@ extension ViewExtension on Views {
 
       case Views.SAVED:
         return ViewsName.saved;
+
+      case Views.SEARCHIMAGE:
+        return "Search Image";
     }
   }
 
@@ -51,6 +54,8 @@ extension ViewExtension on Views {
         return 3;
       case Views.SAVED:
         return 4;
+      case Views.SEARCHIMAGE:
+        return 5;
     }
   }
 }

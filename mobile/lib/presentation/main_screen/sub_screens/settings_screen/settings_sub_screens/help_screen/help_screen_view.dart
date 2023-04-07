@@ -16,7 +16,7 @@ class HelpScreen extends StatelessWidget {
         title: Text(
           AppStrings.help.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.primaryText,
+                color: ColorsManager.secondaryText,
                 fontSize: AppSize.s22,
               ),
         ),

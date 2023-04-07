@@ -32,7 +32,9 @@ abstract class AppServiceClient {
   );
 
   @GET("/home/")
-  Future<HomeResponse> getHomeData(@Header("token") String token,);
+  Future<HomeResponse> getHomeData(
+    @Header("token") String token,
+  );
 
   @GET("/Items/{itemId}")
   Future<ItemResponse> getItemData(
@@ -42,8 +44,7 @@ abstract class AppServiceClient {
   @GET("/home/{type}/{pageId}")
   Future<ShowItemsResponse> getShowItemsData(
     @Path("type") String? type,
-    @Path("pageId") int? offset,
-  );
+    @Path("pageId") int? offset,);
 
   @GET("/Products/{itemId}")
   Future<SavingProductResponse> toggleSavingProduct(

@@ -55,16 +55,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: ColorsManager.primaryText,
+            color: ColorsManager.secondaryText,
             size: AppSize.s32,
           ),
         ),
         title: Text(
           AppStrings.forgetPassword.tr(),
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: AppSize.s20,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorsManager.secondaryText,
+                fontSize: AppSize.s20,
+              ),
         ),
         centerTitle: false,
         elevation: AppSize.s0,

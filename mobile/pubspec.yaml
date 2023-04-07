@@ -48,7 +48,6 @@ dependencies:
   lottie: ^2.2.0
   sprintf: ^7.0.0
   country_code_picker_mp: ^1.0.3
-  animated_bottom_navigation_bar: ^1.1.0+1
   carousel_slider: ^4.2.1
   share_plus: ^6.3.1
   url_launcher: ^6.1.10
@@ -64,9 +63,10 @@ dependencies:
   flutter_local_notifications: ^13.0.0
   badges: ^3.0.2
   dob_input_field: ^2.0.0
-  syncfusion_flutter_datepicker: ^20.4.54
   firebase_core: ^2.8.0
   firebase_messaging: ^14.3.0
+  speech_to_text: ^6.1.1
+  convex_bottom_bar: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -128,6 +128,9 @@ flutter:
     - family: 'Brazila'
       fonts:
         - asset: assets/fonts/Brazilia_Three_CG_Regular.otf
+    - family: IconBroken
+      fonts:
+        - asset: assets/fonts/icons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -44,7 +44,9 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
       appBar: AppBar(
         backgroundColor: ColorsManager.background,
         elevation: 0,
-        title: Text('My Account', style: TextStyle(color: Colors.white)),
+        iconTheme: IconThemeData(color: ColorsManager.secondaryText),
+        title: Text('My Account',
+            style: TextStyle(color: ColorsManager.secondaryText)),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

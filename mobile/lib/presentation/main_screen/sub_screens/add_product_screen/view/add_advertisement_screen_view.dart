@@ -96,7 +96,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
           leading: IconButton(
               icon: Icon(
                 IconsManager.close,
-                color: ColorsManager.white,
+                color: ColorsManager.secondaryText,
               ),
               onPressed: () => Navigator.pushReplacementNamed(
                   context, Routes.mainScreenRoute)),
@@ -393,7 +393,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.add_circle_rounded,
+                          Icon(IconsManager.addRounded,
                               color: ColorsManager.lineColor),
                           const SizedBox(
                             width: AppSize.s2,

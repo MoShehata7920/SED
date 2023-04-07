@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
+import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/view/chat_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/view/settings_screen_view.dart';
@@ -26,6 +27,7 @@ class MainScreenViewModel extends BaseViewModel
   final List<Widget> mainScreenWidgets = [
     const HomeScreenView(),
     const ChatScreenView(),
+    const CategoriesScreenView(),
     ShowItemsView(Views.SAVED),
     const SettingsScreenView(),
   ];

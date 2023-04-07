@@ -25,7 +25,6 @@ class RegisterRequest {
 class ShowItemsRequest {
   String type;
   int offset;
-
   ShowItemsRequest(this.type, this.offset);
 }
 
