@@ -26,7 +26,12 @@ export default function Home() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:9000/home/${mediatype}`
+        `http://103.48.193.225:9000/home/${mediatype}`,
+        {
+          headers: {
+            Authorization: `6ALOYOMR`,
+          },
+        }
       );
       if (mediatype === "") {
         callback(respond.data.carousel.Images);
