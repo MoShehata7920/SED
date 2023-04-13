@@ -334,9 +334,10 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: AppPadding.p15),
                                   child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
+                                    onTap: () async {
+                                      final image = await Navigator.pushNamed(
                                           context, Routes.cameraScreenRoute);
+
                                       // var image = await _imagePicker.pickImage(
                                       //     source: ImageSource.gallery);
 

@@ -2,6 +2,7 @@ import 'package:dob_input_field/dob_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
 class MyAccountScreenView extends StatefulWidget {
@@ -74,7 +75,10 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                         backgroundImage: AssetImage(ImageAssets.noImage)),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final image = await Navigator.pushNamed(
+                          context, Routes.cameraScreenRoute);
+                    },
                     icon: const CircleAvatar(
                       radius: 16,
                       child: Icon(

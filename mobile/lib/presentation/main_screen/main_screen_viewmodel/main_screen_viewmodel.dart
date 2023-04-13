@@ -46,10 +46,8 @@ class MainScreenViewModel extends BaseViewModel
     super.dispose();
   }
 
-  @override
   Sink get socketInput => _socketStreamController.sink;
 
-  @override
   Stream<String> get socketOutput =>
       _socketStreamController.stream.map((response) => response);
 

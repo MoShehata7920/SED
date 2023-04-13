@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -16,12 +17,12 @@ class CameraScreenView extends StatefulWidget {
 
 class CameraScreenViewState extends State<CameraScreenView> {
   final CameraScreenViewModel _viewModel = CameraScreenViewModel();
-  File? _image;
+  XFile? _image;
 
   @override
   void initState() {
     super.initState();
-    _viewModel.imageStream.listen((File image) {
+    _viewModel.imageStream.listen((XFile image) {
       setState(() {
         _image = image;
       });
@@ -59,7 +60,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                           color: ColorsManager.primaryText,
                         ),
                       )
-                    : Image.file(_image!),
+                    : Image.file(File(_image!.path)),
                 if (_image != null)
                   Positioned(
                     bottom: AppMargin.m1,
@@ -76,6 +77,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                       ),
                       color: Colors.white,
                       onPressed: () {
+                        Navigator.pop(context, _image);
                         // Perform the action you want when the "done" button is pressed.
                       },
                     ),
