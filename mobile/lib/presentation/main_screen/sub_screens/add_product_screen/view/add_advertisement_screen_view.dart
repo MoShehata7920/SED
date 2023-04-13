@@ -118,10 +118,11 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
               children: [
                 InkWell(
                   child: _getImage(),
-                  onTap: () async {
-                    var image = await _imagePicker.pickImage(
-                        source: ImageSource.gallery);
-                    _viewModel.setImage(image);
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.cameraScreenRoute);
+                    // var image = await _imagePicker.pickImage(
+                    //     source: ImageSource.gallery);
+                    // _viewModel.setImage(image);
                   },
                 ),
                 const SizedBox(

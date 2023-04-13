@@ -129,7 +129,8 @@ class AppStrings {
   static const String account = "account";
   static const String myAds = "my_ads";
   static const String language = "language";
-  static const String theme = "theme";
+  static const String convertToLightMode = "convert_to_light_mode";
+  static const String convertToDarkMode = "convert_to_dark_mode";
   static const String notifications = "notifications";
   static const String share = "share";
   static const String help = "help";
@@ -148,4 +149,10 @@ class AppStrings {
 
   // search Screen
   static const String enterSearchTerm = "enter_search_term";
+
+  // camera screen
+  static const String uploadImage = "upload_image";
+  static const String noImageSelected = "no_image_selected";
+  static const String takeAPhoto = "take_photo";
+  static const String selectFromGallery = "select_from_gallery";
 }

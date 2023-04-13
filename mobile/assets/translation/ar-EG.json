@@ -83,8 +83,9 @@
     "general" : "عام",
     "account" : "الحساب",
     "my_ads" : "إعلاناتي",
-    "language" : "اللغة",
-    "theme" : "المظهر",
+    "language" : "Convert to English",
+    "convert_to_light_mode": "تحويل إلى الوضع الفاتح",
+    "convert_to_dark_mode": "تحويل إلى الوضع الداكن",
     "notifications" : "التنبيهات",
     "share" : "مشاركة",
     "help" : "مساعدة",
@@ -96,5 +97,9 @@
     "phone": "هاتف",
     "appreciateFeedBack": "نحن نقدر ملاحظاتك!",
     "byEaglesTeam": "بواسطة فريق النسور",
-    "enter_search_term" : "أدخل مصطلح البحث"
+    "enter_search_term" : "أدخل مصطلح البحث",
+    "upload_image": "تحميل الصورة",
+    "no_image_selected": "لا يوجد صورة محددة.",
+    "take_photo": "التقط صورة",
+    "select_from_gallery": "اختر من المعرض"
 }

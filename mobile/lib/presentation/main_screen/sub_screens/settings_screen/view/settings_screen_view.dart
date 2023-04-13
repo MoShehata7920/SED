@@ -131,6 +131,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             padding: const EdgeInsets.only(
                 top: AppSize.s14, left: AppSize.s5, right: AppSize.s18),
             child: CircleAvatar(
+              backgroundColor: ColorsManager.primaryBackground,
               radius: AppSize.s38,
               backgroundImage: NetworkImage(getMyProfileData.user.image),
             ).animateOnPageLoad(
@@ -214,8 +215,11 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.themeController, AppStrings.theme.tr(),
-                () {
+            _getInkwell(
+                IconsManager.themeController,
+                ThemeManager.isDarkMode == true
+                    ? AppStrings.convertToLightMode.tr()
+                    : AppStrings.convertToDarkMode.tr(), () {
               setState(() {
                 ThemeManager.isDarkMode = !ThemeManager.isDarkMode;
               });

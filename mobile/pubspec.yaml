@@ -98,6 +98,7 @@ flutter:
     - assets/images/onboarding_logo.png
     - assets/images/login_dark_mode_logo.png
     - assets/images/login_background.png
+    - assets/images/no_image.png
     - assets/images/left_arrow_icon.svg
     - assets/images/right_arrow_icon.svg
     - assets/images/hollow_circle_icon.svg
@@ -131,6 +132,9 @@ flutter:
     - family: IconBroken
       fonts:
         - asset: assets/fonts/icons.ttf
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
