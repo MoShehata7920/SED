@@ -9,7 +9,9 @@ export default function Dataitems() {
   let { id } = useParams();
   let [Detaitmes, setDataitems] = useState({});
   async function Getitems(id, callback) {
-    let { data } = await Axios.get(`http://103.48.193.225:9000/Items/${id}`);
+    let { data } = await Axios.get(
+      `http://103.48.193.225:3000/products/product/${id}`
+    );
     callback(data.item);
   }
   useEffect(() => {

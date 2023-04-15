@@ -265,7 +265,7 @@ export default function Home() {
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-10 ">SELL</h1>
-              <Link to={"/SeeAllData/Sell"}>
+              <Link to={"/SeeAllData/sell"}>
                 <p className="text-black fs-3 "> see all</p>
               </Link>
             </div>

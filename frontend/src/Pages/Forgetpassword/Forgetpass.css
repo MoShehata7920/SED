@@ -1,7 +1,7 @@
 html {
   height: 100%;
 }
-body {
+.backside {
   margin:0;
   padding:0;
   font-family: sans-serif;
@@ -26,19 +26,17 @@ body {
   padding: 0;
   color: #fff;
   text-align:left;
-  font-size: 35px;
-  font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .login-box .user-box {
   position: relative;
-  margin-top: 15px;
+  
+  margin-top: 20px;
 }
 
 .login-box .user-box input {
   width: 100%;
-  padding: 7px 0;
+  padding: 10px 0;
   font-size: 16px;
   color: #fff;
   margin-bottom: 45px;
@@ -70,18 +68,19 @@ body {
 .login-box form button {
   position: relative;
   display: inline-block;
-  padding: 10px 10px;
+  padding: 10px 80px;
   color: #03e9f4;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
   transition: .1s;
-  margin-top: 15px;
+  margin-top: 10px;
   letter-spacing: 4px;
   color: #050404;
   border-radius: 9px;
-  background-color:#03e9f4; 
+  background-color: #03e9f4; 
   border: none;
   
 }
@@ -104,11 +103,14 @@ body {
 }
 .forgetpass p a{
 text-decoration: none;
+color: #fff;
 }
-
+.forgetpass p a:hover{
+  text-decoration: underline;
+}
 .login {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   height:max-content;
   
 }
@@ -118,17 +120,19 @@ text-decoration: none;
   justify-content: center;
   height:max-content;
   margin-top: 30px;
+  
 }
 .signup p{
-  font-size: 15px;
   color: #fff;
 }
 .signup p a{
-  color: #03e9f4;
-  text-decoration: none;
-  font-weight: bold;
+color: #03e9f4;
+text-decoration: none;
+font-weight:400;
+
 }
 
-button i {
-  font-size: 20px;
+.signup p a:hover{
+text-decoration: underline;
 }
+
