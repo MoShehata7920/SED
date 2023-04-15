@@ -122,14 +122,14 @@ Map<String, dynamic> _$CarouselResponseToJson(CarouselResponse instance) =>
 CategoriesResponse _$CategoriesResponseFromJson(Map<String, dynamic> json) =>
     CategoriesResponse(
       json['ID'] as int?,
-      json['Name'] as String?,
+      json['name'] as String?,
       json['Image'] as String?,
     );
 
 Map<String, dynamic> _$CategoriesResponseToJson(CategoriesResponse instance) =>
     <String, dynamic>{
       'ID': instance.id,
-      'Name': instance.name,
+      'name': instance.name,
       'Image': instance.image,
     };
 

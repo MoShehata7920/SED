@@ -115,7 +115,7 @@ class CategoriesResponse {
   @JsonKey(name: "ID")
   int? id;
 
-  @JsonKey(name: "Name")
+  @JsonKey(name: "name")
   String? name;
 
   @JsonKey(name: "Image")

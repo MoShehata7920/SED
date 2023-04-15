@@ -4,7 +4,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class Constants {
   //dio constants
-  static const String baseUrl = "http://103.48.193.225:9000";
+  static const String baseUrl = "http://103.48.193.225:3000";
 
   //mapper constants
   static const String empty = "";
