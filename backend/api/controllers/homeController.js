@@ -35,7 +35,7 @@ exports.homePage=async(req, res) => {
         .exec();
   
       const [
-        carousel,
+        carouselDb,
         categories,
         sellItems,
         donateItems,
@@ -49,7 +49,11 @@ exports.homePage=async(req, res) => {
         exchangePromise,
         sectionsPromise,
       ]);
-  
+      const carouselAsArray=[]
+      for(var i=0;i<carouselDb.length;i++){
+        carouselAsArray.push(carouselDb[i].image)
+      }
+       const carousel={Images:carouselAsArray}
       res.status(200).json({
         carousel,
         categories,

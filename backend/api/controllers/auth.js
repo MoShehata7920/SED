@@ -66,12 +66,11 @@ exports.loginController = (req, res) => {
     }
     User.findOne({ $or: [{ email: loginOption }, { 'personalInfo.phone': loginOption }] }).exec().then(user => {
         if (!user) {                                                                                             //if email not found 
-            return res.status(401).json({ message: 'This Email Not exist , Please Register First' })
+            return res.status(401).json({ status: 1, message: 'This Email Not exist , Please Register First' })
         }
         bcrypt.compare(req.body.password, user.password, (err, result) => {                                           //if found 
             if (err) {                                                                                                    // if server crashed
-                console.log(err)
-                return res.status(509).json({ message: 'server error', error: err })
+                return res.status(509).json({ status: 1, message: 'server error', error: err })
             }
             if (result) {                                                                                                 //true password
                 const token = jwt.sign({
@@ -85,14 +84,13 @@ exports.loginController = (req, res) => {
                         expiresIn: '10h'
                     }
                 )
-                return res.status(200).json({ message: `welcome back ${user.fullName}!`, token: token })
+                return res.status(200).json({ status: 0, message: `welcome back ${user.fullName}!`, token: token })
             }
-            console.log(err)
-            res.status(509).json('Wrong password. Try again or click Forgot password to reset it.')                     //wrong password
+            res.status(509).json({status:1, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
         })
     }).catch(err => {
         console.log(err);
-        res.status(409).json({ error: err })
+        res.status(409).json({ status:1, message: err })
     })
 };
 
