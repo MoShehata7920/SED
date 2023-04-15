@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/resources/custom_icons_icons.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
@@ -98,15 +99,25 @@ class HelpScreen extends StatelessWidget {
                   ),
             ),
             Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  AppStrings.byEaglesTeam.tr(),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.secondaryText,
-                        fontSize: AppSize.s14,
-                      ),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    AppStrings.byEaglesTeam.tr(),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: ColorsManager.secondaryText,
+                          fontSize: AppSize.s14,
+                        ),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Icon(
+                    CustomIcons.eagle__2_,
+                    color: ColorsManager.secondaryText,
+                  )
+                ],
               ),
             ),
           ],

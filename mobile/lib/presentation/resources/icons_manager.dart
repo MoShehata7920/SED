@@ -2,7 +2,8 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sed/presentation/resources/icon_broken.dart';
+
+import 'custom_icons_icons.dart';
 
 class IconsManager {
   static const email = CupertinoIcons.mail;
@@ -57,11 +58,11 @@ class IconsManager {
   static const rightRoundedArrow = IconBroken.arrowRightCircle;
   static const account = IconBroken.profile;
   static const myAds = IconBroken.folder;
-  static const languageController = CupertinoIcons.globe;
-  static const themeController = CupertinoIcons.color_filter;
-  static const share = Icons.share_outlined;
-  static const help = CupertinoIcons.info;
-  static const questionMark = IconBroken.infoCircle;
+  static const languageController = CustomIcons.language_toggle;
+  static const themeController = CustomIcons.theme;
+  static const share = CustomIcons.share;
+  static const help = CustomIcons.customer_support;
+  static const questionMark = CustomIcons.info;
 
   // my Ads screen
   static const update = IconBroken.edit;
@@ -70,4 +71,9 @@ class IconsManager {
   // search screen
   static const micOn = CupertinoIcons.mic;
   static const micOff = CupertinoIcons.mic_off;
+
+  // camera screen
+  static const camera = IconBroken.camera;
+  static const gallery = Icons.photo_library_outlined;
+  static const done = Icons.done;
 }

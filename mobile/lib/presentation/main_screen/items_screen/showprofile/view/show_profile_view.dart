@@ -133,7 +133,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                                   .bodyLarge
                                   ?.copyWith(
                                       fontSize: AppSize.s18,
-                                      color: ColorsManager.white),
+                                      color: ColorsManager.primaryText),
                             ),
                             const SizedBox(
                               height: AppSize.s15,

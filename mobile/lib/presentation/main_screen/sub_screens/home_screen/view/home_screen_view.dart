@@ -275,10 +275,12 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: AppPadding.p15),
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context, Routes.searchScreenRoute);
+                                    Navigator.pushNamed(
+                                        context, Routes.searchScreenRoute);
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -293,13 +295,18 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                       ),
                                       Expanded(
                                         child: Container(
-                                          color: ColorsManager.secondaryBackground,
+                                          color:
+                                              ColorsManager.secondaryBackground,
                                           child: Text(
                                             AppStrings.searchHere.tr(),
-                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                              color: ColorsManager.primaryBtnText,
-                                              fontSize: AppSize.s15,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge
+                                                ?.copyWith(
+                                                  color: ColorsManager
+                                                      .primaryBtnText,
+                                                  fontSize: AppSize.s15,
+                                                ),
                                           ),
                                         ),
                                       )
@@ -309,7 +316,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                           Expanded(
                             child: Badge(
                               label: const Text("New!"),
@@ -322,19 +331,23 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: AppPadding.p15),
                                   child: InkWell(
                                     onTap: () async {
-                                      var image = await _imagePicker.pickImage(
-                                          source: ImageSource.gallery);
+                                      final image = await Navigator.pushNamed(
+                                          context, Routes.cameraScreenRoute);
 
-                                      File imageFile = File(image!.path);
+                                      // var image = await _imagePicker.pickImage(
+                                      //     source: ImageSource.gallery);
 
-                                      List<int> imageBytes = imageFile.readAsBytesSync();
-                                      String base64Image = base64.encode(imageBytes);
+                                      // File imageFile = File(image!.path);
 
-                                      Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                                          arguments: [Views.SEARCHIMAGE, 0 , base64Image]);
+                                      // List<int> imageBytes = imageFile.readAsBytesSync();
+                                      // String base64Image = base64.encode(imageBytes);
+
+                                      // Navigator.pushNamed(context, Routes.showItemsScreenRoute,
+                                      //     arguments: [Views.SEARCHIMAGE, 0 , base64Image]);
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -349,13 +362,18 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         ),
                                         Expanded(
                                           child: Container(
-                                            color: ColorsManager.secondaryBackground,
+                                            color: ColorsManager
+                                                .secondaryBackground,
                                             child: Text(
                                               "Search by image",
-                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                color: ColorsManager.primaryBtnText,
-                                                fontSize: AppSize.s15,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                    color: ColorsManager
+                                                        .primaryBtnText,
+                                                    fontSize: AppSize.s15,
+                                                  ),
                                             ),
                                           ),
                                         )

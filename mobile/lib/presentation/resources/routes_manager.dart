@@ -10,6 +10,7 @@ import 'package:sed/presentation/main_screen/sub_screens/notification_screen/vie
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/about_us_screen/aboutus_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/help_screen/help_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
+import 'package:sed/presentation/main_screen/utils/camera_screen/view/camera_screen_view.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -41,6 +42,7 @@ class Routes {
   static const String notificationsScreenRoute = "/notifications";
   static const String myAccountScreenRoute = "/myAccount";
   static const String messagingScreenRoute = "/messaging";
+  static const String cameraScreenRoute = "/camera";
 }
 
 class RouteGenerator {
@@ -75,12 +77,12 @@ class RouteGenerator {
       case Routes.showItemsScreenRoute:
         List<dynamic> args = settings.arguments as List<dynamic>;
 
-        if(args.length <=2) {
+        if (args.length <= 2) {
           return MaterialPageRoute(
               builder: (context) => ShowItemsView(
-                args[0],
-                categoryId: args[1],
-              ));
+                    args[0],
+                    categoryId: args[1],
+                  ));
         }
 
         return MaterialPageRoute(
@@ -129,6 +131,11 @@ class RouteGenerator {
       case Routes.messagingScreenRoute:
         return MaterialPageRoute(
             builder: (context) => const MessagingScreenView());
+
+      case Routes.cameraScreenRoute:
+        initLoginModule();
+        return MaterialPageRoute(
+            builder: (context) => const CameraScreenView());
 
       default:
         return unDefinedRoute();

@@ -120,7 +120,7 @@ class StateRenderer extends StatelessWidget {
             color: ColorsManager.background,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(AppSize.s14),
-            boxShadow: [BoxShadow(color: ColorsManager.white)]),
+            boxShadow: [BoxShadow(color: ColorsManager.primaryText)]),
         child: _getDialogContent(context, children),
       ),
     );
@@ -159,7 +159,7 @@ class StateRenderer extends StatelessWidget {
           message,
           textAlign: TextAlign.center,
           style: getRegularStyle(
-              color: ColorsManager.white, fontSize: FontSize.s18),
+              color: ColorsManager.primaryText, fontSize: FontSize.s18),
         ),
       ),
     );
@@ -230,7 +230,7 @@ class StateRenderer extends StatelessWidget {
         child: Text(
           title,
           style: getRegularStyle(
-              color: ColorsManager.white, fontSize: FontSize.s18),
+              color: ColorsManager.primaryText, fontSize: FontSize.s18),
         ),
       ),
     );

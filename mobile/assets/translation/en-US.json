@@ -83,8 +83,9 @@
   "general" : "General",
   "account" : "Account",
   "my_ads" : "My Ads",
-  "language" : "Language",
-  "theme" : "Theme",
+  "language" : "التحويل إلى اللغة العربية",
+  "convert_to_light_mode": "Convert to Light Mode",
+  "convert_to_dark_mode": "Convert to Dark Mode",
   "notifications" : "Notifications",
   "share" : "Share",
   "help" : "Help",
@@ -96,5 +97,9 @@
   "phone" : "Phone",
   "appreciateFeedBack" : "We appreciate your feedback!",
   "byEaglesTeam" : "By Eagles Team",
-  "enter_search_term" : "Enter a search term"
+  "enter_search_term" : "Enter a search term",
+  "upload_image": "Upload Image",
+  "no_image_selected": "No image selected.",
+  "take_photo": "Take a photo",
+  "select_from_gallery": "Select from gallery"
 }
