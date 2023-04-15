@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Conversation = require('../models/conversation');
 const Message = require('../models/messages');
-const User = require('../models/User');
+const User = require('../models/user');
 
 router.get('/:conversationId/:user/:receive', async (req, res) => {
   const conversationId = req.params.conversationId;
