@@ -59,10 +59,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       RegisterRequest registerRequest) async {
     return await _appServiceClient.register(
         registerRequest.userName,
-        registerRequest.countryMobileCode,
         registerRequest.mobileNumber,
         registerRequest.email,
-        registerRequest.password);
+        registerRequest.password,
+        registerRequest.confirmPassword);
   }
 
   @override
@@ -79,7 +79,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<ShowItemsResponse> getShowItemsData(
       ShowItemsRequest showItemsRequest) async {
     return await _appServiceClient.getShowItemsData(
-        showItemsRequest.type, showItemsRequest.offset);
+      showItemsRequest.purpose,showItemsRequest.category, showItemsRequest.page);
   }
 
   @override
@@ -144,8 +144,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<NotificationsResponse> notifications() async {
-    return await _appServiceClient.notifications(
-      Constants.token
-    );
+    return await _appServiceClient.notifications(Constants.token);
   }
 }

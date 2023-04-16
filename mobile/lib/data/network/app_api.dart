@@ -22,13 +22,13 @@ abstract class AppServiceClient {
     @Field("email") String email,
   );
 
-  @POST("/customers/register")
+  @POST("/auth/register")
   Future<AuthenticationResponse> register(
-    @Field("user_name") String userName,
-    @Field("country_mobile_code") String countryMobileCode,
-    @Field("mobile_number") String mobileNumber,
+    @Field("fullName") String userName,
+    @Field("phone") String mobileNumber,
     @Field("email") String email,
     @Field("password") String password,
+    @Field("confirmPassword") String confirmPassword,
   );
 
   @GET("/home/")
@@ -41,10 +41,11 @@ abstract class AppServiceClient {
     @Path("itemId") int itemId,
   );
 
-  @GET("/home/{type}/{pageId}")
+  @GET("/products/get")
   Future<ShowItemsResponse> getShowItemsData(
-    @Path("type") String? type,
-    @Path("pageId") int? offset,);
+    @Query("purpose") String purpose,
+    @Query("category") String category,
+    @Query("page") int? page,);
 
   @GET("/Products/{itemId}")
   Future<SavingProductResponse> toggleSavingProduct(

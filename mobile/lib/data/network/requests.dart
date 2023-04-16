@@ -13,19 +13,20 @@ class ForgotPasswordRequest {
 
 class RegisterRequest {
   String userName;
-  String countryMobileCode;
   String mobileNumber;
   String email;
   String password;
+  String confirmPassword;
 
-  RegisterRequest(this.userName, this.countryMobileCode, this.mobileNumber,
-      this.email, this.password);
+  RegisterRequest(this.userName, this.mobileNumber, this.email, this.password,
+      this.confirmPassword);
 }
 
 class ShowItemsRequest {
-  String type;
-  int offset;
-  ShowItemsRequest(this.type, this.offset);
+  String purpose;
+  String category;
+  int page;
+  ShowItemsRequest({this.purpose = "all", this.category = "all", this.page = 1});
 }
 
 class SavingProductRequest {

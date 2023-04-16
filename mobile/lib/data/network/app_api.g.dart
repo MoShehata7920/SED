@@ -75,20 +75,20 @@ class _AppServiceClient implements AppServiceClient {
   @override
   Future<AuthenticationResponse> register(
     userName,
-    countryMobileCode,
     mobileNumber,
     email,
     password,
+    confirmPassword,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'user_name': userName,
-      'country_mobile_code': countryMobileCode,
-      'mobile_number': mobileNumber,
+      'fullName': userName,
+      'phone': mobileNumber,
       'email': email,
       'password': password,
+      'confirmPassword': confirmPassword,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AuthenticationResponse>(Options(
@@ -98,7 +98,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/customers/register',
+              '/auth/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -156,11 +156,16 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<ShowItemsResponse> getShowItemsData(
-    type,
-    offset,
+    purpose,
+    category,
+    page,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'purpose': purpose,
+      r'category': category,
+      r'page': page,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -172,7 +177,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/home/${type}/${offset}',
+              '/products/get',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -32,6 +32,8 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
       TextEditingController();
+  final TextEditingController _confirmPasswordEditingController =
+      TextEditingController();
 
   //Initialize the controller
 
@@ -52,6 +54,10 @@ class _RegisterViewState extends State<RegisterView> {
 
     _passwordEditingController.addListener(() {
       _viewModel.setPassword(_passwordEditingController.text);
+    });
+
+    _confirmPasswordEditingController.addListener(() {
+      _viewModel.setConfirmPassword(_confirmPasswordEditingController.text);
     });
 
     _viewModel.isUserRegisteredSuccessfullyStreamController.stream
@@ -102,8 +108,8 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               children: [
                 const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(
-                      AppPadding.p0, AppPadding.p65, AppPadding.p0, AppPadding.p0),
+                  padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                      AppPadding.p65, AppPadding.p0, AppPadding.p0),
                   child: Image(
                     image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                     width: AppSize.s160,
@@ -140,12 +146,7 @@ class _RegisterViewState extends State<RegisterView> {
                         Expanded(
                             flex: 1,
                             child: CountryCodePicker(
-                              onChanged: (country) =>
-                                  _viewModel.setMobileCountryCode(
-                                      country.code ?? Constants.token),
-                              searchDecoration: InputDecoration(
-                                  hintText: AppStrings.countrySearchBar.tr(),
-                                  prefixIconColor: ColorsManager.primaryColor),
+                              onChanged: (value) {},
                               initialSelection: 'EG',
                               favorite: const ['EG'],
                               hideMainText: true,
@@ -221,6 +222,27 @@ class _RegisterViewState extends State<RegisterView> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: StreamBuilder<String?>(
+                      stream: _viewModel.outputErrorConfirmPasswordValid,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: _confirmPasswordEditingController,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.confirmPassword.tr(),
+                              labelText: AppStrings.confirmPassword.tr(),
+                              errorMaxLines: 3,
+                              errorText: snapshot
+                                  .data, //else present the error to the user
+                            ));
+                      }),
+                ),
+                const SizedBox(
+                  height: AppSize.s18,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<bool>(
                       stream: _viewModel.outputAreAllInputsValid,
                       builder: (context, snapshot) {
@@ -260,16 +282,16 @@ class _RegisterViewState extends State<RegisterView> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      AppPadding.p0, AppPadding.p12, AppPadding.p0, AppPadding.p0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                      AppPadding.p12, AppPadding.p0, AppPadding.p0),
                   child: Text(
                     AppStrings.useSocialToLoginText.tr(),
                     style: TextStyle(color: ColorsManager.secondaryText),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      AppPadding.p8, AppPadding.p8, AppPadding.p8, AppPadding.p8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+                      AppPadding.p8, AppPadding.p8, AppPadding.p8),
                   child: IconButton(
                     color: ColorsManager.grayIcon,
                     icon: const FaIcon(IconsManager.google),

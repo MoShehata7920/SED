@@ -13,10 +13,10 @@ class LoginObject with _$LoginObject {
 class RegisterObject with _$RegisterObject {
   factory RegisterObject(
     String userName,
-    String countryMobileCode,
     String mobileNumber,
     String email,
     String password,
+    String confirmPassword
   ) = _registerObject;
 }
 

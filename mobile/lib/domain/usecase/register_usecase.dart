@@ -16,20 +16,20 @@ class RegisterUseCase
       RegisterUseCaseInput input) async {
     return await _repository.register(RegisterRequest(
         input.userName,
-        input.countryMobileCode,
         input.mobileNumber,
         input.email,
-        input.password));
+        input.password,
+        input.confirmPassword));
   }
 }
 
 class RegisterUseCaseInput {
   String userName;
-  String countryMobileCode;
   String mobileNumber;
   String email;
   String password;
+  String confirmPassword;
 
-  RegisterUseCaseInput(this.userName, this.countryMobileCode, this.mobileNumber,
-      this.email, this.password);
+  RegisterUseCaseInput(this.userName, this.mobileNumber, this.email,
+      this.password, this.confirmPassword);
 }
