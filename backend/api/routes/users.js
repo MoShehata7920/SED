@@ -13,10 +13,10 @@ router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
 //if needed to verify another email after registration
 
 // send verify email otp
-router.get('/verifyrequest', authController.verifyEmail);
+router.get('/verifyrequest', authController.sendOtpVerifyEmail);
 
 // check verify email otp
-router.post('/verifyemail', authController.otpVerification);
+router.post('/verifyemail', authController.verifyEmailByOtp);
 
 //route for user's wishlist 
 router.patch('/addToWishlist', verifyToken, userController.addToWishList);
