@@ -4,17 +4,23 @@ const router = require('express').Router()
 const authController = require('../controllers/auth');
 const {resetVerification} = require('../middleware/check-reset')
 const { body, validationResult } = require('express-validator');
+const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
 
 router.post('/register',
     body('email').not().isEmpty().withMessage('Empty Mail Field').isEmail().withMessage('Not A Valid Mail'),
+    body('phone').not().isEmpty().withMessage('Empty Phone Field'),
     body('password').not().isEmpty().withMessage('Empty Password Field').isLength({ min: 5 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).withMessage('weak password'),
     body('confirmPassword').custom((value, { req }) => {
         if (value !== req.body.password) { throw new Error('Password And Confirmation Doesn\'t Match'); }
         return true;
     }), authController.registerController);
 
+
+
 // verify email
-router.post('/verifyemail',authController.otpVerification);
+router.post('/verifyemail',verifyToken,
+body('code').not().isEmpty().withMessage('Empty code Field'),
+authController.verifyEmailByOtp);
 
 router.post('/login',
     body('loginOption').not().isEmpty().withMessage('Empty Mail Or Phone Field'),
@@ -48,7 +54,6 @@ router.get('/logout', (req, res) => {
     req.logout()
     res.redirect('/')
 });
-
 
 
 module.exports = router;

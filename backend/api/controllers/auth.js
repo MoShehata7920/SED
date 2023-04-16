@@ -12,24 +12,19 @@ exports.registerController = async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            res.status(400).json({ message: errorMessages });
+            res.status(400).json({status:1, message: errorMessages });
             return;
         }
 
-        const { fullName, email, password, phone, government, address } = req.body;
+        const { fullName, email, password, phone} = req.body;
 
         const userExists = await User.exists({ email });
         if (userExists) {
-            res.status(409).json({ message: 'Email address is already registered' });
+            res.status(409).json({ status:1, message: 'Email address is already registered' });
             return;
-        }
-        if (!phone) {
-            phone = crypto.randomInt(1000000, 99999999);
         }
         const personalInfo = {
             phone,
-            government: dataCryption.encryption(government),
-            address: dataCryption.encryption(address)
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const OTP = mailHelper.generateOTP();
@@ -43,7 +38,18 @@ exports.registerController = async (req, res, next) => {
             verify_otp_expires: expires,
         });
         const doc = await newUser.save();
-        res.status(201).json({ message: 'Registration successful', user: doc });
+        const token = jwt.sign({
+            email:doc.email,
+            id: doc._id.toString(),
+            fullName: doc.fullName,
+            isAdmin: doc.isAdmin
+        },
+            process.env.SECRET_KEY
+            , {
+                expiresIn: '10h'
+            }
+        )
+        res.status(201).json({ status:0,message: 'Registration successful', token });
         mailHelper.mailTransport().sendMail({
             from: "sedteam@outlook.com",
             to: newUser.email,
@@ -52,7 +58,7 @@ exports.registerController = async (req, res, next) => {
         })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: 'Internal server error', Errors: error });
+        res.status(500).json({ status:1,message: 'Internal server error', Errors: error });
     }
 };
 
@@ -163,7 +169,7 @@ exports.resetPassword = async (req, res) => {
     }
 };
 
-exports.verifyEmail = async (req, res, next) => {
+exports.sendOtpVerifyEmail = async (req, res, next) => {
     try {
         const userEmail = req.user.email;
 
@@ -207,12 +213,12 @@ exports.verifyEmail = async (req, res, next) => {
     }
 };
 
-exports.otpVerification = async (req, res, next) => {
+exports.verifyEmailByOtp = async (req, res, next) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(400).json({ message: errorMessages });
+            return res.status(400).json({status:1, message: errorMessages });
         }
 
         const otb = req.body.code;
@@ -223,7 +229,7 @@ exports.otpVerification = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(404).json({ message: 'Invalid or expired Code' });
+            return res.status(404).json({ status:1,message: 'Invalid or expired Code' });
         }
 
         user.isVerified = true;
@@ -231,6 +237,7 @@ exports.otpVerification = async (req, res, next) => {
         user.verify_otp_expires = undefined;
 
         await user.save();
+        res.status(200).json({ status:0,message: 'Account Verified' });
         const username = user.fullName
         const transporter = nodemailer.createTransport({
             service: "hotmail",
@@ -248,9 +255,7 @@ exports.otpVerification = async (req, res, next) => {
         };
 
         mailHelper.mailTransport().sendMail(mailOptions);
-
-        return res.status(200).json({ message: 'Account Verified' });
     } catch (err) {
-        return res.status(500).json({ message: 'Server Error' });
+        return res.status(500).json({ status:1,message: 'Server Error' });
     }
 };

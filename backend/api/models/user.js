@@ -32,7 +32,7 @@ const userSchema = mongoose.Schema({
         required: true
     },
     personalInfo: {                          //  for next level 'to be updated in user profile'
-        phone: { type: String, unique: true },                //  default:""
+        phone: { type: String, unique: true ,required: true},                //  default:""
         government: { type: String },
         address: { type: String }
     },
