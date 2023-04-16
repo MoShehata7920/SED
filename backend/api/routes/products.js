@@ -33,9 +33,12 @@ router.delete('/product/:prodId', verifyTokenAndAuthorization, productController
 
 router.get('/get',productController.getProductsByQuery)
 
+router.get('/:purpose/:category/:page',productController.getProductsByParams)
+
 
 //for admin dashboard
 //getting all products
 router.get('/getallproducts', verifyTokenAndAdmin, productController.getAllProducts)
+
 
 module.exports = router;

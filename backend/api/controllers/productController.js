@@ -122,3 +122,49 @@ exports.getProductsByQuery=async (req, res, next) => {
         res.status(404).json({ message: err });
     }
 };
+
+exports.getProductsByParams=async (req, res, next) => {
+    const page = req.params.page || 1;
+    var purpose = req.params.purpose;
+    var Category = req.params.category;
+    if(!purpose){
+        purpose='all'
+    }
+    if(!Category){
+        Category='all'
+    }
+    const perPage = 10;
+    const skip = (page - 1) * perPage;
+    try {
+        if (Category !=='all' && purpose !=='all') {
+            const doc = await Product.find({ category: Category , purpose: purpose }).skip(skip).limit(perPage);
+            if (!doc) {
+                res.status(404).json({ message: 'not found' });
+                return;
+            }
+            res.status(200).json({ message: doc });
+            return;
+
+        }
+        if(Category=='all'&&purpose=='all'){
+            const doc = await Product.find({}).skip(skip).limit(perPage);
+            if (!doc) {
+                res.status(404).json({ message: 'not found' });
+                return;
+            }
+            res.status(200).json({ message: doc });
+            return;
+        }
+        if(Category =='all' || purpose =='all'){
+            const doc = await Product.find({$or:[{ category: Category },{ purpose: purpose }]}).skip(skip).limit(perPage);
+            if (!doc) {
+                res.status(404).json({ message: 'not found' });
+                return;
+            }
+            res.status(200).json({ message: doc });
+            return;
+        }
+    } catch (err) {
+        res.status(404).json({ message: err });
+    }
+};
