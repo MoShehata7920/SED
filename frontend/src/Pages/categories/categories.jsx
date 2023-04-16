@@ -17,9 +17,9 @@ export default function Categories() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:9000/home/${CategorieType}`
+        `http://103.48.193.225:3000/products/all/${CategorieType}`
       );
-      setDetcateg(respond.data.items);
+      setDetcateg(respond.data.message);
       setIsPending(false);
       //setError(null);
     } catch (err) {

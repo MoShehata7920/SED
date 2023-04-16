@@ -13,7 +13,7 @@ class _AppServiceClient implements AppServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://103.48.193.225:9000';
+    baseUrl ??= 'http://103.48.193.225:3000';
   }
 
   final Dio _dio;
@@ -29,7 +29,7 @@ class _AppServiceClient implements AppServiceClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'email': email,
+      'loginOption': email,
       'password': password,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -40,7 +40,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/customers/login',
+              '/auth/login',
               queryParameters: queryParameters,
               data: _data,
             )

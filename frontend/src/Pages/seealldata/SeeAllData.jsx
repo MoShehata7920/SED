@@ -17,7 +17,7 @@ export default function SeeAllData() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:9000/home/${SeeData}`
+        `http://103.48.193.225:3000/products/${SeeData}/all`
       );
       setAllData(respond.data.items);
       setIsPending(false);

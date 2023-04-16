@@ -1,0 +1,134 @@
+html {
+    height: 100%;
+  }
+  .backbody {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+  }
+  
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+  
+  .login-box h2 {
+    margin: 0 0 60px;
+    padding: 0;
+    color: #fff;
+    text-align:left;
+    font-size: 35px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  .login-box .user-box {
+    position: relative;
+    margin-top: 15px;
+  }
+  
+  .login-box .user-box input {
+    width: 100%;
+    padding: 7px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 45px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  .login-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    margin-bottom: 20px;
+  }
+  
+  .login-box  input:focus ~label,
+  .login-box  input:valid ~ label {
+    top: -30px;
+    left: 0;
+    color: #fff;    font-size: 18px;
+  }
+  
+  .login-box form button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 10px;
+    color: #03e9f4;
+    font-size: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .1s;
+    margin-top: 15px;
+    letter-spacing: 4px;
+    color: #050404;
+    border-radius: 9px;
+    background-color:#03e9f4; 
+    border: none;
+    
+  }
+  
+  .login-box button:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 5px #03e9f4,
+                0 0 5px #03e9f4,
+                0 0 10px #03e9f4;
+  }
+  
+  .forgetpass{
+    margin: 0%;
+    display: flex;
+    justify-content: center;
+    height:max-content;
+  }
+  .forgetpass p a{
+  text-decoration: none;
+  }
+  
+  .login {
+    display: flex;
+    justify-content: space-around;
+    height:max-content;
+    
+  }
+  
+  .signup{
+    display: flex;
+    justify-content: center;
+    height:max-content;
+    margin-top: 30px;
+  }
+  .signup p{
+    font-size: 15px;
+    color: #fff;
+  }
+  .signup p a{
+    color: #03e9f4;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  button i {
+    font-size: 20px;
+  }
