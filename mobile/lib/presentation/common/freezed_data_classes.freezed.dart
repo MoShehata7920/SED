@@ -153,10 +153,10 @@ abstract class _loginObject implements LoginObject {
 /// @nodoc
 mixin _$RegisterObject {
   String get userName => throw _privateConstructorUsedError;
-  String get countryMobileCode => throw _privateConstructorUsedError;
   String get mobileNumber => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String get confirmPassword => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RegisterObjectCopyWith<RegisterObject> get copyWith =>
@@ -171,10 +171,10 @@ abstract class $RegisterObjectCopyWith<$Res> {
   @useResult
   $Res call(
       {String userName,
-      String countryMobileCode,
       String mobileNumber,
       String email,
-      String password});
+      String password,
+      String confirmPassword});
 }
 
 /// @nodoc
@@ -191,19 +191,15 @@ class _$RegisterObjectCopyWithImpl<$Res, $Val extends RegisterObject>
   @override
   $Res call({
     Object? userName = null,
-    Object? countryMobileCode = null,
     Object? mobileNumber = null,
     Object? email = null,
     Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(_value.copyWith(
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      countryMobileCode: null == countryMobileCode
-          ? _value.countryMobileCode
-          : countryMobileCode // ignore: cast_nullable_to_non_nullable
               as String,
       mobileNumber: null == mobileNumber
           ? _value.mobileNumber
@@ -216,6 +212,10 @@ class _$RegisterObjectCopyWithImpl<$Res, $Val extends RegisterObject>
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmPassword: null == confirmPassword
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -231,10 +231,10 @@ abstract class _$$_registerObjectCopyWith<$Res>
   @useResult
   $Res call(
       {String userName,
-      String countryMobileCode,
       String mobileNumber,
       String email,
-      String password});
+      String password,
+      String confirmPassword});
 }
 
 /// @nodoc
@@ -249,19 +249,15 @@ class __$$_registerObjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userName = null,
-    Object? countryMobileCode = null,
     Object? mobileNumber = null,
     Object? email = null,
     Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(_$_registerObject(
       null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == countryMobileCode
-          ? _value.countryMobileCode
-          : countryMobileCode // ignore: cast_nullable_to_non_nullable
               as String,
       null == mobileNumber
           ? _value.mobileNumber
@@ -275,6 +271,10 @@ class __$$_registerObjectCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      null == confirmPassword
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -282,23 +282,23 @@ class __$$_registerObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_registerObject implements _registerObject {
-  _$_registerObject(this.userName, this.countryMobileCode, this.mobileNumber,
-      this.email, this.password);
+  _$_registerObject(this.userName, this.mobileNumber, this.email, this.password,
+      this.confirmPassword);
 
   @override
   final String userName;
-  @override
-  final String countryMobileCode;
   @override
   final String mobileNumber;
   @override
   final String email;
   @override
   final String password;
+  @override
+  final String confirmPassword;
 
   @override
   String toString() {
-    return 'RegisterObject(userName: $userName, countryMobileCode: $countryMobileCode, mobileNumber: $mobileNumber, email: $email, password: $password)';
+    return 'RegisterObject(userName: $userName, mobileNumber: $mobileNumber, email: $email, password: $password, confirmPassword: $confirmPassword)';
   }
 
   @override
@@ -308,18 +308,18 @@ class _$_registerObject implements _registerObject {
             other is _$_registerObject &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
-            (identical(other.countryMobileCode, countryMobileCode) ||
-                other.countryMobileCode == countryMobileCode) &&
             (identical(other.mobileNumber, mobileNumber) ||
                 other.mobileNumber == mobileNumber) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.confirmPassword, confirmPassword) ||
+                other.confirmPassword == confirmPassword));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, userName, countryMobileCode, mobileNumber, email, password);
+      runtimeType, userName, mobileNumber, email, password, confirmPassword);
 
   @JsonKey(ignore: true)
   @override
@@ -331,21 +331,21 @@ class _$_registerObject implements _registerObject {
 abstract class _registerObject implements RegisterObject {
   factory _registerObject(
       final String userName,
-      final String countryMobileCode,
       final String mobileNumber,
       final String email,
-      final String password) = _$_registerObject;
+      final String password,
+      final String confirmPassword) = _$_registerObject;
 
   @override
   String get userName;
-  @override
-  String get countryMobileCode;
   @override
   String get mobileNumber;
   @override
   String get email;
   @override
   String get password;
+  @override
+  String get confirmPassword;
   @override
   @JsonKey(ignore: true)
   _$$_registerObjectCopyWith<_$_registerObject> get copyWith =>

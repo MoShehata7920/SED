@@ -35,8 +35,17 @@ class ShowItemsViewModel extends BaseViewModel
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
+    var categoryName = "all";
+    var purposeName = "all";
+
+    if (viewType == Views.CATEGORY) {
+      categoryName = viewType.getName(categoryId: categoryId);
+    } else {
+      purposeName = viewType.getName();
+    }
+
     var response = await _showItemsUseCase.execute(
-        ShowItemsUseCaseInputs(viewType.getName(categoryId: categoryId), 0));
+        ShowItemsUseCaseInputs(category: categoryName, purpose: purposeName));
 
     response.fold(
         (failure) => {
@@ -44,9 +53,9 @@ class ShowItemsViewModel extends BaseViewModel
             }, (response) {
       // right -> success
 
-      if(viewType == Views.SAVED) {
+      if (viewType == Views.SAVED) {
         for (var element in response.items) {
-          if(element.isSaved) {
+          if (element.isSaved) {
             items.add(element);
           }
         }
@@ -64,8 +73,16 @@ class ShowItemsViewModel extends BaseViewModel
   Future getMoreItems(Views viewType, int categoryId, int pageId) async {
     inputState.add(ContentState());
 
-    var response = await _showItemsUseCase.execute(ShowItemsUseCaseInputs(
-        viewType.getName(categoryId: categoryId), pageId));
+    var categoryName = "all";
+    var purposeName = "all";
+
+    if (viewType == Views.CATEGORY) {
+      categoryName = viewType.getName(categoryId: categoryId);
+    } else {
+      purposeName = viewType.getName();
+    }
+
+    var response = await _showItemsUseCase.execute(ShowItemsUseCaseInputs(category: categoryName, purpose: purposeName,page: pageId));
 
     response.fold(
         (failure) => {
@@ -74,8 +91,8 @@ class ShowItemsViewModel extends BaseViewModel
       // right -> success
 
       for (var element in response.items) {
-        if(viewType == Views.SAVED) {
-          if(element.isSaved) {
+        if (viewType == Views.SAVED) {
+          if (element.isSaved) {
             items.add(element);
           }
         } else {
