@@ -17,6 +17,14 @@ const verifyToken=(req,res,next)=>{
     }
 };
 
+const verifyTokenWithReturn=(header)=>{
+        const token=header.split(' ')
+        const checker=jwt.verify(token[1] , process.env.SECRET_KEY , (err,decoded)=>{
+            return decoded
+        })
+        return checker
+};
+
 const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the one who tries to access something is loggedin & admin
     verifyToken(req,res,()=>{
         if(req.user.isAdmin){
@@ -37,4 +45,4 @@ const verifyTokenAndAuthorization=(req,res,next)=>{
     })
 };
 
-module.exports={verifyToken,verifyTokenAndAdmin,verifyTokenAndAuthorization};
+module.exports={verifyToken,verifyTokenAndAdmin,verifyTokenAndAuthorization, verifyTokenWithReturn};
