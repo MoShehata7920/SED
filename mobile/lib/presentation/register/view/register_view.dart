@@ -12,6 +12,7 @@ import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../../app/constants.dart';
 import '../../../app/di.dart';
+import '../../common/google_authentication/view/google_authentication_view.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 
 class RegisterView extends StatefulWidget {
@@ -298,6 +299,11 @@ class _RegisterViewState extends State<RegisterView> {
                     onPressed: () {},
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+                      AppPadding.p8, AppPadding.p8, AppPadding.p8),
+                  child: SignInDemo()),
+              
               ],
             ),
           ),
