@@ -23,11 +23,13 @@ passport.use(
           } else {   
             const isVerified = profile._json.email_verified;                                                // creating a new user and saving it into our DB
             new User({
-              fullName:dataCryption.encryptData (profile.displayName),
+              // fullName:dataCryption.encryption (profile.displayName),
+              fullName : profile.displayName,
               email: profile.email,
               googleId: profile.id,
               isVerified,
-              phone: dataCryption.encryptData(profile._json.sub)
+              // phone: dataCryption.decryption(profile._json.sub)
+              'personalInfo.phone' : profile._json.sub
             })
               .save()
               .then((user) => {
