@@ -293,17 +293,7 @@ class _RegisterViewState extends State<RegisterView> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
                       AppPadding.p8, AppPadding.p8, AppPadding.p8),
-                  child: IconButton(
-                    color: ColorsManager.grayIcon,
-                    icon: const FaIcon(IconsManager.google),
-                    onPressed: () {},
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
-                      AppPadding.p8, AppPadding.p8, AppPadding.p8),
                   child: SignInDemo()),
-              
               ],
             ),
           ),

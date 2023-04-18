@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/common/google_authentication/view/google_authentication_view.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -236,14 +237,9 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    AppPadding.p8, AppPadding.p8, AppPadding.p8, AppPadding.p8),
-                child: IconButton(
-                  color: ColorsManager.grayIcon,
-                  icon: const FaIcon(IconsManager.google),
-                  onPressed: () {},
-                ),
-              ),
+                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+                      AppPadding.p8, AppPadding.p8, AppPadding.p8),
+                  child: SignInDemo()),
             ],
           ),
         ),
