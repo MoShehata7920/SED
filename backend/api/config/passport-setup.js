@@ -28,8 +28,9 @@ passport.use(
               email: profile.email,
               googleId: profile.id,
               isVerified,
-              // phone: dataCryption.decryption(profile._json.sub)
-              'personalInfo.phone' : profile._json.sub
+              'personalInfo.phone': dataCryption.encryption(profile._json.sub)
+              // phone: dataCryption.encryption(profile._json.sub)
+              // 'personalInfo.phone' : profile._json.sub
             })
               .save()
               .then((user) => {
