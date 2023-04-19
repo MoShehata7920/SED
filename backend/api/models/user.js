@@ -50,7 +50,7 @@ const userSchema = mongoose.Schema({
     },
     verify_account_otp: {
         type: String,
-        // unique: true,
+        unique: true,
     },
     verify_otp_expires: {
         type: Date,
