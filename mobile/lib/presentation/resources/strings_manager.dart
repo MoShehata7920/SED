@@ -53,6 +53,11 @@ class AppStrings {
   static const String confirmPasswordError = "confirm_password_error";
   static const String login = "login";
 
+  // email verify screen
+  static const String verifyYourEmail = "Verify Your Email";
+  static const String enterOtp = "Please enter the 6 digit code sent to Yourmail@example.com";
+  static const String resendCode = "Resend Code";
+
   //state renderer
   static const String loading = "loading";
   static const String title = "title";

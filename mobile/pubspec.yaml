@@ -68,6 +68,7 @@ dependencies:
   speech_to_text: ^6.1.1
   convex_bottom_bar: ^3.2.0
   google_sign_in: ^6.1.0
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,7 @@ flutter:
     - assets/images/login_dark_mode_logo.png
     - assets/images/login_background.png
     - assets/images/no_image.png
+    - assets/images/email_verification.png
     - assets/images/left_arrow_icon.svg
     - assets/images/right_arrow_icon.svg
     - assets/images/hollow_circle_icon.svg
@@ -108,6 +110,7 @@ flutter:
     - assets/json/empty.json
     - assets/json/error.json
     - assets/json/success.json
+    - assets/json/verification_code_otp.json
     - assets/json/on_boarding_sell.json
     - assets/json/on_boarding_exchange.json
     - assets/json/on_boarding_donate.json

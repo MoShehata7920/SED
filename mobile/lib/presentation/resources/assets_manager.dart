@@ -11,6 +11,7 @@ class ImageAssets {
       '$imagePath/login_dark_mode_logo.png';
   static const String loginBackground = '$imagePath/login_background.png';
   static const String noImage = "$imagePath/no_image.png";
+  static const String emailVerification = "$imagePath/email_verification.png";
 
   static const String leftArrowIcon = "$imagePath/left_arrow_icon.svg";
   static const String rightArrowIcon = "$imagePath/right_arrow_icon.svg";
@@ -30,4 +31,5 @@ class JsonAssets {
   static const String error = "$jsonPath/error.json";
   static const String empty = "$jsonPath/empty.json";
   static const String success = "$jsonPath/success.json";
+  static const String verificationOTP = "$jsonPath/verification_code_otp.json";
 }

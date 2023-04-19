@@ -21,6 +21,7 @@ import '../main_screen/main_screen_view/main_screen_view.dart';
 import '../main_screen/sub_screens/search_screen/view/search_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/view/my_account_screen_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_ads_screen/view/my_ads_view.dart';
+import '../register/email_verification/view/email_verification_view.dart';
 import '../splash/splash_view.dart';
 
 class Routes {
@@ -29,6 +30,7 @@ class Routes {
   static const String loginRoute = "/login";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String registerRoute = "/register";
+  static const String emailVerificationRoute = "/emailVerification";
   static const String mainScreenRoute = "/main";
   static const String itemScreenRoute = "/item";
   static const String showItemsScreenRoute = "/showItems";
@@ -66,6 +68,11 @@ class RouteGenerator {
       case Routes.registerRoute:
         initRegisterModule();
         return MaterialPageRoute(builder: (context) => const RegisterView());
+
+      case Routes.emailVerificationRoute:
+        initRegisterModule();
+        return MaterialPageRoute(
+            builder: (context) => const EmailVerificationScreenView());
 
       case Routes.mainScreenRoute:
         return MaterialPageRoute(builder: (context) => const MainScreenView());
