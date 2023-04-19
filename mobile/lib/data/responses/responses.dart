@@ -27,6 +27,17 @@ class AuthenticationResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class VerifyEmailResponse extends BaseResponse {
+  VerifyEmailResponse();
+  // From Json
+  factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyEmailResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$VerifyEmailResponseToJson(this);
+}
+
+@JsonSerializable()
 class ForgotPasswordResponse extends BaseResponse {
   @JsonKey(name: "support")
   String? support;

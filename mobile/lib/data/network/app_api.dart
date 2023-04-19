@@ -31,6 +31,12 @@ abstract class AppServiceClient {
     @Field("confirmPassword") String confirmPassword,
   );
 
+  @POST("/auth/verifyemail")
+  Future<VerifyEmailResponse> verifyEmail(
+    @Field("code") int code,
+    @Header("Authorization") String token
+  );
+
   @GET("/home/")
   Future<HomeResponse> getHomeData(
     @Header("token") String token,

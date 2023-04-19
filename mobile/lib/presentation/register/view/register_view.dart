@@ -66,7 +66,8 @@ class _RegisterViewState extends State<RegisterView> {
       if (isRegistered) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+          Navigator.of(context)
+              .pushReplacementNamed(Routes.emailVerificationRoute);
         });
       }
     });
@@ -291,9 +292,9 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
-                      AppPadding.p8, AppPadding.p8, AppPadding.p8),
-                  child: SignInDemo()),
+                    padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+                        AppPadding.p8, AppPadding.p8, AppPadding.p8),
+                    child: SignInDemo()),
               ],
             ),
           ),

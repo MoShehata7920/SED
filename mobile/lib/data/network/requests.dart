@@ -22,11 +22,20 @@ class RegisterRequest {
       this.confirmPassword);
 }
 
+class VerifyEmailRequest {
+  int code;
+
+  VerifyEmailRequest(
+    this.code,
+  );
+}
+
 class ShowItemsRequest {
   String purpose;
   String category;
   int page;
-  ShowItemsRequest({this.purpose = "all", this.category = "all", this.page = 1});
+  ShowItemsRequest(
+      {this.purpose = "all", this.category = "all", this.page = 1});
 }
 
 class SavingProductRequest {

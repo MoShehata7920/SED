@@ -22,6 +22,10 @@ class Authentication {
   Authentication(this.token);
 }
 
+class VerifyEMail {
+  
+}
+
 // ForgotPassword models
 class ForgotPassword {
   String? support;
@@ -201,4 +205,26 @@ class Notifications {
   List<Notification> notifications;
 
   Notifications(this.notifications);
+}
+
+class User {
+  final String id;
+  final String fullName;
+  final String email;
+  final String createdAt;
+
+  User(
+      {required this.id,
+      required this.fullName,
+      required this.email,
+      required this.createdAt});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'],
+      fullName: json['fullName'],
+      email: json['email'],
+      createdAt: json['createdAt'],
+    );
+  }
 }

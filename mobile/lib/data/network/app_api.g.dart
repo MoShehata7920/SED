@@ -108,6 +108,33 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<VerifyEmailResponse> verifyEmail(
+    code,
+    token,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {'code': code};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<VerifyEmailResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/verifyemail',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = VerifyEmailResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<HomeResponse> getHomeData(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

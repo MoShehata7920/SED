@@ -9,6 +9,8 @@ abstract class RemoteDataSource {
 
   Future<ForgotPasswordResponse> forgotPassword(String email);
 
+  Future<VerifyEmailResponse> verifyEmail(int code);
+
   Future<AuthenticationResponse> register(RegisterRequest registerRequest);
 
   Future<HomeResponse> getHomeData();
@@ -78,8 +80,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<ShowItemsResponse> getShowItemsData(
       ShowItemsRequest showItemsRequest) async {
-    return await _appServiceClient.getShowItemsData(
-      showItemsRequest.purpose,showItemsRequest.category, showItemsRequest.page);
+    return await _appServiceClient.getShowItemsData(showItemsRequest.purpose,
+        showItemsRequest.category, showItemsRequest.page);
   }
 
   @override
@@ -145,5 +147,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<NotificationsResponse> notifications() async {
     return await _appServiceClient.notifications(Constants.token);
+  }
+
+  @override
+  Future<VerifyEmailResponse> verifyEmail(int code) async {
+    return await _appServiceClient.verifyEmail(
+        code, "Bearer " + Constants.token);
   }
 }

@@ -2,6 +2,8 @@
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
+import '../domain/model/models.dart';
+
 class Constants {
   //dio constants
   static const String baseUrl = "http://103.48.193.225:3000";
@@ -13,7 +15,7 @@ class Constants {
   //api constants
   static String token = "SEND TOKEN HERE";
   static const int apiTimeOut = 60000;
-
+  static User? user;
   static io.Socket socket = io.io('http://103.48.193.225:9001',
       OptionBuilder().setTransports(['websocket']).build());
 }

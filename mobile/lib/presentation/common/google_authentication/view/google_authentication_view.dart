@@ -5,15 +5,20 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
-import 'dart:convert' show json;
+import 'dart:convert' show json, jsonDecode;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/constants_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
+
+import '../../../../app/constants.dart';
 
 /// The scopes required by this application.
 const List<String> scopes = <String>[
@@ -21,13 +26,14 @@ const List<String> scopes = <String>[
   'profile',
   'https://www.googleapis.com/auth/userinfo.email',
   'https://www.googleapis.com/auth/userinfo.profile',
-
 ];
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: scopes,
-  serverClientId: "602406913114-n0ekltbq1095rnr9fm6rnd55vb3eo25p.apps.googleusercontent.com"
-);
+    scopes: scopes,
+    serverClientId:
+        "602406913114-n0ekltbq1095rnr9fm6rnd55vb3eo25p.apps.googleusercontent.com");
+
+
 
 /// The SignInDemo app.
 class SignInDemo extends StatefulWidget {
@@ -64,7 +70,7 @@ class _SignInDemoState extends State<SignInDemo> {
       // Now that we know that the user can access the required scopes, the app
       // can call the REST API.
       if (isAuthorized) {
-       // _handleGetContact(account!);
+        // _handleGetContact(account!);
       }
     });
 
@@ -84,7 +90,8 @@ class _SignInDemoState extends State<SignInDemo> {
     final String apiUrl = 'http://sed.zapto.org:3000/auth/google/redirect';
     final Map<String, String> queryParams = {
       'code': serverAuthToken,
-      'scope': 'email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid',
+      'scope':
+          'email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid',
       'authuser': '0',
       'prompt': 'consent',
     };
@@ -98,22 +105,26 @@ class _SignInDemoState extends State<SignInDemo> {
             'response. Check logs for details.';
         print(_contactText);
       });
-      print('Server returned a ${response.statusCode} response: ${response.body}');
+      print(
+          'Server returned a ${response.statusCode} response: ${response.body}');
       return;
     }
 
-    setState(() {
-      _contactText = response.body;
-    });
-    print(response.body);
-  }
+    final Map<String, dynamic> responseBody = jsonDecode(response.body);
+    final User user = User.fromJson(responseBody['User']);
+    final String token = responseBody['token'];
 
+    Constants.token = token;
+    Constants.user = user;
+
+    Navigator.pushReplacementNamed(context, Routes.mainScreenRoute);
+  }
 
   Future<void> _handleSignIn() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       GoogleSignInAuthentication googleSignInAuthentication =
-      await googleUser!.authentication;
+          await googleUser!.authentication;
       String? serverAuthToken = googleUser.serverAuthCode;
 
       await _handleGetContact(serverAuthToken ?? "");
@@ -129,11 +140,10 @@ class _SignInDemoState extends State<SignInDemo> {
     return IconButton(
       color: ColorsManager.grayIcon,
       onPressed: () async {
-          if(await _googleSignIn.isSignedIn())
-            await _googleSignIn.disconnect();
-          var xx = await _handleSignIn();
-        },
-      icon: const FaIcon(IconsManager.google),);
+        await _handleSignIn();
+      },
+      icon: const FaIcon(IconsManager.google),
+    );
   }
 
   @override

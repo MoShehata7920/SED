@@ -15,6 +15,12 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   }
 }
 
+extension VerifyEmailResponseMapper on VerifyEmailResponse? {
+  VerifyEMail toDomain() {
+    return VerifyEMail();
+  }
+}
+
 extension HomeCarouselMapper on CarouselResponse? {
   Carousel toDomain() {
     return Carousel(this?.images ?? <String>[]);

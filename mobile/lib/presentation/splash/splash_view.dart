@@ -96,7 +96,8 @@ class _SplashViewState extends State<SplashView> {
           if (isUseLoggedIn)
             {
               // navigate to main screen
-              Navigator.pushReplacementNamed(context, Routes.loginRoute)
+              Navigator.pushReplacementNamed(
+                  context, Routes.emailVerificationRoute)
             }
           else
             {
