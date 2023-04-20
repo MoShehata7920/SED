@@ -39,7 +39,7 @@ class ShowItemsRequest {
 }
 
 class SavingProductRequest {
-  int productId;
+  String productId;
 
   SavingProductRequest(this.productId);
 }
@@ -66,13 +66,13 @@ class GetMyProfileAdsRequest {
 }
 
 class RemoveAdRequest {
-  int itemId;
+  String itemId;
 
   RemoveAdRequest(this.itemId);
 }
 
 class UpdateAdRequest {
-  int itemId;
+  String itemId;
   String image;
   String name;
   String price;

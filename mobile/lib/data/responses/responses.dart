@@ -144,32 +144,32 @@ class CategoriesResponse {
 
 @JsonSerializable()
 class ItemsResponse {
-  @JsonKey(name: "ID")
-  int? id;
+  @JsonKey(name: "_id")
+  String? id;
 
-  @JsonKey(name: "Name")
+  @JsonKey(name: "productName")
   String? name;
 
-  @JsonKey(name: "Image")
-  String? image;
-
-  @JsonKey(name: "Descr")
+  @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: "Price")
+  @JsonKey(name: "category")
+  String? category;
+
+  @JsonKey(name: "productImage")
+  String? image;
+
+  @JsonKey(name: "price")
   int? price;
 
-  @JsonKey(name: "CategoryId")
-  int? categoryId;
-
-  @JsonKey(name: "Date")
+  @JsonKey(name: "createdAt")
   String? date;
 
   @JsonKey(name: "isSaved")
   bool? isSaved;
 
   ItemsResponse(this.name, this.image, this.description, this.price,
-      this.categoryId, this.date, this.isSaved);
+      this.category, this.date, this.isSaved);
 
   // From Json
   factory ItemsResponse.fromJson(Map<String, dynamic> json) =>
@@ -181,13 +181,13 @@ class ItemsResponse {
 
 @JsonSerializable()
 class ItemResponse extends BaseResponse {
-  @JsonKey(name: "item")
-  ItemsResponse? item;
+  @JsonKey(name: "product")
+  ItemsResponse? product;
 
   @JsonKey(name: "user")
   UserDataResponse? user;
 
-  ItemResponse(this.item, this.user);
+  ItemResponse(this.product, this.user);
 
   // From Json
   factory ItemResponse.fromJson(Map<String, dynamic> json) =>

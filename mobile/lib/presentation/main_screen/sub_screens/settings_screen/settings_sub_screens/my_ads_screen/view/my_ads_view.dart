@@ -223,7 +223,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, Routes.addProductScreenRoute,
-                                arguments: [item.categoryId - 1, item]);
+                                arguments: [item.category, item]);
                           },
                         ),
                         IconButton(

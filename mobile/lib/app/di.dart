@@ -24,7 +24,7 @@ import 'package:sed/domain/usecase/show_profile_usecase.dart';
 import 'package:sed/domain/usecase/verify_email_usecase.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
-import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/items_screen/viewmodel/products_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
@@ -85,10 +85,10 @@ Future<void> initAppModule() async {
 
   instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
 
-  instance.registerLazySingleton<ItemsScreenViewModel>(
-      () => ItemsScreenViewModel());
+  instance.registerLazySingleton<ProductScreenViewModel>(
+      () => ProductScreenViewModel());
 
-  instance.registerFactory<ItemUseCase>(() => ItemUseCase(instance()));
+  instance.registerFactory<ProductUseCase>(() => ProductUseCase(instance()));
 
   instance
       .registerLazySingleton<ShowItemsViewModel>(() => ShowItemsViewModel());

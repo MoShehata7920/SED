@@ -47,12 +47,12 @@ extension ItemsMapper on List<ItemsResponse?>? {
 
     this?.forEach((element) {
       temporary.add(Items(
-          element?.id ?? 0,
+          element?.id ?? "",
           element?.name ?? "",
           element?.image ?? "",
           element?.price ?? 0,
           element?.description ?? "",
-          element?.categoryId ?? 0,
+          element?.category ?? "",
           element?.date ?? "",
           element?.isSaved ?? false));
     });
@@ -90,12 +90,12 @@ extension HomeResponseMapper on HomeResponse? {
 extension ItemsResponseMapper on ItemsResponse? {
   Items toDomain() {
     return Items(
-        this?.id ?? 0,
+        this?.id ?? "",
         this?.name ?? "",
         this?.image ?? "",
         this?.price ?? 0,
         this?.description ?? "",
-        this?.categoryId ?? 0,
+        this?.category ?? "",
         this?.date ?? "",
         this?.isSaved ?? false);
   }
@@ -110,7 +110,7 @@ extension UserDataResponseMapper on UserDataResponse? {
 
 extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
-    return Item(this?.item.toDomain() ?? Items(0, "", "", 0, "", 0, "", false),
+    return Item(this?.product.toDomain() ?? Items("", "", "", 0, "", "", "", false),
         this?.user.toDomain() ?? UserData(0, "", "", "", ""));
   }
 }

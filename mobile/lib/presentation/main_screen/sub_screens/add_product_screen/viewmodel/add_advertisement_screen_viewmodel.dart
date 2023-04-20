@@ -195,7 +195,7 @@ class AddAdvertisementViewModel extends BaseViewModel
     });
   }
 
-  void updateAd(BuildContext context, int itemId) async {
+  void updateAd(BuildContext context, String itemId) async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
 

@@ -7,10 +7,10 @@ import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 
-class ItemsScreenViewModel extends BaseViewModel
-    with ItemsScreenViewModelInputs, ItemsScreenViewModelOutputs {
+class ProductScreenViewModel extends BaseViewModel
+    with ProductScreenViewModelInputs, ProductScreenViewModelOutputs {
 
-  final ItemUseCase _itemUseCase = instance<ItemUseCase>();
+  final ProductUseCase _productUseCase = instance<ProductUseCase>();
 
   final StreamController _contentStreamController =
   StreamController<Item>.broadcast();
@@ -19,11 +19,11 @@ class ItemsScreenViewModel extends BaseViewModel
   void start() {}
 
   @override
-  void getItemData(int itemId) async {
+  void getProductData(String productId) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var response = await _itemUseCase.execute(itemId);
+    var response = await _productUseCase.execute(productId);
 
     response.fold(
         (failure) => {
@@ -55,12 +55,12 @@ class ItemsScreenViewModel extends BaseViewModel
 }
 
 
-abstract class ItemsScreenViewModelInputs {
-  void getItemData(int itemId);
+abstract class ProductScreenViewModelInputs {
+  void getProductData(String productId);
 
   Sink get contentInput;
 }
 
-abstract class ItemsScreenViewModelOutputs {
+abstract class ProductScreenViewModelOutputs {
   Stream<Item> get contentOutput;
 }

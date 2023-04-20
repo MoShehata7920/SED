@@ -267,8 +267,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.p5),
                         child: Text(
-                          Utils.getCategoryNameById(
-                              showItemsContentObject.items[index].categoryId),
+                          showItemsContentObject.items[index].category,
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge

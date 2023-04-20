@@ -773,7 +773,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: AppPadding.p5),
                           child: Text(
-                            Utils.getCategoryNameById(item.categoryId),
+                            item.category,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -841,7 +841,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       ),
                       Expanded(
                         child: Text(
-                          item.date,
+                          Utils.getCreatedTime(item.date),
                           textAlign: TextAlign.end,
                           maxLines: AppValues.maxDateLines,
                           overflow: TextOverflow.ellipsis,
@@ -861,6 +861,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
           ),
         ),
         onTap: () {
+          print(item.id);
           Navigator.pushNamed(context, Routes.itemScreenRoute,
               arguments: item.id);
         },

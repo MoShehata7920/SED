@@ -42,9 +42,9 @@ abstract class AppServiceClient {
     @Header("token") String token,
   );
 
-  @GET("/Items/{itemId}")
-  Future<ItemResponse> getItemData(
-    @Path("itemId") int itemId,
+  @GET("/products/product/{productId}")
+  Future<ItemResponse> getProductData(
+    @Path("productId") String productId,
   );
 
   @GET("/products/get")
@@ -55,7 +55,7 @@ abstract class AppServiceClient {
 
   @GET("/Products/{itemId}")
   Future<SavingProductResponse> toggleSavingProduct(
-    @Path("itemId") int itemId,
+    @Path("itemId") String itemId,
   );
 
   @GET("/Profile/{profileId}")
@@ -84,11 +84,11 @@ abstract class AppServiceClient {
 
   @POST("/MyProfile/DeleteAd")
   Future<RemoveAdResponse> removeAd(
-      @Field("itemId") int itemId, @Header("token") String token);
+      @Field("itemId") String itemId, @Header("token") String token);
 
   @POST("/MyProfile/UpdateAd")
   Future<UpdateAdResponse> updateAd(
-    @Field("itemId") int itemId,
+    @Field("itemId") String itemId,
     @Header("token") String token,
     @Field("image") String image,
     @Field("name") String name,

@@ -125,7 +125,7 @@ class ViewCard {
                       padding:
                           const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                       child: Text(
-                        Utils.getCategoryNameById(item.categoryId),
+                        item.category,
                         style: TextStyle(
                           fontSize: AppSize.s10,
                           color: ColorsManager.white,

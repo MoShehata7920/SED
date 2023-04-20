@@ -20,7 +20,7 @@ class SavingProductsUseCase
 }
 
 class SavingProductUseCaseInputs {
-  int productId;
+  String productId;
 
   SavingProductUseCaseInputs(this.productId);
 }

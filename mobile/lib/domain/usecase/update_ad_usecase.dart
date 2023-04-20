@@ -30,7 +30,7 @@ class UpdateAdUseCase
 }
 
 class UpdateAdUseCaseInput {
-  int itemId;
+  String itemId;
   String image;
   String name;
   String price;

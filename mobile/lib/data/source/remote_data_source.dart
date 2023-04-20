@@ -15,7 +15,7 @@ abstract class RemoteDataSource {
 
   Future<HomeResponse> getHomeData();
 
-  Future<ItemResponse> getItemData(int itemId);
+  Future<ItemResponse> getProductData(String productId);
 
   Future<ShowItemsResponse> getShowItemsData(ShowItemsRequest showItemsRequest);
 
@@ -33,7 +33,7 @@ abstract class RemoteDataSource {
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest);
 
-  Future<RemoveAdResponse> removeAd(int itemId);
+  Future<RemoveAdResponse> removeAd(String itemId);
 
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest);
 
@@ -73,8 +73,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<ItemResponse> getItemData(int itemId) async {
-    return await _appServiceClient.getItemData(itemId);
+  Future<ItemResponse> getProductData(String productId) async {
+    return await _appServiceClient.getProductData(productId);
   }
 
   @override
@@ -126,7 +126,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<RemoveAdResponse> removeAd(int itemId) async {
+  Future<RemoveAdResponse> removeAd(String itemId) async {
     return await _appServiceClient.removeAd(itemId, Constants.token);
   }
 

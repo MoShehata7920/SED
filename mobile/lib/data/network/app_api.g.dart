@@ -159,7 +159,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<ItemResponse> getItemData(itemId) async {
+  Future<ItemResponse> getProductData(productId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -172,7 +172,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/Items/${itemId}',
+              '/products/product/${productId}',
               queryParameters: queryParameters,
               data: _data,
             )

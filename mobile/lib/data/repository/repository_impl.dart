@@ -120,11 +120,11 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, Item>> getItemData(int itemId) async {
+  Future<Either<Failure, Item>> getProductData(String productId) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
-        final response = await _remoteDataSource.getItemData(itemId);
+        final response = await _remoteDataSource.getProductData(productId);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data

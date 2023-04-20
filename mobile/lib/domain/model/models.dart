@@ -81,17 +81,17 @@ class Category {
 }
 
 class Items {
-  int id;
+  String id;
   String name;
   String image;
   int price;
   String description;
   String date;
-  int categoryId;
+  String category;
   bool isSaved;
 
   Items(this.id, this.name, this.image, this.price, this.description,
-      this.categoryId, this.date, this.isSaved);
+      this.category, this.date, this.isSaved);
 }
 
 // Show Items Models

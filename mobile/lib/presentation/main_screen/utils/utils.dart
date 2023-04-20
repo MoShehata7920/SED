@@ -26,7 +26,8 @@ class Utils {
 
   static bool isDialogShown = false;
 
-  static String getCreatedTime(DateTime dt) {
+  static String getCreatedTime(String dateString) {
+    var dt = DateTime.parse(dateString);
     var now =  DateTime.now().toUtc();
     var dtUtc = DateTime.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second);
 

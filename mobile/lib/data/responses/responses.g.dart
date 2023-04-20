@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -149,31 +147,31 @@ Map<String, dynamic> _$CategoriesResponseToJson(CategoriesResponse instance) =>
 
 ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
     ItemsResponse(
-      json['Name'] as String?,
-      json['Image'] as String?,
-      json['Descr'] as String?,
-      json['Price'] as int?,
-      json['CategoryId'] as int?,
-      json['Date'] as String?,
+      json['productName'] as String?,
+      json['productImage'] as String?,
+      json['description'] as String?,
+      json['price'] as int?,
+      json['category'] as String?,
+      json['createdAt'] as String?,
       json['isSaved'] as bool?,
-    )..id = json['ID'] as int?;
+    )..id = json['_id'] as String?;
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
     <String, dynamic>{
-      'ID': instance.id,
-      'Name': instance.name,
-      'Image': instance.image,
-      'Descr': instance.description,
-      'Price': instance.price,
-      'CategoryId': instance.categoryId,
-      'Date': instance.date,
+      '_id': instance.id,
+      'productName': instance.name,
+      'description': instance.description,
+      'category': instance.category,
+      'productImage': instance.image,
+      'price': instance.price,
+      'createdAt': instance.date,
       'isSaved': instance.isSaved,
     };
 
 ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) => ItemResponse(
-      json['item'] == null
+      json['product'] == null
           ? null
-          : ItemsResponse.fromJson(json['item'] as Map<String, dynamic>),
+          : ItemsResponse.fromJson(json['product'] as Map<String, dynamic>),
       json['user'] == null
           ? null
           : UserDataResponse.fromJson(json['user'] as Map<String, dynamic>),
@@ -185,7 +183,7 @@ Map<String, dynamic> _$ItemResponseToJson(ItemResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'item': instance.item,
+      'product': instance.product,
       'user': instance.user,
     };
 
