@@ -36,7 +36,6 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   _AddAdvertisementViewState(this.categoryId, this.item);
 
   List<DropdownMenuItem<dynamic>> dropDownItems = <DropdownMenuItem<dynamic>>[];
-  final ImagePicker _imagePicker = ImagePicker();
 
   // for selecting sell,exchange or donate
   final TextEditingController _nameController = TextEditingController();

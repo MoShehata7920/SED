@@ -1,14 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/common/google_authentication/view/google_authentication_view.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../resources/assets_manager.dart';
@@ -236,8 +234,8 @@ class _LoginViewState extends State<LoginView> {
                   style: TextStyle(color: ColorsManager.secondaryText),
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+              const Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
                       AppPadding.p8, AppPadding.p8, AppPadding.p8),
                   child: SignInDemo()),
             ],

@@ -152,6 +152,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<VerifyEmailResponse> verifyEmail(int code) async {
     return await _appServiceClient.verifyEmail(
-        code, "Bearer " + Constants.token);
+        code, "Bearer ${Constants.token}");
   }
 }

@@ -2,15 +2,12 @@ import 'package:country_code_picker_mp/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
-import '../../../app/constants.dart';
 import '../../../app/di.dart';
 import '../../common/google_authentication/view/google_authentication_view.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
@@ -291,8 +288,8 @@ class _RegisterViewState extends State<RegisterView> {
                     style: TextStyle(color: ColorsManager.secondaryText),
                   ),
                 ),
-                Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+                const Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
                         AppPadding.p8, AppPadding.p8, AppPadding.p8),
                     child: SignInDemo()),
               ],

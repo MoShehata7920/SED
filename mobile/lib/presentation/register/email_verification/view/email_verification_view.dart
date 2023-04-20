@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -19,17 +20,20 @@ class EmailVerificationScreenView extends StatefulWidget {
 class _EmailVerificationScreenViewState
     extends State<EmailVerificationScreenView> {
   final TextEditingController _digitsController = TextEditingController();
-  VerifyEmailViewModel _verifyEmailViewModel = VerifyEmailViewModel();
+  final VerifyEmailViewModel _verifyEmailViewModel = VerifyEmailViewModel();
   String currentText = "";
   @override
-  Widget build(BuildContext context, int code) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       body: StreamBuilder<FlowState>(
         stream: _verifyEmailViewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _buildContentWidget(),
-                  () => _verifyEmailViewModel.verifyEmail(code)) ??
+          return snapshot.data?.getScreenWidget(
+                  context,
+                  _buildContentWidget(),
+                  () => _verifyEmailViewModel
+                      .verifyEmail(int.parse(currentText))) ??
               _buildContentWidget();
         },
       ),
@@ -46,7 +50,7 @@ class _EmailVerificationScreenViewState
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
           child: Text(
-            AppStrings.verifyYourEmail,
+            AppStrings.verifyYourEmail.tr(),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.primaryText,
                   fontSize: AppSize.s20,
@@ -56,7 +60,7 @@ class _EmailVerificationScreenViewState
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text(
-            AppStrings.enterOtp,
+            AppStrings.enterOtp.tr(),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.secondaryText,
                   fontSize: AppSize.s15,
@@ -112,7 +116,7 @@ class _EmailVerificationScreenViewState
             child: TextButton(
                 onPressed: () {},
                 child: Text(
-                  AppStrings.resendCode,
+                  AppStrings.resendCode.tr(),
                   style: TextStyle(color: ColorsManager.primaryColor),
                 ))),
         Padding(
