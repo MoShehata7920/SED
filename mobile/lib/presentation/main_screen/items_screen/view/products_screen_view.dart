@@ -153,7 +153,7 @@ class _ItemViewState extends State<ItemView> {
                           Container(
                             color: Colors.black.withOpacity(.2),
                             child: Text(
-                              Utils.getCategoryNameById(item.item.categoryId),
+                              item.item.category,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
