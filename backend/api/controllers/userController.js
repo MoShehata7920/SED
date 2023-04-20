@@ -56,19 +56,15 @@ exports.getAllUsers = (req, res) => {
 }
 
 //getting single user 
-exports.getSingleUser = (req, res) => {
-  if (req.user.id === req.params.userId || req.user.isAdmin) {   // to check wether the user him self who requested for his info , or an admin
-    User.findById(req.params.userId).exec().then(user => {
-      if (user) {
-        res.status(200).json(user)
-      } else {
-        res.status(404).json('This User Not exist')
-      }
-    }).catch(err => {
-      res.status(500).json(err)
-    })
-  } else {
-    console.log('error from single user get else condition ');
+exports.getSingleUser = async(req, res) => {
+  try {
+    const user=await User.findById(req.params.userId)
+    if(!user){
+      res.status(200).json({status:1,message:'There Is No User with this id '})
+    }
+    res.status(200).json({status:0,user})
+  } catch (error) {
+    res.status(500).json({success:1,error})
   }
 }
 

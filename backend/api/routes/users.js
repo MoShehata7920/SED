@@ -26,6 +26,7 @@ router.get('/getWishlist', verifyToken, userController.getWishlist);
 // To find a Single User , must be and admin or the userhim self
 router.get('/get/:userId', verifyToken, userController.getSingleUser)
 
+
 // getting all users , must be an admin
 router.get('/getallusers', verifyTokenAndAdmin, userController.getAllUsers)
 
