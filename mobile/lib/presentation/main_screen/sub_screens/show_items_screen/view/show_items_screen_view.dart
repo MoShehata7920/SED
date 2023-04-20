@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
@@ -23,7 +22,8 @@ class ShowItemsView extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  State<ShowItemsView> createState() => _ShowItemsViewState(type, categoryId, image);
+  State<ShowItemsView> createState() =>
+      _ShowItemsViewState(type, categoryId, image);
 }
 
 class _ShowItemsViewState extends State<ShowItemsView> {
@@ -46,7 +46,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItems(viewType, categoryId,image: image);
+    _viewModel.getItems(viewType, categoryId, image: image);
 
     _scrollController.addListener(() async {
       if (_scrollController.position.maxScrollExtent ==

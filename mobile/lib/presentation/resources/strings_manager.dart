@@ -54,9 +54,9 @@ class AppStrings {
   static const String login = "login";
 
   // email verify screen
-  static const String verifyYourEmail = "Verify Your Email";
-  static const String enterOtp = "Please enter the 6 digit code sent to Yourmail@example.com";
-  static const String resendCode = "Resend Code";
+  static const String verifyYourEmail = "verify_your_email";
+  static const String enterOtp = "enter_otp";
+  static const String resendCode = "resend_code";
 
   //state renderer
   static const String loading = "loading";

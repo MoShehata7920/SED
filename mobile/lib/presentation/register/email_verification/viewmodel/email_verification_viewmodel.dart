@@ -1,5 +1,5 @@
 import 'package:sed/app/di.dart';
-import 'package:sed/domain/usecase/veify_email_usecase.dart';
+import 'package:sed/domain/usecase/verify_email_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 
 import '../../../common/state_renderer/state_renderer.dart';
