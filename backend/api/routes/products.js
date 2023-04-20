@@ -35,6 +35,8 @@ router.get('/get',productController.getProductsByQuery)
 
 router.get('/:purpose/:category/:page',productController.getProductsByParams)
 
+//specific user products
+router.get('/seller/:sellerId',verifyToken,productController.userProducts)
 
 //for admin dashboard
 //getting all products

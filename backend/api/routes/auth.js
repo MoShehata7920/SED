@@ -55,5 +55,7 @@ router.get('/logout', (req, res) => {
     res.redirect('/')
 });
 
+// @route for resending email verification
+router.post('/resendVerifyEmail',verifyToken,authController.resendVerifyEmail)
 
 module.exports = router;

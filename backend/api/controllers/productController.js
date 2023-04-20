@@ -227,4 +227,17 @@ exports.getProductsByParams = async (req, res, next) => {
     } catch (err) {
         res.status(404).json({ status: 1, message: err });
     }
+
 };
+
+// to get products created by specific seller
+exports.userProducts=async(req,res)=>{ 
+    const sellerId=req.params.sellerId
+    try {
+        const products =await Product.find({seller:sellerId})
+        console.log(products);
+        res.status(200).json({products,status:0});
+    } catch (err) {
+        res.status(500).json({status:1,err});
+    }
+}
