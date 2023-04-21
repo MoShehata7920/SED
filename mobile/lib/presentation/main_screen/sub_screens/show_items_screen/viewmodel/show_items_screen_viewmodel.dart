@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/data/network/failure.dart';
 import 'package:sed/domain/model/models.dart';
+import 'package:sed/domain/usecase/get_saved_products.dart';
 import 'package:sed/domain/usecase/show_items_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
@@ -11,6 +14,7 @@ import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_
 class ShowItemsViewModel extends BaseViewModel
     with ShowItemsViewModelInputs, ShowItemsViewModelOutputs {
   final ShowItemsUseCase _showItemsUseCase = instance<ShowItemsUseCase>();
+  final GetSavedProductsUseCase _getSavedProductsUseCase = instance<GetSavedProductsUseCase>();
 
   final StreamController _contentStreamController =
       StreamController<ShowItemsContentObject>.broadcast();
@@ -44,8 +48,15 @@ class ShowItemsViewModel extends BaseViewModel
       purposeName = viewType.getName();
     }
 
-    var response = await _showItemsUseCase.execute(
-        ShowItemsUseCaseInputs(category: categoryName, purpose: purposeName));
+    Either<Failure, ShowItems> response;
+
+    if(viewType == Views.SAVED) {
+      response = await _getSavedProductsUseCase.execute(null);
+    } else {
+      response = await _showItemsUseCase.execute(
+          ShowItemsUseCaseInputs(category: categoryName, purpose: purposeName));
+    }
+
 
     response.fold(
         (failure) => {
@@ -53,16 +64,16 @@ class ShowItemsViewModel extends BaseViewModel
             }, (response) {
       // right -> success
 
-      if (viewType == Views.SAVED) {
-        for (var element in response.items) {
-          if (element.isSaved) {
-            items.add(element);
-          }
-        }
-      } else {
-        items = response.items;
-      }
-
+      // if (viewType == Views.SAVED) {
+      //   for (var element in response.items) {
+      //     if (element.isSaved) {
+      //       items.add(element);
+      //     }
+      //   }
+      // } else {
+      //   items = response.items;
+      // }
+      items = response.items;
       contentInput.add(ShowItemsContentObject(items));
     });
 

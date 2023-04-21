@@ -114,7 +114,7 @@ class _AppServiceClient implements AppServiceClient {
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = {'code': code};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -214,25 +214,53 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<SavingProductResponse> toggleSavingProduct(itemId) async {
+  Future<SavingProductResponse> toggleSavingProduct(
+    productId,
+    token,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {'prodId': productId};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SavingProductResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/addToWishlist',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SavingProductResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ShowItemsResponse> getSavedProducts(token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ShowItemsResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/Products/${itemId}',
+              '/users/getWishlist',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SavingProductResponse.fromJson(_result.data!);
+    final value = ShowItemsResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -304,7 +332,7 @@ class _AppServiceClient implements AppServiceClient {
   Future<GetMyProfileDataResponse> getMyProfileData(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -315,7 +343,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/MyProfile',
+              '/get',
               queryParameters: queryParameters,
               data: _data,
             )

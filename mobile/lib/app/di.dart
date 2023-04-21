@@ -11,6 +11,7 @@ import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/delete_item_usecase.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
+import 'package:sed/domain/usecase/get_saved_products.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/domain/usecase/item_usecase.dart';
 import 'package:sed/domain/usecase/login_usecase.dart';
@@ -119,6 +120,9 @@ Future<void> initAppModule() async {
       () => NotificationsUseCase(instance()));
 
   instance.registerFactory<VerifyEmailUseCase>(() => VerifyEmailUseCase(instance()));
+
+
+  instance.registerFactory<GetSavedProductsUseCase>(() => GetSavedProductsUseCase(instance()));
 
   await initNotificationModule();
 }

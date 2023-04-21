@@ -34,8 +34,7 @@ abstract class AppServiceClient {
   @POST("/auth/verifyemail")
   Future<VerifyEmailResponse> verifyEmail(
     @Field("code") int code,
-    @Header("Authorization") String token
-  );
+    @Header("Authentication") String token);
 
   @GET("/home/")
   Future<HomeResponse> getHomeData(
@@ -47,16 +46,20 @@ abstract class AppServiceClient {
     @Path("productId") String productId,
   );
 
+
   @GET("/products/get")
   Future<ShowItemsResponse> getShowItemsData(
     @Query("purpose") String purpose,
     @Query("category") String category,
     @Query("page") int? page,);
 
-  @GET("/Products/{itemId}")
+  @PATCH("/users/addToWishlist")
   Future<SavingProductResponse> toggleSavingProduct(
-    @Path("itemId") String itemId,
-  );
+      @Field("prodId") String productId, @Header("Authentication") String token);
+
+  @GET("/users/getWishlist")
+  Future<ShowItemsResponse> getSavedProducts(
+      @Header("Authentication") String token);
 
   @GET("/Profile/{profileId}")
   Future<ShowItemsResponse> getShowProfileData(
@@ -74,9 +77,9 @@ abstract class AppServiceClient {
       @Field("conditionId") int conditionId,
       @Header("Authorization") String token);
 
-  @GET("/MyProfile")
+  @GET("/get")
   Future<GetMyProfileDataResponse> getMyProfileData(
-      @Header("Authorization") String token);
+      @Header("Authentication") String token);
 
   @GET("/MyProfile/Ads/{pageId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(

@@ -14,8 +14,9 @@ class Constants {
 
   //api constants
   static String token = "SEND TOKEN HERE";
+  static String? userId;
+
   static const int apiTimeOut = 60000;
-  static User? user;
   static io.Socket socket = io.io('http://103.48.193.225:9001',
       OptionBuilder().setTransports(['websocket']).build());
 }

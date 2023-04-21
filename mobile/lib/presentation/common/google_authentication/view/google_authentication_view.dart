@@ -115,7 +115,7 @@ class _SignInDemoState extends State<SignInDemo> {
     final String token = responseBody['token'];
 
     Constants.token = token;
-    Constants.user = user;
+    //Constants.user = user;
 
     Navigator.pushReplacementNamed(context, Routes.mainScreenRoute);
   }

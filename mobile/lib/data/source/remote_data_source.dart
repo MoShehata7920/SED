@@ -38,6 +38,9 @@ abstract class RemoteDataSource {
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest);
 
   Future<NotificationsResponse> notifications();
+
+  Future<ShowItemsResponse> getSavedProducts();
+
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -88,7 +91,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<SavingProductResponse> toggleSavingProduct(
       SavingProductRequest savingProductRequest) async {
     return await _appServiceClient
-        .toggleSavingProduct(savingProductRequest.productId);
+        .toggleSavingProduct(savingProductRequest.productId, "Bearer ${Constants.token}");
   }
 
   @override
@@ -153,5 +156,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<VerifyEmailResponse> verifyEmail(int code) async {
     return await _appServiceClient.verifyEmail(
         code, "Bearer ${Constants.token}");
+  }
+
+  @override
+  Future<ShowItemsResponse> getSavedProducts() async{
+    return await _appServiceClient.getSavedProducts(
+        "Bearer ${Constants.token}");
   }
 }
