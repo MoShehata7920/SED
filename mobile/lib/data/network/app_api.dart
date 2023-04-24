@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:sed/app/constants.dart';
@@ -33,8 +35,7 @@ abstract class AppServiceClient {
 
   @POST("/auth/verifyemail")
   Future<VerifyEmailResponse> verifyEmail(
-    @Field("code") int code,
-    @Header("Authentication") String token);
+      @Field("code") int code, @Header("Authentication") String token);
 
   @GET("/home/")
   Future<HomeResponse> getHomeData(
@@ -46,16 +47,17 @@ abstract class AppServiceClient {
     @Path("productId") String productId,
   );
 
-
   @GET("/products/get")
   Future<ShowItemsResponse> getShowItemsData(
     @Query("purpose") String purpose,
     @Query("category") String category,
-    @Query("page") int? page,);
+    @Query("page") int? page,
+  );
 
   @PATCH("/users/addToWishlist")
   Future<SavingProductResponse> toggleSavingProduct(
-      @Field("prodId") String productId, @Header("Authentication") String token);
+      @Field("prodId") String productId,
+      @Header("Authentication") String token);
 
   @GET("/users/getWishlist")
   Future<ShowItemsResponse> getSavedProducts(
@@ -65,17 +67,17 @@ abstract class AppServiceClient {
   Future<ShowItemsResponse> getShowProfileData(
     @Path("profileId") int profileId,
   );
-
-  @POST("/customers/AddAdvertisement")
+  
+  @POST("/products/newproduct")
   Future<AddAdvertisementResponse> addAdvertisement(
-      @Field("image") String image,
-      @Field("name") String name,
-      @Field("price") String price,
+      @Part() File image,
+      @Field("productName") String name,
+      @Field("price") int price,
       @Field("description") String description,
-      @Field("sectionId") int sectionId,
-      @Field("categoryId") int categoryId,
-      @Field("conditionId") int conditionId,
-      @Header("Authorization") String token);
+      @Field("purpose") String purpose,
+      @Field("category") String category,
+      @Field("condition") String condition,
+      @Header("Authentication") String token);
 
   @GET("/get")
   Future<GetMyProfileDataResponse> getMyProfileData(
@@ -93,17 +95,22 @@ abstract class AppServiceClient {
   Future<UpdateAdResponse> updateAd(
     @Field("itemId") String itemId,
     @Header("token") String token,
-    @Field("image") String image,
+    @Part() File image,
     @Field("name") String name,
-    @Field("price") String price,
+    @Field("price") int price,
     @Field("description") String description,
-    @Field("sectionId") int sectionId,
-    @Field("categoryId") int categoryId,
-    @Field("conditionId") int conditionId,
+    @Field("purpose") String purpose,
+    @Field("category") String category,
+    @Field("condition") String condition,
   );
 
   @GET("/Notifications")
   Future<NotificationsResponse> notifications(
+    @Header("token") String token,
+  );
+
+  @POST("/products/search")
+  Future<SearchResponse> getSearchProducts(
     @Header("token") String token,
   );
 }

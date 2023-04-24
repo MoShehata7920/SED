@@ -22,9 +22,7 @@ class Authentication {
   Authentication(this.token);
 }
 
-class VerifyEMail {
-  
-}
+class VerifyEMail {}
 
 // ForgotPassword models
 class ForgotPassword {
@@ -145,15 +143,15 @@ class SavingProduct {
 class AddAdvertisement {
   String image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
   AddAdvertisement(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId, this.token);
+      this.purpose, this.category, this.condition, this.token);
 }
 
 // My Profile Models
@@ -179,15 +177,15 @@ class UpdateAd {
   int itemId;
   String image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
   UpdateAd(this.itemId, this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId, this.token);
+      this.purpose, this.category, this.condition, this.token);
 }
 
 class Notification {

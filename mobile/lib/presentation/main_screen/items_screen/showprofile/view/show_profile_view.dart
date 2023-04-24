@@ -6,7 +6,6 @@ import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/items_screen/showprofile/viewmodel/show_profile_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
-import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 

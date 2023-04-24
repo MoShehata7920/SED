@@ -263,25 +263,25 @@ class AddAdvertisementResponse extends BaseResponse {
   String? name;
 
   @JsonKey(name: "price")
-  String? price;
+  int? price;
 
   @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: "sectionId")
-  int? sectionId;
+  @JsonKey(name: "purpose")
+  String? purpose;
 
-  @JsonKey(name: "categoryId")
-  int? categoryId;
+  @JsonKey(name: "category")
+  String? category;
 
-  @JsonKey(name: "conditionId")
-  int? conditionId;
+  @JsonKey(name: "condition")
+  String? condition;
 
   @JsonKey(name: "token")
   String? token;
 
   AddAdvertisementResponse(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId, this.token);
+      this.purpose, this.category, this.condition, this.token);
 
   // From Json
   factory AddAdvertisementResponse.fromJson(Map<String, dynamic> json) =>
@@ -348,19 +348,19 @@ class UpdateAdResponse extends BaseResponse {
   String? name;
 
   @JsonKey(name: "price")
-  String? price;
+  int? price;
 
   @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: "sectionId")
-  int? sectionId;
+  @JsonKey(name: "purpose")
+  String? purpose;
 
-  @JsonKey(name: "categoryId")
-  int? categoryId;
+  @JsonKey(name: "category")
+  String? category;
 
-  @JsonKey(name: "conditionId")
-  int? conditionId;
+  @JsonKey(name: "condition")
+  String? condition;
 
   @JsonKey(name: "token")
   String? token;
@@ -371,9 +371,9 @@ class UpdateAdResponse extends BaseResponse {
       this.name,
       this.price,
       this.description,
-      this.sectionId,
-      this.categoryId,
-      this.conditionId,
+      this.purpose,
+      this.category,
+      this.condition,
       this.token);
 
   // From Json
@@ -425,4 +425,19 @@ class NotificationsResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$NotificationsResponseToJson(this);
+}
+
+@JsonSerializable()
+class SearchResponse extends BaseResponse {
+  @JsonKey(name: "searchedProducts")
+  ShowItemsResponse searchedProducts;
+
+  SearchResponse(this.searchedProducts);
+
+  // From Json
+  factory SearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }

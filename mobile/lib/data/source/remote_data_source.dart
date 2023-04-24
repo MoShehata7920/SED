@@ -41,6 +41,7 @@ abstract class RemoteDataSource {
 
   Future<ShowItemsResponse> getSavedProducts();
 
+  Future<SearchResponse> getSearchedProducts(String searchText);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -90,8 +91,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<SavingProductResponse> toggleSavingProduct(
       SavingProductRequest savingProductRequest) async {
-    return await _appServiceClient
-        .toggleSavingProduct(savingProductRequest.productId, "Bearer ${Constants.token}");
+    return await _appServiceClient.toggleSavingProduct(
+        savingProductRequest.productId, "Bearer ${Constants.token}");
   }
 
   @override
@@ -109,10 +110,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       addAdvertisementRequest.name,
       addAdvertisementRequest.price,
       addAdvertisementRequest.description,
-      addAdvertisementRequest.sectionId,
-      addAdvertisementRequest.categoryId,
-      addAdvertisementRequest.conditionId,
-      addAdvertisementRequest.token,
+      addAdvertisementRequest.purpose,
+      addAdvertisementRequest.category,
+      addAdvertisementRequest.condition,
+      "Bearer ${Constants.token}",
     );
   }
 
@@ -142,9 +143,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         updateAdRequest.name,
         updateAdRequest.price,
         updateAdRequest.description,
-        updateAdRequest.sectionId,
-        updateAdRequest.categoryId,
-        updateAdRequest.conditionId);
+        updateAdRequest.purpose,
+        updateAdRequest.category,
+        updateAdRequest.condition);
   }
 
   @override
@@ -159,8 +160,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<ShowItemsResponse> getSavedProducts() async{
-    return await _appServiceClient.getSavedProducts(
-        "Bearer ${Constants.token}");
+  Future<ShowItemsResponse> getSavedProducts() async {
+    return await _appServiceClient
+        .getSavedProducts("Bearer ${Constants.token}");
+  }
+
+  @override
+  Future<SearchResponse> getSearchedProducts(String searchText) async {
+    return await _appServiceClient.getSearchProducts(Constants.token);
   }
 }

@@ -12,6 +12,7 @@ class ImageAssets {
   static const String loginBackground = '$imagePath/login_background.png';
   static const String noImage = "$imagePath/no_image.png";
   static const String emailVerification = "$imagePath/email_verification.png";
+  static const String egyptFlag = "$imagePath/egypt.png";
 
   static const String leftArrowIcon = "$imagePath/left_arrow_icon.svg";
   static const String rightArrowIcon = "$imagePath/right_arrow_icon.svg";

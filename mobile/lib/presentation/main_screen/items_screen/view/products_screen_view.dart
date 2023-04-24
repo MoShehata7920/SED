@@ -82,6 +82,18 @@ class _ProductViewState extends State<ProductView> {
     } else {
       return CustomScrollView(slivers: [
         SliverAppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+              child: IconButton(
+                icon: const Icon(
+                  IconsManager.share,
+                  size: AppSize.s30,
+                ),
+                onPressed: () {},
+              ),
+            )
+          ],
           expandedHeight: MediaQuery.of(context).size.height * 0.6,
           elevation: AppSize.s0,
           snap: true,

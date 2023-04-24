@@ -20,7 +20,7 @@ import '../../../../../domain/usecase/update_ad_usecase.dart';
 class AddAdvertisementViewModel extends BaseViewModel
     with AddAdvertisementViewModelInputs, AddAdvertisementViewModelOutputs {
   AdvertisementObject advertisementObject =
-      AdvertisementObject("", "", "", "", 0, 0, 0);
+      AdvertisementObject(File(""), "", 0, "", "", "", "");
 
   final StreamController _imageValidationStreamController =
       StreamController<String>.broadcast();
@@ -117,7 +117,7 @@ class AddAdvertisementViewModel extends BaseViewModel
   bool _areAllInputsValid() {
     return _isNameValid(advertisementObject.name) &&
         _isDescriptionValid(advertisementObject.description) &&
-        _isImageValid(advertisementObject.image);
+        _isImageValid(advertisementObject.image == null ? "" : "image");
   }
 
   @override
@@ -129,9 +129,9 @@ class AddAdvertisementViewModel extends BaseViewModel
   }
 
   @override
-  void setIds(int sectionId, int categoryId, int conditionId) {
+  void setIds(String purpose, String category, String condition) {
     advertisementObject = advertisementObject.copyWith(
-        sectionId: sectionId, categoryId: categoryId, conditionId: conditionId);
+        purpose: purpose, category: category, condition: condition);
   }
 
   @override
@@ -142,7 +142,7 @@ class AddAdvertisementViewModel extends BaseViewModel
 
     List<int> imageBytes = imageFile.readAsBytesSync();
     String base64Image = base64.encode(imageBytes);
-    advertisementObject = advertisementObject.copyWith(image: base64Image);
+    advertisementObject = advertisementObject.copyWith(image: imageFile);
 
     areAllInputsValidInput.add(null);
     imageInput.add(imageMapping.path);
@@ -156,7 +156,7 @@ class AddAdvertisementViewModel extends BaseViewModel
   }
 
   @override
-  void setPrice(String price) {
+  void setPrice(int price) {
     priceInput.add(price);
     advertisementObject = advertisementObject.copyWith(price: price);
     areAllInputsValidInput.add(null);
@@ -171,11 +171,11 @@ class AddAdvertisementViewModel extends BaseViewModel
         .execute(AddAdvertisementUseCaseUseCaseInput(
       advertisementObject.image,
       advertisementObject.name,
-      advertisementObject.price.isEmpty ? "0" : advertisementObject.price,
+      advertisementObject.price,
       advertisementObject.description,
-      advertisementObject.sectionId,
-      advertisementObject.categoryId,
-      advertisementObject.conditionId,
+      advertisementObject.purpose,
+      advertisementObject.category,
+      advertisementObject.condition,
       Constants.token,
     ));
 
@@ -205,9 +205,9 @@ class AddAdvertisementViewModel extends BaseViewModel
       advertisementObject.name,
       advertisementObject.price,
       advertisementObject.description,
-      advertisementObject.sectionId,
-      advertisementObject.categoryId,
-      advertisementObject.conditionId,
+      advertisementObject.purpose,
+      advertisementObject.category,
+      advertisementObject.condition,
       Constants.token,
     ));
 
@@ -243,11 +243,11 @@ abstract class AddAdvertisementViewModelInputs {
 
   void setName(String name);
 
-  void setPrice(String price);
+  void setPrice(int price);
 
   void setDescription(String description);
 
-  void setIds(int sectionId, int categoryId, int conditionId);
+  void setIds(String purpose, String category, String condition);
 
   void addAdvertisement(BuildContext context);
 }

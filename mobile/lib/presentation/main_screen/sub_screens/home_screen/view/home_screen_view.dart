@@ -195,7 +195,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     ),
                     onTap: () {
                       Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                          arguments: [Views.CATEGORY, Utils.categories[i].id]);
+                          arguments: [Views.CATEGORY, Utils.categories[i].name]);
                     },
                   ),
               ],
@@ -626,7 +626,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
       ),
       onTap: () {
         Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-            arguments: [Views.CATEGORY, Utils.categories[index].id]);
+            arguments: [Views.CATEGORY, Utils.categories[index].name]);
       },
     );
   }

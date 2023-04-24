@@ -43,4 +43,6 @@ abstract class Repository {
   Future<Either<Failure, Notifications>> notifications();
 
   Future<Either<Failure, ShowItems>> getSavedProducts();
+
+  Future<Either<Failure, ShowItems>> getSearchedProducts(String searchText);
 }

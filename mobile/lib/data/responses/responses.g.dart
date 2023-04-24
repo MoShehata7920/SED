@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element
+
 part of 'responses.dart';
 
 // **************************************************************************
@@ -244,11 +246,11 @@ AddAdvertisementResponse _$AddAdvertisementResponseFromJson(
     AddAdvertisementResponse(
       json['image'] as String?,
       json['name'] as String?,
-      json['price'] as String?,
+      json['price'] as int?,
       json['description'] as String?,
-      json['sectionId'] as int?,
-      json['categoryId'] as int?,
-      json['conditionId'] as int?,
+      json['purpose'] as String?,
+      json['category'] as String?,
+      json['condition'] as String?,
       json['token'] as String?,
     )
       ..status = json['status'] as int?
@@ -263,9 +265,9 @@ Map<String, dynamic> _$AddAdvertisementResponseToJson(
       'name': instance.name,
       'price': instance.price,
       'description': instance.description,
-      'sectionId': instance.sectionId,
-      'categoryId': instance.categoryId,
-      'conditionId': instance.conditionId,
+      'purpose': instance.purpose,
+      'category': instance.category,
+      'condition': instance.condition,
       'token': instance.token,
     };
 
@@ -326,11 +328,11 @@ UpdateAdResponse _$UpdateAdResponseFromJson(Map<String, dynamic> json) =>
       json['itemId'] as int?,
       json['image'] as String?,
       json['name'] as String?,
-      json['price'] as String?,
+      json['price'] as int?,
       json['description'] as String?,
-      json['sectionId'] as int?,
-      json['categoryId'] as int?,
-      json['conditionId'] as int?,
+      json['purpose'] as String?,
+      json['category'] as String?,
+      json['condition'] as String?,
       json['token'] as String?,
     )
       ..status = json['status'] as int?
@@ -345,9 +347,9 @@ Map<String, dynamic> _$UpdateAdResponseToJson(UpdateAdResponse instance) =>
       'name': instance.name,
       'price': instance.price,
       'description': instance.description,
-      'sectionId': instance.sectionId,
-      'categoryId': instance.categoryId,
-      'conditionId': instance.conditionId,
+      'purpose': instance.purpose,
+      'category': instance.category,
+      'condition': instance.condition,
       'token': instance.token,
     };
 
@@ -389,4 +391,19 @@ Map<String, dynamic> _$NotificationsResponseToJson(
       'status': instance.status,
       'message': instance.message,
       'notifications': instance.notifications,
+    };
+
+SearchResponse _$SearchResponseFromJson(Map<String, dynamic> json) =>
+    SearchResponse(
+      ShowItemsResponse.fromJson(
+          json['searchedProducts'] as Map<String, dynamic>),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'searchedProducts': instance.searchedProducts,
     };

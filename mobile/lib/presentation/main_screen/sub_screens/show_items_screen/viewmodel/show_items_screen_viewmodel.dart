@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dartz/dartz.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/data/network/failure.dart';
@@ -14,7 +13,8 @@ import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_
 class ShowItemsViewModel extends BaseViewModel
     with ShowItemsViewModelInputs, ShowItemsViewModelOutputs {
   final ShowItemsUseCase _showItemsUseCase = instance<ShowItemsUseCase>();
-  final GetSavedProductsUseCase _getSavedProductsUseCase = instance<GetSavedProductsUseCase>();
+  final GetSavedProductsUseCase _getSavedProductsUseCase =
+      instance<GetSavedProductsUseCase>();
 
   final StreamController _contentStreamController =
       StreamController<ShowItemsContentObject>.broadcast();
@@ -33,30 +33,27 @@ class ShowItemsViewModel extends BaseViewModel
   }
 
   @override
-  void getItems(Views viewType, int categoryId, {String? image}) async {
+  void getItems(Views viewType,
+      {String categoryName = "all", String? image}) async {
     items = [];
 
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var categoryName = "all";
     var purposeName = "all";
 
-    if (viewType == Views.CATEGORY) {
-      categoryName = viewType.getName(categoryId: categoryId);
-    } else {
+    if (viewType != Views.CATEGORY) {
       purposeName = viewType.getName();
     }
 
     Either<Failure, ShowItems> response;
 
-    if(viewType == Views.SAVED) {
+    if (viewType == Views.SAVED) {
       response = await _getSavedProductsUseCase.execute(null);
     } else {
       response = await _showItemsUseCase.execute(
           ShowItemsUseCaseInputs(category: categoryName, purpose: purposeName));
     }
-
 
     response.fold(
         (failure) => {
@@ -81,19 +78,20 @@ class ShowItemsViewModel extends BaseViewModel
   }
 
   @override
-  Future getMoreItems(Views viewType, int categoryId, int pageId) async {
+  Future getMoreItems(Views viewType, String categoryId, int pageId) async {
     inputState.add(ContentState());
 
     var categoryName = "all";
     var purposeName = "all";
 
     if (viewType == Views.CATEGORY) {
-      categoryName = viewType.getName(categoryId: categoryId);
+      categoryName = viewType.getName(categoryId: 1);
     } else {
       purposeName = viewType.getName();
     }
 
-    var response = await _showItemsUseCase.execute(ShowItemsUseCaseInputs(category: categoryName, purpose: purposeName,page: pageId));
+    var response = await _showItemsUseCase.execute(ShowItemsUseCaseInputs(
+        category: categoryName, purpose: purposeName, page: pageId));
 
     response.fold(
         (failure) => {
@@ -127,9 +125,9 @@ class ShowItemsViewModel extends BaseViewModel
 }
 
 abstract class ShowItemsViewModelInputs {
-  void getItems(Views viewType, int categoryId);
+  void getItems(Views viewType, {String categoryName = "all", String? image});
 
-  void getMoreItems(Views viewType, int categoryId, int pageId);
+  void getMoreItems(Views viewType, String categoryName, int pageId);
 
   Sink get contentInput;
 }

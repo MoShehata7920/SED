@@ -6,7 +6,6 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/viewmodel/show_items_screen_viewmodel.dart';
-import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -14,27 +13,27 @@ import 'package:sed/presentation/resources/values_manager.dart';
 
 // ignore: must_be_immutable
 class ShowItemsView extends StatefulWidget {
-  ShowItemsView(this.type, {this.categoryId = 0, this.image, super.key});
+  ShowItemsView(this.type, {this.categoryName = "all", this.image, super.key});
 
   Views type;
-  int categoryId;
+  String categoryName;
   String? image;
 
   @override
   // ignore: no_logic_in_create_state
   State<ShowItemsView> createState() =>
-      _ShowItemsViewState(type, categoryId, image);
+      _ShowItemsViewState(type, categoryName, image);
 }
 
 class _ShowItemsViewState extends State<ShowItemsView> {
   Views viewType;
-  int categoryId;
+  String categoryName;
   int pageId = 0;
   double currentIntent = 0;
   bool isLoading = false;
   String? image;
 
-  _ShowItemsViewState(this.viewType, this.categoryId, this.image);
+  _ShowItemsViewState(this.viewType, this.categoryName, this.image);
 
   final ScrollController _scrollController = ScrollController(
     initialScrollOffset: 0.0,
@@ -46,7 +45,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItems(viewType, categoryId, image: image);
+    _viewModel.getItems(viewType, categoryName: this.categoryName, image: image);
 
     _scrollController.addListener(() async {
       if (_scrollController.position.maxScrollExtent ==
@@ -58,7 +57,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
 
           isLoading = true;
 
-          await _viewModel.getMoreItems(viewType, categoryId, pageId);
+          await _viewModel.getMoreItems(viewType, categoryName, pageId);
 
           isLoading = false;
         }
@@ -98,7 +97,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         toolbarHeight: AppSize.s50,
         iconTheme: IconThemeData(color: ColorsManager.secondaryText),
         title: Text(
-          viewType.getName(categoryId: categoryId),
+          categoryName,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.secondaryText,
                 fontSize: AppSize.s30,
@@ -114,7 +113,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
             return snapshot.data?.getScreenWidget(
                     context,
                     _getContentWidget(showItemsContentObject),
-                    () => _viewModel.getItems(viewType, categoryId)) ??
+                    () => _viewModel.getItems(viewType, categoryName: categoryName)) ??
                 _getContentWidget(showItemsContentObject);
           }),
     );
@@ -192,7 +191,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                                 showItemsContentObject.items[index]);
 
                             if (viewType == Views.SAVED) {
-                              _viewModel.getItems(viewType, categoryId);
+                              _viewModel.getItems(viewType, categoryName: categoryName);
                             }
                           },
                           icon: StreamBuilder<bool>(
@@ -317,6 +316,6 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   }
 
   Future _onRefresh() async {
-    _viewModel.getItems(viewType, categoryId);
+    _viewModel.getItems(viewType, categoryName: categoryName);
   }
 }

@@ -88,14 +88,14 @@ class RouteGenerator {
           return MaterialPageRoute(
               builder: (context) => ShowItemsView(
                     args[0],
-                    categoryId: args[1],
+                    categoryName: args[1],
                   ));
         }
 
         return MaterialPageRoute(
             builder: (context) => ShowItemsView(
                   args[0],
-                  categoryId: args[1],
+                  categoryName: args[1],
                   image: args[2],
                 ));
 

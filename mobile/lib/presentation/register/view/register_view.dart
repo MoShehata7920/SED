@@ -1,4 +1,3 @@
-import 'package:country_code_picker_mp/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -143,19 +142,12 @@ class _RegisterViewState extends State<RegisterView> {
                     child: Row(
                       children: [
                         Expanded(
-                            flex: 1,
-                            child: CountryCodePicker(
-                              onChanged: (value) {},
-                              initialSelection: 'EG',
-                              favorite: const ['EG'],
-                              hideMainText: true,
-                              showCountryOnly: true,
-                              showOnlyCountryWhenClosed: true,
-                              showFlag: true,
-                              padding: const EdgeInsets.all(AppPadding.p0),
-                            )),
+                            flex: 1, child: Image.asset(ImageAssets.egyptFlag)),
+                        const SizedBox(
+                          width: AppSize.s3,
+                        ),
                         Expanded(
-                          flex: 4,
+                          flex: 7,
                           child: StreamBuilder<String?>(
                               stream: _viewModel.outputErrorMobileNumberValid,
                               builder: (context, snapshot) {

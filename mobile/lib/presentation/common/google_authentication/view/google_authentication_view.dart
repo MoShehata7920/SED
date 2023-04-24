@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 import 'dart:async';
-import 'dart:convert' show json, jsonDecode;
+import 'dart:convert' show jsonDecode;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/constants_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 

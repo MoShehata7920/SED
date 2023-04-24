@@ -16,10 +16,10 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../resources/color_manager.dart';
 
 class AddAdvertisementView extends StatefulWidget {
-  AddAdvertisementView(this.categoryId, this.item, {super.key});
+  const AddAdvertisementView(this.categoryId, this.item, {super.key});
 
-  int categoryId;
-  Items? item;
+  final int categoryId;
+  final Items? item;
   @override
   State<AddAdvertisementView> createState() =>
       // ignore: no_logic_in_create_state
@@ -30,7 +30,11 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   int categoryId;
   int selectedIndex = 0;
   Items? item;
-
+  List<String> sedPurposes = [
+    AppStrings.sellProducts.tr(),
+    AppStrings.exchange.tr(),
+    AppStrings.donate.tr()
+  ];
   final AddAdvertisementViewModel _viewModel = AddAdvertisementViewModel();
 
   _AddAdvertisementViewState(this.categoryId, this.item);
@@ -48,8 +52,8 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
 
     _nameController.addListener(() => _viewModel.setName(_nameController.text));
 
-    _priceController
-        .addListener(() => _viewModel.setPrice(_priceController.text));
+    _priceController.addListener(
+        () => _viewModel.setPrice(int.parse(_priceController.text)));
 
     _descriptionController.addListener(
         () => _viewModel.setDescription(_descriptionController.text));
@@ -212,11 +216,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     inactiveBgColor: ColorsManager.secondaryBackground,
                     inactiveFgColor: ColorsManager.primaryText,
                     totalSwitches: AppValues.appSections,
-                    labels: [
-                      AppStrings.sellProducts.tr(),
-                      AppStrings.exchange.tr(),
-                      AppStrings.donate.tr()
-                    ],
+                    labels: sedPurposes,
                     dividerColor: ColorsManager.alternate,
                     activeBgColors: [
                       [ColorsManager.primaryColor],
@@ -356,7 +356,9 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                             onPressed: (snapshot.data ?? false)
                                 ? () {
                                     _viewModel.setIds(
-                                        selectedIndex + 1, categoryId + 1, 0);
+                                        sedPurposes[selectedIndex],
+                                        Utils.categories[categoryId].name,
+                                        "");
                                     if (item == null) {
                                       _viewModel.addAdvertisement(context);
                                     } else {

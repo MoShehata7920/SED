@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class LoginRequest {
   String email;
   String password;
@@ -45,17 +47,17 @@ class SavingProductRequest {
 }
 
 class AddAdvertisementRequest {
-  String image;
+  File image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
   AddAdvertisementRequest(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId, this.token);
+      this.purpose, this.category, this.condition, this.token);
 }
 
 class GetMyProfileAdsRequest {
@@ -73,13 +75,13 @@ class RemoveAdRequest {
 
 class UpdateAdRequest {
   String itemId;
-  String image;
+  File image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
   UpdateAdRequest(
@@ -88,8 +90,14 @@ class UpdateAdRequest {
       this.name,
       this.price,
       this.description,
-      this.sectionId,
-      this.categoryId,
-      this.conditionId,
+      this.purpose,
+      this.category,
+      this.condition,
       this.token);
+}
+
+class SearchRequest {
+  String searchText;
+
+  SearchRequest(this.searchText);
 }

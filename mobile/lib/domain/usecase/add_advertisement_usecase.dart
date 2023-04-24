@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/data/network/requests.dart';
@@ -20,24 +22,31 @@ class AddAdvertisementUseCase
       input.name,
       input.price,
       input.description,
-      input.sectionId,
-      input.categoryId,
-      input.conditionId,
+      input.purpose,
+      input.category,
+      input.condition,
       input.token,
     ));
   }
 }
 
 class AddAdvertisementUseCaseUseCaseInput {
-  String image;
+  File image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
-  AddAdvertisementUseCaseUseCaseInput(this.image, this.name, this.price,
-      this.description, this.sectionId, this.categoryId, this.conditionId, this.token);
+  AddAdvertisementUseCaseUseCaseInput(
+      this.image,
+      this.name,
+      this.price,
+      this.description,
+      this.purpose,
+      this.category,
+      this.condition,
+      this.token);
 }
