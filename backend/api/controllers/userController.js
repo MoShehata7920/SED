@@ -58,11 +58,11 @@ exports.getAllUsers = (req, res) => {
 //getting single user 
 exports.getSingleUser = async(req, res) => {
   try {
-    const user=await User.findById(req.user.id).select('-__v -password')
+    const user=await User.findById(req.user.id).select('email fullName personalInfo isVerified isAdmin wishList')
     if(!user){
       res.status(200).json({status:1,message:'There Is No User with this id '})
     }
-    res.status(200).json({status:0,user})
+    res.status(200).json({status:0,user,phone:user.personalInfo.phone})
   } catch (error) {
     res.status(500).json({success:1,error})
   }
