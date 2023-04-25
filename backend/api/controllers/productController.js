@@ -12,7 +12,8 @@ exports.createProduct = (req, res) => {
         category: req.body.category,
         purpose: req.body.purpose,
         quantity: req.body.quantity,
-        productImage: `localhost:3000/${req.file.path}`,
+        // productImage: `localhost:3000/${req.file.path}` ,
+        productImage: `http://103.48.193.225/${req.file.path}`,
         condition:req.body.condition,
         price: req.body.price,
         seller: req.user.id
