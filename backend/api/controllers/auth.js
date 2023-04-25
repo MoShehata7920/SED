@@ -12,7 +12,7 @@ exports.registerController = async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            res.status(400).json({status:1, message: errorMessages });
+            res.status(400).json({status:0, message: errorMessages });
             return;
         }
 
@@ -20,7 +20,7 @@ exports.registerController = async (req, res, next) => {
 
         const userExists = await User.exists({ email });
         if (userExists) {
-            res.status(200).json({ status:1, message: 'Email address is already registered' });
+            res.status(200).json({ status:0, message: 'Email address is already registered' });
             return;
         }
         const personalInfo = {
@@ -72,7 +72,7 @@ exports.loginController = (req, res) => {
     }
     User.findOne({ $or: [{ email: loginOption }, { 'personalInfo.phone': loginOption }] }).exec().then(user => {
         if (!user) {                                                                                             //if email not found 
-            return res.status(200).json({ status: 1, message: 'This Email Not exist , Please Register First' })
+            return res.status(200).json({ status: 0, message: 'This Email Not exist , Please Register First' })
         }
         bcrypt.compare(req.body.password, user.password, (err, result) => {                                           //if found 
             if (err) {                                                                                                    // if server crashed
@@ -92,7 +92,7 @@ exports.loginController = (req, res) => {
                 )
                 return res.status(200).json({ status: 0, message: `welcome back ${user.fullName}!`, token: token })
             }
-            res.status(200).json({status:1, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
+            res.status(200).json({status:0, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
         })
     }).catch(err => {
         console.log(err);
@@ -104,7 +104,7 @@ exports.googleLogin = async (req, res, next) => {
     try {
         const user = await User.findById(req.session.passport.user);
         if (!user) {
-            res.status(200).json({ message: "User doesn't exist" });
+            res.status(200).json({status: 0, message: "User doesn't exist" });
             return;
         }
         const decryptedData = {
@@ -130,11 +130,11 @@ exports.forgotPassword = async (req, res) => {
     }
     const searchOption = req.body.searchOption;
     const user = await User.findOne({ $or: [{ email: searchOption }, { 'personalInfo.phone': searchOption }] });           // finding user
-    if (!user) return res.status(200).json({ message: ' can\'t find any user with this email address' })    // if user not found
+    if (!user) return res.status(200).json({ status: 0, message: ' can\'t find any user with this email address' })    // if user not found
 
     const token = await mailHelper.creatResetToken()                 // creating token
     const newUser = await User.findByIdAndUpdate(user._id, { reset_password_token: token, reset_password_expires: Date.now() + 60 * 60 * 1000 * 6 }, { upsert: true, new: true }) //updating user document , token expires after 6 hours
-    res.status(200).json({ user: newUser, message: 'Reset password email has been sent successfuly to your email address' })
+    res.status(200).json({ status: 0,user: newUser, message: 'Reset password email has been sent successfuly to your email address' })
     mailHelper.mailTransport().sendMail({
         from: "sedteam@outlook.com",
         to: user.email,
@@ -175,12 +175,12 @@ exports.sendOtpVerifyEmail = async (req, res, next) => {
         const userEmail = req.user.email;
 
         if (!userEmail) {
-            return res.status(200).json({ message: 'Error auth' });
+            return res.status(200).json({ status: 0, message: 'Error auth' });
         }
 
         const user = await User.findOne({ email: userEmail });
         if (!user) {
-            return res.status(200).json({ message: 'User not found' });
+            return res.status(200).json({ status: 0, message: 'User not found' });
         }
 
         const otp = mailHelper.generateOTP()
@@ -207,10 +207,10 @@ exports.sendOtpVerifyEmail = async (req, res, next) => {
         };
         mailHelper.mailTransport().sendMail(mailOptions);
 
-        res.status(200).json({ message: 'Email sent' });
+        res.status(200).json({ status: 0, message: 'Email sent' });
     } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Server Error' });
+        res.status(500).json({ status: 1, message: 'Server Error' });
     }
 };
 
@@ -219,7 +219,7 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(200).json({status:1, message: errorMessages });
+            return res.status(200).json({status:0, message: errorMessages });
         }
 
         const otb = req.body.code;
@@ -230,7 +230,7 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(200).json({ status:1,message: 'Invalid or expired Code' });
+            return res.status(200).json({ status:0,message: 'Invalid or expired Code' });
         }
 
         user.isVerified = true;
@@ -267,12 +267,12 @@ exports.resendVerifyEmail=async(req,res)=>{
         const userEmail = req.user.email;
 
         if (!userEmail) {
-            return res.status(200).json({ message: 'Error auth' });
+            return res.status(200).json({status: 0, message: 'Error auth' });
         }
 
         const user = await User.findOne({ email: userEmail });
         if (!user) {
-            return res.status(200).json({ message: 'User not found' });
+            return res.status(200).json({ status: 0,message: 'User not found' });
         }
 
         const otp = mailHelper.generateOTP()

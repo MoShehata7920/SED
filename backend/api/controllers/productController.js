@@ -13,8 +13,9 @@ exports.createProduct = (req, res) => {
         purpose: req.body.purpose,
         quantity: req.body.quantity,
         productImage: req.file.path,
+        condition:req.body.condition,
         price: req.body.price,
-        seller: req.body.seller
+        seller: req.user.id
     }).save().then((newproduct) => {
         res.status(200).json(newproduct)
     }).catch(err => {
@@ -24,28 +25,30 @@ exports.createProduct = (req, res) => {
 
 exports.getAllProducts = (req, res) => {
     Product.find().exec().then((docs) => {
-        res.status(200).json(docs)
+        res.status(200).json({status: 0,docs})
     }).catch(err => {
-        res.status(500).json(err)
+        res.status(500).json({status: 1,err})
     })
 }
 
-exports.getSingleProduct = (req, res) => {
-    Product.findById(req.params.prodId).exec().then(doc => {
-        res.status(200).json(doc)
-    }).catch(err => {
-        res.status(500).json(err)
-    })
+exports.getSingleProduct = async(req, res) => {
+    try {
+        const product=await Product.findById(req.params.prodId).populate('seller','fullName _id email personalInfo.phone')
+        const sellerInfo=product.seller
+        res.status(200).json({status: 0 , product , sellerInfo}) // sending product information and some of seller information and status
+    } catch (err) {
+        res.status(500).json({status: 1,err})
+    }
 }
 
 exports.updateProduct = async (req, res) => {
     try {
         const product = await Product.findOne({ _id: req.params.prodId });
         if (!product) {
-            return res.status(404).json({ message: 'There is no product with this id' });
+            return res.status(400).json({status: 0, message: 'There is no product with this id' });
         }
         if (req.user.id != product.seller) {                                // if seller id of product equal = to user.id who trying to edit > req.user.id // will upload 1 product to make sure 
-            return res.status(405).json({ message: 'not allowed' });
+            return res.status(405).json({ status: 0,message: 'not allowed' });
         }
         const newPhoto = req.file ? req.file.path : null
         const oldPhoto = product.productImage
@@ -59,9 +62,9 @@ exports.updateProduct = async (req, res) => {
                 }
             });
         }
-        res.status(200).json({ message: 'Product has been updated successfully' })
-    } catch (error) {
-        res.status(555).json(error)
+        res.status(200).json({ status: 0,message: 'Product has been updated successfully' })
+    } catch (err) {
+        res.status(555).json({status: 1,err})
     }
 }
 
@@ -69,13 +72,13 @@ exports.deleteProduct = (req, res) => {
     Product.findById(req.params.prodId).exec().then(doc => {
         if (doc) {
             Product.deleteOne({ _id: req.params.prodId }).exec().then(() => {
-                res.status(200).json('Product has been deleted successfully')
+                res.status(200).json({status: 0,message:'Product has been deleted successfully'})
             })
         } else {
-            res.status(404).json('There is no product with this id')
+            res.status(404).json({status: 0,message:'There is no product with this id'})
         }
     }).catch(err => {
-        res.status(500).json(err)
+        res.status(500).json({status: 1,err})
     })
 }
 
@@ -111,7 +114,7 @@ exports.getProductsByQuery = async (req, res, next) => {
             .skip(skip)
             .limit(perPage);
         if (!doc) {
-            res.status(404).json({ status: 1, message: 'not found' });
+            res.status(400).json({ status: 0, message: 'not found' });
             return;
         }
         // iterate over each object in the list
@@ -235,7 +238,7 @@ exports.userProducts=async(req,res)=>{
     const sellerId=req.params.sellerId
     try {
         const products =await Product.find({seller:sellerId})
-        console.log(products);
+        // console.log(products);
         res.status(200).json({products,status:0});
     } catch (err) {
         res.status(500).json({status:1,err});

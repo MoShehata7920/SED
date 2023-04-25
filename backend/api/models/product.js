@@ -26,6 +26,11 @@ const productSchema = mongoose.Schema({
         required : true
     },
 
+    condition:{
+        type:String,
+        enum:['Used','New']
+    },
+
     price: {
         type : Number,
         required : true
