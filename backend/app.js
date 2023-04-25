@@ -20,7 +20,7 @@ app.use(express.json())
 
 //static middleware  for product images 
 // app.use('/uploads',express.static('uploads'))
-app.use('/products', express.static(path.join(__dirname, 'SEDimages/products')));
+app.use('/SEDimages/products', express.static(path.join(__dirname, 'SEDimages/products')));
 
 //google auth part
 const passport=require('passport')
