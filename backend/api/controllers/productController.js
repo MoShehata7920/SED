@@ -17,9 +17,9 @@ exports.createProduct = (req, res) => {
         price: req.body.price,
         seller: req.user.id
     }).save().then((newproduct) => {
-        res.status(200).json(newproduct)
+        res.status(200).json({status:0 ,newproduct,message:'Product has been published successfully'})
     }).catch(err => {
-        console.log(err);
+        console.log({status:1,err,message:err.message});
     })
 }
 

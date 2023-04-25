@@ -16,10 +16,10 @@ exports.addToWishList = async (req, res) => {
     const alreadyExisted = user.wishList.find((element) => element.toString() === prodId) // condition to check if the product is already exists in user wishlst or not
     if (alreadyExisted) {
       let user = await User.findByIdAndUpdate(id, { $pull: { wishList: prodId } }, { new: true })
-      res.status(200).json({status:0,user:user.wishList,isSaved:false});
+      res.status(200).json({status:0,user:user.wishList});
     } else {
       let user = await User.findByIdAndUpdate(id, { $push: { wishList: prodId } }, { new: true })
-      res.status(200).json({status:0,user:user.wishList,isSaved:true});
+      res.status(200).json({status:0,user:user.wishList});
     }
   } catch (error) {
     res.status(404).json({status:1,error});
@@ -34,8 +34,14 @@ exports.getWishlist = async (req, res, next) => {
           return res.status(400).json({ status: 0 ,message: 'User not found' });
       }
       const favProducts = user.wishList;
-      const favProductsInfo = await Product.find({ _id: { $in: favProducts } }, '-__v');
-      res.status(200).json({status:0,favProductsInfo});
+      const favProductsInfo = await Product.find({ _id: { $in: favProducts } })
+      const items=favProductsInfo.map(el=>{
+        el=el.toObject()
+        el.isSaved=true
+        return el
+      })
+      console.log(items);
+      res.status(200).json({status:0,items});
   } catch (err) {
       console.log(err);
       res.status(500).json({ status: 1 , err });
