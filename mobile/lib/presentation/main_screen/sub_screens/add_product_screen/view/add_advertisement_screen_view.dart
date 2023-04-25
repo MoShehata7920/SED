@@ -31,9 +31,9 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   int selectedIndex = 0;
   Items? item;
   List<String> sedPurposes = [
-    AppStrings.sellProducts.tr(),
-    AppStrings.exchange.tr(),
-    AppStrings.donate.tr()
+    AppStrings.sellProducts.tr().toLowerCase(),
+    AppStrings.exchange.tr().toLowerCase(),
+    AppStrings.donate.tr().toLowerCase()
   ];
   final AddAdvertisementViewModel _viewModel = AddAdvertisementViewModel();
 
@@ -64,6 +64,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
       _descriptionController.text = item!.description;
 
       selectedIndex = 0;
+
     }
     super.initState();
   }
@@ -358,7 +359,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                                     _viewModel.setIds(
                                         sedPurposes[selectedIndex],
                                         Utils.categories[categoryId].name,
-                                        "");
+                                        "New");
                                     if (item == null) {
                                       _viewModel.addAdvertisement(context);
                                     } else {

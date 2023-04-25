@@ -55,6 +55,8 @@ class SettingsScreenViewModel extends BaseViewModel
 
       contentInput.add(GetMyProfileData(response.user));
 
+      Constants.userId = response.user.id;
+
       inputState.add(ContentState());
     });
   }

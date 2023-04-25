@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -174,9 +172,10 @@ ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) => ItemResponse(
       json['product'] == null
           ? null
           : ItemsResponse.fromJson(json['product'] as Map<String, dynamic>),
-      json['user'] == null
+      json['sellerInfo'] == null
           ? null
-          : UserDataResponse.fromJson(json['user'] as Map<String, dynamic>),
+          : UserDataResponse.fromJson(
+              json['sellerInfo'] as Map<String, dynamic>),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -186,23 +185,23 @@ Map<String, dynamic> _$ItemResponseToJson(ItemResponse instance) =>
       'status': instance.status,
       'message': instance.message,
       'product': instance.product,
-      'user': instance.user,
+      'sellerInfo': instance.user,
     };
 
 UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
     UserDataResponse(
-      json['id'] as int?,
-      json['name'] as String?,
-      json['phonenumber'] as String?,
+      json['_id'] as String?,
+      json['fullName'] as String?,
+      json['phone'] as String?,
       json['address'] as String?,
       json['image'] as String?,
     );
 
 Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phonenumber': instance.phone,
+      '_id': instance.id,
+      'fullName': instance.name,
+      'phone': instance.phone,
       'address': instance.address,
       'image': instance.image,
     };
@@ -292,7 +291,7 @@ Map<String, dynamic> _$GetMyProfileDataResponseToJson(
 GetMyProfileAdsResponse _$GetMyProfileAdsResponseFromJson(
         Map<String, dynamic> json) =>
     GetMyProfileAdsResponse(
-      (json['items'] as List<dynamic>?)
+      (json['products'] as List<dynamic>?)
           ?.map((e) => e == null
               ? null
               : ItemsResponse.fromJson(e as Map<String, dynamic>))
@@ -306,7 +305,7 @@ Map<String, dynamic> _$GetMyProfileAdsResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'items': instance.items,
+      'products': instance.items,
     };
 
 RemoveAdResponse _$RemoveAdResponseFromJson(Map<String, dynamic> json) =>

@@ -550,7 +550,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         .addPostFrameCallback((_) {
                                       Navigator.pushNamed(
                                           context, Routes.showItemsScreenRoute,
-                                          arguments: [viewType, 0]);
+                                          arguments: [viewType, ""]);
                                     });
                                   },
                                   child: Text(

@@ -73,7 +73,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<HomeResponse> getHomeData() async {
-    return await _appServiceClient.getHomeData(Constants.token);
+    return await _appServiceClient.getHomeData("Bearer ${Constants.token}");
   }
 
   @override
@@ -119,33 +119,32 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<GetMyProfileDataResponse> getMyProfileData(String token) async {
-    return await _appServiceClient.getMyProfileData(token);
+    return await _appServiceClient.getMyProfileData("Bearer ${Constants.token}");
   }
 
   @override
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest) async {
     return await _appServiceClient.getMyProfileAds(
-        getMyProfileAdsRequest.pageId, getMyProfileAdsRequest.token);
+        getMyProfileAdsRequest.sellerId, "Bearer ${Constants.token}");
   }
 
   @override
-  Future<RemoveAdResponse> removeAd(String itemId) async {
-    return await _appServiceClient.removeAd(itemId, Constants.token);
+  Future<RemoveAdResponse> removeAd(String prodId) async {
+    return await _appServiceClient.removeAd(prodId, "Bearer ${Constants.token}");
   }
 
   @override
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest) async {
     return await _appServiceClient.updateAd(
         updateAdRequest.itemId,
-        updateAdRequest.token,
         updateAdRequest.image,
         updateAdRequest.name,
         updateAdRequest.price,
         updateAdRequest.description,
         updateAdRequest.purpose,
         updateAdRequest.category,
-        updateAdRequest.condition);
+        updateAdRequest.condition,"Bearer ${Constants.token}");
   }
 
   @override

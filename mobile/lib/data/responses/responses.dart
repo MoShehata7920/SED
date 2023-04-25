@@ -184,7 +184,7 @@ class ItemResponse extends BaseResponse {
   @JsonKey(name: "product")
   ItemsResponse? product;
 
-  @JsonKey(name: "user")
+  @JsonKey(name: "sellerInfo")
   UserDataResponse? user;
 
   ItemResponse(this.product, this.user);
@@ -199,13 +199,13 @@ class ItemResponse extends BaseResponse {
 
 @JsonSerializable()
 class UserDataResponse {
-  @JsonKey(name: "id")
-  int? id;
+  @JsonKey(name: "_id")
+  String? id;
 
-  @JsonKey(name: "name")
+  @JsonKey(name: "fullName")
   String? name;
 
-  @JsonKey(name: "phonenumber")
+  @JsonKey(name: "phone")
   String? phone;
 
   @JsonKey(name: "address")
@@ -308,7 +308,7 @@ class GetMyProfileDataResponse extends BaseResponse {
 
 @JsonSerializable()
 class GetMyProfileAdsResponse extends BaseResponse {
-  @JsonKey(name: "items")
+  @JsonKey(name: "products")
   List<ItemsResponse?>? items;
 
   GetMyProfileAdsResponse(this.items);

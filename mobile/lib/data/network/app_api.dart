@@ -39,7 +39,7 @@ abstract class AppServiceClient {
 
   @GET("/home/")
   Future<HomeResponse> getHomeData(
-    @Header("token") String token,
+    @Header("Authentication") String token,
   );
 
   @GET("/products/product/{productId}")
@@ -65,44 +65,46 @@ abstract class AppServiceClient {
 
   @GET("/Profile/{profileId}")
   Future<ShowItemsResponse> getShowProfileData(
-    @Path("profileId") int profileId,
+    @Path("profileId") String profileId,
   );
-  
+
+  @MultiPart()
   @POST("/products/newproduct")
   Future<AddAdvertisementResponse> addAdvertisement(
-      @Part() File image,
-      @Field("productName") String name,
-      @Field("price") int price,
-      @Field("description") String description,
-      @Field("purpose") String purpose,
-      @Field("category") String category,
-      @Field("condition") String condition,
+      @Part(name: "productImage") File image,
+      @Part(name: "productName") String name,
+      @Part(name: "price") int price,
+      @Part(name: "description") String description,
+      @Part(name: "purpose") String purpose,
+      @Part(name: "category") String category,
+      @Part(name: "condition") String condition,
       @Header("Authentication") String token);
 
-  @GET("/get")
+  @GET("/users/get")
   Future<GetMyProfileDataResponse> getMyProfileData(
       @Header("Authentication") String token);
 
-  @GET("/MyProfile/Ads/{pageId}")
+  @GET("/products/seller/{sellerId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(
-      @Path("pageId") int pageId, @Header("Authorization") String contentType);
+      @Path("sellerId") String sellerId, @Header("Authentication") String token);
 
-  @POST("/MyProfile/DeleteAd")
+  @DELETE("/products/product/{prodId}")
   Future<RemoveAdResponse> removeAd(
-      @Field("itemId") String itemId, @Header("token") String token);
+      @Path("prodId") String prodId, @Header("Authentication") String token);
 
-  @POST("/MyProfile/UpdateAd")
+  @MultiPart()
+  @PATCH("/products/product/{prodId}")
   Future<UpdateAdResponse> updateAd(
-    @Field("itemId") String itemId,
-    @Header("token") String token,
-    @Part() File image,
-    @Field("name") String name,
-    @Field("price") int price,
-    @Field("description") String description,
-    @Field("purpose") String purpose,
-    @Field("category") String category,
-    @Field("condition") String condition,
-  );
+    @Path("prodId") String prodId,
+    @Part(name: "productImage") File image,
+    @Part(name: "name") String name,
+    @Part(name: "price") int price,
+    @Part(name: "description") String description,
+    @Part(name: "purpose") String purpose,
+    @Part(name: "category") String category,
+    @Part(name: "condition") String condition,
+      @Header("Authentication") String token,
+      );
 
   @GET("/Notifications")
   Future<NotificationsResponse> notifications(

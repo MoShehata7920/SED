@@ -61,10 +61,10 @@ class AddAdvertisementRequest {
 }
 
 class GetMyProfileAdsRequest {
-  int pageId;
+  String sellerId;
   String token;
 
-  GetMyProfileAdsRequest(this.pageId, this.token);
+  GetMyProfileAdsRequest(this.sellerId, this.token);
 }
 
 class RemoveAdRequest {
