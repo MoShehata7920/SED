@@ -25,7 +25,7 @@ class ShowProfileViewModel extends BaseViewModel
   }
 
   @override
-  void getShowProfile(int profileId) async {
+  void getShowProfile(String profileId) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
@@ -55,7 +55,7 @@ class ShowProfileViewModel extends BaseViewModel
 }
 
 abstract class ShowProfileViewModelInputs {
-  void getShowProfile(int profileId);
+  void getShowProfile(String profileId);
 
   Sink get contentInput;
 }

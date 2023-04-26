@@ -48,7 +48,7 @@ class MyAdsViewModel extends BaseViewModel
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _myProfileAdsUseCase
-        .execute(GetMyProfileAdsInput(0, Constants.token));
+        .execute(GetMyProfileAdsInput(Constants.userId ?? "", Constants.token));
 
     response.fold(
         (failure) => {

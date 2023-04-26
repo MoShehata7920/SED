@@ -2,19 +2,21 @@ import { NavLink } from "react-router-dom";
 
 export default function ExchangeSlider({ exchange }) {
   return (
-    <NavLink to={`/items/${exchange.ID}`} className="text-decoration-none ">
+    <NavLink to={`/items/${exchange._id}`} className="text-decoration-none ">
       <div className="item slider-style2 mb-1">
         <div className="slider-service-div  text-center  ">
           <div className="slider-service-img ">
             <img
-              src={exchange.Image}
+              src={exchange.productImage}
               className="card-img-top w-100 h-100  "
               alt="..."
             />
           </div>
 
           <div className="slider-service-title">
-            <h5 className="card-title text-black mb-3 mt-3">{exchange.Name}</h5>
+            <h5 className="card-title text-black mb-3 mt-3">
+              {exchange.productName}
+            </h5>
           </div>
           <div className="slider-service-detailes ">
             <p className=" text-black  h-100 w-100 ">
@@ -23,7 +25,7 @@ export default function ExchangeSlider({ exchange }) {
             </p>
           </div>
           <div className="slider-service-price ">
-            <p className=" text-black mb-3 h-100 w-100">{exchange.Price}</p>
+            <p className=" text-black mb-3 h-100 w-100">{exchange.price}</p>
           </div>
 
           <div className="slider-service-btn">

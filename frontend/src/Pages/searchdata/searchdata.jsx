@@ -15,7 +15,7 @@ export default function SearchPage() {
     setIsPending(true);
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:9000/home/${greeting}`
+        `http://103.48.193.225:3000/products/get?purpose=${greeting}&page=1`
       );
       setSearchdata(respond.data.items);
       setIsPending(false);

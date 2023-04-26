@@ -110,7 +110,7 @@ class Item {
 }
 
 class UserData {
-  int id;
+  String id;
   String name;
   String phone;
   String address;
@@ -128,7 +128,7 @@ class ShowItems {
 //Show Profile Models
 
 class ShowProfileRequest {
-  int profileId;
+  String profileId;
 
   ShowProfileRequest(this.profileId);
 }

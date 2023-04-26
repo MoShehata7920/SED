@@ -45,7 +45,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItems(viewType, categoryName: this.categoryName, image: image);
+    _viewModel.getItems(viewType, categoryName: categoryName, image: image);
 
     _scrollController.addListener(() async {
       if (_scrollController.position.maxScrollExtent ==
@@ -113,7 +113,8 @@ class _ShowItemsViewState extends State<ShowItemsView> {
             return snapshot.data?.getScreenWidget(
                     context,
                     _getContentWidget(showItemsContentObject),
-                    () => _viewModel.getItems(viewType, categoryName: categoryName)) ??
+                    () => _viewModel.getItems(viewType,
+                        categoryName: categoryName)) ??
                 _getContentWidget(showItemsContentObject);
           }),
     );
@@ -154,8 +155,6 @@ class _ShowItemsViewState extends State<ShowItemsView> {
 
   Widget _getItemWidget(int index, Views viewType,
       ShowItemsContentObject? showItemsContentObject) {
-    final HomeScreenViewModel homeScreenViewModel =
-        instance<HomeScreenViewModel>();
     if (showItemsContentObject == null) {
       return Container();
     } else {
@@ -187,29 +186,26 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                       alignment: Alignment.topLeft,
                       child: IconButton(
                           onPressed: () {
-                            homeScreenViewModel.toggleSavingProduct(
-                                showItemsContentObject.items[index]);
+                            _viewModel.toggleSavingProduct(
+                                showItemsContentObject.items[index].id);
 
-                            if (viewType == Views.SAVED) {
-                              _viewModel.getItems(viewType, categoryName: categoryName);
-                            }
+                            // if (viewType == Views.SAVED) {
+                            //   _viewModel.getItems(viewType,
+                            //       categoryName: categoryName);
+                            // }
                           },
-                          icon: StreamBuilder<bool>(
-                              stream: homeScreenViewModel.savedOutput,
-                              builder: (context, snapshot) {
-                                return CircleAvatar(
-                                  radius: AppSize.s14,
-                                  backgroundColor: showItemsContentObject
-                                          .items[index].isSaved
-                                      ? ColorsManager.primaryColor
-                                      : ColorsManager.grey2,
-                                  child: Icon(
-                                    IconsManager.saved,
-                                    size: AppSize.s12,
-                                    color: ColorsManager.white,
-                                  ),
-                                );
-                              })),
+                          icon: CircleAvatar(
+                            radius: AppSize.s14,
+                            backgroundColor:
+                                showItemsContentObject.items[index].isSaved
+                                    ? ColorsManager.primaryColor
+                                    : ColorsManager.grey2,
+                            child: Icon(
+                              IconsManager.saved,
+                              size: AppSize.s12,
+                              color: ColorsManager.white,
+                            ),
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(AppPadding.p6),

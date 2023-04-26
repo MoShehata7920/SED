@@ -105,3 +105,14 @@ body {
     color: white;
     text-decoration: none;
 }
+@media screen and (min-width: 1400px) {
+    .swiper-container {
+      width: 1400px;
+    }
+  }
+  
+  @media screen and (min-width: 992px) {
+    .swiper-container {
+      width:992px;
+    }
+  }

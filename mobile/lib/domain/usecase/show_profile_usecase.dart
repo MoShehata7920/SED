@@ -19,7 +19,7 @@ class ShowProfileUseCase
 }
 
 class ShowProfileUseCaseInputs {
-  int profileId;
+  String profileId;
 
   ShowProfileUseCaseInputs(this.profileId);
 }

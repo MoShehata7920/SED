@@ -15,13 +15,13 @@ class MyProfileAdsUseCase implements BaseUseCase<GetMyProfileAdsInput, GetMyProf
   Future<Either<Failure, GetMyProfileAds>> execute(
       GetMyProfileAdsInput getMyProfileAdsInput) async {
     return await _repository.getMyProfileAds(GetMyProfileAdsRequest(
-        getMyProfileAdsInput.pageId, getMyProfileAdsInput.token));
+        getMyProfileAdsInput.sellerId, getMyProfileAdsInput.token));
   }
 }
 
 class GetMyProfileAdsInput {
-  int pageId;
+  String sellerId;
   String token;
 
-  GetMyProfileAdsInput(this.pageId, this.token);
+  GetMyProfileAdsInput(this.sellerId, this.token);
 }

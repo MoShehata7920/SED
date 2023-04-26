@@ -106,5 +106,17 @@
     "upload_image": "تحميل الصورة",
     "no_image_selected": "لا يوجد صورة محددة.",
     "take_photo": "التقط صورة",
-    "select_from_gallery": "اختر من المعرض"
+    "select_from_gallery": "اختر من المعرض",
+    "profile_pic": "الصورة الشخصية",
+    "profile_info": "المعلومات الشخصية",
+    "phone_number": "رقم الهاتف",
+    "address": "العنوان",
+    "dob": "تاريخ الميلاد",
+    "change_password": "تغيير كلمة المرور",
+    "old_password": "كلمة المرور القديمة",
+    "new_password": "كلمة المرور الجديدة",
+    "rewrite_new_password": "إعادة كتابة كلمة المرور الجديدة",
+    "save_changes": "حفظ التغييرات",
+    "log_out": "تسجيل الخروج",
+    "delete_account": "حذف الحساب"
 }

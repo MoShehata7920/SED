@@ -1,6 +1,4 @@
 // ignore_for_file: constant_identifier_names
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';

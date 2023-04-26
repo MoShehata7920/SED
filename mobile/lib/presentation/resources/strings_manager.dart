@@ -162,4 +162,18 @@ class AppStrings {
   static const String noImageSelected = "no_image_selected";
   static const String takeAPhoto = "take_photo";
   static const String selectFromGallery = "select_from_gallery";
+
+  // My Account Screen
+  static const String profilePic = "profile_pic";
+  static const String profileInfo = "profile_info";
+  static const String phoneNumber = "phone_number";
+  static const String address = "address";
+  static const String dob = "dob";
+  static const String changePassword = "change_password";
+  static const String oldPassword = "old_password";
+  static const String newPassword = "new_password";
+  static const String rewriteNewPassword = "rewrite_new_password";
+  static const String saveChanges = "save_changes";
+  static const String logOut = "log_out";
+  static const String deleteAccount = "delete_account";
 }

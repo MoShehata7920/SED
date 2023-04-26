@@ -4,6 +4,7 @@ import 'package:sed/app/di.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/get_saved_products.dart';
+import 'package:sed/domain/usecase/saving_products_usecase.dart';
 import 'package:sed/domain/usecase/show_items_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
@@ -18,6 +19,9 @@ class ShowItemsViewModel extends BaseViewModel
 
   final StreamController _contentStreamController =
       StreamController<ShowItemsContentObject>.broadcast();
+
+  final SavingProductsUseCase _savingProductsUseCase =
+      instance<SavingProductsUseCase>();
 
   List<Items> items = [];
 
@@ -78,7 +82,28 @@ class ShowItemsViewModel extends BaseViewModel
   }
 
   @override
-  Future getMoreItems(Views viewType, String categoryId, int pageId) async {
+  void toggleSavingProduct(String productId) async {
+    var product = items.firstWhere((element) => element.id == productId);
+
+    int index = items.indexOf(product);
+
+    items.remove(product);
+
+    contentInput.add(ShowItemsContentObject(items));
+
+    var response = await _savingProductsUseCase
+        .execute(SavingProductUseCaseInputs(productId));
+
+    response.fold(
+        (failure) => {
+              items.insert(index, product),
+              contentInput.add(ShowItemsContentObject(items))
+            },
+        (response) {});
+  }
+
+  @override
+  Future getMoreItems(Views viewType, String categoryName, int pageId) async {
     inputState.add(ContentState());
 
     var categoryName = "all";
@@ -128,6 +153,8 @@ abstract class ShowItemsViewModelInputs {
   void getItems(Views viewType, {String categoryName = "all", String? image});
 
   void getMoreItems(Views viewType, String categoryName, int pageId);
+
+  void toggleSavingProduct(String productId);
 
   Sink get contentInput;
 }

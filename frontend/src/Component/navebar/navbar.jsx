@@ -72,8 +72,37 @@ function Navebar() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item " to={"a"}>
-                      Something else here
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Furniture"}
+                    >
+                      Furniture
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Furniture"}
+                    >
+                      Sports
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Supermarket"}
+                    >
+                      Supermarket
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item " to={"/Categories/"}>
+                      Phones&Tablets
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item " to={"/Categories/"}>
+                      Body&HealthCare
                     </Link>
                   </li>
                 </ul>
@@ -91,7 +120,7 @@ function Navebar() {
                 <ul className="dropdown-menu">
                   <li>
                     <Link
-                      to={"/SeeAllData/Sell"}
+                      to={"/SeeAllData/sell"}
                       className="dropdown-item text-black"
                     >
                       SELL
@@ -99,7 +128,7 @@ function Navebar() {
                   </li>
                   <li>
                     <Link
-                      to={"/SeeAllData/Exchange"}
+                      to={"/SeeAllData/exchange"}
                       className="dropdown-item text-black"
                     >
                       EXCHANGE
@@ -107,7 +136,7 @@ function Navebar() {
                   </li>
                   <li>
                     <Link
-                      to={"/SeeAllData/Donate"}
+                      to={"/SeeAllData/donate"}
                       className="dropdown-item text-black"
                     >
                       DONAT

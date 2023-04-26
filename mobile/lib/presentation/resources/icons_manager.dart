@@ -76,4 +76,6 @@ class IconsManager {
   static const camera = IconBroken.camera;
   static const gallery = Icons.photo_library_outlined;
   static const done = Icons.done;
+
+  static const calender = IconBroken.calendar;
 }
