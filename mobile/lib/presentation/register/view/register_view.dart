@@ -1,17 +1,14 @@
-import 'package:country_code_picker_mp/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
-import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
-import '../../../app/constants.dart';
 import '../../../app/di.dart';
+import '../../common/google_authentication/view/google_authentication_view.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 
 class RegisterView extends StatefulWidget {
@@ -31,6 +28,8 @@ class _RegisterViewState extends State<RegisterView> {
       TextEditingController();
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
+      TextEditingController();
+  final TextEditingController _confirmPasswordEditingController =
       TextEditingController();
 
   //Initialize the controller
@@ -54,12 +53,17 @@ class _RegisterViewState extends State<RegisterView> {
       _viewModel.setPassword(_passwordEditingController.text);
     });
 
+    _confirmPasswordEditingController.addListener(() {
+      _viewModel.setConfirmPassword(_confirmPasswordEditingController.text);
+    });
+
     _viewModel.isUserRegisteredSuccessfullyStreamController.stream
         .listen((isRegistered) {
       if (isRegistered) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+          Navigator.of(context)
+              .pushReplacementNamed(Routes.emailVerificationRoute);
         });
       }
     });
@@ -102,8 +106,8 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               children: [
                 const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(
-                      AppPadding.p0, AppPadding.p65, AppPadding.p0, AppPadding.p0),
+                  padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                      AppPadding.p65, AppPadding.p0, AppPadding.p0),
                   child: Image(
                     image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
                     width: AppSize.s160,
@@ -138,24 +142,12 @@ class _RegisterViewState extends State<RegisterView> {
                     child: Row(
                       children: [
                         Expanded(
-                            flex: 1,
-                            child: CountryCodePicker(
-                              onChanged: (country) =>
-                                  _viewModel.setMobileCountryCode(
-                                      country.code ?? Constants.token),
-                              searchDecoration: InputDecoration(
-                                  hintText: AppStrings.countrySearchBar.tr(),
-                                  prefixIconColor: ColorsManager.primaryColor),
-                              initialSelection: 'EG',
-                              favorite: const ['EG'],
-                              hideMainText: true,
-                              showCountryOnly: true,
-                              showOnlyCountryWhenClosed: true,
-                              showFlag: true,
-                              padding: const EdgeInsets.all(AppPadding.p0),
-                            )),
+                            flex: 1, child: Image.asset(ImageAssets.egyptFlag)),
+                        const SizedBox(
+                          width: AppSize.s3,
+                        ),
                         Expanded(
-                          flex: 4,
+                          flex: 7,
                           child: StreamBuilder<String?>(
                               stream: _viewModel.outputErrorMobileNumberValid,
                               builder: (context, snapshot) {
@@ -221,6 +213,27 @@ class _RegisterViewState extends State<RegisterView> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: StreamBuilder<String?>(
+                      stream: _viewModel.outputErrorConfirmPasswordValid,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: _confirmPasswordEditingController,
+                            decoration: InputDecoration(
+                              hintText: AppStrings.confirmPassword.tr(),
+                              labelText: AppStrings.confirmPassword.tr(),
+                              errorMaxLines: 3,
+                              errorText: snapshot
+                                  .data, //else present the error to the user
+                            ));
+                      }),
+                ),
+                const SizedBox(
+                  height: AppSize.s18,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p28),
                   child: StreamBuilder<bool>(
                       stream: _viewModel.outputAreAllInputsValid,
                       builder: (context, snapshot) {
@@ -260,22 +273,17 @@ class _RegisterViewState extends State<RegisterView> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      AppPadding.p0, AppPadding.p12, AppPadding.p0, AppPadding.p0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                      AppPadding.p12, AppPadding.p0, AppPadding.p0),
                   child: Text(
                     AppStrings.useSocialToLoginText.tr(),
                     style: TextStyle(color: ColorsManager.secondaryText),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      AppPadding.p8, AppPadding.p8, AppPadding.p8, AppPadding.p8),
-                  child: IconButton(
-                    color: ColorsManager.grayIcon,
-                    icon: const FaIcon(IconsManager.google),
-                    onPressed: () {},
-                  ),
-                ),
+                const Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p8,
+                        AppPadding.p8, AppPadding.p8, AppPadding.p8),
+                    child: SignInDemo()),
               ],
             ),
           ),

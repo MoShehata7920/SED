@@ -96,7 +96,7 @@ class NotificationScreenViewState extends State<NotificationScreenView> {
                 ),
                 trailing: Text(
                   Utils.getCreatedTime(
-                      notifications.notifications[index].dateTime),
+                      "TODO"),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: ColorsManager.secondaryText,
                         fontSize: AppSize.s14,

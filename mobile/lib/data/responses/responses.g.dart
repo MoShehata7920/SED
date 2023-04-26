@@ -32,6 +32,18 @@ Map<String, dynamic> _$AuthenticationResponseToJson(
       'token': instance.token,
     };
 
+VerifyEmailResponse _$VerifyEmailResponseFromJson(Map<String, dynamic> json) =>
+    VerifyEmailResponse()
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$VerifyEmailResponseToJson(
+        VerifyEmailResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+    };
+
 ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
         Map<String, dynamic> json) =>
     ForgotPasswordResponse(
@@ -135,34 +147,35 @@ Map<String, dynamic> _$CategoriesResponseToJson(CategoriesResponse instance) =>
 
 ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
     ItemsResponse(
-      json['Name'] as String?,
-      json['Image'] as String?,
-      json['Descr'] as String?,
-      json['Price'] as int?,
-      json['CategoryId'] as int?,
-      json['Date'] as String?,
+      json['productName'] as String?,
+      json['productImage'] as String?,
+      json['description'] as String?,
+      json['price'] as int?,
+      json['category'] as String?,
+      json['createdAt'] as String?,
       json['isSaved'] as bool?,
-    )..id = json['ID'] as int?;
+    )..id = json['_id'] as String?;
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
     <String, dynamic>{
-      'ID': instance.id,
-      'Name': instance.name,
-      'Image': instance.image,
-      'Descr': instance.description,
-      'Price': instance.price,
-      'CategoryId': instance.categoryId,
-      'Date': instance.date,
+      '_id': instance.id,
+      'productName': instance.name,
+      'description': instance.description,
+      'category': instance.category,
+      'productImage': instance.image,
+      'price': instance.price,
+      'createdAt': instance.date,
       'isSaved': instance.isSaved,
     };
 
 ItemResponse _$ItemResponseFromJson(Map<String, dynamic> json) => ItemResponse(
-      json['item'] == null
+      json['product'] == null
           ? null
-          : ItemsResponse.fromJson(json['item'] as Map<String, dynamic>),
-      json['user'] == null
+          : ItemsResponse.fromJson(json['product'] as Map<String, dynamic>),
+      json['sellerInfo'] == null
           ? null
-          : UserDataResponse.fromJson(json['user'] as Map<String, dynamic>),
+          : UserDataResponse.fromJson(
+              json['sellerInfo'] as Map<String, dynamic>),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -171,24 +184,24 @@ Map<String, dynamic> _$ItemResponseToJson(ItemResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'item': instance.item,
-      'user': instance.user,
+      'product': instance.product,
+      'sellerInfo': instance.user,
     };
 
 UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
     UserDataResponse(
-      json['id'] as int?,
-      json['name'] as String?,
-      json['phonenumber'] as String?,
+      json['_id'] as String?,
+      json['fullName'] as String?,
+      json['phone'] as String?,
       json['address'] as String?,
       json['image'] as String?,
     );
 
 Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phonenumber': instance.phone,
+      '_id': instance.id,
+      'fullName': instance.name,
+      'phone': instance.phone,
       'address': instance.address,
       'image': instance.image,
     };
@@ -232,11 +245,11 @@ AddAdvertisementResponse _$AddAdvertisementResponseFromJson(
     AddAdvertisementResponse(
       json['image'] as String?,
       json['name'] as String?,
-      json['price'] as String?,
+      json['price'] as int?,
       json['description'] as String?,
-      json['sectionId'] as int?,
-      json['categoryId'] as int?,
-      json['conditionId'] as int?,
+      json['purpose'] as String?,
+      json['category'] as String?,
+      json['condition'] as String?,
       json['token'] as String?,
     )
       ..status = json['status'] as int?
@@ -251,9 +264,9 @@ Map<String, dynamic> _$AddAdvertisementResponseToJson(
       'name': instance.name,
       'price': instance.price,
       'description': instance.description,
-      'sectionId': instance.sectionId,
-      'categoryId': instance.categoryId,
-      'conditionId': instance.conditionId,
+      'purpose': instance.purpose,
+      'category': instance.category,
+      'condition': instance.condition,
       'token': instance.token,
     };
 
@@ -278,7 +291,7 @@ Map<String, dynamic> _$GetMyProfileDataResponseToJson(
 GetMyProfileAdsResponse _$GetMyProfileAdsResponseFromJson(
         Map<String, dynamic> json) =>
     GetMyProfileAdsResponse(
-      (json['items'] as List<dynamic>?)
+      (json['products'] as List<dynamic>?)
           ?.map((e) => e == null
               ? null
               : ItemsResponse.fromJson(e as Map<String, dynamic>))
@@ -292,7 +305,7 @@ Map<String, dynamic> _$GetMyProfileAdsResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'items': instance.items,
+      'products': instance.items,
     };
 
 RemoveAdResponse _$RemoveAdResponseFromJson(Map<String, dynamic> json) =>
@@ -314,11 +327,11 @@ UpdateAdResponse _$UpdateAdResponseFromJson(Map<String, dynamic> json) =>
       json['itemId'] as int?,
       json['image'] as String?,
       json['name'] as String?,
-      json['price'] as String?,
+      json['price'] as int?,
       json['description'] as String?,
-      json['sectionId'] as int?,
-      json['categoryId'] as int?,
-      json['conditionId'] as int?,
+      json['purpose'] as String?,
+      json['category'] as String?,
+      json['condition'] as String?,
       json['token'] as String?,
     )
       ..status = json['status'] as int?
@@ -333,9 +346,9 @@ Map<String, dynamic> _$UpdateAdResponseToJson(UpdateAdResponse instance) =>
       'name': instance.name,
       'price': instance.price,
       'description': instance.description,
-      'sectionId': instance.sectionId,
-      'categoryId': instance.categoryId,
-      'conditionId': instance.conditionId,
+      'purpose': instance.purpose,
+      'category': instance.category,
+      'condition': instance.condition,
       'token': instance.token,
     };
 
@@ -377,4 +390,19 @@ Map<String, dynamic> _$NotificationsResponseToJson(
       'status': instance.status,
       'message': instance.message,
       'notifications': instance.notifications,
+    };
+
+SearchResponse _$SearchResponseFromJson(Map<String, dynamic> json) =>
+    SearchResponse(
+      ShowItemsResponse.fromJson(
+          json['searchedProducts'] as Map<String, dynamic>),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'searchedProducts': instance.searchedProducts,
     };

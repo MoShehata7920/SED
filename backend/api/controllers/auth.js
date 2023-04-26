@@ -12,24 +12,19 @@ exports.registerController = async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            res.status(400).json({ message: errorMessages });
+            res.status(400).json({status:0, message: errorMessages });
             return;
         }
 
-        const { fullName, email, password, phone, government, address } = req.body;
+        const { fullName, email, password, phone} = req.body;
 
         const userExists = await User.exists({ email });
         if (userExists) {
-            res.status(409).json({ message: 'Email address is already registered' });
+            res.status(200).json({ status:0, message: 'Email address is already registered' });
             return;
-        }
-        if (!phone) {
-            phone = crypto.randomInt(1000000, 99999999);
         }
         const personalInfo = {
             phone,
-            government: dataCryption.encryption(government),
-            address: dataCryption.encryption(address)
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const OTP = mailHelper.generateOTP();
@@ -43,7 +38,18 @@ exports.registerController = async (req, res, next) => {
             verify_otp_expires: expires,
         });
         const doc = await newUser.save();
-        res.status(201).json({ message: 'Registration successful', user: doc });
+        const token = jwt.sign({
+            email:doc.email,
+            id: doc._id.toString(),
+            fullName: doc.fullName,
+            isAdmin: doc.isAdmin
+        },
+            process.env.SECRET_KEY
+            , {
+                expiresIn: '10h'
+            }
+        )
+        res.status(200).json({ status:0,message: 'Registration successful', token });
         mailHelper.mailTransport().sendMail({
             from: "sedteam@outlook.com",
             to: newUser.email,
@@ -52,7 +58,7 @@ exports.registerController = async (req, res, next) => {
         })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: 'Internal server error', Errors: error });
+        res.status(500).json({ status:1,message: 'Internal server error', Errors: error });
     }
 };
 
@@ -61,12 +67,12 @@ exports.loginController = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const errorMessages = errors.array().map(error => error.msg);
-        res.status(500).json({ message: errorMessages });
+        res.status(200).json({ message: errorMessages });
         return;
     }
     User.findOne({ $or: [{ email: loginOption }, { 'personalInfo.phone': loginOption }] }).exec().then(user => {
         if (!user) {                                                                                             //if email not found 
-            return res.status(401).json({ status: 1, message: 'This Email Not exist , Please Register First' })
+            return res.status(200).json({ status: 0, message: 'This Email Not exist , Please Register First' })
         }
         bcrypt.compare(req.body.password, user.password, (err, result) => {                                           //if found 
             if (err) {                                                                                                    // if server crashed
@@ -86,11 +92,11 @@ exports.loginController = (req, res) => {
                 )
                 return res.status(200).json({ status: 0, message: `welcome back ${user.fullName}!`, token: token })
             }
-            res.status(509).json({status:1, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
+            res.status(200).json({status:0, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
         })
     }).catch(err => {
         console.log(err);
-        res.status(409).json({ status:1, message: err })
+        res.status(500).json({ status:1, message: err })
     })
 };
 
@@ -98,14 +104,15 @@ exports.googleLogin = async (req, res, next) => {
     try {
         const user = await User.findById(req.session.passport.user);
         if (!user) {
-            res.status(404).json({ message: "User doesn't exist" });
+            res.status(200).json({status: 0, message: "User doesn't exist" });
             return;
         }
         const decryptedData = {
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            isAdmin:user.isAdmin
         };
         const expiresIn = "10h";
         const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
@@ -119,15 +126,15 @@ exports.googleLogin = async (req, res, next) => {
 exports.forgotPassword = async (req, res) => {
     const errors = validationResult(req);           //validating email field with express-validator
     if (!errors.isEmpty()) {
-        return res.status(444).json({ errors: errors.array() });
+        return res.status(200).json({ errors: errors.array() });
     }
     const searchOption = req.body.searchOption;
     const user = await User.findOne({ $or: [{ email: searchOption }, { 'personalInfo.phone': searchOption }] });           // finding user
-    if (!user) return res.status(404).json({ message: ' can\'t find any user with this email address' })    // if user not found
+    if (!user) return res.status(200).json({ status: 0, message: ' can\'t find any user with this email address' })    // if user not found
 
     const token = await mailHelper.creatResetToken()                 // creating token
     const newUser = await User.findByIdAndUpdate(user._id, { reset_password_token: token, reset_password_expires: Date.now() + 60 * 60 * 1000 * 6 }, { upsert: true, new: true }) //updating user document , token expires after 6 hours
-    res.status(200).json({ user: newUser, message: 'Reset password email has been sent successfuly to your email address' })
+    res.status(200).json({ status: 0,user: newUser, message: 'Reset password email has been sent successfuly to your email address' })
     mailHelper.mailTransport().sendMail({
         from: "sedteam@outlook.com",
         to: user.email,
@@ -142,7 +149,7 @@ exports.resetPassword = async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(400).json({ message: errorMessages });
+            return res.status(200).json({ message: errorMessages });
         }
         const user = await User.findOne({ _id: req.user._id });
         user.password = bcrypt.hashSync(req.body.password, 10);
@@ -163,17 +170,17 @@ exports.resetPassword = async (req, res) => {
     }
 };
 
-exports.verifyEmail = async (req, res, next) => {
+exports.sendOtpVerifyEmail = async (req, res, next) => {
     try {
         const userEmail = req.user.email;
 
         if (!userEmail) {
-            return res.status(400).json({ message: 'Error auth' });
+            return res.status(200).json({ status: 0, message: 'Error auth' });
         }
 
         const user = await User.findOne({ email: userEmail });
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(200).json({ status: 0, message: 'User not found' });
         }
 
         const otp = mailHelper.generateOTP()
@@ -200,19 +207,19 @@ exports.verifyEmail = async (req, res, next) => {
         };
         mailHelper.mailTransport().sendMail(mailOptions);
 
-        res.status(200).json({ message: 'Email sent' });
+        res.status(200).json({ status: 0, message: 'Email sent' });
     } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Server Error' });
+        res.status(500).json({ status: 1, message: 'Server Error' });
     }
 };
 
-exports.otpVerification = async (req, res, next) => {
+exports.verifyEmailByOtp = async (req, res, next) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(400).json({ message: errorMessages });
+            return res.status(200).json({status:0, message: errorMessages });
         }
 
         const otb = req.body.code;
@@ -223,7 +230,7 @@ exports.otpVerification = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(404).json({ message: 'Invalid or expired Code' });
+            return res.status(200).json({ status:0,message: 'Invalid or expired Code' });
         }
 
         user.isVerified = true;
@@ -231,6 +238,7 @@ exports.otpVerification = async (req, res, next) => {
         user.verify_otp_expires = undefined;
 
         await user.save();
+        res.status(200).json({ status:0,message: 'Account Verified' });
         const username = user.fullName
         const transporter = nodemailer.createTransport({
             service: "hotmail",
@@ -248,9 +256,52 @@ exports.otpVerification = async (req, res, next) => {
         };
 
         mailHelper.mailTransport().sendMail(mailOptions);
-
-        return res.status(200).json({ message: 'Account Verified' });
     } catch (err) {
-        return res.status(500).json({ message: 'Server Error' });
+        return res.status(500).json({ status:1,message: 'Server Error' });
     }
 };
+
+
+exports.resendVerifyEmail=async(req,res)=>{
+    try {
+        const userEmail = req.user.email;
+
+        if (!userEmail) {
+            return res.status(200).json({status: 0, message: 'Error auth' });
+        }
+
+        const user = await User.findOne({ email: userEmail });
+        if (!user) {
+            return res.status(200).json({ status: 0,message: 'User not found' });
+        }
+
+        const otp = mailHelper.generateOTP()
+        const expires = Date.now() + 3600000; // 1 hour
+
+        // user.verify_account_otp = otp;
+        // user.verify_otp_expires = expires;
+        await User.findByIdAndUpdate(req.user._id,{$set:{verify_account_otp:otp , verify_otp_expires:expires}} , {new:true})
+
+
+        const transporter = nodemailer.createTransport({
+            service: "hotmail",
+            auth: {
+                user: process.env.MYMAIL,
+                pass: process.env.MAILPASSWORD
+            }
+        });
+
+        const mailOptions = {
+            to: user.email,
+            from: process.env.MYMAIL,
+            subject: 'Account Verification Resend request',
+            html: mailHelper.generateVerifyEmailTemplate(otp)
+        };
+        mailHelper.mailTransport().sendMail(mailOptions);
+
+        res.status(200).json({status:0, message: 'Email sent' });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({status:1, message: 'Server Error' });
+    }
+}

@@ -24,6 +24,9 @@ class RegisterViewModel extends BaseViewModel
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
 
+  final StreamController _confirmPasswordStreamController =
+      StreamController<String>.broadcast();
+
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
@@ -41,8 +44,6 @@ class RegisterViewModel extends BaseViewModel
   @override
   void start() {
     inputState.add(ContentState());
-
-    setMobileCountryCode('EG');
   }
 
   @override
@@ -51,6 +52,7 @@ class RegisterViewModel extends BaseViewModel
     _mobileNumberStreamController.close();
     _emailStreamController.close();
     _passwordStreamController.close();
+    _confirmPasswordStreamController.close();
     _areAllInputsValidStreamController.close();
     isUserRegisteredSuccessfullyStreamController.close();
 
@@ -79,19 +81,6 @@ class RegisterViewModel extends BaseViewModel
     } else {
       // reset userName value in register view object
       registerObject = registerObject.copyWith(userName: "");
-    }
-    validate();
-  }
-
-  @override
-  setMobileCountryCode(String mobileCountryCode) {
-    if (mobileCountryCode.isNotEmpty) {
-      // update countryCode view object
-      registerObject =
-          registerObject.copyWith(countryMobileCode: mobileCountryCode);
-    } else {
-      // reset countryCode value in register view object
-      registerObject = registerObject.copyWith(countryMobileCode: "");
     }
     validate();
   }
@@ -142,16 +131,19 @@ class RegisterViewModel extends BaseViewModel
   Sink get inputAllInputsValid => _areAllInputsValidStreamController.sink;
 
   @override
+  Sink get inputConfirmPassword => _confirmPasswordStreamController.sink;
+
+  @override
   register() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
 
     var response = await _registerUseCase.execute(RegisterUseCaseInput(
         registerObject.userName,
-        registerObject.countryMobileCode,
         registerObject.mobileNumber,
         registerObject.email,
-        registerObject.password));
+        registerObject.password,
+        registerObject.confirmPassword));
 
     response.fold(
         (failure) => {
@@ -159,7 +151,6 @@ class RegisterViewModel extends BaseViewModel
               inputState.add(ErrorState(
                   StateRendererType.popUpErrorState, failure.message))
             }, (response) {
-
       _appPreferences.setToken(response.token ?? AppStrings.empty);
 
       // right -> success
@@ -192,16 +183,27 @@ class RegisterViewModel extends BaseViewModel
       _emailStreamController.stream.map((email) => _isEmailValid(email));
 
   @override
-  Stream<String?> get outputErrorEmailValid => outputIsEmailValid
-      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailInValid.tr());
+  Stream<String?> get outputErrorEmailValid => outputIsEmailValid.map(
+      (isEmailValid) => isEmailValid ? null : AppStrings.emailInValid.tr());
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
       .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(
-      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid.tr());
+  Stream<String?> get outputErrorPasswordValid =>
+      outputIsPasswordValid.map((isPasswordValid) =>
+          isPasswordValid ? null : AppStrings.passwordInValid.tr());
+
+  @override
+  Stream<bool> get outputIsConfirmPasswordValid =>
+      _confirmPasswordStreamController.stream
+          .map((password) => _isConfirmPasswordValid(password));
+
+  @override
+  Stream<String?> get outputErrorConfirmPasswordValid =>
+      outputIsConfirmPasswordValid.map((isConfirmPasswordValid) =>
+          isConfirmPasswordValid ? null : AppStrings.confirmPasswordError.tr());
 
   @override
   Stream<bool> get outputAreAllInputsValid =>
@@ -225,16 +227,35 @@ class RegisterViewModel extends BaseViewModel
     return password.isPasswordValid();
   }
 
+  bool _isConfirmPasswordValid(String confirmPassword) {
+    return confirmPassword == registerObject.password;
+  }
+
   bool _areAllInputsValid() {
     return registerObject.userName.isNotEmpty &&
-        registerObject.countryMobileCode.isNotEmpty &&
         registerObject.mobileNumber.isNotEmpty &&
         registerObject.email.isNotEmpty &&
-        registerObject.password.isNotEmpty;
+        registerObject.password.isNotEmpty &&
+        registerObject.confirmPassword.isNotEmpty;
   }
 
   validate() {
     inputAllInputsValid.add(null);
+  }
+
+  @override
+  setConfirmPassword(String confirmPassword) {
+    inputConfirmPassword.add(confirmPassword);
+
+    if (_isConfirmPasswordValid(confirmPassword)) {
+      // update email view object
+      registerObject =
+          registerObject.copyWith(confirmPassword: confirmPassword);
+    } else {
+      // reset email value in register view object
+      registerObject = registerObject.copyWith(confirmPassword: "");
+    }
+    validate();
   }
 }
 
@@ -247,19 +268,21 @@ abstract class RegisterViewModelInputs {
 
   Sink get inputPassword;
 
+  Sink get inputConfirmPassword;
+
   Sink get inputAllInputsValid;
 
   register();
 
   setUserName(String userName);
 
-  setMobileCountryCode(String mobileCountryCode);
-
   setMobileNumber(String mobileNumber);
 
   setEmail(String email);
 
   setPassword(String password);
+
+  setConfirmPassword(String confirmPassword);
 }
 
 abstract class RegisterViewModelOutputs {
@@ -278,6 +301,10 @@ abstract class RegisterViewModelOutputs {
   Stream<bool> get outputIsPasswordValid;
 
   Stream<String?> get outputErrorPasswordValid;
+
+  Stream<bool> get outputIsConfirmPasswordValid;
+
+  Stream<String?> get outputErrorConfirmPasswordValid;
 
   Stream<bool> get outputAreAllInputsValid;
 }

@@ -9,11 +9,13 @@ abstract class RemoteDataSource {
 
   Future<ForgotPasswordResponse> forgotPassword(String email);
 
+  Future<VerifyEmailResponse> verifyEmail(int code);
+
   Future<AuthenticationResponse> register(RegisterRequest registerRequest);
 
   Future<HomeResponse> getHomeData();
 
-  Future<ItemResponse> getItemData(int itemId);
+  Future<ItemResponse> getProductData(String productId);
 
   Future<ShowItemsResponse> getShowItemsData(ShowItemsRequest showItemsRequest);
 
@@ -31,11 +33,15 @@ abstract class RemoteDataSource {
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest);
 
-  Future<RemoveAdResponse> removeAd(int itemId);
+  Future<RemoveAdResponse> removeAd(String itemId);
 
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest);
 
   Future<NotificationsResponse> notifications();
+
+  Future<ShowItemsResponse> getSavedProducts();
+
+  Future<SearchResponse> getSearchedProducts(String searchText);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -59,34 +65,34 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       RegisterRequest registerRequest) async {
     return await _appServiceClient.register(
         registerRequest.userName,
-        registerRequest.countryMobileCode,
         registerRequest.mobileNumber,
         registerRequest.email,
-        registerRequest.password);
+        registerRequest.password,
+        registerRequest.confirmPassword);
   }
 
   @override
   Future<HomeResponse> getHomeData() async {
-    return await _appServiceClient.getHomeData(Constants.token);
+    return await _appServiceClient.getHomeData("Bearer ${Constants.token}");
   }
 
   @override
-  Future<ItemResponse> getItemData(int itemId) async {
-    return await _appServiceClient.getItemData(itemId);
+  Future<ItemResponse> getProductData(String productId) async {
+    return await _appServiceClient.getProductData(productId);
   }
 
   @override
   Future<ShowItemsResponse> getShowItemsData(
       ShowItemsRequest showItemsRequest) async {
-    return await _appServiceClient.getShowItemsData(
-        showItemsRequest.type, showItemsRequest.offset);
+    return await _appServiceClient.getShowItemsData(showItemsRequest.purpose,
+        showItemsRequest.category, showItemsRequest.page);
   }
 
   @override
   Future<SavingProductResponse> toggleSavingProduct(
       SavingProductRequest savingProductRequest) async {
-    return await _appServiceClient
-        .toggleSavingProduct(savingProductRequest.productId);
+    return await _appServiceClient.toggleSavingProduct(
+        savingProductRequest.productId, "Bearer ${Constants.token}");
   }
 
   @override
@@ -104,48 +110,62 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       addAdvertisementRequest.name,
       addAdvertisementRequest.price,
       addAdvertisementRequest.description,
-      addAdvertisementRequest.sectionId,
-      addAdvertisementRequest.categoryId,
-      addAdvertisementRequest.conditionId,
-      addAdvertisementRequest.token,
+      addAdvertisementRequest.purpose,
+      addAdvertisementRequest.category,
+      addAdvertisementRequest.condition,
+      "Bearer ${Constants.token}",
     );
   }
 
   @override
   Future<GetMyProfileDataResponse> getMyProfileData(String token) async {
-    return await _appServiceClient.getMyProfileData(token);
+    return await _appServiceClient.getMyProfileData("Bearer ${Constants.token}");
   }
 
   @override
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       GetMyProfileAdsRequest getMyProfileAdsRequest) async {
     return await _appServiceClient.getMyProfileAds(
-        getMyProfileAdsRequest.pageId, getMyProfileAdsRequest.token);
+        getMyProfileAdsRequest.sellerId, "Bearer ${Constants.token}");
   }
 
   @override
-  Future<RemoveAdResponse> removeAd(int itemId) async {
-    return await _appServiceClient.removeAd(itemId, Constants.token);
+  Future<RemoveAdResponse> removeAd(String prodId) async {
+    return await _appServiceClient.removeAd(prodId, "Bearer ${Constants.token}");
   }
 
   @override
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest) async {
     return await _appServiceClient.updateAd(
         updateAdRequest.itemId,
-        updateAdRequest.token,
         updateAdRequest.image,
         updateAdRequest.name,
         updateAdRequest.price,
         updateAdRequest.description,
-        updateAdRequest.sectionId,
-        updateAdRequest.categoryId,
-        updateAdRequest.conditionId);
+        updateAdRequest.purpose,
+        updateAdRequest.category,
+        updateAdRequest.condition,"Bearer ${Constants.token}");
   }
 
   @override
   Future<NotificationsResponse> notifications() async {
-    return await _appServiceClient.notifications(
-      Constants.token
-    );
+    return await _appServiceClient.notifications(Constants.token);
+  }
+
+  @override
+  Future<VerifyEmailResponse> verifyEmail(int code) async {
+    return await _appServiceClient.verifyEmail(
+        code, "Bearer ${Constants.token}");
+  }
+
+  @override
+  Future<ShowItemsResponse> getSavedProducts() async {
+    return await _appServiceClient
+        .getSavedProducts("Bearer ${Constants.token}");
+  }
+
+  @override
+  Future<SearchResponse> getSearchedProducts(String searchText) async {
+    return await _appServiceClient.getSearchProducts(Constants.token);
   }
 }

@@ -106,6 +106,7 @@ class RepositoryImpl implements Repository {
         } else {
           //failure
           //return either left
+
           return Left(Failure(ApiInternalStatus.FAILURE,
               response.message ?? ResponseMessage.DEFAULT));
         }
@@ -120,11 +121,11 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, Item>> getItemData(int itemId) async {
+  Future<Either<Failure, Item>> getProductData(String productId) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
-        final response = await _remoteDataSource.getItemData(itemId);
+        final response = await _remoteDataSource.getProductData(productId);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data
@@ -373,6 +374,86 @@ class RepositoryImpl implements Repository {
       //device is connected to the internet, call api
       try {
         final response = await _remoteDataSource.notifications();
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, VerifyEMail>> verifyEmail(int code) async {
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response = await _remoteDataSource.verifyEmail(code);
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ShowItems>> getSavedProducts() async {
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response = await _remoteDataSource.getSavedProducts();
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ShowItems>> getSearchedProducts(
+      String searchText) async {
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response =
+            await _remoteDataSource.getSearchedProducts(searchText);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data

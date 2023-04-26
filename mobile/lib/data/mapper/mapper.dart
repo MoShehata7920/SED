@@ -15,6 +15,12 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   }
 }
 
+extension VerifyEmailResponseMapper on VerifyEmailResponse? {
+  VerifyEMail toDomain() {
+    return VerifyEMail();
+  }
+}
+
 extension HomeCarouselMapper on CarouselResponse? {
   Carousel toDomain() {
     return Carousel(this?.images ?? <String>[]);
@@ -41,12 +47,12 @@ extension ItemsMapper on List<ItemsResponse?>? {
 
     this?.forEach((element) {
       temporary.add(Items(
-          element?.id ?? 0,
+          element?.id ?? "",
           element?.name ?? "",
           element?.image ?? "",
           element?.price ?? 0,
           element?.description ?? "",
-          element?.categoryId ?? 0,
+          element?.category ?? "",
           element?.date ?? "",
           element?.isSaved ?? false));
     });
@@ -84,12 +90,12 @@ extension HomeResponseMapper on HomeResponse? {
 extension ItemsResponseMapper on ItemsResponse? {
   Items toDomain() {
     return Items(
-        this?.id ?? 0,
+        this?.id ?? "",
         this?.name ?? "",
         this?.image ?? "",
         this?.price ?? 0,
         this?.description ?? "",
-        this?.categoryId ?? 0,
+        this?.category ?? "",
         this?.date ?? "",
         this?.isSaved ?? false);
   }
@@ -97,15 +103,16 @@ extension ItemsResponseMapper on ItemsResponse? {
 
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
-    return UserData(this?.id ?? 0, this?.name ?? "", this?.phone ?? "",
+    return UserData(this?.id ?? "", this?.name ?? "", this?.phone ?? "",
         this?.address ?? "", this?.image ?? "");
   }
 }
 
 extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
-    return Item(this?.item.toDomain() ?? Items(0, "", "", 0, "", 0, "", false),
-        this?.user.toDomain() ?? UserData(0, "", "", "", ""));
+    return Item(
+        this?.product.toDomain() ?? Items("", "", "", 0, "", "", "", false),
+        this?.user.toDomain() ?? UserData("", "", "", "", ""));
   }
 }
 
@@ -126,11 +133,11 @@ extension AddAdvertisementMapper on AddAdvertisementResponse? {
     return AddAdvertisement(
       this?.image ?? "",
       this?.name ?? "",
-      this?.price ?? "",
+      this?.price ?? 0,
       this?.description ?? "",
-      this?.sectionId ?? 0,
-      this?.categoryId ?? 0,
-      this?.conditionId ?? 0,
+      this?.purpose ?? "",
+      this?.category ?? "",
+      this?.condition ?? "",
       this?.token ?? "",
     );
   }
@@ -139,7 +146,7 @@ extension AddAdvertisementMapper on AddAdvertisementResponse? {
 extension GetMyProfileMapper on GetMyProfileDataResponse? {
   GetMyProfileData toDomain() {
     return GetMyProfileData(
-        this?.user.toDomain() ?? UserData(0, "", "", "", ""));
+        this?.user.toDomain() ?? UserData("", "", "", "", ""));
   }
 }
 
@@ -163,11 +170,11 @@ extension UpdateAdMapper on UpdateAdResponse? {
       this?.itemId ?? 0,
       this?.image ?? "",
       this?.name ?? "",
-      this?.price ?? "",
+      this?.price ?? 0,
       this?.description ?? "",
-      this?.sectionId ?? 0,
-      this?.categoryId ?? 0,
-      this?.conditionId ?? 0,
+      this?.purpose ?? "",
+      this?.category ?? "",
+      this?.condition ?? "",
       this?.token ?? "",
     );
   }
@@ -193,5 +200,11 @@ extension NotificationMapper on List<NotificationResponse>? {
 extension NotificationsMapper on NotificationsResponse? {
   Notifications toDomain() {
     return Notifications(this?.notifications.toDomain() ?? []);
+  }
+}
+
+extension SearchResponseMapper on SearchResponse? {
+  ShowItems toDomain() {
+    return this?.searchedProducts.toDomain() ?? ShowItems([]);
   }
 }

@@ -74,7 +74,7 @@ ThemeData getApplicationTheme() {
       //content padding
       contentPadding: const EdgeInsets.all(AppPadding.p8),
       filled: true,
-      fillColor: ColorsManager.textFormFieldBackGroundColorDark,
+      fillColor: ColorsManager.secondaryBackground,
       //hint style
       hintStyle:
           getRegularStyle(color: ColorsManager.grey, fontSize: FontSize.s14),

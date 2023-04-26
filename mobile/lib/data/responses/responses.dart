@@ -27,6 +27,17 @@ class AuthenticationResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class VerifyEmailResponse extends BaseResponse {
+  VerifyEmailResponse();
+  // From Json
+  factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyEmailResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$VerifyEmailResponseToJson(this);
+}
+
+@JsonSerializable()
 class ForgotPasswordResponse extends BaseResponse {
   @JsonKey(name: "support")
   String? support;
@@ -133,32 +144,32 @@ class CategoriesResponse {
 
 @JsonSerializable()
 class ItemsResponse {
-  @JsonKey(name: "ID")
-  int? id;
+  @JsonKey(name: "_id")
+  String? id;
 
-  @JsonKey(name: "Name")
+  @JsonKey(name: "productName")
   String? name;
 
-  @JsonKey(name: "Image")
-  String? image;
-
-  @JsonKey(name: "Descr")
+  @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: "Price")
+  @JsonKey(name: "category")
+  String? category;
+
+  @JsonKey(name: "productImage")
+  String? image;
+
+  @JsonKey(name: "price")
   int? price;
 
-  @JsonKey(name: "CategoryId")
-  int? categoryId;
-
-  @JsonKey(name: "Date")
+  @JsonKey(name: "createdAt")
   String? date;
 
   @JsonKey(name: "isSaved")
   bool? isSaved;
 
   ItemsResponse(this.name, this.image, this.description, this.price,
-      this.categoryId, this.date, this.isSaved);
+      this.category, this.date, this.isSaved);
 
   // From Json
   factory ItemsResponse.fromJson(Map<String, dynamic> json) =>
@@ -170,13 +181,13 @@ class ItemsResponse {
 
 @JsonSerializable()
 class ItemResponse extends BaseResponse {
-  @JsonKey(name: "item")
-  ItemsResponse? item;
+  @JsonKey(name: "product")
+  ItemsResponse? product;
 
-  @JsonKey(name: "user")
+  @JsonKey(name: "sellerInfo")
   UserDataResponse? user;
 
-  ItemResponse(this.item, this.user);
+  ItemResponse(this.product, this.user);
 
   // From Json
   factory ItemResponse.fromJson(Map<String, dynamic> json) =>
@@ -188,13 +199,13 @@ class ItemResponse extends BaseResponse {
 
 @JsonSerializable()
 class UserDataResponse {
-  @JsonKey(name: "id")
-  int? id;
+  @JsonKey(name: "_id")
+  String? id;
 
-  @JsonKey(name: "name")
+  @JsonKey(name: "fullName")
   String? name;
 
-  @JsonKey(name: "phonenumber")
+  @JsonKey(name: "phone")
   String? phone;
 
   @JsonKey(name: "address")
@@ -252,25 +263,25 @@ class AddAdvertisementResponse extends BaseResponse {
   String? name;
 
   @JsonKey(name: "price")
-  String? price;
+  int? price;
 
   @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: "sectionId")
-  int? sectionId;
+  @JsonKey(name: "purpose")
+  String? purpose;
 
-  @JsonKey(name: "categoryId")
-  int? categoryId;
+  @JsonKey(name: "category")
+  String? category;
 
-  @JsonKey(name: "conditionId")
-  int? conditionId;
+  @JsonKey(name: "condition")
+  String? condition;
 
   @JsonKey(name: "token")
   String? token;
 
   AddAdvertisementResponse(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId, this.token);
+      this.purpose, this.category, this.condition, this.token);
 
   // From Json
   factory AddAdvertisementResponse.fromJson(Map<String, dynamic> json) =>
@@ -297,7 +308,7 @@ class GetMyProfileDataResponse extends BaseResponse {
 
 @JsonSerializable()
 class GetMyProfileAdsResponse extends BaseResponse {
-  @JsonKey(name: "items")
+  @JsonKey(name: "products")
   List<ItemsResponse?>? items;
 
   GetMyProfileAdsResponse(this.items);
@@ -337,19 +348,19 @@ class UpdateAdResponse extends BaseResponse {
   String? name;
 
   @JsonKey(name: "price")
-  String? price;
+  int? price;
 
   @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: "sectionId")
-  int? sectionId;
+  @JsonKey(name: "purpose")
+  String? purpose;
 
-  @JsonKey(name: "categoryId")
-  int? categoryId;
+  @JsonKey(name: "category")
+  String? category;
 
-  @JsonKey(name: "conditionId")
-  int? conditionId;
+  @JsonKey(name: "condition")
+  String? condition;
 
   @JsonKey(name: "token")
   String? token;
@@ -360,9 +371,9 @@ class UpdateAdResponse extends BaseResponse {
       this.name,
       this.price,
       this.description,
-      this.sectionId,
-      this.categoryId,
-      this.conditionId,
+      this.purpose,
+      this.category,
+      this.condition,
       this.token);
 
   // From Json
@@ -414,4 +425,19 @@ class NotificationsResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$NotificationsResponseToJson(this);
+}
+
+@JsonSerializable()
+class SearchResponse extends BaseResponse {
+  @JsonKey(name: "searchedProducts")
+  ShowItemsResponse searchedProducts;
+
+  SearchResponse(this.searchedProducts);
+
+  // From Json
+  factory SearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }

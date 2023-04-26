@@ -15,12 +15,13 @@ class ShowItemsUseCase
   Future<Either<Failure, ShowItems>> execute(
       ShowItemsUseCaseInputs input) async {
     return await _repository
-        .getShowItems(ShowItemsRequest(input.type, input.offset));
+        .getShowItems(ShowItemsRequest(purpose: input.purpose,category: input.category,page: input.page));
   }
 }
 
 class ShowItemsUseCaseInputs {
-  String type;
-  int offset;
-  ShowItemsUseCaseInputs(this.type, this.offset);
+  String purpose;
+  String category;
+  int page;
+  ShowItemsUseCaseInputs({this.purpose = "all",this.category = "all", this.page = 1});
 }

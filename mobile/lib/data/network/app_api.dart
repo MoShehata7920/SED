@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:sed/app/constants.dart';
@@ -22,78 +24,95 @@ abstract class AppServiceClient {
     @Field("email") String email,
   );
 
-  @POST("/customers/register")
+  @POST("/auth/register")
   Future<AuthenticationResponse> register(
-    @Field("user_name") String userName,
-    @Field("country_mobile_code") String countryMobileCode,
-    @Field("mobile_number") String mobileNumber,
+    @Field("fullName") String userName,
+    @Field("phone") String mobileNumber,
     @Field("email") String email,
     @Field("password") String password,
+    @Field("confirmPassword") String confirmPassword,
   );
+
+  @POST("/auth/verifyemail")
+  Future<VerifyEmailResponse> verifyEmail(
+      @Field("code") int code, @Header("Authentication") String token);
 
   @GET("/home/")
   Future<HomeResponse> getHomeData(
-    @Header("token") String token,
+    @Header("Authentication") String token,
   );
 
-  @GET("/Items/{itemId}")
-  Future<ItemResponse> getItemData(
-    @Path("itemId") int itemId,
+  @GET("/products/product/{productId}")
+  Future<ItemResponse> getProductData(
+    @Path("productId") String productId,
   );
 
-  @GET("/home/{type}/{pageId}")
+  @GET("/products/get")
   Future<ShowItemsResponse> getShowItemsData(
-    @Path("type") String? type,
-    @Path("pageId") int? offset,);
-
-  @GET("/Products/{itemId}")
-  Future<SavingProductResponse> toggleSavingProduct(
-    @Path("itemId") int itemId,
+    @Query("purpose") String purpose,
+    @Query("category") String category,
+    @Query("page") int? page,
   );
+
+  @PATCH("/users/addToWishlist")
+  Future<SavingProductResponse> toggleSavingProduct(
+      @Field("prodId") String productId,
+      @Header("Authentication") String token);
+
+  @GET("/users/getWishlist")
+  Future<ShowItemsResponse> getSavedProducts(
+      @Header("Authentication") String token);
 
   @GET("/Profile/{profileId}")
   Future<ShowItemsResponse> getShowProfileData(
-    @Path("profileId") int profileId,
+    @Path("profileId") String profileId,
   );
 
-  @POST("/customers/AddAdvertisement")
+  @MultiPart()
+  @POST("/products/newproduct")
   Future<AddAdvertisementResponse> addAdvertisement(
-      @Field("image") String image,
-      @Field("name") String name,
-      @Field("price") String price,
-      @Field("description") String description,
-      @Field("sectionId") int sectionId,
-      @Field("categoryId") int categoryId,
-      @Field("conditionId") int conditionId,
-      @Header("Authorization") String token);
+      @Part(name: "productImage") File image,
+      @Part(name: "productName") String name,
+      @Part(name: "price") int price,
+      @Part(name: "description") String description,
+      @Part(name: "purpose") String purpose,
+      @Part(name: "category") String category,
+      @Part(name: "condition") String condition,
+      @Header("Authentication") String token);
 
-  @GET("/MyProfile")
+  @GET("/users/get")
   Future<GetMyProfileDataResponse> getMyProfileData(
-      @Header("Authorization") String token);
+      @Header("Authentication") String token);
 
-  @GET("/MyProfile/Ads/{pageId}")
+  @GET("/products/seller/{sellerId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(
-      @Path("pageId") int pageId, @Header("Authorization") String contentType);
+      @Path("sellerId") String sellerId, @Header("Authentication") String token);
 
-  @POST("/MyProfile/DeleteAd")
+  @DELETE("/products/product/{prodId}")
   Future<RemoveAdResponse> removeAd(
-      @Field("itemId") int itemId, @Header("token") String token);
+      @Path("prodId") String prodId, @Header("Authentication") String token);
 
-  @POST("/MyProfile/UpdateAd")
+  @MultiPart()
+  @PATCH("/products/product/{prodId}")
   Future<UpdateAdResponse> updateAd(
-    @Field("itemId") int itemId,
-    @Header("token") String token,
-    @Field("image") String image,
-    @Field("name") String name,
-    @Field("price") String price,
-    @Field("description") String description,
-    @Field("sectionId") int sectionId,
-    @Field("categoryId") int categoryId,
-    @Field("conditionId") int conditionId,
-  );
+    @Path("prodId") String prodId,
+    @Part(name: "productImage") File image,
+    @Part(name: "name") String name,
+    @Part(name: "price") int price,
+    @Part(name: "description") String description,
+    @Part(name: "purpose") String purpose,
+    @Part(name: "category") String category,
+    @Part(name: "condition") String condition,
+      @Header("Authentication") String token,
+      );
 
   @GET("/Notifications")
   Future<NotificationsResponse> notifications(
+    @Header("token") String token,
+  );
+
+  @POST("/products/search")
+  Future<SearchResponse> getSearchProducts(
     @Header("token") String token,
   );
 }

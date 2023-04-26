@@ -110,8 +110,8 @@ class HelpScreen extends StatelessWidget {
                           fontSize: AppSize.s14,
                         ),
                   ),
-                  SizedBox(
-                    width: 4,
+                  const SizedBox(
+                    width: AppSize.s4,
                   ),
                   Icon(
                     CustomIcons.eagle__2_,

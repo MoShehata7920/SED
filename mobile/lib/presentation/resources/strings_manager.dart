@@ -48,8 +48,15 @@ class AppStrings {
   static const String email = "email";
   static const String emailInValid = "email_in_valid";
   static const String password = "password";
+  static const String confirmPassword = "confirm_password";
   static const String passwordError = "password_error";
+  static const String confirmPasswordError = "confirm_password_error";
   static const String login = "login";
+
+  // email verify screen
+  static const String verifyYourEmail = "verify_your_email";
+  static const String enterOtp = "enter_otp";
+  static const String resendCode = "resend_code";
 
   //state renderer
   static const String loading = "loading";

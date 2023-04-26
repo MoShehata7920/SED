@@ -75,20 +75,20 @@ class _AppServiceClient implements AppServiceClient {
   @override
   Future<AuthenticationResponse> register(
     userName,
-    countryMobileCode,
     mobileNumber,
     email,
     password,
+    confirmPassword,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'user_name': userName,
-      'country_mobile_code': countryMobileCode,
-      'mobile_number': mobileNumber,
+      'fullName': userName,
+      'phone': mobileNumber,
       'email': email,
       'password': password,
+      'confirmPassword': confirmPassword,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AuthenticationResponse>(Options(
@@ -98,7 +98,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/customers/register',
+              '/auth/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -108,10 +108,37 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<VerifyEmailResponse> verifyEmail(
+    code,
+    token,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {'code': code};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<VerifyEmailResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/verifyemail',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = VerifyEmailResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<HomeResponse> getHomeData(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'token': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio
@@ -132,7 +159,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<ItemResponse> getItemData(itemId) async {
+  Future<ItemResponse> getProductData(productId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -145,7 +172,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/Items/${itemId}',
+              '/products/product/${productId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -156,11 +183,16 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<ShowItemsResponse> getShowItemsData(
-    type,
-    offset,
+    purpose,
+    category,
+    page,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'purpose': purpose,
+      r'category': category,
+      r'page': page,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -172,7 +204,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/home/${type}/${offset}',
+              '/products/get',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -182,25 +214,53 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<SavingProductResponse> toggleSavingProduct(itemId) async {
+  Future<SavingProductResponse> toggleSavingProduct(
+    productId,
+    token,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {'prodId': productId};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SavingProductResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/addToWishlist',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SavingProductResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ShowItemsResponse> getSavedProducts(token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ShowItemsResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/Products/${itemId}',
+              '/users/getWishlist',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SavingProductResponse.fromJson(_result.data!);
+    final value = ShowItemsResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -233,33 +293,57 @@ class _AppServiceClient implements AppServiceClient {
     name,
     price,
     description,
-    sectionId,
-    categoryId,
-    conditionId,
+    purpose,
+    category,
+    condition,
     token,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = {
-      'image': image,
-      'name': name,
-      'price': price,
-      'description': description,
-      'sectionId': sectionId,
-      'categoryId': categoryId,
-      'conditionId': conditionId,
-    };
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'productImage',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'productName',
+      name,
+    ));
+    _data.fields.add(MapEntry(
+      'price',
+      price.toString(),
+    ));
+    _data.fields.add(MapEntry(
+      'description',
+      description,
+    ));
+    _data.fields.add(MapEntry(
+      'purpose',
+      purpose,
+    ));
+    _data.fields.add(MapEntry(
+      'category',
+      category,
+    ));
+    _data.fields.add(MapEntry(
+      'condition',
+      condition,
+    ));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AddAdvertisementResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,
-              '/customers/AddAdvertisement',
+              '/products/newproduct',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -272,7 +356,7 @@ class _AppServiceClient implements AppServiceClient {
   Future<GetMyProfileDataResponse> getMyProfileData(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -283,7 +367,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/MyProfile',
+              '/users/get',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -294,12 +378,12 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<GetMyProfileAdsResponse> getMyProfileAds(
-    pageId,
-    contentType,
+    sellerId,
+    token,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': contentType};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -310,7 +394,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/MyProfile/Ads/${pageId}',
+              '/products/seller/${sellerId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -321,23 +405,23 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<RemoveAdResponse> removeAd(
-    itemId,
+    prodId,
     token,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'token': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = {'itemId': itemId};
+    final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<RemoveAdResponse>(Options(
-      method: 'POST',
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/MyProfile/DeleteAd',
+              '/products/product/${prodId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -348,39 +432,62 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<UpdateAdResponse> updateAd(
-    itemId,
-    token,
+    prodId,
     image,
     name,
     price,
     description,
-    sectionId,
-    categoryId,
-    conditionId,
+    purpose,
+    category,
+    condition,
+    token,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'token': token};
+    final _headers = <String, dynamic>{r'Authentication': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = {
-      'itemId': itemId,
-      'image': image,
-      'name': name,
-      'price': price,
-      'description': description,
-      'sectionId': sectionId,
-      'categoryId': categoryId,
-      'conditionId': conditionId,
-    };
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'productImage',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'name',
+      name,
+    ));
+    _data.fields.add(MapEntry(
+      'price',
+      price.toString(),
+    ));
+    _data.fields.add(MapEntry(
+      'description',
+      description,
+    ));
+    _data.fields.add(MapEntry(
+      'purpose',
+      purpose,
+    ));
+    _data.fields.add(MapEntry(
+      'category',
+      category,
+    ));
+    _data.fields.add(MapEntry(
+      'condition',
+      condition,
+    ));
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<UpdateAdResponse>(Options(
-      method: 'POST',
+      method: 'PATCH',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,
-              '/MyProfile/UpdateAd',
+              '/products/product/${prodId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -410,6 +517,30 @@ class _AppServiceClient implements AppServiceClient {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = NotificationsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SearchResponse> getSearchProducts(token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'token': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<SearchResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/products/search',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SearchResponse.fromJson(_result.data!);
     return value;
   }
 

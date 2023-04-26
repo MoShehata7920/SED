@@ -48,7 +48,7 @@ class MyAdsViewModel extends BaseViewModel
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _myProfileAdsUseCase
-        .execute(GetMyProfileAdsInput(0, Constants.token));
+        .execute(GetMyProfileAdsInput(Constants.userId ?? "", Constants.token));
 
     response.fold(
         (failure) => {
@@ -66,7 +66,7 @@ class MyAdsViewModel extends BaseViewModel
   }
 
   @override
-  void removeAd(int itemId) async {
+  void removeAd(String itemId) async {
     var item = items.firstWhere((element) => element.id == itemId);
     int index = items.indexOf(item);
 
@@ -99,7 +99,7 @@ abstract class MyAdsViewModelInputs {
 
   void getMyProfileAds();
 
-  void removeAd(int itemId);
+  void removeAd(String itemId);
 }
 
 abstract class MyAdsViewModelOutputs {

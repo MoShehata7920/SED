@@ -19,7 +19,7 @@ class RemoveAdUseCase implements BaseUseCase<RemoveAdUseCaseInput, RemoveAd> {
 }
 
 class RemoveAdUseCaseInput {
-  int itemId;
+  String itemId;
 
   RemoveAdUseCaseInput(this.itemId);
 }

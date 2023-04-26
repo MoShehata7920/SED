@@ -10,12 +10,14 @@ abstract class Repository {
 
   Future<Either<Failure, String>> forgotPassword(String email);
 
+  Future<Either<Failure, VerifyEMail>> verifyEmail(int code);
+
   Future<Either<Failure, Authentication>> register(
       RegisterRequest registerRequest);
 
   Future<Either<Failure, Home>> getHomeData();
 
-  Future<Either<Failure, Item>> getItemData(int itemId);
+  Future<Either<Failure, Item>> getProductData(String productId);
 
   Future<Either<Failure, ShowItems>> getShowItems(
       ShowItemsRequest showItemsRequest);
@@ -39,4 +41,8 @@ abstract class Repository {
   Future<Either<Failure, UpdateAd>> updateAd(UpdateAdRequest updateAdRequest);
 
   Future<Either<Failure, Notifications>> notifications();
+
+  Future<Either<Failure, ShowItems>> getSavedProducts();
+
+  Future<Either<Failure, ShowItems>> getSearchedProducts(String searchText);
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
-import 'package:sed/presentation/main_screen/items_screen/viewmodel/items_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/items_screen/viewmodel/products_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -13,22 +13,21 @@ import 'package:sed/presentation/resources/values_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
-class ItemView extends StatefulWidget {
-  Object? itemId;
-
-  ItemView(this.itemId, {Key? key}) : super(key: key);
+class ProductView extends StatefulWidget {
+  Object? productId;
+  ProductView(this.productId, {Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _ItemViewState createState() => _ItemViewState(itemId as int);
+  _ProductViewState createState() => _ProductViewState(productId as String);
 }
 
-class _ItemViewState extends State<ItemView> {
-  final ItemsScreenViewModel _viewModel = ItemsScreenViewModel();
+class _ProductViewState extends State<ProductView> {
+  final ProductScreenViewModel _viewModel = ProductScreenViewModel();
 
-  int itemId;
+  String productId;
 
-  _ItemViewState(this.itemId);
+  _ProductViewState(this.productId);
 
   @override
   void initState() {
@@ -58,7 +57,7 @@ class _ItemViewState extends State<ItemView> {
   void _bind() {
     _viewModel.start();
 
-    _viewModel.getItemData(itemId);
+    _viewModel.getProductData(productId);
   }
 
   Widget _buildWidget(Item? item) {
@@ -70,7 +69,7 @@ class _ItemViewState extends State<ItemView> {
           return snapshot.data?.getScreenWidget(
                   context,
                   _getContentWidget(item),
-                  () => _viewModel.getItemData(itemId)) ??
+                  () => _viewModel.getProductData(productId)) ??
               _getContentWidget(item);
         },
       ),
@@ -83,6 +82,18 @@ class _ItemViewState extends State<ItemView> {
     } else {
       return CustomScrollView(slivers: [
         SliverAppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+              child: IconButton(
+                icon: const Icon(
+                  IconsManager.share,
+                  size: AppSize.s30,
+                ),
+                onPressed: () {},
+              ),
+            )
+          ],
           expandedHeight: MediaQuery.of(context).size.height * 0.6,
           elevation: AppSize.s0,
           snap: true,
@@ -153,7 +164,7 @@ class _ItemViewState extends State<ItemView> {
                           Container(
                             color: Colors.black.withOpacity(.2),
                             child: Text(
-                              Utils.getCategoryNameById(item.item.categoryId),
+                              item.item.category,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
@@ -210,7 +221,7 @@ class _ItemViewState extends State<ItemView> {
                       ),
                       Expanded(
                         child: Text(
-                          item.item.date,
+                          Utils.getCreatedTime(item.item.date),
                           textAlign: TextAlign.end,
                           maxLines: AppValues.maxDateLines,
                           overflow: TextOverflow.ellipsis,

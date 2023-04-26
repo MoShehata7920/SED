@@ -16,11 +16,12 @@ import 'package:sed/presentation/register/view/register_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../domain/model/models.dart';
 import '../forgot_password/view/forgotpassword_view.dart';
-import '../main_screen/items_screen/view/items_screen_view.dart';
+import '../main_screen/items_screen/view/products_screen_view.dart';
 import '../main_screen/main_screen_view/main_screen_view.dart';
 import '../main_screen/sub_screens/search_screen/view/search_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/view/my_account_screen_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_ads_screen/view/my_ads_view.dart';
+import '../register/email_verification/view/email_verification_view.dart';
 import '../splash/splash_view.dart';
 
 class Routes {
@@ -29,6 +30,7 @@ class Routes {
   static const String loginRoute = "/login";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String registerRoute = "/register";
+  static const String emailVerificationRoute = "/emailVerification";
   static const String mainScreenRoute = "/main";
   static const String itemScreenRoute = "/item";
   static const String showItemsScreenRoute = "/showItems";
@@ -67,12 +69,17 @@ class RouteGenerator {
         initRegisterModule();
         return MaterialPageRoute(builder: (context) => const RegisterView());
 
+      case Routes.emailVerificationRoute:
+        initRegisterModule();
+        return MaterialPageRoute(
+            builder: (context) => const EmailVerificationScreenView());
+
       case Routes.mainScreenRoute:
         return MaterialPageRoute(builder: (context) => const MainScreenView());
 
       case Routes.itemScreenRoute:
         return MaterialPageRoute(
-            builder: (context) => ItemView(settings.arguments));
+            builder: (context) => ProductView(settings.arguments));
 
       case Routes.showItemsScreenRoute:
         List<dynamic> args = settings.arguments as List<dynamic>;
@@ -81,14 +88,14 @@ class RouteGenerator {
           return MaterialPageRoute(
               builder: (context) => ShowItemsView(
                     args[0],
-                    categoryId: args[1],
+                    categoryName: args[1],
                   ));
         }
 
         return MaterialPageRoute(
             builder: (context) => ShowItemsView(
                   args[0],
-                  categoryId: args[1],
+                  categoryName: args[1],
                   image: args[2],
                 ));
 

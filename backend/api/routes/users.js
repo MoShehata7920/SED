@@ -13,18 +13,19 @@ router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
 //if needed to verify another email after registration
 
 // send verify email otp
-router.get('/verifyrequest', authController.verifyEmail);
+router.get('/verifyrequest', authController.sendOtpVerifyEmail);
 
 // check verify email otp
-router.post('/verifyemail', authController.otpVerification);
+router.post('/verifyemail', authController.verifyEmailByOtp);
 
-//route for user's wishlist 
+//route for user's wishlist adding/removing items
 router.patch('/addToWishlist', verifyToken, userController.addToWishList);
 
+//route for getting user's wishlist 
 router.get('/getWishlist', verifyToken, userController.getWishlist);
 
-// To find a Single User , must be and admin or the userhim self
-router.get('/get/:userId', verifyToken, userController.getSingleUser)
+// To find a Single User 
+router.get('/get', verifyToken, userController.getSingleUser)
 
 // getting all users , must be an admin
 router.get('/getallusers', verifyTokenAndAdmin, userController.getAllUsers)

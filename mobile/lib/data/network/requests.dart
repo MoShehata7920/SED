@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class LoginRequest {
   String email;
   String password;
@@ -13,63 +15,73 @@ class ForgotPasswordRequest {
 
 class RegisterRequest {
   String userName;
-  String countryMobileCode;
   String mobileNumber;
   String email;
   String password;
+  String confirmPassword;
 
-  RegisterRequest(this.userName, this.countryMobileCode, this.mobileNumber,
-      this.email, this.password);
+  RegisterRequest(this.userName, this.mobileNumber, this.email, this.password,
+      this.confirmPassword);
+}
+
+class VerifyEmailRequest {
+  int code;
+
+  VerifyEmailRequest(
+    this.code,
+  );
 }
 
 class ShowItemsRequest {
-  String type;
-  int offset;
-  ShowItemsRequest(this.type, this.offset);
+  String purpose;
+  String category;
+  int page;
+  ShowItemsRequest(
+      {this.purpose = "all", this.category = "all", this.page = 1});
 }
 
 class SavingProductRequest {
-  int productId;
+  String productId;
 
   SavingProductRequest(this.productId);
 }
 
 class AddAdvertisementRequest {
-  String image;
+  File image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
   AddAdvertisementRequest(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId, this.token);
+      this.purpose, this.category, this.condition, this.token);
 }
 
 class GetMyProfileAdsRequest {
-  int pageId;
+  String sellerId;
   String token;
 
-  GetMyProfileAdsRequest(this.pageId, this.token);
+  GetMyProfileAdsRequest(this.sellerId, this.token);
 }
 
 class RemoveAdRequest {
-  int itemId;
+  String itemId;
 
   RemoveAdRequest(this.itemId);
 }
 
 class UpdateAdRequest {
-  int itemId;
-  String image;
+  String itemId;
+  File image;
   String name;
-  String price;
+  int price;
   String description;
-  int sectionId;
-  int categoryId;
-  int conditionId;
+  String purpose;
+  String category;
+  String condition;
   String token;
 
   UpdateAdRequest(
@@ -78,8 +90,14 @@ class UpdateAdRequest {
       this.name,
       this.price,
       this.description,
-      this.sectionId,
-      this.categoryId,
-      this.conditionId,
+      this.purpose,
+      this.category,
+      this.condition,
       this.token);
+}
+
+class SearchRequest {
+  String searchText;
+
+  SearchRequest(this.searchText);
 }

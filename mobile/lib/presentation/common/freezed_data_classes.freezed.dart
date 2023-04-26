@@ -153,10 +153,10 @@ abstract class _loginObject implements LoginObject {
 /// @nodoc
 mixin _$RegisterObject {
   String get userName => throw _privateConstructorUsedError;
-  String get countryMobileCode => throw _privateConstructorUsedError;
   String get mobileNumber => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String get confirmPassword => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RegisterObjectCopyWith<RegisterObject> get copyWith =>
@@ -171,10 +171,10 @@ abstract class $RegisterObjectCopyWith<$Res> {
   @useResult
   $Res call(
       {String userName,
-      String countryMobileCode,
       String mobileNumber,
       String email,
-      String password});
+      String password,
+      String confirmPassword});
 }
 
 /// @nodoc
@@ -191,19 +191,15 @@ class _$RegisterObjectCopyWithImpl<$Res, $Val extends RegisterObject>
   @override
   $Res call({
     Object? userName = null,
-    Object? countryMobileCode = null,
     Object? mobileNumber = null,
     Object? email = null,
     Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(_value.copyWith(
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      countryMobileCode: null == countryMobileCode
-          ? _value.countryMobileCode
-          : countryMobileCode // ignore: cast_nullable_to_non_nullable
               as String,
       mobileNumber: null == mobileNumber
           ? _value.mobileNumber
@@ -216,6 +212,10 @@ class _$RegisterObjectCopyWithImpl<$Res, $Val extends RegisterObject>
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmPassword: null == confirmPassword
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -231,10 +231,10 @@ abstract class _$$_registerObjectCopyWith<$Res>
   @useResult
   $Res call(
       {String userName,
-      String countryMobileCode,
       String mobileNumber,
       String email,
-      String password});
+      String password,
+      String confirmPassword});
 }
 
 /// @nodoc
@@ -249,19 +249,15 @@ class __$$_registerObjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userName = null,
-    Object? countryMobileCode = null,
     Object? mobileNumber = null,
     Object? email = null,
     Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(_$_registerObject(
       null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == countryMobileCode
-          ? _value.countryMobileCode
-          : countryMobileCode // ignore: cast_nullable_to_non_nullable
               as String,
       null == mobileNumber
           ? _value.mobileNumber
@@ -275,6 +271,10 @@ class __$$_registerObjectCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      null == confirmPassword
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -282,23 +282,23 @@ class __$$_registerObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_registerObject implements _registerObject {
-  _$_registerObject(this.userName, this.countryMobileCode, this.mobileNumber,
-      this.email, this.password);
+  _$_registerObject(this.userName, this.mobileNumber, this.email, this.password,
+      this.confirmPassword);
 
   @override
   final String userName;
-  @override
-  final String countryMobileCode;
   @override
   final String mobileNumber;
   @override
   final String email;
   @override
   final String password;
+  @override
+  final String confirmPassword;
 
   @override
   String toString() {
-    return 'RegisterObject(userName: $userName, countryMobileCode: $countryMobileCode, mobileNumber: $mobileNumber, email: $email, password: $password)';
+    return 'RegisterObject(userName: $userName, mobileNumber: $mobileNumber, email: $email, password: $password, confirmPassword: $confirmPassword)';
   }
 
   @override
@@ -308,18 +308,18 @@ class _$_registerObject implements _registerObject {
             other is _$_registerObject &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
-            (identical(other.countryMobileCode, countryMobileCode) ||
-                other.countryMobileCode == countryMobileCode) &&
             (identical(other.mobileNumber, mobileNumber) ||
                 other.mobileNumber == mobileNumber) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.confirmPassword, confirmPassword) ||
+                other.confirmPassword == confirmPassword));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, userName, countryMobileCode, mobileNumber, email, password);
+      runtimeType, userName, mobileNumber, email, password, confirmPassword);
 
   @JsonKey(ignore: true)
   @override
@@ -331,21 +331,21 @@ class _$_registerObject implements _registerObject {
 abstract class _registerObject implements RegisterObject {
   factory _registerObject(
       final String userName,
-      final String countryMobileCode,
       final String mobileNumber,
       final String email,
-      final String password) = _$_registerObject;
+      final String password,
+      final String confirmPassword) = _$_registerObject;
 
   @override
   String get userName;
-  @override
-  String get countryMobileCode;
   @override
   String get mobileNumber;
   @override
   String get email;
   @override
   String get password;
+  @override
+  String get confirmPassword;
   @override
   @JsonKey(ignore: true)
   _$$_registerObjectCopyWith<_$_registerObject> get copyWith =>
@@ -354,13 +354,13 @@ abstract class _registerObject implements RegisterObject {
 
 /// @nodoc
 mixin _$AdvertisementObject {
-  String get image => throw _privateConstructorUsedError;
+  File get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
+  int get price => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  int get sectionId => throw _privateConstructorUsedError;
-  int get categoryId => throw _privateConstructorUsedError;
-  int get conditionId => throw _privateConstructorUsedError;
+  String get purpose => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  String get condition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementObjectCopyWith<AdvertisementObject> get copyWith =>
@@ -374,13 +374,13 @@ abstract class $AdvertisementObjectCopyWith<$Res> {
       _$AdvertisementObjectCopyWithImpl<$Res, AdvertisementObject>;
   @useResult
   $Res call(
-      {String image,
+      {File image,
       String name,
-      String price,
+      int price,
       String description,
-      int sectionId,
-      int categoryId,
-      int conditionId});
+      String purpose,
+      String category,
+      String condition});
 }
 
 /// @nodoc
@@ -400,15 +400,15 @@ class _$AdvertisementObjectCopyWithImpl<$Res, $Val extends AdvertisementObject>
     Object? name = null,
     Object? price = null,
     Object? description = null,
-    Object? sectionId = null,
-    Object? categoryId = null,
-    Object? conditionId = null,
+    Object? purpose = null,
+    Object? category = null,
+    Object? condition = null,
   }) {
     return _then(_value.copyWith(
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as File,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -416,23 +416,23 @@ class _$AdvertisementObjectCopyWithImpl<$Res, $Val extends AdvertisementObject>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      sectionId: null == sectionId
-          ? _value.sectionId
-          : sectionId // ignore: cast_nullable_to_non_nullable
-              as int,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
-      conditionId: null == conditionId
-          ? _value.conditionId
-          : conditionId // ignore: cast_nullable_to_non_nullable
-              as int,
+      purpose: null == purpose
+          ? _value.purpose
+          : purpose // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -446,13 +446,13 @@ abstract class _$$_AdvertisementObjectCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String image,
+      {File image,
       String name,
-      String price,
+      int price,
       String description,
-      int sectionId,
-      int categoryId,
-      int conditionId});
+      String purpose,
+      String category,
+      String condition});
 }
 
 /// @nodoc
@@ -470,15 +470,15 @@ class __$$_AdvertisementObjectCopyWithImpl<$Res>
     Object? name = null,
     Object? price = null,
     Object? description = null,
-    Object? sectionId = null,
-    Object? categoryId = null,
-    Object? conditionId = null,
+    Object? purpose = null,
+    Object? category = null,
+    Object? condition = null,
   }) {
     return _then(_$_AdvertisementObject(
       null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as File,
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -486,23 +486,23 @@ class __$$_AdvertisementObjectCopyWithImpl<$Res>
       null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      null == sectionId
-          ? _value.sectionId
-          : sectionId // ignore: cast_nullable_to_non_nullable
-              as int,
-      null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
-      null == conditionId
-          ? _value.conditionId
-          : conditionId // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == purpose
+          ? _value.purpose
+          : purpose // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -511,26 +511,26 @@ class __$$_AdvertisementObjectCopyWithImpl<$Res>
 
 class _$_AdvertisementObject implements _AdvertisementObject {
   _$_AdvertisementObject(this.image, this.name, this.price, this.description,
-      this.sectionId, this.categoryId, this.conditionId);
+      this.purpose, this.category, this.condition);
 
   @override
-  final String image;
+  final File image;
   @override
   final String name;
   @override
-  final String price;
+  final int price;
   @override
   final String description;
   @override
-  final int sectionId;
+  final String purpose;
   @override
-  final int categoryId;
+  final String category;
   @override
-  final int conditionId;
+  final String condition;
 
   @override
   String toString() {
-    return 'AdvertisementObject(image: $image, name: $name, price: $price, description: $description, sectionId: $sectionId, categoryId: $categoryId, conditionId: $conditionId)';
+    return 'AdvertisementObject(image: $image, name: $name, price: $price, description: $description, purpose: $purpose, category: $category, condition: $condition)';
   }
 
   @override
@@ -543,17 +543,16 @@ class _$_AdvertisementObject implements _AdvertisementObject {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.sectionId, sectionId) ||
-                other.sectionId == sectionId) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.conditionId, conditionId) ||
-                other.conditionId == conditionId));
+            (identical(other.purpose, purpose) || other.purpose == purpose) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.condition, condition) ||
+                other.condition == condition));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, image, name, price, description,
-      sectionId, categoryId, conditionId);
+      purpose, category, condition);
 
   @JsonKey(ignore: true)
   @override
@@ -565,28 +564,28 @@ class _$_AdvertisementObject implements _AdvertisementObject {
 
 abstract class _AdvertisementObject implements AdvertisementObject {
   factory _AdvertisementObject(
-      final String image,
+      final File image,
       final String name,
-      final String price,
+      final int price,
       final String description,
-      final int sectionId,
-      final int categoryId,
-      final int conditionId) = _$_AdvertisementObject;
+      final String purpose,
+      final String category,
+      final String condition) = _$_AdvertisementObject;
 
   @override
-  String get image;
+  File get image;
   @override
   String get name;
   @override
-  String get price;
+  int get price;
   @override
   String get description;
   @override
-  int get sectionId;
+  String get purpose;
   @override
-  int get categoryId;
+  String get category;
   @override
-  int get conditionId;
+  String get condition;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementObjectCopyWith<_$_AdvertisementObject> get copyWith =>

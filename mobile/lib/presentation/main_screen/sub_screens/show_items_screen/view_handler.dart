@@ -61,10 +61,10 @@ extension ViewExtension on Views {
 }
 
 class ViewsName {
-  static String sell = AppStrings.sell.tr();
-  static String donate = AppStrings.donate.tr();
-  static String exchange = AppStrings.exchange.tr();
-  static String saved = AppStrings.saved.tr();
+  static String sell = AppStrings.sell;
+  static String donate = AppStrings.donate;
+  static String exchange = AppStrings.exchange;
+  static String saved = AppStrings.saved;
 }
 
 class ViewCard {
@@ -125,7 +125,7 @@ class ViewCard {
                       padding:
                           const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                       child: Text(
-                        Utils.getCategoryNameById(item.categoryId),
+                        item.category,
                         style: TextStyle(
                           fontSize: AppSize.s10,
                           color: ColorsManager.white,

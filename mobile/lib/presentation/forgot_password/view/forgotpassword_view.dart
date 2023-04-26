@@ -150,7 +150,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               height: AppSize.s50,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: ColorsManager.white,
+                                    backgroundColor: ColorsManager.primaryColor,
                                   ),
                                   onPressed: (snapshotValidation.data ?? false)
                                       ? () {
