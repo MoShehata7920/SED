@@ -91,7 +91,7 @@ function Navebar() {
                 <ul className="dropdown-menu">
                   <li>
                     <Link
-                      to={"/SeeAllData/Sell"}
+                      to={"/SeeAllData/sell"}
                       className="dropdown-item text-black"
                     >
                       SELL
@@ -99,7 +99,7 @@ function Navebar() {
                   </li>
                   <li>
                     <Link
-                      to={"/SeeAllData/Exchange"}
+                      to={"/SeeAllData/exchange"}
                       className="dropdown-item text-black"
                     >
                       EXCHANGE
@@ -107,7 +107,7 @@ function Navebar() {
                   </li>
                   <li>
                     <Link
-                      to={"/SeeAllData/Donate"}
+                      to={"/SeeAllData/donate"}
                       className="dropdown-item text-black"
                     >
                       DONAT

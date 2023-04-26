@@ -20,27 +20,31 @@ export default function Home() {
   let [Detaexchange, setDetaexchange] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-  const GetDeta = async (mediatype, callback) => {
+  const GetDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:9000/home/${mediatype}`,
-        {
-          headers: {
-            Authorization: `6ALOYOMR`,
-          },
-        }
+        `http://103.48.193.225:3000/home`
+        // {
+        //   // headers: {
+        //   //   Authorization: `6ALOYOMR`,
+        //   // },
+        // }
       );
-      if (mediatype === "") {
-        callback(respond.data.carousel.Images);
-        console.log(respond.data.carousel.Images);
-      } else {
-        callback(respond.data.items);
-        console.log(respond.data.items);
-      }
+      // if (mediatype === "") {
+      //   callback(respond.data.carousel.Images);
+      //   console.log(respond.data.carousel.Images);
+      // } else {
+      //   callback(respond.data.items);
+      //   console.log(respond.data.items);
+      // }
 
+      setDetaAll(respond.data.carousel.Images);
+      setDetasell(respond.data.sellItems);
+      setDetadonat(respond.data.donateItems);
+      setDetaexchange(respond.data.exchangeItems);
       setIsPending(false);
       //setError(null);
     } catch (err) {
@@ -65,10 +69,7 @@ export default function Home() {
   // }
 
   useEffect(() => {
-    GetDeta("", setDetaAll);
-    GetDeta("donate", setDetadonat);
-    GetDeta("sell", setDetasell);
-    GetDeta("exchange", setDetaexchange);
+    GetDeta();
   }, []);
   return (
     <>
@@ -291,7 +292,7 @@ export default function Home() {
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-9 ">EXCHANGE</h1>
-              <Link to={"/SeeAllData/Exchange"}>
+              <Link to={"/SeeAllData/exchange"}>
                 <p className="text-black fs-3 "> see all</p>
               </Link>
             </div>
@@ -330,7 +331,7 @@ export default function Home() {
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-9 ">DONATE</h1>
-              <Link to={"/SeeAllData/Donate"}>
+              <Link to={"/SeeAllData/donate"}>
                 <p className="text-black fs-3 "> see all</p>
               </Link>
             </div>
@@ -342,7 +343,9 @@ export default function Home() {
           ))}
         </Swiper>
       </section>
-      <Footer />
+      <section>
+        <Footer />
+      </section>
     </>
   );
 }

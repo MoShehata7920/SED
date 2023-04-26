@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function SeeAllData() {
   let { SeeData } = useParams();
-
+  const [currentpageNum, setcurrentpageNum] = useState(1);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   let [AllData, setAllData] = useState([]);
@@ -17,7 +17,7 @@ export default function SeeAllData() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/${SeeData}/all`
+        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=Electronics&page=1`
       );
       setAllData(respond.data.items);
       setIsPending(false);
@@ -44,14 +44,14 @@ export default function SeeAllData() {
               <div className="col-3">
                 <Link
                   key={index}
-                  to={`/items/${All.ID}`}
+                  to={`/items/${All._id}`}
                   className="text-decoration-none "
                 >
                   <div className="item slider-style2 mb-1 ">
                     <div className="slider-service-div  text-center  ">
                       <div className="slider-service-img ">
                         <img
-                          src={All.Image}
+                          src={All.productImage}
                           className="card-img-top w-100 h-100  "
                           alt="..."
                         />
@@ -59,7 +59,7 @@ export default function SeeAllData() {
 
                       <div className="slider-service-title">
                         <h5 className="card-title text-black mb-3 mt-3">
-                          {All.Name}
+                          {All.productName}
                         </h5>
                       </div>
                       <div className="slider-service-detailes ">
@@ -70,7 +70,7 @@ export default function SeeAllData() {
                       </div>
                       <div className="slider-service-price ">
                         <p className=" text-black mb-3 h-100 w-100">
-                          {All.Price}
+                          {All.price}
                         </p>
                       </div>
 

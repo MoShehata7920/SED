@@ -36,9 +36,9 @@ export default function Footer() {
       <div className="container mt-5">
         <div className="row">
           <div className="col-3">
-            <div className="footer-text1 text-white">
+            <div className=" text-white">
               <h1 className="mb-3">SED</h1>
-              <p className=" fs-7">
+              <p className=" fs-7 ">
                 SED: The Ultimate Online Shopping Destination in Egypt | Buy
                 100% genuine consumer and home appliances from SED, the largest
                 online store in Egypt.
@@ -66,7 +66,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="col-3 mt-2">
-            <div className="footer-text2 text-white ">
+            <div className="footer-text2  text-white ">
               <h5 className="mb-4">Our Services</h5>
               <NavLink to={"a"} className=" d-block mb-3">
                 Pay Monthly Installments
