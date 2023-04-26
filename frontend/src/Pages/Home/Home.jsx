@@ -20,27 +20,31 @@ export default function Home() {
   let [Detaexchange, setDetaexchange] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-  const GetDeta = async (mediatype, callback) => {
+  const GetDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:9000/home/${mediatype}`,
-        {
-          headers: {
-            Authorization: `6ALOYOMR`,
-          },
-        }
+        `http://103.48.193.225:3000/home`
+        // {
+        //   // headers: {
+        //   //   Authorization: `6ALOYOMR`,
+        //   // },
+        // }
       );
-      if (mediatype === "") {
-        callback(respond.data.carousel.Images);
-        console.log(respond.data.carousel.Images);
-      } else {
-        callback(respond.data.items);
-        console.log(respond.data.items);
-      }
+      // if (mediatype === "") {
+      //   callback(respond.data.carousel.Images);
+      //   console.log(respond.data.carousel.Images);
+      // } else {
+      //   callback(respond.data.items);
+      //   console.log(respond.data.items);
+      // }
 
+      setDetaAll(respond.data.carousel.Images);
+      setDetasell(respond.data.sellItems);
+      setDetadonat(respond.data.donateItems);
+      setDetaexchange(respond.data.exchangeItems);
       setIsPending(false);
       //setError(null);
     } catch (err) {
@@ -65,10 +69,7 @@ export default function Home() {
   // }
 
   useEffect(() => {
-    GetDeta("", setDetaAll);
-    GetDeta("donate", setDetadonat);
-    GetDeta("sell", setDetasell);
-    GetDeta("exchange", setDetaexchange);
+    GetDeta();
   }, []);
   return (
     <>
@@ -138,7 +139,10 @@ export default function Home() {
             </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={`/Categories/Fashion`} className="  text-decoration-none">
+            <Link
+              to={`/Categories/Phones&Tablets`}
+              className="  text-decoration-none"
+            >
               <div className="catogiry-div  position-relative   ">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -154,7 +158,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none  ">
+            <Link to={`/Categories/Books`} className="  text-decoration-none  ">
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -187,7 +191,10 @@ export default function Home() {
       <section>
         <div className="row ">
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none">
+            <Link
+              to={`/Categories/Furniture`}
+              className="  text-decoration-none"
+            >
               <div className="catogiry-div  position-relative  ">
                 <div className=" position-absolute h-100 w-100">
                   <img
@@ -235,7 +242,10 @@ export default function Home() {
             </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none  ">
+            <Link
+              to={`/Categories/Sports`}
+              className="  text-decoration-none  "
+            >
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -259,8 +269,30 @@ export default function Home() {
           }}
           modules={[Pagination]}
           className=" mySwiper"
-          spaceBetween={5}
-          slidesPerView={5}
+          slidesPerView={6}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+            },
+            1500: {
+              slidesPerView: 6,
+            },
+            1700: {
+              slidesPerView: 7,
+            },
+          }}
         >
           <SwiperSlide>
             <div className="item text-center">
@@ -285,13 +317,35 @@ export default function Home() {
           }}
           modules={[Pagination]}
           className=" mySwiper"
-          spaceBetween={5}
-          slidesPerView={5}
+          slidesPerView={6}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+            },
+            1500: {
+              slidesPerView: 6,
+            },
+            1700: {
+              slidesPerView: 7,
+            },
+          }}
         >
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-9 ">EXCHANGE</h1>
-              <Link to={"/SeeAllData/Exchange"}>
+              <Link to={"/SeeAllData/exchange"}>
                 <p className="text-black fs-3 "> see all</p>
               </Link>
             </div>
@@ -324,13 +378,35 @@ export default function Home() {
           }}
           modules={[Pagination]}
           className=" mySwiper"
-          spaceBetween={5}
-          slidesPerView={5}
+          slidesPerView={6}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+            },
+            1500: {
+              slidesPerView: 6,
+            },
+            1700: {
+              slidesPerView: 7,
+            },
+          }}
         >
           <SwiperSlide>
             <div className="item text-center">
               <h1 className=" fs-9 ">DONATE</h1>
-              <Link to={"/SeeAllData/Donate"}>
+              <Link to={"/SeeAllData/donate"}>
                 <p className="text-black fs-3 "> see all</p>
               </Link>
             </div>
@@ -342,7 +418,9 @@ export default function Home() {
           ))}
         </Swiper>
       </section>
-      <Footer />
+      <section>
+        <Footer />
+      </section>
     </>
   );
 }

@@ -12,7 +12,7 @@ export default function Dataitems() {
     let { data } = await Axios.get(
       `http://103.48.193.225:3000/products/product/${id}`
     );
-    callback(data.item);
+    callback(data.product);
   }
   useEffect(() => {
     Getitems(id, setDataitems);
@@ -28,7 +28,7 @@ export default function Dataitems() {
             <div className="col-6">
               <div className="photo-div bg-black">
                 <img
-                  src={Detaitmes.Image}
+                  src={Detaitmes.productImage}
                   className=" w-100 h-100 "
                   alt="..."
                 />
@@ -36,10 +36,10 @@ export default function Dataitems() {
             </div>
             <div className="col-6">
               <div className="mt-5">
-                <h1 className="">{Detaitmes.Name}</h1>
-                <h3 className="mt-5">Price: {Detaitmes.Price} LE</h3>
+                <h1 className="">{Detaitmes.productName}</h1>
+                <h3 className="mt-5">Price: {Detaitmes.price} LE</h3>
                 <h3 className="mt-5">Product details :-</h3>
-                <h5 className="mt-3">{Detaitmes.Descr}</h5>
+                <h5 className="mt-3">{Detaitmes.description}</h5>
               </div>
               <div className="mt-5">
                 <button className=" btn-items">Contact</button>

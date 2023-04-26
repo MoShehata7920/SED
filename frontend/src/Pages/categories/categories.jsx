@@ -3,10 +3,12 @@ import Navebar from "../../Component/navebar/navbar";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useEffect, useState } from "react";
+import Paginate from "../../Component/pagination/Paginate";
 
 export default function Categories() {
   let { CategorieType } = useParams();
-
+  const [currentpageNum, setcurrentpageNum] = useState(1);
+  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   let [Detcateg, setDetcateg] = useState([]);
@@ -17,20 +19,20 @@ export default function Categories() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/all/${CategorieType}`
+        `http://103.48.193.225:3000/products/get?purpose=all&category=${CategorieType}&page=${currentpageNum}`
       );
-      setDetcateg(respond.data.message);
+      setDetcateg(respond.data.items);
       setIsPending(false);
       //setError(null);
     } catch (err) {
       setIsPending(false);
       setError("could not fetch the data");
-      console.log(err.message);
+      console.log(err.items);
     }
   };
   useEffect(() => {
     GetCategDeta();
-  }, [CategorieType]);
+  }, [CategorieType, currentpageNum]);
   return (
     <>
       <section>
@@ -44,14 +46,14 @@ export default function Categories() {
               <div className="col-3">
                 <Link
                   key={index}
-                  to={`/items/${categ.ID}`}
+                  to={`/items/${categ._id}`}
                   className="text-decoration-none "
                 >
                   <div className="item slider-style2 mb-1 ">
                     <div className="slider-service-div  text-center  ">
                       <div className="slider-service-img ">
                         <img
-                          src={categ.Image}
+                          src={categ.productImage}
                           className="card-img-top w-100 h-100  "
                           alt="..."
                         />
@@ -59,7 +61,7 @@ export default function Categories() {
 
                       <div className="slider-service-title">
                         <h5 className="card-title text-black mb-3 mt-3">
-                          {categ.Name}
+                          {categ.productName}
                         </h5>
                       </div>
                       <div className="slider-service-detailes ">
@@ -70,7 +72,7 @@ export default function Categories() {
                       </div>
                       <div className="slider-service-price ">
                         <p className=" text-black mb-3 h-100 w-100">
-                          {categ.Price}
+                          {categ.price}
                         </p>
                       </div>
 
@@ -89,6 +91,9 @@ export default function Categories() {
                 </Link>
               </div>
             ))}
+          </div>
+          <div>
+            <Paginate paginate={paginate} />
           </div>
         </div>
       </section>
