@@ -139,7 +139,10 @@ export default function Home() {
             </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={`/Categories/Fashion`} className="  text-decoration-none">
+            <Link
+              to={`/Categories/Phones&Tablets`}
+              className="  text-decoration-none"
+            >
               <div className="catogiry-div  position-relative   ">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -155,7 +158,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none  ">
+            <Link to={`/Categories/Books`} className="  text-decoration-none  ">
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -188,7 +191,10 @@ export default function Home() {
       <section>
         <div className="row ">
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none">
+            <Link
+              to={`/Categories/Furniture`}
+              className="  text-decoration-none"
+            >
               <div className="catogiry-div  position-relative  ">
                 <div className=" position-absolute h-100 w-100">
                   <img
@@ -236,7 +242,10 @@ export default function Home() {
             </Link>
           </div>
           <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none  ">
+            <Link
+              to={`/Categories/Sports`}
+              className="  text-decoration-none  "
+            >
               <div className="catogiry-div  position-relative d-flex justify-content-center">
                 <div className=" position-absolute w-100 h-100">
                   <img
@@ -260,8 +269,30 @@ export default function Home() {
           }}
           modules={[Pagination]}
           className=" mySwiper"
-          spaceBetween={5}
-          slidesPerView={5}
+          slidesPerView={6}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+            },
+            1500: {
+              slidesPerView: 6,
+            },
+            1700: {
+              slidesPerView: 7,
+            },
+          }}
         >
           <SwiperSlide>
             <div className="item text-center">
@@ -286,8 +317,30 @@ export default function Home() {
           }}
           modules={[Pagination]}
           className=" mySwiper"
-          spaceBetween={5}
-          slidesPerView={5}
+          slidesPerView={6}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+            },
+            1500: {
+              slidesPerView: 6,
+            },
+            1700: {
+              slidesPerView: 7,
+            },
+          }}
         >
           <SwiperSlide>
             <div className="item text-center">
@@ -325,8 +378,30 @@ export default function Home() {
           }}
           modules={[Pagination]}
           className=" mySwiper"
-          spaceBetween={5}
-          slidesPerView={5}
+          slidesPerView={6}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            639: {
+              slidesPerView: 3,
+            },
+            865: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+            },
+            1500: {
+              slidesPerView: 6,
+            },
+            1700: {
+              slidesPerView: 7,
+            },
+          }}
         >
           <SwiperSlide>
             <div className="item text-center">

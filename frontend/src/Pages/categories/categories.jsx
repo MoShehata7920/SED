@@ -3,10 +3,12 @@ import Navebar from "../../Component/navebar/navbar";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useEffect, useState } from "react";
+import Paginate from "../../Component/pagination/Paginate";
 
 export default function Categories() {
   let { CategorieType } = useParams();
-
+  const [currentpageNum, setcurrentpageNum] = useState(1);
+  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   let [Detcateg, setDetcateg] = useState([]);
@@ -17,7 +19,7 @@ export default function Categories() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/get?purpose=all&category=${CategorieType}&page=1`
+        `http://103.48.193.225:3000/products/get?purpose=all&category=${CategorieType}&page=${currentpageNum}`
       );
       setDetcateg(respond.data.items);
       setIsPending(false);
@@ -30,7 +32,7 @@ export default function Categories() {
   };
   useEffect(() => {
     GetCategDeta();
-  }, [CategorieType]);
+  }, [CategorieType, currentpageNum]);
   return (
     <>
       <section>
@@ -89,6 +91,9 @@ export default function Categories() {
                 </Link>
               </div>
             ))}
+          </div>
+          <div>
+            <Paginate paginate={paginate} />
           </div>
         </div>
       </section>

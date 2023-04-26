@@ -3,21 +3,24 @@ import Navebar from "../../Component/navebar/navbar";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useEffect, useState } from "react";
+import Paginate from "../../Component/pagination/Paginate";
 
 export default function SeeAllData() {
-  let { SeeData } = useParams();
+  let { page, SeeData } = useParams();
   const [currentpageNum, setcurrentpageNum] = useState(1);
+  console.log(currentpageNum);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   let [AllData, setAllData] = useState([]);
-  console.log(AllData);
+
+  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   const GetseeallDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=Electronics&page=1`
+        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=all&page=${currentpageNum}`
       );
       setAllData(respond.data.items);
       setIsPending(false);
@@ -30,7 +33,7 @@ export default function SeeAllData() {
   };
   useEffect(() => {
     GetseeallDeta();
-  }, [SeeData]);
+  }, [SeeData, currentpageNum]);
   return (
     <>
       <section>
@@ -89,6 +92,9 @@ export default function SeeAllData() {
                 </Link>
               </div>
             ))}
+          </div>
+          <div>
+            <Paginate paginate={paginate} />
           </div>
         </div>
       </section>

@@ -72,8 +72,37 @@ function Navebar() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item " to={"a"}>
-                      Something else here
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Furniture"}
+                    >
+                      Furniture
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Furniture"}
+                    >
+                      Sports
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Supermarket"}
+                    >
+                      Supermarket
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item " to={"/Categories/"}>
+                      Phones&Tablets
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item " to={"/Categories/"}>
+                      Body&HealthCare
                     </Link>
                   </li>
                 </ul>
