@@ -1,9 +1,11 @@
-import 'package:dob_input_field/dob_input_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import '../../../../../../resources/values_manager.dart';
 
 class MyAccountScreenView extends StatefulWidget {
   const MyAccountScreenView({super.key});
@@ -53,25 +55,25 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(AppPadding.p16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Profile Picture',
+              Text(AppStrings.profilePic.tr(),
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: AppSize.s20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              SizedBox(height: 16.0),
+                      color: ColorsManager.primaryText)),
+              const SizedBox(height: AppSize.s16),
               Stack(
                 alignment: AlignmentDirectional.bottomEnd,
                 children: [
                   CircleAvatar(
-                    radius: 52,
+                    radius: AppSize.s52,
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     child: CircleAvatar(
                         backgroundColor: ColorsManager.primaryBackground,
-                        radius: 50,
+                        radius: AppSize.s50,
                         backgroundImage: AssetImage(ImageAssets.noImage)),
                   ),
                   IconButton(
@@ -80,103 +82,124 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                           context, Routes.cameraScreenRoute);
                     },
                     icon: const CircleAvatar(
-                      radius: 16,
+                      radius: AppSize.s16,
                       child: Icon(
-                        Icons.edit,
-                        size: 16,
+                        IconsManager.update,
+                        size: AppSize.s16,
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 8.0),
-              SizedBox(height: 16.0),
-              Text('Personal Information',
+              const SizedBox(height: AppSize.s24),
+              Text(AppStrings.profileInfo.tr(),
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: AppSize.s20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              SizedBox(height: 16.0),
+                      color: ColorsManager.primaryText)),
+              const SizedBox(height: AppSize.s16),
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: 'Name',
+                  labelText: AppStrings.name.tr(),
                 ),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: AppSize.s8),
               TextField(
                 controller: _phoneController,
                 decoration: InputDecoration(
-                  labelText: 'Phone Number',
+                  labelText: AppStrings.phoneNumber.tr(),
                 ),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: AppSize.s8),
               TextField(
                 controller: _addressController,
                 decoration: InputDecoration(
-                  labelText: 'Address',
+                  labelText: AppStrings.address.tr(),
                 ),
               ),
-              SizedBox(height: 8.0),
-              DOBInputField(
-                inputDecoration: InputDecoration(
-                  fillColor: ColorsManager.textFormFieldBackGroundColorDark,
+              const SizedBox(height: AppSize.s8),
+              GestureDetector(
+                child: TextField(
+                  decoration: InputDecoration(
+                      labelText: AppStrings.dob.tr(),
+                      suffixIcon: const Icon(IconsManager.calender),
+                      suffixIconColor: ColorsManager.primaryColor),
+                  controller:
+                      _dobController, //editing controller of this TextField
+                  readOnly:
+                      true, //set it true, so that user will not able to edit text
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(
+                            1900), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2040));
+
+                    if (pickedDate != null) {
+                      String formattedDate =
+                          DateFormat('dd-MM-yyyy').format(pickedDate);
+
+                      setState(() {
+                        _dobController.text =
+                            formattedDate; //set output date to TextField value.
+                      });
+                    } else {
+                      print("Date is not selected");
+                    }
+                  },
                 ),
-                firstDate: DateTime(1900),
-                lastDate: DateTime.now(),
-                showLabel: true,
-                dateFormatType: DateFormatType.DDMMYYYY,
-                autovalidateMode: AutovalidateMode.disabled,
               ),
-              SizedBox(height: 8.0),
-              Text('Change Password',
+              const SizedBox(height: AppSize.s8),
+              Text(AppStrings.changePassword.tr(),
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: AppSize.s20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              SizedBox(height: 16.0),
+                      color: ColorsManager.primaryText)),
+              const SizedBox(height: AppSize.s16),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'Old Password',
+                  labelText: AppStrings.oldPassword.tr(),
                 ),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: AppSize.s8),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'New Password',
+                  labelText: AppStrings.newPassword.tr(),
                 ),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: AppSize.s8),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'Rewrite New Password',
+                  labelText: AppStrings.rewriteNewPassword.tr(),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: AppSize.s16),
               Center(
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text('Save Changes'),
+                  child: Text(AppStrings.saveChanges.tr()),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: AppSize.s16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Log out'),
+                    child: Text(AppStrings.logOut.tr()),
                   ),
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      'Delete Account',
+                      AppStrings.deleteAccount.tr(),
                       style: TextStyle(color: ColorsManager.error),
                     ),
                   ),

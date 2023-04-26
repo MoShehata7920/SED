@@ -106,5 +106,17 @@
   "upload_image": "Upload Image",
   "no_image_selected": "No image selected.",
   "take_photo": "Take a photo",
-  "select_from_gallery": "Select from gallery"
+  "select_from_gallery": "Select from gallery",
+  "profile_pic": "Profile Picture",
+  "profile_info": "Personal Information",
+  "phone_number": "Phone Number",
+  "address": "Address",
+  "dob": "Date of birth",
+  "change_password": "Change Password",
+  "old_password": "Old Password",
+  "new_password": "New Password",
+  "rewrite_new_password": "Rewrite New Password",
+  "save_changes": "Save Changes",
+  "log_out": "Log out",
+  "delete_account": "Delete Account"
 }
