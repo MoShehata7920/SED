@@ -13,7 +13,7 @@ exports.createProduct = (req, res) => {
         purpose: req.body.purpose,
         quantity: req.body.quantity,
         // productImage: `localhost:3000/${req.file.path}` ,
-        productImage: `http://103.48.193.225/${req.file.path}`,
+        productImage: `http://103.48.193.225:3000/${req.file.path}`,
         condition:req.body.condition,
         price: req.body.price,
         seller: req.user.id
@@ -88,6 +88,7 @@ exports.getProductsByQuery = async (req, res, next) => {
     const page = req.query.page || 1;
     const purpose = req.query.purpose || 'all';
     const category = req.query.category || 'all';
+    const sortBy=req.query.sort  || '-createdAt'
     var userData = {};
     let wishList = [];
     if (req.headers.authentication) {
@@ -109,8 +110,9 @@ exports.getProductsByQuery = async (req, res, next) => {
         if (purpose !== 'all') {
             query.purpose = purpose;
         }
-        const doc = await Product.find(query)
+        const doc = await Product.find({query})
             .select('-seller -updatedAt -__v')
+            .sort(sortBy)
             .lean()
             .skip(skip)
             .limit(perPage);
@@ -118,6 +120,11 @@ exports.getProductsByQuery = async (req, res, next) => {
             res.status(400).json({ status: 0, message: 'not found' });
             return;
         }
+
+        // calculating whole number of pages 
+        const totalDocs=await Product.countDocuments(query)
+        const totalPageNumber=Math.ceil( totalDocs / perPage )
+
         // iterate over each object in the list
         for (let i = 0; i < doc.length; i++) {
             const obj = doc[i];
@@ -130,14 +137,13 @@ exports.getProductsByQuery = async (req, res, next) => {
                 obj.isSaved = true;
             }
         }
-        res.status(200).json({ status: 0, items: doc });
+
+        res.status(200).json({ status: 0, items: doc , totalPageNumber , currentPage:page });
         return;
     } catch (err) {
         res.status(404).json({ status: 1, message: err });
     }
 };
-
-
 
 
 exports.getProductsByParams = async (req, res, next) => {
