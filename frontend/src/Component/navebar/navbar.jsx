@@ -47,7 +47,7 @@ function Navebar() {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-              <li className="nav-item dropdown ">
+              <li className="nav-item dropdown me-2 ">
                 <Link
                   className="nav-Link dropdown-toggle text-white fs-4 "
                   to={"a"}
@@ -96,18 +96,37 @@ function Navebar() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item " to={"/Categories/"}>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Vehicles"}
+                    >
+                      Vehicles
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item " to={"/Categories/Others"}>
+                      Other
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Phones&Tablets"}
+                    >
                       Phones&Tablets
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item " to={"/Categories/"}>
+                    <Link
+                      className="dropdown-item "
+                      to={"/Categories/Body&HealthCare"}
+                    >
                       Body&HealthCare
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown me-2">
                 <Link
                   className="nav-Link dropdown-toggle text-white fs-4 ms-2 me-2"
                   to={"a"}

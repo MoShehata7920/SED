@@ -28,9 +28,10 @@ body {
 }
 .catogiry-text{
     position: absolute;
-    color: rgb(255, 255, 255) ;
+    background-color: rgb(215, 218, 255);
+    height: 30px;
     z-index: 100;
-    bottom: 0px;
+    bottom: 10px;
 }
 .advertisement{
     height: 300px;

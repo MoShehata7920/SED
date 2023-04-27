@@ -12,6 +12,7 @@
     "owl.carousel": "^2.3.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
+    "react-bootstrap-pagination-control": "^1.0.5",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-router": "^6.9.0",

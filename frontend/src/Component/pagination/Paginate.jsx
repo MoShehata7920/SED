@@ -1,57 +1,28 @@
 import { Link, useParams } from "react-router-dom";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 import { useState } from "react";
-export default function Paginate({ paginate }) {
+export default function Paginate({ paginate, totalpageNum }) {
   const [pageNum, setpageNum] = useState(1);
   const pageNumber = [];
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 50; i++) {
     pageNumber.push(i);
   }
+
   return (
     <>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <Link
-              to={`#`}
-              onClick={() => {
-                paginate(pageNum - 1);
-                window.scrollTo(0, 0);
-              }}
-              class="page-link"
-            >
-              Previous
-            </Link>
-          </li>
-
-          {pageNumber.map((number) => (
-            <li key={number} class="page-item">
-              <Link
-                to={`#`}
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  paginate(number);
-                  setpageNum(number);
-                }}
-                class="page-link"
-              >
-                {number}
-              </Link>
-            </li>
-          ))}
-          <li class="page-item">
-            <Link
-              to={`#`}
-              onClick={() => {
-                paginate(pageNum + 1);
-                window.scrollTo(0, 0);
-              }}
-              class="page-link"
-            >
-              Next
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <PaginationControl
+        last={true}
+        page={pageNum}
+        between={4}
+        total={totalpageNum}
+        limit={1}
+        changePage={(page) => {
+          paginate(page);
+          setpageNum(page);
+          window.scrollTo(0, 0);
+        }}
+        ellipsis={1}
+      />
     </>
   );
 }
