@@ -1,6 +1,6 @@
 import "./Profile.css";
 import "./Profile";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {} from "react-icons/ci";
 import "./user.png";
 

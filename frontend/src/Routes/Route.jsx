@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Categories from "../Pages/categories/categories";
 import Dataitems from "../Pages/dataitems/dataitems";
 import Forgetpass from "../Pages/Forgetpassword/Forgetpass";
@@ -17,14 +17,26 @@ import SignIn from "../Pages/SignIn/SignIn";
 import Register from "../Pages/SignUp/SignUp";
 
 function MainRoutes() {
+  const storedToken = localStorage.getItem("usertoken");
   return (
     <>
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/SignUp" element={<Register />} />
+        <Route
+          path="/SignIn"
+          element={storedToken ? <Navigate replace to={"/"} /> : <SignIn />}
+        />
+        <Route
+          path="/SignUp"
+          element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
+        />
         <Route path="/forgetpassword" element={<Forgetpass />} />
-        <Route path="/Profile" element={<Profile />}>
+        <Route
+          path="/Profile"
+          element={
+            storedToken ? <Profile /> : <Navigate replace to={"/SignIn"} />
+          }
+        >
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
           <Route path="/Profile/watchlist" element={<Watchlist />}></Route>

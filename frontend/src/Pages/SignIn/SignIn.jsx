@@ -6,6 +6,7 @@ import axios from "axios";
 
 function SignIn() {
   const navigate = useNavigate();
+  let [userdata, setuserdata] = useState([]);
   const [user, setuser] = useState({
     password: "",
     loginOption: "",
@@ -23,9 +24,17 @@ function SignIn() {
       "http://103.48.193.225:3000/auth/login",
       user
     );
-    localStorage.getItem("usertoken", request.data.token);
+    localStorage.setItem("usertoken", request.data.token);
     navigate("/");
   }
+  // const [token, setToken] = useState("");
+  // console.log(token);
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem("usertoken");
+  //   if (storedToken) {
+  //     setToken(storedToken);
+  //   }
+  // }, []);
 
   return (
     <>

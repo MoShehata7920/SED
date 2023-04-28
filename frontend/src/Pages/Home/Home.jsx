@@ -29,17 +29,10 @@ export default function Home() {
         `http://103.48.193.225:3000/home`
         // {
         //   // headers: {
-        //   //   Authorization: `6ALOYOMR`,
+        //   //   Authentication: `6ALOYOMR`,
         //   // },
         // }
       );
-      // if (mediatype === "") {
-      //   callback(respond.data.carousel.Images);
-      //   console.log(respond.data.carousel.Images);
-      // } else {
-      //   callback(respond.data.items);
-      //   console.log(respond.data.items);
-      // }
 
       setcarousel(respond.data.carousel.Images);
       setDetasell(respond.data.sellItems);
@@ -47,27 +40,13 @@ export default function Home() {
       setDetaexchange(respond.data.exchangeItems);
       setcategories(respond.data.categories);
       setIsPending(false);
-      //setError(null);
+      // setError(null);
     } catch (err) {
       setIsPending(false);
       setError("could not fetch the data");
       console.log(err.message);
     }
   };
-
-  // async function GetDeta(mediatype, callback) {
-  //   let respond = await Axios.get(
-  //     `http://103.48.193.225:9000/home/${mediatype}`
-  //   );
-
-  //   if (mediatype === "") {
-  //     callback(respond.data.carousel.Images);
-  //     console.log(respond.data.carousel.Images);
-  //   } else {
-  //     callback(respond.data.items);
-  //     console.log(respond.data.items);
-  //   }
-  // }
 
   useEffect(() => {
     GetDeta();
