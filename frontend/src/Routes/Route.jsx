@@ -4,7 +4,8 @@ import Categories from "../Pages/categories/categories";
 import Dataitems from "../Pages/dataitems/dataitems";
 import Forgetpass from "../Pages/Forgetpassword/Forgetpass";
 import Home from "../Pages/home/Home";
-import Profile from "../Pages/Profile/Profile";
+import Profile from "../Pages/Profile/Profile/Profile";
+
 import SearchPage from "../Pages/searchdata/searchdata";
 import SeeAllData from "../Pages/seealldata/SeeAllData";
 import SignIn from "../Pages/SignIn/SignIn";
