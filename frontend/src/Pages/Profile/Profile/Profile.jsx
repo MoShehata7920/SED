@@ -21,77 +21,51 @@ function Profile() {
         <div className="Sidebar-items" style={{ height: "auto" }}>
           <ul className="list">
             <li className="side-img">
-              {" "}
-              <img src={require("./user.png")} alt="" />{" "}
+              <img src={require("./user.png")} alt="" />
             </li>
             <li className="sidebar-item">
-              {" "}
-              <a href="{}">
-                <button>
-                  <Link to={"/Profile/userinfo"}>
-                    {" "}
-                    <i>{<BsPerson />}</i> <span> user info </span>
-                  </Link>
-                </button>{" "}
-              </a>
+              <button>
+                <Link to={"/Profile/userinfo"}>
+                  <i>{<BsPerson />}</i> <span> user info </span>
+                </Link>
+              </button>
             </li>
             <li className="sidebar-item">
-              {" "}
-              <a href="{}">
-                {" "}
-                <button>
-                  <Link to={"/Profile/favourit"}>
-                    {" "}
-                    <i>{<BsHeart />}</i> <span> favourit </span>{" "}
-                  </Link>
-                </button>
-              </a>
+              <button>
+                <Link to={"/Profile/favourit"}>
+                  <i>{<BsHeart />}</i> <span> favourit </span>
+                </Link>
+              </button>
             </li>
             <li className="sidebar-item">
-              <a href="{}">
-                {" "}
-                <button>
-                  <Link to={"/Profile/watchlist"}>
-                    {" "}
-                    <i>{<BsBookmarkHeart />} </i>
-                    <span> watchlist </span>
-                  </Link>
-                </button>
-              </a>
+              <button>
+                <Link to={"/Profile/watchlist"}>
+                  <i>{<BsBookmarkHeart />} </i>
+                  <span> watchlist </span>
+                </Link>
+              </button>
             </li>
             <li className="sidebar-item">
-              {" "}
-              <a href="{}">
-                <button>
-                  <Link to={"/Profile/myorders"}>
-                    <i>{<BsListCheck />}</i> <span> My Orders</span>
-                  </Link>
-                </button>{" "}
-              </a>
+              <button>
+                <Link to={"/Profile/myorders"}>
+                  <i>{<BsListCheck />}</i> <span> My Orders</span>
+                </Link>
+              </button>
             </li>
             <li className="sidebar-item">
-              <a href="{}">
-                {" "}
-                <button>
-                  <Link to={"/Profile/settings"}>
-                    {" "}
-                    <i>{<BsGearWideConnected />}</i> <span> Settings </span>
-                  </Link>
-                </button>
-              </a>
+              <button>
+                <Link to={"/Profile/settings"}>
+                  <i>{<BsGearWideConnected />}</i> <span> Settings </span>
+                </Link>
+              </button>
             </li>
             <li className="sidebar-item">
-              {" "}
-              <a href="{}">
-                {" "}
-                <button>
-                  <Link to={"/logout"}>
-                    {" "}
-                    <i>{<BsBoxArrowLeft />} </i>
-                    <span> Logout </span>{" "}
-                  </Link>
-                </button>
-              </a>
+              <button>
+                <Link to={"/logout"}>
+                  <i>{<BsBoxArrowLeft />} </i>
+                  <span> Logout </span>
+                </Link>
+              </button>
             </li>
           </ul>
         </div>
