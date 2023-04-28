@@ -1,0 +1,61 @@
+.settings-cointener{
+    margin-top: 100px;
+    margin-left: 190px;
+    width:1000px;
+    height: 550px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.settings li {
+    list-style: none;
+    margin: 70px;
+}
+
+
+.settings li button{
+    width: 350px;
+    height: 45px;
+    font-weight: bold;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+     border: none;
+     border-radius: 8px 0px 0px 8px;
+}
+
+.settings li button i {
+    font-weight: 400;
+    font-size: 23px;
+    margin-right: 10px ;
+    margin-left: 10px;
+}
+
+
+.settings li button:hover{
+    
+    box-shadow: rgba(173, 170, 170, 0.5) 0px 20px 25px -5px, rgba(255, 251, 251, 0) 0px 10px 10px -5px;;
+    transform: scale(1.03);
+}
+
+.settings li button::after{
+    content: "";
+    display: block;
+    background-color: rgb(22, 126, 196);
+    left: 100%;
+    right:0;
+    width: 3px;
+    height: 97%;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+}

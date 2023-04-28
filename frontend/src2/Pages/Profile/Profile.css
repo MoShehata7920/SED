@@ -1,0 +1,80 @@
+a{
+    text-decoration: none;
+    color:#141e30;
+
+}
+a i{
+    color: rgb(0, 0, 0);
+    margin-right: 10px;
+}
+.content{
+    display: flex;
+    background-color:;
+}
+
+.Sidebar-items{
+    width: 250px;
+    margin: 0%;
+    padding: 0%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    box-shadow: rgba(2, 2, 2, 0.3) 10px 0px 25px -5px, rgba(0, 0, 0, 0.1) 0px 10px 10px -5px;;
+
+}
+.side-img  img{
+    width: 90px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left:27%;
+}
+
+.list{
+    margin-top: 20px;
+    list-style: none;
+    padding: 0px;
+   
+}
+.list li {
+    margin-top: 30px;
+    padding: 5px;
+    
+}
+.list li span{
+    margin-right: 10px;
+}
+
+.list li button{
+    width: 200px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+    font-weight: bold;
+    height: 40px;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 20px 25px -5px, rgba(255, 255, 255, 0.2) 0px 10px 10px -5px;;
+    background-color: rgb(255, 255, 255);
+}
+.list li button:hover{
+
+    box-shadow: rgba(245, 241, 241, 0.5) 0px 20px 25px -5px, rgba(255, 251, 251, 0) 0px 10px 10px -5px;;
+    transform: scaleX(1.05);
+    text-decoration: #141e30;
+  
+}
+
+.list li button::after{
+    content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 100%;
+    width: 2px;
+    height: 90%;
+    background-color: rgb(31, 76, 221);
+    top: 0;
+    bottom: 0;
+
+}
+
+
+
+
