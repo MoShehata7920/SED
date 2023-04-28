@@ -47,6 +47,7 @@ const authRoute=require('./api/routes/auth')
 const homeRoute=require('./api/routes/home')
 const chatRouter=require('./api/routes/chat');
 const searchRouter=require('./api/routes/search');
+const notificationRouter=require('./api/routes/notification');
 
 
 //forwarding routes
@@ -56,6 +57,7 @@ app.use('/auth',authRoute)
 app.use('/home',homeRoute)
 app.use('/chat', chatRouter);
 app.use('/search',searchRouter);
+app.use('/fcm',notificationRouter);
 
 app.get('',(req,res)=>{
     res.send('Hello Eagles <3 ')

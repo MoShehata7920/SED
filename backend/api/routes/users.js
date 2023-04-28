@@ -3,9 +3,24 @@ const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
 const userController = require('../controllers/userController')
 const authController = require('../controllers/auth')
 
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './SEDimages/user-profile')
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toDateString() + process.env.SPLIT_KEY + file.originalname)
+    }
+})
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    }
+})
 
 //updating user info
-router.patch("/update/:userId", verifyToken, userController.updateUser)
+router.patch("/update/:userId", verifyToken,upload.single('userImage'), userController.updateUser)
 
 //deleting user by it's Id
 router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)

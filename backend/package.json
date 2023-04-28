@@ -27,6 +27,8 @@
     "elasticsearch": "^16.7.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.3",
+    "firebase": "^9.21.0",
+    "firebase-admin": "^11.7.0",
     "hbs": "^4.2.0",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",

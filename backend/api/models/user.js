@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema({
         match: /^([a-zA-Z ]){4,30}$/             // Full Name Validation aA to zZ and between 2 and 30 char
     },
 
+    userImage:{
+        type:String,
+    },
+
     password: {
         type: String,
     },
