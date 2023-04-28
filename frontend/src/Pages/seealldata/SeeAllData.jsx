@@ -8,14 +8,15 @@ import Paginate from "../../Component/pagination/Paginate";
 import "./seealldata.css";
 
 export default function SeeAllData() {
-  let { pageNum, SeeData } = useParams();
+  let { SeeData } = useParams();
   let [totalpageNum, settotalpageNum] = useState(1);
   let [currentpageNum, setcurrentpageNum] = useState(1);
-  console.log(currentpageNum);
   let [isPending, setIsPending] = useState(false);
   let [error, setError] = useState(null);
   let [AllData, setAllData] = useState([]);
   let [category, setcategory] = useState("all");
+  let [sort, setsort] = useState("");
+  console.log(sort);
 
   const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   const GetseeallDeta = async () => {
@@ -24,7 +25,7 @@ export default function SeeAllData() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=${category}&page=${currentpageNum}`
+        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&page=${currentpageNum}`
       );
       setAllData(respond.data.items);
       settotalpageNum(respond.data.totalPageNumber);
@@ -38,7 +39,7 @@ export default function SeeAllData() {
   };
   useEffect(() => {
     GetseeallDeta();
-  }, [SeeData, currentpageNum, category]);
+  }, [SeeData, currentpageNum, category, sort]);
   return (
     <>
       <section>
@@ -90,19 +91,39 @@ export default function SeeAllData() {
                         aria-labelledby="dropdownMenuButton1"
                       >
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Action
-                          </a>
+                          <Link
+                            onClick={() => {
+                              setsort("");
+                            }}
+                            className="dropdown-item"
+                          >
+                            Default
+                          </Link>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Another action
-                          </a>
+                          <Link
+                            onClick={() => {
+                              setsort("-price");
+                            }}
+                            className="dropdown-item"
+                          >
+                            High price
+                          </Link>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
+                          <Link
+                            onClick={() => {
+                              setsort("price");
+                            }}
+                            className="dropdown-item"
+                          >
+                            Low price
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" href="#">
                             Something else here
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>
