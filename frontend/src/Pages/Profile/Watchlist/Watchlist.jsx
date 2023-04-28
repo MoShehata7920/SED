@@ -1,19 +1,10 @@
-import"./Watchlist.css";
+import "./Watchlist.css";
 import React from "react";
 
-
-function Watchlist(){
-    return(
-
+export default function Watchlist() {
+  return (
     <>
-            <div  className="user">
-                
-            </div>
-
+      <div className="user"></div>
     </>
-
-    )}
-
-export default Watchlist;    
-
-    
+  );
+}
