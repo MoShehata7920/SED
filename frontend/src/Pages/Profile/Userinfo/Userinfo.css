@@ -1,0 +1,91 @@
+
+.userinfo{
+    margin-top: 30px;
+    margin-left: 190px;
+    width:1000px;
+    height: 650px;
+    border-radius: 10px;
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
+}
+.presonalinfo{
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    display: flex;
+    align-items: center;
+    width: 800px;
+    height: 170px;
+    margin-left: 90px;
+    border-radius: 10px;
+    padding-left: 10px;
+
+}
+.presonalinfo button {
+    margin-left: 250px;
+    margin-bottom: 50px;
+    font-size: 17px;
+    color: #AA8B56;
+
+}
+.presonalinfo button i{
+    color: #AA8B56;
+
+}
+
+.photo{
+    display: flex;
+    flex-direction: column;
+}
+.photo img{
+    width: 130px;
+    border-radius: 50%;
+}
+
+.pio{
+    margin-left: 20px;
+    line-height: 10px;
+}
+
+.pio h6{
+    vertical-align: middle;
+    font-size: 22px;
+    font-weight: bold;
+
+}
+.pio p{
+  
+    font-size: 18px;
+
+}
+.pio p i{
+    vertical-align: middle;
+    font-size: 14px;
+}
+.forminfo{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+
+}
+
+.Maininfo{
+    
+    margin-right: 30px;
+
+}
+.secondinfo{
+    
+    margin-right: 20px;
+
+}
+.secondinfo button{
+    
+margin-top: 5px;
+color: #395144;
+}
+.change{
+    display: flex;
+    justify-content: space-around;
+
+}
+.change btn {
+    margin-right: 10px;
+}

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className=" h-auto footer-div mt-5">
+    <footer className=" h-auto footer-div ">
       <div className="container">
         <div className="row">
           <div className="col-6">

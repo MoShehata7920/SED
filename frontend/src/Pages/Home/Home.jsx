@@ -12,12 +12,12 @@ import Footer from "../../Component/footer/Footer";
 import ExchangeSlider from "../../Component/exchange_slider/exchange_slider";
 import SellSlider from "../../Component/sell_slider/sell_slider";
 import DonateSlider from "../../Component/donate_slider/donate_slider";
-
 export default function Home() {
-  let [DetaAll, setDetaAll] = useState([]);
+  let [carousel, setcarousel] = useState([]);
   let [Detasell, setDetasell] = useState([]);
   let [Detadonat, setDetadonat] = useState([]);
   let [Detaexchange, setDetaexchange] = useState([]);
+  let [categories, setcategories] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const GetDeta = async () => {
@@ -41,10 +41,11 @@ export default function Home() {
       //   console.log(respond.data.items);
       // }
 
-      setDetaAll(respond.data.carousel.Images);
+      setcarousel(respond.data.carousel.Images);
       setDetasell(respond.data.sellItems);
       setDetadonat(respond.data.donateItems);
       setDetaexchange(respond.data.exchangeItems);
+      setcategories(respond.data.categories);
       setIsPending(false);
       //setError(null);
     } catch (err) {
@@ -91,7 +92,7 @@ export default function Home() {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            {DetaAll.map((carous, carousindex) => (
+            {carousel.map((carous, carousindex) => (
               <SwiperSlide key={carousindex}>
                 <div className="item">
                   <img className="" src={carous} alt="" />
@@ -103,76 +104,60 @@ export default function Home() {
       </section>
       <section>
         <div className="row">
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link
-              to={`/Categories/Electronics`}
-              className="  text-decoration-none"
-            >
-              <div className="catogiry-div  position-relative  ">
-                <div className=" position-absolute h-100 w-100">
-                  <img
-                    className="catogiry-img w-100 h-100"
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-Phones_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text  w-100 text-center">
-                  <h4 className=" pb-3 ">Electronics</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12">
-            <Link to={`/Categories/Fashion`} className=" text-decoration-none">
-              <div className="catogiry-div  position-relative ">
-                <div className=" position-absolute w-100 h-100">
-                  <img
-                    className="catogiry-img w-100 h-100 "
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-homeentertainment_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Fashion</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link
-              to={`/Categories/Phones&Tablets`}
-              className="  text-decoration-none"
-            >
-              <div className="catogiry-div  position-relative   ">
-                <div className=" position-absolute w-100 h-100">
-                  <img
-                    className="catogiry-img w-100 h-100 "
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-SA_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Phones & Tablets</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={`/Categories/Books`} className="  text-decoration-none  ">
-              <div className="catogiry-div  position-relative d-flex justify-content-center">
-                <div className=" position-absolute w-100 h-100">
-                  <img
-                    className="catogiry-img w-100 h-100"
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-Computers_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ms-3 ">Books</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
+          <Swiper
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className=" mySwiper"
+            slidesPerView={6}
+            spaceBetween={20}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              400: {
+                slidesPerView: 2,
+              },
+              639: {
+                slidesPerView: 2,
+              },
+              865: {
+                slidesPerView: 3,
+              },
+              1000: {
+                slidesPerView: 4,
+              },
+              1500: {
+                slidesPerView: 5,
+              },
+              1700: {
+                slidesPerView: 7,
+              },
+            }}
+          >
+            {categories.map((category, categoryindex) => (
+              <SwiperSlide key={categoryindex} className="mb-3">
+                <Link
+                  to={`/Categories/${category.name}`}
+                  className="  text-decoration-none"
+                >
+                  <div className="catogiry-div  position-relative  ">
+                    <div className=" position-absolute h-100 w-100">
+                      <img
+                        className="catogiry-img w-100 h-100"
+                        src={category.image}
+                        alt=""
+                      />
+                    </div>
+                    <div className=" catogiry-text  w-100 text-center text-black">
+                      <h4 className=" pb-3 ">{category.name}</h4>
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
       <section>
@@ -185,80 +170,6 @@ export default function Home() {
                 alt=""
               />
             </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="row ">
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link
-              to={`/Categories/Furniture`}
-              className="  text-decoration-none"
-            >
-              <div className="catogiry-div  position-relative  ">
-                <div className=" position-absolute h-100 w-100">
-                  <img
-                    className="catogiry-img w-100 h-100"
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-LA_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text  w-100 text-center">
-                  <h4 className=" pb-3 ">Furniture</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12">
-            <Link to={"a"} className=" text-decoration-none">
-              <div className="catogiry-div  position-relative ">
-                <div className=" position-absolute w-100 h-100">
-                  <img
-                    className="catogiry-img w-100 h-100 "
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-Personalcare_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Body & Health Care</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link to={"a"} className="  text-decoration-none">
-              <div className="catogiry-div  position-relative   ">
-                <div className=" position-absolute w-100 h-100">
-                  <img
-                    className="catogiry-img w-100 h-100"
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan2023-homepage-Gaming_2?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ">Gaming</h4>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-md-6 col-sm-12  col-12 ">
-            <Link
-              to={`/Categories/Sports`}
-              className="  text-decoration-none  "
-            >
-              <div className="catogiry-div  position-relative d-flex justify-content-center">
-                <div className=" position-absolute w-100 h-100">
-                  <img
-                    className="catogiry-img w-100 h-100"
-                    src="https://cdn.media.amplience.net/i/xcite/Ramadan-category-ACs?img404=default&w=1080&qlt=75&fmt=auto"
-                    alt=""
-                  />
-                </div>
-                <div className=" catogiry-text text-white  w-100 text-center">
-                  <h4 className=" pb-3 ms-3 ">Sports</h4>
-                </div>
-              </div>
-            </Link>
           </div>
         </div>
       </section>
@@ -278,16 +189,16 @@ export default function Home() {
               slidesPerView: 2,
             },
             639: {
-              slidesPerView: 3,
+              slidesPerView: 2,
             },
             865: {
-              slidesPerView: 4,
+              slidesPerView: 3,
             },
             1000: {
-              slidesPerView: 5,
+              slidesPerView: 4,
             },
             1500: {
-              slidesPerView: 6,
+              slidesPerView: 5,
             },
             1700: {
               slidesPerView: 7,
@@ -326,16 +237,16 @@ export default function Home() {
               slidesPerView: 2,
             },
             639: {
-              slidesPerView: 3,
+              slidesPerView: 2,
             },
             865: {
-              slidesPerView: 4,
+              slidesPerView: 3,
             },
             1000: {
-              slidesPerView: 5,
+              slidesPerView: 4,
             },
             1500: {
-              slidesPerView: 6,
+              slidesPerView: 5,
             },
             1700: {
               slidesPerView: 7,
@@ -371,7 +282,7 @@ export default function Home() {
           ))}
         </OwlCarousel>
       </section> */}
-      <section className="pt-5  ">
+      <section className="pt-5 pb-5  ">
         <Swiper
           pagination={{
             clickable: true,
@@ -387,16 +298,16 @@ export default function Home() {
               slidesPerView: 2,
             },
             639: {
-              slidesPerView: 3,
+              slidesPerView: 2,
             },
             865: {
-              slidesPerView: 4,
+              slidesPerView: 3,
             },
             1000: {
-              slidesPerView: 5,
+              slidesPerView: 4,
             },
             1500: {
-              slidesPerView: 6,
+              slidesPerView: 5,
             },
             1700: {
               slidesPerView: 7,

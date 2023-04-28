@@ -13,13 +13,16 @@ const verifyToken=(req,res,next)=>{
         })
     } catch (error) {
         console.log(error);
-        res.status(500).json({message:"Error Authentication Failed"})
+        res.status(500).json({status:0,message:"Error Authentication Failed"})
     }
 };
 
 const verifyTokenWithReturn=(header)=>{
         const token=header.split(' ')
         const checker=jwt.verify(token[1] , process.env.SECRET_KEY , (err,decoded)=>{
+            if(err){
+                console.log(err);
+            }
             return decoded
         })
         return checker
@@ -30,7 +33,7 @@ const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the on
         if(req.user.isAdmin){
             next()
         }else{
-            res.status(403).json({message:'You Are Not Allowed to do that'})
+            res.status(403).json({status:0,message:'You Are Not Allowed to do that'})
         }
     })
 };
@@ -40,7 +43,7 @@ const verifyTokenAndAuthorization=(req,res,next)=>{
         if(req.params.id==req.user.id || req.user.isAdmin){   // checks if the same user editing his self or an admin
             next()
         }else{
-            res.status(500).json('You are not authorized')
+            res.status(500).json({status:0,message:'You are not authorized'})
         }
     })
 };

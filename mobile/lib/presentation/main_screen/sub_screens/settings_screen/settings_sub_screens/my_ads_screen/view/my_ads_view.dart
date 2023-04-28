@@ -197,7 +197,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                               ),
                               // Spacer(),
                               Text(
-                                item.date,
+                                Utils.getCreatedTime(item.date),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -222,9 +222,12 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
                             size: AppSize.s20,
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, Routes.addProductScreenRoute,
-                                arguments: [Utils.categories.indexWhere((element) => element.name == item.category), item]);
+                            Navigator.pushNamed(context,
+                                Routes.addProductScreenRoute, arguments: [
+                              Utils.categories.indexWhere(
+                                  (element) => element.name == item.category),
+                              item
+                            ]);
                           },
                         ),
                         IconButton(
