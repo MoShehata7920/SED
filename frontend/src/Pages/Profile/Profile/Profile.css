@@ -1,0 +1,19 @@
+.sidebar-item a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+
+.profile-sidebar ul{
+    padding: 0px;
+    margin-top: 30PX;
+    list-style: none;
+    
+}
+.profile-sidebar ul li {
+    margin-top: 30px;
+    font-weight: bold;
+    
+}
+
+

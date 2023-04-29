@@ -77,17 +77,24 @@ exports.getSingleUser = async(req, res) => {
 // (2) updating single user
 exports.updateUser = async (req, res) => {
   try {
-    if (req.user.id === req.params.userId || req.user.isAdmin){
-      const updated=await User.findByIdAndUpdate(req.params.userId, { $set: req.body }, { new: true })
-      res.status(200).json({status:0,updated})
-    }else{
-      res.status(200).json({status:0,message:'Not Authorized '})
+    if (req.user.id === req.params.userId || req.user.isAdmin) {
+      if (req.file) {
+        req.body.userImage = `http://103.48.193.225:3000/${req.file.path}`;
+      }
+      const updated = await User.findByIdAndUpdate(
+        req.params.userId,
+        { $set: req.body },
+        { new: true }
+      );
+      res.status(200).json({ status: 0, updated });
+    } else {
+      res.status(200).json({ status: 0, message: "Not Authorized " });
     }
   } catch (err) {
-    res.status(500).json({status: 1 , err});
-    
+    res.status(500).json({ status: 1, err });
   }
-}
+};
+
 
 // (3) deleting single user
 exports.deleteUser = (req, res) => {

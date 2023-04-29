@@ -1,11 +1,17 @@
 import "./navbar.css";
 import { CiUser } from "react-icons/ci";
+import { BiLogIn } from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
   const [error, setError] = useState(null);
+  const storedToken = localStorage.getItem("usertoken");
+  function logout() {
+    localStorage.removeItem("usertoken");
+  }
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -188,17 +194,41 @@ function Navebar() {
                 </button>
               </div>
             </form>
-
-            <ul className="navbar-nav ">
-              <li className="nav-item">
-                <Link
-                  to={"SignIn"}
-                  className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
-                >
-                  <CiUser />
-                </Link>
-              </li>
-            </ul>
+            {storedToken ? (
+              <ul className="navbar-nav ">
+                <li className="nav-item">
+                  <Link
+                    to={"SignIn"}
+                    className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
+                  >
+                    <CiUser />
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    onClick={() => {
+                      logout();
+                      window.location.reload();
+                    }}
+                    to={"/"}
+                    className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
+                  >
+                    <BiLogOut />
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="navbar-nav ">
+                <li className="nav-item">
+                  <Link
+                    to={"SignIn"}
+                    className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
+                  >
+                    <BiLogIn />
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>

@@ -72,7 +72,7 @@ exports.loginController = (req, res) => {
     }
     User.findOne({ $or: [{ email: loginOption }, { 'personalInfo.phone': loginOption }] }).exec().then(user => {
         if (!user) {                                                                                             //if email not found 
-            return res.status(200).json({ status: 0, message: 'This Email Not exist , Please Register First' })
+            return res.status(500).json({ status: 0, message: 'This Email Not exist , Please Register First' })
         }
         bcrypt.compare(req.body.password, user.password, (err, result) => {                                           //if found 
             if (err) {                                                                                                    // if server crashed
@@ -92,7 +92,7 @@ exports.loginController = (req, res) => {
                 )
                 return res.status(200).json({ status: 0, message: `welcome back ${user.fullName}!`, token: token })
             }
-            res.status(200).json({status:0, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
+            res.status(500).json({status:0, message:'Wrong password. Try again or click Forgot password to reset it.'})                     //wrong password
         })
     }).catch(err => {
         console.log(err);

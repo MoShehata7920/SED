@@ -10,6 +10,7 @@ const hbs = require('hbs');
 const createError = require('http-errors');
 
 
+
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
@@ -44,7 +45,9 @@ const usersRoute=require('./api/routes/users')
 const productsRoute=require('./api/routes/products')
 const authRoute=require('./api/routes/auth')     
 const homeRoute=require('./api/routes/home')
-var chatRouter=require('./api/routes/chat');
+const chatRouter=require('./api/routes/chat');
+const searchRouter=require('./api/routes/search');
+const notificationRouter=require('./api/routes/notification');
 
 
 //forwarding routes
@@ -53,6 +56,8 @@ app.use('/products',productsRoute)
 app.use('/auth',authRoute)                    
 app.use('/home',homeRoute)
 app.use('/chat', chatRouter);
+app.use('/search',searchRouter);
+app.use('/fcm',notificationRouter);
 
 app.get('',(req,res)=>{
     res.send('Hello Eagles <3 ')
