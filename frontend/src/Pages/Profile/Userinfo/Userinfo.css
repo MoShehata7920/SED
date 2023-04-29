@@ -1,91 +1,43 @@
 
-.userinfo{
-    margin-top: 30px;
-    margin-left: 190px;
-    width:1000px;
-    height: 650px;
-    border-radius: 10px;
-     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
-}
-.presonalinfo{
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    display: flex;
-    align-items: center;
-    width: 800px;
-    height: 170px;
-    margin-left: 90px;
-    border-radius: 10px;
-    padding-left: 10px;
+.user-info h6::after{
+    content: "";
+    display: block;
+    position:relative;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: rgb(0, 0, 0);
+    top: 25%;
+    bottom: 0;
+    margin-bottom: 0;
 
-}
-.presonalinfo button {
-    margin-left: 250px;
-    margin-bottom: 50px;
-    font-size: 17px;
-    color: #AA8B56;
-
-}
-.presonalinfo button i{
-    color: #AA8B56;
-
-}
-
-.photo{
-    display: flex;
-    flex-direction: column;
-}
-.photo img{
-    width: 130px;
-    border-radius: 50%;
-}
-
-.pio{
-    margin-left: 20px;
-    line-height: 10px;
-}
-
-.pio h6{
-    vertical-align: middle;
-    font-size: 22px;
-    font-weight: bold;
-
-}
-.pio p{
-  
-    font-size: 18px;
-
-}
-.pio p i{
-    vertical-align: middle;
-    font-size: 14px;
-}
-.forminfo{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 40px;
-
-}
-
-.Maininfo{
     
-    margin-right: 30px;
+}
+
+.user-info h6{
+background-color: rgb(255, 255, 255);
+padding-bottom: 0;
+}
+
+.user-info h5{
+    padding-bottom: 0;
+   
+}
+
+
+.user-info h5 ::after{
+    content: "";
+    display: block;
+    position:relative;
+    right: 100%;
+    left: 0;
+    width: 2px;
+    height: 90%;
+    background-color: rgb(0, 0, 0);
+    top: -100%;
+    bottom: 0;
+
 
 }
-.secondinfo{
-    
-    margin-right: 20px;
 
-}
-.secondinfo button{
-    
-margin-top: 5px;
-color: #395144;
-}
-.change{
-    display: flex;
-    justify-content: space-around;
-
-}
-.change btn {
-    margin-right: 10px;
-}

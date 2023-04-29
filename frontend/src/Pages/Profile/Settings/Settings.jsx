@@ -1,172 +1,26 @@
 import "./Settings.css";
 import React from "react";
-import {
-  BiBell,
-  BiPalette,
-  BiWorld,
-  BiSupport,
-  BiUserCircle,
-  BiShareAlt,
-  BiCloset,
-} from "react-icons/bi";
-import { FiInfo } from "react-icons/fi";
-import { Link } from "react-router-dom";
+
 export default function Settings() {
   return (
     <>
-      <section className=" bg-dark ">
-        <div className=" container">
-          <div className="row">
-            <div className="col-xl-6 col-lg-12 settings">
-              {" "}
-              <ul>
-                <li>
-                  <button>
-                    <Link to={"/Profile/settings/myaccount"}>
-                      <i>{<BiUserCircle />}</i> My Account{" "}
-                    </Link>{" "}
-                  </button>
-                </li>
-                <li>
-                  <button>
-                    <Link to={""}>
-                      <i>{<BiCloset />}</i> My Adds{" "}
-                    </Link>
-                  </button>
-                </li>
-                <li>
-                  <button>
-                    <Link>
-                      <i>{<BiWorld />}</i> Languages
-                    </Link>{" "}
-                  </button>
-                </li>
-                <li>
-                  <button>
-                    <Link to={""}>
-                      {" "}
-                      <i>{<BiPalette />}</i>Themes
-                    </Link>{" "}
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="col-xl-6 col-lg-12 settings">
-              <ul>
-                <li>
-                  <button>
-                    {" "}
-                    <Link to={""}>
-                      {" "}
-                      <i>{<BiBell />}</i> Notification
-                    </Link>{" "}
-                  </button>
-                </li>
-                <li>
-                  <button>
-                    <Link to={""}>
-                      {" "}
-                      <i>{<BiShareAlt />}</i> Share
-                    </Link>
-                  </button>
-                </li>
-                <li>
-                  <button>
-                    <Link to={""}>
-                      {" "}
-                      <i>{<BiSupport />}</i>Help
-                    </Link>{" "}
-                  </button>
-                </li>
-                <li>
-                  <button>
-                    {" "}
-                    <Link to={""}>
-                      {" "}
-                      <i>{<FiInfo />}</i>About us{" "}
-                    </Link>
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <div className="container py-3 text-center">
+      <div className="row justify-content-center text-center ">
+        <div className="col-lg-5">
+            <div class="list-group py-5 mt-1 setting-list">
+                  <button type="button" class="list-group-item list-group-item-action  ">  My Account </button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 ">My Adds </button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 ">Langages</button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 ">Themes</button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 " >Notification</button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 " >Share</button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 " >Help</button>
+                  <button type="button" class="list-group-item list-group-item-action  mt-3 " >About us</button>
+            </div>                      
         </div>
-      </section>
-      {/* <div className="settings-cointener">
-        <div className="settings">
-          <div>
-            <ul>
-              <li>
-                <button>
-                  <Link to={"/Profile/settings/myaccount"}>
-                    <i>{<BiUserCircle />}</i> My Account{" "}
-                  </Link>{" "}
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Link to={""}>
-                    <i>{<BiCloset />}</i> My Adds{" "}
-                  </Link>
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Link>
-                    <i>{<BiWorld />}</i> Languages
-                  </Link>{" "}
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Link to={""}>
-                    {" "}
-                    <i>{<BiPalette />}</i>Themes
-                  </Link>{" "}
-                </button>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <ul>
-              <li>
-                <button>
-                  {" "}
-                  <Link to={""}>
-                    {" "}
-                    <i>{<BiBell />}</i> Notification
-                  </Link>{" "}
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Link to={""}>
-                    {" "}
-                    <i>{<BiShareAlt />}</i> Share
-                  </Link>
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Link to={""}>
-                    {" "}
-                    <i>{<BiSupport />}</i>Help
-                  </Link>{" "}
-                </button>
-              </li>
-              <li>
-                <button>
-                  {" "}
-                  <Link to={""}>
-                    {" "}
-                    <i>{<FiInfo />}</i>About us{" "}
-                  </Link>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div> */}
+      </div>
+    </div>
+     
     </>
   );
 }
