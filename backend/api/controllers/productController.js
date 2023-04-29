@@ -13,7 +13,7 @@ exports.createProduct = (req, res) => {
         purpose: req.body.purpose,
         quantity: req.body.quantity,
         // productImage: `localhost:3000/${req.file.path}` ,
-        productImage: `http://103.48.193.225:3000/${req.file.path}` ||`http://103.48.193.225:3000/${req.File.name}` ,
+        productImage: `http://103.48.193.225:3000/${req.file.path}` || `http://103.48.193.225:3000/${req.File.name}` ,
         condition:req.body.condition,
         price: req.body.price,
         seller: req.user.id
