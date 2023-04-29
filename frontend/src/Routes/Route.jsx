@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import AddItem from "../Pages/additems/AddItem";
 import Categories from "../Pages/categories/categories";
 import Dataitems from "../Pages/dataitems/dataitems";
 import Forgetpass from "../Pages/Forgetpassword/Forgetpass";
@@ -56,8 +57,9 @@ function MainRoutes() {
         </Route>
         <Route path="/items/:id" element={<Dataitems />} />
         <Route path="/Categories/:CategorieType" element={<Categories />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="SeeAllData/:SeeData" element={<SeeAllData />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/SeeAllData/:SeeData" element={<SeeAllData />} />
+        <Route path="/AddItems" element={<AddItem />} />
       </Routes>
     </>
   );
