@@ -43,10 +43,7 @@ function MainRoutes() {
           <Route path="/Profile/watchlist" element={<Watchlist />}></Route>
           <Route path="/Profile/myorders" element={<Order />}></Route>
           <Route path="/Profile/settings" element={<Settings />}></Route>
-          <Route
-            path="/Profile/settings/myaccount"
-            element={<MyAccount />}
-          ></Route>
+          <Route path="/Profile/settings/myaccount"element={<MyAccount />}></Route>
           <Route path="/Profile/settings/myadds" element=""></Route>
           <Route path="/Profile/settings/langages" element=""></Route>
           <Route path="/Profile/settings/themes" element=""></Route>
