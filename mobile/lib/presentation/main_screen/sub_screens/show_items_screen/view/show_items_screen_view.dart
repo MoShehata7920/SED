@@ -28,6 +28,7 @@ class ShowItemsView extends StatefulWidget {
 class _ShowItemsViewState extends State<ShowItemsView> {
   Views viewType;
   String categoryName;
+  String titleName = "";
   int pageId = 0;
   double currentIntent = 0;
   bool isLoading = false;
@@ -63,6 +64,12 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         }
       }
     });
+
+    if (viewType == Views.CATEGORY) {
+      titleName = categoryName;
+    } else {
+      titleName = viewType.getName();
+    }
   }
 
   @override
@@ -97,7 +104,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
         toolbarHeight: AppSize.s50,
         iconTheme: IconThemeData(color: ColorsManager.secondaryText),
         title: Text(
-          categoryName,
+          titleName,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.secondaryText,
                 fontSize: AppSize.s30,
@@ -186,7 +193,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                       alignment: Alignment.topLeft,
                       child: IconButton(
                           onPressed: () {
-                            _viewModel.toggleSavingProduct(
+                            _viewModel.toggleSavingProduct(viewType,
                                 showItemsContentObject.items[index].id);
 
                             // if (viewType == Views.SAVED) {

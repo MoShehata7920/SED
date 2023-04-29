@@ -1,10 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import '../../../../../../../app/app_preferences.dart';
+import '../../../../../../../app/di.dart';
 import '../../../../../../resources/values_manager.dart';
 
 class MyAccountScreenView extends StatefulWidget {
@@ -20,6 +24,10 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
   TextEditingController _dobController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
+  String? selectedCity;
 
   @override
   void initState() {
@@ -44,12 +52,12 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.background,
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
-        backgroundColor: ColorsManager.background,
+        backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
         iconTheme: IconThemeData(color: ColorsManager.secondaryText),
-        title: Text('My Account',
+        title: Text(AppStrings.myAccount.tr(),
             style: TextStyle(color: ColorsManager.secondaryText)),
       ),
       body: SingleChildScrollView(
@@ -112,11 +120,34 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                 ),
               ),
               const SizedBox(height: AppSize.s8),
+              DropdownButtonFormField<String>(
+                value: selectedCity,
+                decoration: InputDecoration(
+                  labelText: AppStrings.selectGovernment.tr(),
+                ),
+                dropdownColor: ColorsManager.primaryBackground,
+                items: AppStrings.governments.map((String government) {
+                  return DropdownMenuItem<String>(
+                    value: government,
+                    child: Text(government),
+                  );
+                }).toList(),
+                onChanged: (String? selected) {
+                  setState(() {
+                    selectedCity = selected;
+                  });
+                },
+              ),
+              const SizedBox(height: AppSize.s8),
               TextField(
                 controller: _addressController,
                 decoration: InputDecoration(
                   labelText: AppStrings.address.tr(),
                 ),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(25),
+                ],
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
               ),
               const SizedBox(height: AppSize.s8),
               GestureDetector(
@@ -193,7 +224,13 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                        _appPreferences.setUserLoggedInSuccessfully(false);
+                        Navigator.of(context)
+                            .pushReplacementNamed(Routes.loginRoute);
+                      });
+                    },
                     child: Text(AppStrings.logOut.tr()),
                   ),
                   TextButton(

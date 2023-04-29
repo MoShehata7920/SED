@@ -2,8 +2,6 @@
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-import '../domain/model/models.dart';
-
 class Constants {
   //dio constants
   static const String baseUrl = "http://103.48.193.225:3000";

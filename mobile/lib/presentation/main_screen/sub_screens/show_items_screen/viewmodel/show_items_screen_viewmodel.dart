@@ -82,12 +82,15 @@ class ShowItemsViewModel extends BaseViewModel
   }
 
   @override
-  void toggleSavingProduct(String productId) async {
+  void toggleSavingProduct(Views viewType, String productId) async {
     var product = items.firstWhere((element) => element.id == productId);
-
     int index = items.indexOf(product);
 
-    items.remove(product);
+    if (viewType == Views.SAVED) {
+      items.remove(product);
+    } else {
+      product.isSaved = !product.isSaved;
+    }
 
     contentInput.add(ShowItemsContentObject(items));
 
@@ -96,7 +99,7 @@ class ShowItemsViewModel extends BaseViewModel
 
     response.fold(
         (failure) => {
-              items.insert(index, product),
+              if (viewType == Views.SAVED) items.insert(index, product),
               contentInput.add(ShowItemsContentObject(items))
             },
         (response) {});
@@ -110,11 +113,11 @@ class ShowItemsViewModel extends BaseViewModel
     var purposeName = "all";
 
     if (viewType == Views.CATEGORY) {
-      categoryName = viewType.getName(categoryId: 1);
+      categoryName = categoryName;
     } else {
       purposeName = viewType.getName();
     }
-
+    
     var response = await _showItemsUseCase.execute(ShowItemsUseCaseInputs(
         category: categoryName, purpose: purposeName, page: pageId));
 
@@ -154,7 +157,7 @@ abstract class ShowItemsViewModelInputs {
 
   void getMoreItems(Views viewType, String categoryName, int pageId);
 
-  void toggleSavingProduct(String productId);
+  void toggleSavingProduct(Views viewType, String productId);
 
   Sink get contentInput;
 }
