@@ -19,14 +19,10 @@ function Profile() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-auto min-vh-100 bg-dark   profile-sidebar">
-            <ul className="">
-              <li className="sidebar-item">
-                <a href="{}">
-                  <i>{<BsPerson />}</i>{" "}
-                  <span className="ms-1 d-none d-sm-inline"> img </span>
-                </a>
-              </li>
-              <li className="sidebar-item">
+            <ul className="py-5">
+            
+             
+              <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={"/Profile/userinfo"}>
                     <i>{<BsPerson />}</i>{" "}
@@ -34,7 +30,7 @@ function Profile() {
                   </Link>
                 </a>
               </li>
-              <li className="sidebar-item">
+              <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={"/profile/favourit"}>
                     <i>{<BsHeart />}</i>{" "}
@@ -42,7 +38,7 @@ function Profile() {
                   </Link>
                 </a>
               </li>
-              <li className="sidebar-item">
+              <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={"/profile/watchlist"}>
                     <i>{<BsBookmarkHeart />}</i>{" "}
@@ -50,7 +46,7 @@ function Profile() {
                   </Link>
                 </a>
               </li>
-              <li className="sidebar-item">
+              <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={"/profile/myorders"}>
                     <i>{<BsListCheck />}</i>{" "}
@@ -58,7 +54,7 @@ function Profile() {
                   </Link>
                 </a>
               </li>
-              <li className="sidebar-item">
+              <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={"/profile/settings"}>
                     <i>{<BsGearWideConnected />}</i>{" "}
@@ -66,7 +62,7 @@ function Profile() {
                   </Link>
                 </a>
               </li>
-              <li className="sidebar-item">
+              <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={""}>
                     <i>{<BsBoxArrowLeft />}</i>{" "}

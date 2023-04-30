@@ -1,114 +1,72 @@
 import React from "react";
 import "./MyAccount.css";
 import "./user.png";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { BsPencil } from "react-icons/bs";
+
 
 function MyAccount() {
   return (
     <>
-      <div className="userinfo">
-        <div className="presonalinfo">
-          <div className="photo">
-            <img src={require("./user.png")} alt="" />
+    <div className="container d-flex justify-content-center ">
+      <div className="row justify-content-center mt-5   border border-dark w-75 ">
+        <div className="col-10">
+          <div className="row">
+
           </div>
-          <div className="pio">
-            <h6>Mohamed Adel</h6>
-            <p>
-              <i>
-                <FaMapMarkerAlt />
-              </i>{" "}
-              Tanta,Gharbiya
-            </p>
+          <div className="row d-flex ">
+            <div className="col-5 m-3">
+        
+            <div class="mb-3">
+                <label  class="form-label">user name </label>
+                <input type="text" class="form-control"  aria-describedby="emailHelp"></input>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email </label>
+                <input type="email" class="form-control" ></input>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" ></input>
+              </div>
+            </div>
+            <div className="col-5 m-3">
+
+              
+            <div class="mb-3">
+                <label  class="form-label">Location </label>
+                <input type="text" class="form-control" ></input>
+              </div>
+
+              <div class="mb-3 ">
+              
+                
+              </div>
+
+              <div class="mb-3">
+                <label  class="form-label">date of birth </label>
+                <input type="date" class="form-control" ></input>
+              </div>
+
+              <div class="mb-3">
+                <label  class="form-label">mobile number  </label>
+                <input type="text" class="form-control" ></input>
+              </div>
+              <div className="mb-3 d-flex justify-content-around ">
+                <button type="button" class="btn btn-primary btn-sm ">Save Changes </button>
+                <button type="button" class="btn btn-secondary btn-sm ">Cancel </button>
+              </div>
+
+            </div>
+        
           </div>
-          <div>
-            <button className="btn btn-light">
-              <i>
-                <BsPencil />
-              </i>{" "}
-              edite profile{" "}
-            </button>
-          </div>
+
         </div>
 
-        <div className="forminfo">
-          <div className="Maininfo">
-            <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
-                {" "}
-                User Name{" "}
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="user name"
-                readOnly
-              ></input>
-            </div>
-            <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
-                {" "}
-                Email address{" "}
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="name@example.com"
-              ></input>
-            </div>
-            <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
-                {" "}
-                Password{" "}
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="******"
-              ></input>
-            </div>
-          </div>
-          <div className="secondinfo">
-            <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
-                {" "}
-                Mobile Phone{" "}
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="+20"
-              ></input>
-            </div>
-            <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
-                {" "}
-                Location{" "}
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder=""
-              ></input>
-            </div>
-            <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
-                {" "}
-                Postal Code{" "}
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder=""
-              ></input>
-            </div>
-            <div className="change">
-              <button className="btn btn-light"> Save Changes </button>
-              <button className="btn btn-light"> Cancel </button>
-            </div>
-          </div>
-        </div>
       </div>
+
+    </div>
+    
     </>
   );
 }
