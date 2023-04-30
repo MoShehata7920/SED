@@ -16,23 +16,20 @@ export default function Home() {
   let [carousel, setcarousel] = useState([]);
   let [Detasell, setDetasell] = useState([]);
   let [Detadonat, setDetadonat] = useState([]);
+  let [Userdata, setUserdata] = useState([]);
   let [Detaexchange, setDetaexchange] = useState([]);
   let [categories, setcategories] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
+  const storedToken = localStorage.getItem("usertoken");
+  window.localStorage.setItem("UserData", JSON.stringify(Userdata));
+  console.log(Userdata);
   const GetDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
-      let respond = await Axios.get(
-        `http://103.48.193.225:3000/home`
-        // {
-        //   // headers: {
-        //   //   Authentication: `6ALOYOMR`,
-        //   // },
-        // }
-      );
+      let respond = await Axios.get(`http://103.48.193.225:3000/home`);
 
       setcarousel(respond.data.carousel.Images);
       setDetasell(respond.data.sellItems);
@@ -47,9 +44,28 @@ export default function Home() {
       console.log(err.message);
     }
   };
+  const GetUserDeta = async () => {
+    setError(null);
+    setIsPending(true);
 
+    try {
+      let User = await Axios.get(`http://103.48.193.225:3000/users/get`, {
+        headers: {
+          Authentication: `Bearer ${storedToken}`,
+        },
+      });
+      setUserdata(User.data);
+      setIsPending(false);
+      // setError(null);
+    } catch (err) {
+      setIsPending(false);
+      setError("could not fetch the data");
+      console.log(err.message);
+    }
+  };
   useEffect(() => {
     GetDeta();
+    GetUserDeta();
   }, []);
   return (
     <>

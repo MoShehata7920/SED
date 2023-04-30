@@ -11,6 +11,7 @@ function Navebar() {
   const storedToken = localStorage.getItem("usertoken");
   function logout() {
     localStorage.removeItem("usertoken");
+    localStorage.removeItem("UserData");
   }
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -198,7 +199,7 @@ function Navebar() {
               <ul className="navbar-nav ">
                 <li className="nav-item">
                   <Link
-                    to={"SignIn"}
+                    to={"/Profile"}
                     className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
                   >
                     <CiUser />
@@ -221,7 +222,7 @@ function Navebar() {
               <ul className="navbar-nav ">
                 <li className="nav-item">
                   <Link
-                    to={"SignIn"}
+                    to={"/SignIn"}
                     className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
                   >
                     <BiLogIn />

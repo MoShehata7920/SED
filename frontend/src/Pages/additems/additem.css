@@ -1,4 +1,4 @@
-*{  }
+
 .additembackground{
     background-color: rgb(248 248 248)
 }
@@ -9,4 +9,8 @@
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px #555454;
+}
+
+.additem_button{
+    width: 150px;
 }
