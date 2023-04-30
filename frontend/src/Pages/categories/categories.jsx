@@ -13,6 +13,7 @@ export default function Categories() {
   const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
+  let [sort, setsort] = useState("");
   let [Detcateg, setDetcateg] = useState([]);
   let [Service, setService] = useState("all");
   console.log(Detcateg);
@@ -26,7 +27,7 @@ export default function Categories() {
         CategorieType == "Phones & Tablets"
       ) {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Phones%26Tablets&page=${currentpageNum}`
+          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
@@ -35,13 +36,13 @@ export default function Categories() {
         CategorieType == "Body & Health Care"
       ) {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Body%26HealthCare&page=${currentpageNum}`
+          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
       } else {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=${CategorieType}&page=${currentpageNum}`
+          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
@@ -56,7 +57,7 @@ export default function Categories() {
   };
   useEffect(() => {
     GetCategDeta();
-  }, [CategorieType, currentpageNum, Service]);
+  }, [CategorieType, currentpageNum, Service, sort]);
   return (
     <>
       <section>
@@ -109,19 +110,34 @@ export default function Categories() {
                         aria-labelledby="dropdownMenuButton1"
                       >
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Action
-                          </a>
+                          <Link
+                            onClick={() => {
+                              setsort("");
+                            }}
+                            className="dropdown-item"
+                          >
+                            Default
+                          </Link>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Another action
-                          </a>
+                          <Link
+                            onClick={() => {
+                              setsort("-price");
+                            }}
+                            className="dropdown-item"
+                          >
+                            High price
+                          </Link>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Something else here
-                          </a>
+                          <Link
+                            onClick={() => {
+                              setsort("price");
+                            }}
+                            className="dropdown-item"
+                          >
+                            Low price
+                          </Link>
                         </li>
                       </ul>
                     </div>

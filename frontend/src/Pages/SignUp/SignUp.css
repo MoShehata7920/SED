@@ -1,27 +1,15 @@
-html {
-    height: 100%;
-  }
-  .backbody {
-    margin:0;
-    padding:0;
-    font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
-  }
+
   
-  .login-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 450px;
-    padding: 20px;
-    transform: translate(-50%, -50%);
+  .Login_parent {
+    
+
     background: rgba(0,0,0,.5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
   }
   
-  .login-box h2 {
+  .Login_parent h2 {
     margin: 0 0 60px;
     padding: 0;
     color: #fff;
@@ -31,43 +19,9 @@ html {
     font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
-  .login-box .user-box {
-    position: relative;
-    margin-top: 15px;
-  }
+ 
   
-  .login-box .user-box input {
-    width: 100%;
-    padding: 7px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 45px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-  }
-  .login-box .user-box label {
-    position: absolute;
-    top:0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 30px;
-    font-weight: bold;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
-    margin-bottom: 20px;
-  }
-  
-  .login-box  input:focus ~label,
-  .login-box  input:valid ~ label {
-    top: -30px;
-    left: 0;
-    color: #fff;    font-size: 18px;
-  }
-  
-  .login-box form button {
+  .Login_parent form button {
     position: relative;
     display: inline-block;
     padding: 10px 10px;
@@ -86,7 +40,7 @@ html {
     
   }
   
-  .login-box button:hover {
+  .Login_parent button:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
@@ -131,4 +85,59 @@ html {
   
   button i {
     font-size: 20px;
+  }
+  .form__group {
+    position: relative;
+    
+    padding: 20px 0 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  .form__field::placeholder {
+    color: transparent;
+  }
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #0026ff;
+  }
+  .form__field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+  }
+  .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight: 700;
+  }
+  /* reset input */
+  .form__field:required, .form__field:invalid {
+    box-shadow: none;
   }
