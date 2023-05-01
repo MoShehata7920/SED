@@ -34,9 +34,9 @@ exports.getAllProducts = (req, res) => {
 
 exports.getSingleProduct = async(req, res) => {
     try {
-        const product=await Product.findById(req.params.prodId).populate('seller','fullName _id email personalInfo.phone')
+        const product=await Product.findById(req.params.prodId).populate('seller','fullName _id email phone userImage government address ')
         const sellerInfo=product.seller
-        res.status(200).json({status: 0 , product , sellerInfo,phone:sellerInfo.personalInfo.phone}) // sending product information and some of seller information and status
+        res.status(200).json({status: 0 , product , sellerInfo,phone:sellerInfo.phone}) // sending product information and some of seller information and status
     } catch (err) {
         res.status(500).json({status: 1,err})
     }
