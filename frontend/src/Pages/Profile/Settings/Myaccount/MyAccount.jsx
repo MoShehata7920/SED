@@ -1,72 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import "./MyAccount.css";
 import "./user.png";
+import Userinfo from "../../Userinfo/Userinfo";
 
 
 function MyAccount() {
+  let [Editing ,setEditing] =useState(false)
+  const handelEditing =()=>{
+   setEditing(true)
+  }
   return (
     <>
-    <div className="container d-flex justify-content-center ">
-      <div className="row justify-content-center mt-5   border border-dark w-75 ">
-        <div className="col-10">
-          <div className="row">
-
-          </div>
-          <div className="row d-flex ">
-            <div className="col-5 m-3">
+     { Editing ?
+    <div className="container  ">
+      <div className="row vh-100  flex-column align-items-center justify-content-center   ">
+        <div className=" col-8 rounded-3 border border-dark  pt-3 pb-3">
         
-            <div class="mb-3">
-                <label  class="form-label">user name </label>
-                <input type="text" class="form-control"  aria-describedby="emailHelp"></input>
-              </div>
+          <div className="row ">
+            <div className=" offset-1 col-4 ">
+        
+                <div class="mb-3">
+                    <label  class="form-label">user name </label>
+                    <input type="text" class="form-control"  aria-describedby="emailHelp"></input>
+                  </div>
 
-              <div class="mb-3">
-                <label class="form-label">Email </label>
-                <input type="email" class="form-control" ></input>
-              </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email </label>
+                    <input type="email" class="form-control" ></input>
+                  </div>
 
-              <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" ></input>
-              </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" ></input>
+                  </div>
             </div>
-            <div className="col-5 m-3">
+            <div className=" offset-2 col-4">
 
               
-            <div class="mb-3">
-                <label  class="form-label">Location </label>
-                <input type="text" class="form-control" ></input>
-              </div>
+                  <div class="mb-3">
+                      <label  class="form-label">Location </label>
+                      <input type="text" class="form-control" ></input>
+                    </div>
 
-              <div class="mb-3 ">
-              
-                
-              </div>
+                    <div class="mb-3 ">
+                    
+                      
+                    </div>
 
-              <div class="mb-3">
-                <label  class="form-label">date of birth </label>
-                <input type="date" class="form-control" ></input>
-              </div>
+                    <div class="mb-3">
+                      <label  class="form-label">date of birth </label>
+                      <input type="date" class="form-control" ></input>
+                    </div>
 
-              <div class="mb-3">
-                <label  class="form-label">mobile number  </label>
-                <input type="text" class="form-control" ></input>
-              </div>
-              <div className="mb-3 d-flex justify-content-around ">
-                <button type="button" class="btn btn-primary btn-sm ">Save Changes </button>
-                <button type="button" class="btn btn-secondary btn-sm ">Cancel </button>
-              </div>
+                    <div class="mb-3">
+                      <label  class="form-label">mobile number  </label>
+                      <input type="text" class="form-control" ></input>
+                    </div>
+                    <div className="mb-3 d-flex justify-content-around ">
+                      <button type="button" class="btn btn-primary btn-sm ">Save Changes </button>
+                      <button type="button" class="btn btn-primary btn-sm ">Cancel </button>
+                    </div>
 
-            </div>
+                  </div>
         
           </div>
 
+          </div>
         </div>
-
       </div>
 
-    </div>
     
+    :
+    <>
+    <section>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <div onClick={handelEditing} className="btn">
+                   Edditing
+               </div>
+              </div>
+            </div>
+          </div>
+    </section>
+    <section>
+      <Userinfo/>
+    </section>
+    </>
+     }
     </>
   );
 }

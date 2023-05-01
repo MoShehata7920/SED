@@ -5,6 +5,7 @@ import "./user.png";
 
 export default function Userinfo() {
   return <>
+ 
 <div className="container px-1">
   <div className="row justify-content-center col-xs-12">
     <div className="col-lg-8   border border-dark rounded bg-primary rounded-3 mt-5  ">
@@ -48,8 +49,7 @@ export default function Userinfo() {
     </div>
   </div>
 </div>
- 
-        
+
       
    </>;
 }
