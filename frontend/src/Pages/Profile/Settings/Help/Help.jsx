@@ -19,19 +19,32 @@ function Help(){
                 </div>
                 <div className="row mt-3">
                     <div className="row">
-                        <div className="col-4 d-flex">
+                        <div className="col-8 ">
                             <div className=" d-flex col-2 mt-3">
-                                <i>{<FcComments/>}</i>
-                                <h4 className="m-3"> Email </h4>
-
+                                <div className="col" >  <i>{<FcComments/>}</i> </div>
+                                <div>  
+                                  <h4 className="ms-3"> Email </h4>
+                                  <p className="ms-3">support@example.com</p> 
+                                </div>
+                        
                             </div>
-                            <div className="col-2 m-3">
-
-                            </div>
+                           
                         </div>
                     
                     </div>
                     <div className="row">
+                    <div className="col-8 ">
+                            <div className=" d-flex col-2 mt-3">
+                                <div className="col" >  <i>{<FcPhone/>}</i> </div>
+                                <div>  
+                                  <h4 className="ms-3"> Phone </h4>
+                                  <p className="ms-3">+1(555)123456</p> 
+                                </div>
+                        
+                            </div>
+                           
+                        </div>
+                        
 
                     </div>
 
