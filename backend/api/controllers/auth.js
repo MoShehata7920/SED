@@ -23,9 +23,9 @@ exports.registerController = async (req, res, next) => {
             res.status(200).json({ status:0, message: 'Email address is already registered' });
             return;
         }
-        const personalInfo = {
-            phone,
-        }
+        // const personalInfo = {
+        //     phone,
+        // }
         const hashedPassword = await bcrypt.hash(password, 10);
         const OTP = mailHelper.generateOTP();
         const expires = Date.now() + 3600000;
@@ -33,7 +33,7 @@ exports.registerController = async (req, res, next) => {
             fullName,
             email,
             password: hashedPassword,
-            personalInfo,
+            phone,
             verify_account_otp: OTP,
             verify_otp_expires: expires,
         });
@@ -70,7 +70,7 @@ exports.loginController = (req, res) => {
         res.status(200).json({ message: errorMessages });
         return;
     }
-    User.findOne({ $or: [{ email: loginOption }, { 'personalInfo.phone': loginOption }] }).exec().then(user => {
+    User.findOne({ $or: [{ email: loginOption }, { phone: loginOption }] }).exec().then(user => {
         if (!user) {                                                                                             //if email not found 
             return res.status(500).json({ status: 0, message: 'This Email Not exist , Please Register First' })
         }
@@ -129,7 +129,7 @@ exports.forgotPassword = async (req, res) => {
         return res.status(200).json({ errors: errors.array() });
     }
     const searchOption = req.body.searchOption;
-    const user = await User.findOne({ $or: [{ email: searchOption }, { 'personalInfo.phone': searchOption }] });           // finding user
+    const user = await User.findOne({ $or: [{ email: searchOption }, {phone: searchOption }] });           // finding user
     if (!user) return res.status(200).json({ status: 0, message: ' can\'t find any user with this email address' })    // if user not found
 
     const token = await mailHelper.creatResetToken()                 // creating token

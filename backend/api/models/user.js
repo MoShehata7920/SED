@@ -17,6 +17,7 @@ const userSchema = mongoose.Schema({
 
     userImage:{
         type:String,
+        default : 'https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png'
     },
 
     password: {
@@ -35,10 +36,24 @@ const userSchema = mongoose.Schema({
         default: false,
         required: true
     },
-    personalInfo: {                          //  for next level 'to be updated in user profile'
-        phone: { type: String, unique: true ,required: true},                //  default:""
-        government: { type: String },
-        address: { type: String }
+
+    // personalInfo: {                          //  for next level 'to be updated in user profile'
+    //     phone: { type: String, unique: true ,required: true},                //  default:""
+    //     government: { type: String },
+    //     address: { type: String }
+    // },
+
+    phone:{
+        type:String,
+        required:true,
+        unique: true
+    },
+    
+    government:{
+        type:String
+    },
+    adress:{
+        type:String
     },
 
     wishList: [{
