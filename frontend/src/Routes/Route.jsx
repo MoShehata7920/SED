@@ -34,9 +34,7 @@ function MainRoutes() {
         <Route path="/forgetpassword" element={<Forgetpass />} />
         <Route
           path="/Profile"
-          element={
-            storedToken ? <Profile /> : <Navigate replace to={"/profile"} />
-          }
+          element={storedToken ? <Profile /> : <Profile />}
         >
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
@@ -66,3 +64,7 @@ function MainRoutes() {
 }
 
 export default MainRoutes;
+
+{
+  /* <Navigate replace to={"/SignIn"} /> */
+}
