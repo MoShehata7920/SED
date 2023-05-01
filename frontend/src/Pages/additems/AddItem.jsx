@@ -134,8 +134,15 @@ export default function AddItem() {
                       id="inputGroupSelect01"
                     >
                       <option selected>Chose Your Category</option>
-                      <option value="Fasion">Fasion</option>
                       <option value="Electronics">Electronics</option>
+                      <option value="Fasion">Fasion</option>
+                      <option value="Furniture">Furniture</option>
+                      <option value="Sports">Sports</option>
+                      <option value="Supermarket">Supermarket</option>
+                      <option value="Vehicle">Vehicle</option>
+                      <option value="Other">Other</option>
+                      <option value="Phones&Tablets">Phones&Tablets</option>
+                      <option value="Body&HealthCare">Body&HealthCare</option>
                     </select>
                   </div>
                   <div className="mt-5">
