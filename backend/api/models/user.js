@@ -52,7 +52,7 @@ const userSchema = mongoose.Schema({
     government:{
         type:String
     },
-    adress:{
+    address:{
         type:String
     },
 

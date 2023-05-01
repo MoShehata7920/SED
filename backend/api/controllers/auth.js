@@ -45,9 +45,9 @@ exports.registerController = async (req, res, next) => {
             isAdmin: doc.isAdmin
         },
             process.env.SECRET_KEY
-            , {
-                expiresIn: '10h'
-            }
+            // , {
+            //     expiresIn: '10h'
+            // }
         )
         res.status(200).json({ status:0,message: 'Registration successful', token });
         mailHelper.mailTransport().sendMail({
@@ -86,9 +86,9 @@ exports.loginController = (req, res) => {
                     isAdmin: user.isAdmin
                 },
                     process.env.SECRET_KEY
-                    , {
-                        expiresIn: '10h'
-                    }
+                    // , {
+                    //     expiresIn: '10h'
+                    // }
                 )
                 return res.status(200).json({ status: 0, message: `welcome back ${user.fullName}!`, token: token })
             }
@@ -114,8 +114,9 @@ exports.googleLogin = async (req, res, next) => {
             createdAt: user.createdAt,
             isAdmin:user.isAdmin
         };
-        const expiresIn = "10h";
-        const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
+        // const expiresIn = "10h";
+        // const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
+        const token = jwt.sign(decryptedData, process.env.SECRET_KEY);
         res.status(200).json({ message: 'Logged in successfully', token, User: decryptedData });
     } catch (error) {
         console.log(error)
