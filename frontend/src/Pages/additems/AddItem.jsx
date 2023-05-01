@@ -139,7 +139,8 @@ export default function AddItem() {
                       <option value="Furniture">Furniture</option>
                       <option value="Sports">Sports</option>
                       <option value="Supermarket">Supermarket</option>
-                      <option value="Vehicle">Vehicle</option>
+                      <option value="Vehicles">Vehicles</option>
+                      <option value="Books">Books</option>
                       <option value="Other">Other</option>
                       <option value="Phones&Tablets">Phones&Tablets</option>
                       <option value="Body&HealthCare">Body&HealthCare</option>
