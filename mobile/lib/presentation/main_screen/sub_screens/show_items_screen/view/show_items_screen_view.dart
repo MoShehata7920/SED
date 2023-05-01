@@ -210,7 +210,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                             child: Icon(
                               IconsManager.saved,
                               size: AppSize.s12,
-                              color: ColorsManager.white,
+                              color: ColorsManager.primaryText,
                             ),
                           )),
                     ),

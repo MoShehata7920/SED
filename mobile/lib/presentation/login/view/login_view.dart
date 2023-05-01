@@ -157,7 +157,7 @@ class _LoginViewState extends State<LoginView> {
                             },
                             child: Icon(
                               _viewModel.passwordSuffixIcon,
-                              color: ColorsManager.grayDark,
+                              color: ColorsManager.secondaryText,
                               size: AppSize.s24,
                             ),
                           ),

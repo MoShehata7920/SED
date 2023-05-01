@@ -18,7 +18,7 @@ ThemeData getApplicationTheme() {
 
     //cardView  Theme
     cardTheme: CardTheme(
-        color: ColorsManager.white,
+        color: ColorsManager.primaryText,
         shadowColor: ColorsManager.grey,
         elevation: AppSize.s4),
 
@@ -48,7 +48,7 @@ ThemeData getApplicationTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           textStyle: getRegularStyle(
-              fontSize: FontSize.s17, color: ColorsManager.white),
+              fontSize: FontSize.s17, color: ColorsManager.primaryText),
           backgroundColor: ColorsManager.primaryColor,
           disabledBackgroundColor: ColorsManager.background,
           shape: RoundedRectangleBorder(
@@ -59,11 +59,11 @@ ThemeData getApplicationTheme() {
     //text theme
     textTheme: TextTheme(
         displayLarge:
-            getLightStyle(color: ColorsManager.white, fontSize: FontSize.s24),
+            getLightStyle(color: ColorsManager.primaryText, fontSize: FontSize.s24),
         headlineLarge: getSemiBoldStyle(
-            color: ColorsManager.white, fontSize: FontSize.s16),
+            color: ColorsManager.primaryText, fontSize: FontSize.s16),
         headlineMedium:
-            getRegularStyle(color: ColorsManager.white, fontSize: FontSize.s14),
+            getRegularStyle(color: ColorsManager.primaryText, fontSize: FontSize.s14),
         titleMedium: getMediumStyle(
             color: ColorsManager.secondaryText, fontSize: FontSize.s14),
         bodyLarge: getRegularStyle(color: ColorsManager.grey1),
