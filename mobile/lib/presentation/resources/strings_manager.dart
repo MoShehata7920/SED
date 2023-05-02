@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class AppStrings {
   static const String ourTeam = "our_team";
   static const String mohamedShehata = "mohamed_shehata";
@@ -164,9 +166,40 @@ class AppStrings {
   static const String selectFromGallery = "select_from_gallery";
 
   // My Account Screen
+  static const String myAccount = "my_account";
   static const String profilePic = "profile_pic";
   static const String profileInfo = "profile_info";
   static const String phoneNumber = "phone_number";
+  static const String selectGovernment = "select_government";
+  static List<String> get governments => [
+        'alexandria'.tr(),
+        'aswan'.tr(),
+        'asyut'.tr(),
+        'beheira'.tr(),
+        'beni_suef'.tr(),
+        'cairo'.tr(),
+        'dakahlia'.tr(),
+        'damietta'.tr(),
+        'faiyum'.tr(),
+        'gharbia'.tr(),
+        'giza'.tr(),
+        'ismailia'.tr(),
+        'kafr_el_sheikh'.tr(),
+        'luxor'.tr(),
+        'matrouh'.tr(),
+        'minya'.tr(),
+        'monufia'.tr(),
+        'new_valley'.tr(),
+        'north_sinai'.tr(),
+        'port_said'.tr(),
+        'qalyubia'.tr(),
+        'qena'.tr(),
+        'red_sea'.tr(),
+        'sharqia'.tr(),
+        'sohag'.tr(),
+        'south_sinai'.tr(),
+        'suez'.tr(),
+      ];
   static const String address = "address";
   static const String dob = "dob";
   static const String changePassword = "change_password";

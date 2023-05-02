@@ -23,9 +23,9 @@ exports.registerController = async (req, res, next) => {
             res.status(200).json({ status:0, message: 'Email address is already registered' });
             return;
         }
-        const personalInfo = {
-            phone,
-        }
+        // const personalInfo = {
+        //     phone,
+        // }
         const hashedPassword = await bcrypt.hash(password, 10);
         const OTP = mailHelper.generateOTP();
         const expires = Date.now() + 3600000;
@@ -33,7 +33,7 @@ exports.registerController = async (req, res, next) => {
             fullName,
             email,
             password: hashedPassword,
-            personalInfo,
+            phone,
             verify_account_otp: OTP,
             verify_otp_expires: expires,
         });
@@ -45,9 +45,9 @@ exports.registerController = async (req, res, next) => {
             isAdmin: doc.isAdmin
         },
             process.env.SECRET_KEY
-            , {
-                expiresIn: '10h'
-            }
+            // , {
+            //     expiresIn: '10h'
+            // }
         )
         res.status(200).json({ status:0,message: 'Registration successful', token });
         mailHelper.mailTransport().sendMail({
@@ -70,7 +70,7 @@ exports.loginController = (req, res) => {
         res.status(200).json({ message: errorMessages });
         return;
     }
-    User.findOne({ $or: [{ email: loginOption }, { 'personalInfo.phone': loginOption }] }).exec().then(user => {
+    User.findOne({ $or: [{ email: loginOption }, { phone: loginOption }] }).exec().then(user => {
         if (!user) {                                                                                             //if email not found 
             return res.status(500).json({ status: 0, message: 'This Email Not exist , Please Register First' })
         }
@@ -86,9 +86,9 @@ exports.loginController = (req, res) => {
                     isAdmin: user.isAdmin
                 },
                     process.env.SECRET_KEY
-                    , {
-                        expiresIn: '10h'
-                    }
+                    // , {
+                    //     expiresIn: '10h'
+                    // }
                 )
                 return res.status(200).json({ status: 0, message: `welcome back ${user.fullName}!`, token: token })
             }
@@ -114,8 +114,9 @@ exports.googleLogin = async (req, res, next) => {
             createdAt: user.createdAt,
             isAdmin:user.isAdmin
         };
-        const expiresIn = "10h";
-        const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
+        // const expiresIn = "10h";
+        // const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
+        const token = jwt.sign(decryptedData, process.env.SECRET_KEY);
         res.status(200).json({ message: 'Logged in successfully', token, User: decryptedData });
     } catch (error) {
         console.log(error)
@@ -129,7 +130,7 @@ exports.forgotPassword = async (req, res) => {
         return res.status(200).json({ errors: errors.array() });
     }
     const searchOption = req.body.searchOption;
-    const user = await User.findOne({ $or: [{ email: searchOption }, { 'personalInfo.phone': searchOption }] });           // finding user
+    const user = await User.findOne({ $or: [{ email: searchOption }, {phone: searchOption }] });           // finding user
     if (!user) return res.status(200).json({ status: 0, message: ' can\'t find any user with this email address' })    // if user not found
 
     const token = await mailHelper.creatResetToken()                 // creating token

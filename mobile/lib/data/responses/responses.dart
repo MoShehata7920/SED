@@ -208,13 +208,17 @@ class UserDataResponse {
   @JsonKey(name: "phone")
   String? phone;
 
+  @JsonKey(name: "government")
+  String? government;
+
   @JsonKey(name: "address")
   String? address;
 
-  @JsonKey(name: "image")
+  @JsonKey(name: "userImage")
   String? image;
 
-  UserDataResponse(this.id, this.name, this.phone, this.address, this.image);
+  UserDataResponse(this.id, this.name, this.phone, this.government,
+      this.address, this.image);
 
   // From Json
   factory UserDataResponse.fromJson(Map<String, dynamic> json) =>

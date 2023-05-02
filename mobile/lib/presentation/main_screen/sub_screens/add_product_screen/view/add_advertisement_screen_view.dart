@@ -135,7 +135,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 Text(
                   AppStrings.selectedCategory.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
+                        color: ColorsManager.primaryText,
                         fontSize: AppSize.s16,
                       ),
                 ),
@@ -196,7 +196,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 Text(
                   AppStrings.selectSection.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
+                        color: ColorsManager.primaryText,
                         fontSize: AppSize.s16,
                       ),
                 ),
@@ -244,7 +244,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 Text(
                   AppStrings.condition.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
+                        color: ColorsManager.primaryText,
                         fontSize: AppSize.s16,
                       ),
                 ),
@@ -259,9 +259,9 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                       [ColorsManager.alternate],
                       [ColorsManager.error]
                     ],
-                    activeFgColor: ColorsManager.white,
+                    activeFgColor: ColorsManager.primaryText,
                     inactiveBgColor: ColorsManager.secondaryBackground,
-                    inactiveFgColor: ColorsManager.white,
+                    inactiveFgColor: ColorsManager.primaryText,
                     initialLabelIndex: 0,
                     totalSwitches: 2,
                     labels: [AppStrings.newItem.tr(), AppStrings.used.tr()],
@@ -282,7 +282,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 Text(
                   AppStrings.name.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
+                        color: ColorsManager.primaryText,
                         fontSize: AppSize.s10,
                       ),
                 ),
@@ -317,7 +317,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 Text(
                   AppStrings.description.tr(),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorsManager.white,
+                        color: ColorsManager.primaryText,
                         fontSize: AppSize.s10,
                       ),
                 ),
@@ -444,7 +444,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
         Text(
           AppStrings.price.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.white,
+                color: ColorsManager.primaryText,
                 fontSize: AppSize.s10,
               ),
         ),

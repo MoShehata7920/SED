@@ -149,7 +149,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                   padding: const EdgeInsets.all(AppPadding.p14),
                   child: Divider(
                     height: AppSize.s3,
-                    color: ColorsManager.white,
+                    color: ColorsManager.tertiaryColor,
                   ),
                 ),
                 for (int i = 0; i < Utils.categories.length; i++)
@@ -238,7 +238,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       child: Text(
                         AppStrings.welcomeMessage.tr(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: AppSize.s24, color: ColorsManager.white),
+                            fontSize: AppSize.s24, color: ColorsManager.primaryText),
                       ),
                     ),
                     const SizedBox(height: AppSize.s10),
@@ -450,7 +450,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                      color: ColorsManager.white,
+                                      color: ColorsManager.primaryText,
                                       fontSize: AppSize.s20,
                                     ),
                               ),
@@ -489,7 +489,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           horizontal: AppPadding.p15),
                       child: Divider(
                         height: AppSize.s2,
-                        color: ColorsManager.white,
+                        color: ColorsManager.tertiaryColor,
                       ),
                     ),
                     Padding(
@@ -533,7 +533,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                      color: ColorsManager.white,
+                                      color: ColorsManager.primaryText,
                                       fontSize: AppSize.s20,
                                     ),
                               ),
@@ -757,7 +757,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                     child: Icon(
                                       IconsManager.saved,
                                       size: AppSize.s12,
-                                      color: ColorsManager.white,
+                                      color: ColorsManager.primaryText,
                                     ),
                                   );
                                 })),

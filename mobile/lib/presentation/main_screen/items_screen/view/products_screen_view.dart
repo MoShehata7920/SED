@@ -154,7 +154,7 @@ class _ProductViewState extends State<ProductView> {
                             item.item.name,
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: ColorsManager.white,
+                                      color: ColorsManager.primaryText,
                                       fontSize: AppSize.s20,
                                     ),
                           ),
@@ -179,7 +179,7 @@ class _ProductViewState extends State<ProductView> {
                       Text(
                         getPrice(item.item.price),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: ColorsManager.white,
+                              color: ColorsManager.primaryText,
                               fontSize: AppSize.s16,
                             ),
                       ),
@@ -267,7 +267,7 @@ class _ProductViewState extends State<ProductView> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                    color: ColorsManager.white,
+                                    color: ColorsManager.primaryText,
                                   ),
                             ),
                             const SizedBox(

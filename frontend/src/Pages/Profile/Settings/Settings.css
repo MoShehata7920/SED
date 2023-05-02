@@ -1,5 +1,47 @@
+
+.setting-container{
+    background-color: rgba(255, 255, 255, 0.701);
+}
 .setting-list button{
     border-radius: 15px;
- color: aliceblue;
-    background-color: rgba(0, 0, 0, 0.782);
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    border: 0;
+    text-align:left ;
+    font-size:25px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
 }
+
+.setting-list button Link {
+    text-decoration:none;
+
+}
+.setting-container{
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.setting-list button:hover{
+    background-color: rgba(255, 255, 255, 0);
+    color: blue;
+    transform: scale(1.04);
+
+}
+
+.setting-list button:hover::after{
+    content: "";
+    display: block;
+    background-color: rgb(0, 38, 255);
+    left: 100%;
+    right:0;
+    width: 3px;
+    height: 100%;
+    position:relative;
+    top: -100%;
+    bottom: 0;
+
+   
+
+}
+

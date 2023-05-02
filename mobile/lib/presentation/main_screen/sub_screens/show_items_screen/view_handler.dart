@@ -78,7 +78,6 @@ class ViewCard {
         elevation: 1,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s16)),
-        color: ColorsManager.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -113,7 +112,7 @@ class ViewCard {
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: AppSize.s12,
-                                    color: ColorsManager.white,
+                                    color: ColorsManager.primaryText,
                                   ),
                                 );
                               })),
@@ -126,7 +125,7 @@ class ViewCard {
                         item.category,
                         style: TextStyle(
                           fontSize: AppSize.s10,
-                          color: ColorsManager.white,
+                          color: ColorsManager.primaryText,
                         ),
                       ),
                     ),

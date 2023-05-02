@@ -267,7 +267,7 @@ class _RegisterViewState extends State<RegisterView> {
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
-                            ?.copyWith(color: ColorsManager.white),
+                            ?.copyWith(color: ColorsManager.primaryText),
                       ),
                     ),
                   ],

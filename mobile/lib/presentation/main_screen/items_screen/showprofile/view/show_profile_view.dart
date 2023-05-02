@@ -250,7 +250,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: AppSize.s12,
-                                    color: ColorsManager.white,
+                                    color: ColorsManager.primaryText,
                                   ),
                                 );
                               })),

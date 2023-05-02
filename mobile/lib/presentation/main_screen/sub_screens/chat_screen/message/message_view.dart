@@ -175,7 +175,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
           child: Text(
             model,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.white,
+                color: ColorsManager.primaryText,
                 fontSize: 12.0,
                 fontWeight: FontWeight.w100),
           ),
