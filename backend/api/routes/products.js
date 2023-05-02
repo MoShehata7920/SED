@@ -1,16 +1,39 @@
 const router = require('express').Router()
+const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
+const path = require('path');
 const { verifyTokenAndAdmin, verifyToken, verifyTokenAndAuthorization } = require('../middleware/check-auth')
 const productController = require('../controllers/productController')
 
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './SEDimages/products')
+      cb(null, './SEDimages/products')
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toDateString() + process.env.SPLIT_KEY + file.originalname)
+      const ext = file.originalname.split('.').pop(); // extract file extension
+      const filename = `${new Date().toDateString()}${uuidv4()}.${ext}`;
+      const filePath = path.join('./SEDimages/products', filename);
+  
+      // Check if the file already exists
+      fs.access(filePath, (err) => {
+        if (err) {
+          // File does not exist, so it's a new upload
+          cb(null, filename);
+        } else {
+          // File already exists, so it's an update
+          const existingFilename = req.body.filename; // retrieve the existing filename from the request body
+          if (filename === existingFilename) {
+            // The names are the same, so the image has not been updated
+            cb(null, existingFilename);
+          } else {
+            // The names are different, so the image has been updated
+            cb(null, filename);
+          }
+        }
+      });
     }
-})
+  });
 const upload = multer({
     storage: storage,
     limits: {
