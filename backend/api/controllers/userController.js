@@ -81,12 +81,15 @@ exports.updateUser = async (req, res) => {
       if (req.file) {
         req.body.userImage = `http://103.48.193.225:3000/${req.file.path}`;
       }
+      if(req.body.password){
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+      }
       const updated = await User.findByIdAndUpdate(
         req.params.userId,
         { $set: req.body },
         { new: true }
       );
-      res.status(200).json({ status: 0, updated });
+      res.status(200).json({ status: 0, message:"User information has been updated successfully" , updated });
     } else {
       res.status(200).json({ status: 0, message: "Not Authorized " });
     }
