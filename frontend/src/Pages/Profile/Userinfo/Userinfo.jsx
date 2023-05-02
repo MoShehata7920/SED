@@ -1,15 +1,23 @@
 import "./Userinfo.css";
-import React from "react";
+import React, { useState } from "react";
 import "./user.png";
+import MyAccount from "../Settings/Myaccount/MyAccount";
 
 export default function Userinfo() {
+  let [Editing, setEditing] = useState(false);
+  const handelEditing = () => {
+    setEditing(true);
+  };
   return (
     <>
+    {Editing?
+    <MyAccount  Editing={Editing} />
+    :
       <div className="container px-1">
         <div className="row justify-content-center ">
           <div className="col-lg-8   border border-dark rounded  rounded-3 mt-5  ">
             <div className=" offset-10">
-              <div className="btn">Edditing</div>
+              <button onClick={handelEditing} className="btn">Edditing</button>
             </div>
             <div className="d-flex py-3 ">
               <div className="profile-user-info row py-3  px-1 justify-content-center ">
@@ -47,6 +55,7 @@ export default function Userinfo() {
           </div>
         </div>
       </div>
+    }
     </>
   );
 }

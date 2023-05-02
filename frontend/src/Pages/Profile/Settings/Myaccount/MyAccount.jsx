@@ -3,13 +3,14 @@ import "./MyAccount.css";
 import "./user.png";
 import Userinfo from "../../Userinfo/Userinfo";
 
-function MyAccount() {
-  let [Editing, setEditing] = useState(false);
+function MyAccount(Editing) {
+  let [Edit, setEdit] = useState(false);
   const handelEditing = () => {
-    setEditing(true);
+    setEdit(true);
   };
   return (
     <>
+    {Editing || Edit ?
       <div className="container  ">
         <div className="row vh-100  flex-column align-items-center justify-content-center   ">
           <div className=" col-8 rounded-3 border border-dark  pt-3 pb-3">
@@ -64,7 +65,11 @@ function MyAccount() {
           </div>
         </div>
       </div>
+      :
+<Userinfo/>
+    }
     </>
+
   );
 }
 export default MyAccount;
