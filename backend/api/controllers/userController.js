@@ -91,6 +91,7 @@ exports.updateUser = async (req, res) => {
       res.status(200).json({ status: 0, message: "Not Authorized " });
     }
   } catch (err) {
+    console.log(err);
     res.status(500).json({ status: 1, err });
   }
 };
