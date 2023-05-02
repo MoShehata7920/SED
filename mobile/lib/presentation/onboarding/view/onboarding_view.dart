@@ -116,7 +116,7 @@ class OnBoardingPage extends StatelessWidget {
               child: Text(
                 AppStrings.sed.tr(),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: AppSize.s25, color: ColorsManager.white),
+                    fontSize: AppSize.s25, color: ColorsManager.primaryText),
               ).animateOnPageLoad(
                   msDelay: 150, dx: -74.0, dy: 0, showDelay: 900),
             )
@@ -184,7 +184,7 @@ class OnBoardingPage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
-                    ?.copyWith(color: ColorsManager.white),
+                    ?.copyWith(color: ColorsManager.primaryText),
               ),
             ),
           ],

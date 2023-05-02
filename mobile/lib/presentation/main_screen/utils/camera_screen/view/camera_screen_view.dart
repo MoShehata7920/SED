@@ -72,7 +72,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                         child: Icon(
                           IconsManager.done,
                           size: AppSize.s20,
-                          color: ColorsManager.white,
+                          color: ColorsManager.primaryText,
                         ),
                       ),
                       color: Colors.white,

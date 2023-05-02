@@ -44,16 +44,12 @@ class ColorsManager {
       ? const Color(0xFF6E6E6E)
       : const Color(0xFFFAFAFA);
 
-  static Color darkGrey = const Color(0xff525252);
   static Color grey = const Color(0xff737477);
   static Color lightGrey = const Color(0xffD9D9D6);
   static Color black = const Color(0xff000000);
 
   static Color grey1 = const Color(0xff707070);
   static Color grey2 = const Color(0xff797979);
-  static Color get white => ThemeManager.isDarkMode
-      ? const Color(0xffFFFFFF)
-      : const Color(0xFF000000);
   static Color error = const Color(0xffe61f34);
 
   static Color lineColor = const Color(0xFF9E9E9E);

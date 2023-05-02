@@ -1,6 +1,7 @@
 const Product = require('../models/product')
 const User = require('../models/user')
 const fs = require('fs')
+const path = require('path');
 const check_auth = require('../middleware/check-auth')
 const lodash = require('lodash');
 
@@ -11,7 +12,6 @@ exports.createProduct = (req, res) => {
         description: req.body.description,
         category: req.body.category,
         purpose: req.body.purpose,
-        quantity: req.body.quantity,
         // productImage: `localhost:3000/${req.file.path}` ,
         productImage: `http://103.48.193.225:3000/${req.file.path}` || `http://103.48.193.225:3000/${req.file.name}` ,
         condition:req.body.condition,
@@ -20,7 +20,7 @@ exports.createProduct = (req, res) => {
     }).save().then((newproduct) => {
         res.status(200).json({status:0 ,newproduct,message:'Product has been published successfully'})
     }).catch(err => {
-        console.log({status:1,err,message:err.message});
+        res.status(500).json({status:1,err,message:err.message});
     })
 }
 
@@ -36,7 +36,7 @@ exports.getSingleProduct = async(req, res) => {
     try {
         const product=await Product.findById(req.params.prodId).populate('seller','fullName _id email phone userImage government address ')
         const sellerInfo=product.seller
-        res.status(200).json({status: 0 , product , sellerInfo,phone:sellerInfo.phone}) // sending product information and some of seller information and status
+        res.status(200).json({status: 0 , product }) // sending product information and some of seller information and status
     } catch (err) {
         res.status(500).json({status: 1,err})
     }
@@ -44,30 +44,58 @@ exports.getSingleProduct = async(req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const product = await Product.findOne({ _id: req.params.prodId });
-        if (!product) {
-            return res.status(400).json({status: 0, message: 'There is no product with this id' });
+      const product = await Product.findOne({ _id: req.params.prodId });
+      if (!product) {
+        return res.status(400).json({ status: 0, message: 'There is no product with this id' });
+      }
+      if (req.user.id != product.seller) {
+        return res.status(405).json({ status: 0, message: 'not allowed' });
+      }
+  
+      const newPhoto = req.file ? req.file.path : null;
+      const oldPhoto = product.productImage;
+      const needToDelete = newPhoto !== oldPhoto;
+      const updatedImage = newPhoto ? newPhoto : oldPhoto;
+  
+      try {
+        await fs.promises.access(updatedImage);
+  
+        // File already exists, so it's an update
+        const existingFilename = path.basename(oldPhoto);
+        const newFilename = path.basename(updatedImage);
+  
+        if (newFilename === existingFilename) {
+          // The names are the same, so the image has not been updated
+          // Update the product with the existing filename
+          await Product.updateOne({ _id: req.params.prodId }, { $set: { ...req.body, productImage: oldPhoto, updatedAt: Date.now() } });
+        } else {
+          // The names are different, so the image has been updated
+          // Update the product with the new filename
+          await Product.updateOne({ _id: req.params.prodId }, { $set: { ...req.body, productImage: updatedImage, updatedAt: Date.now() } });
+  
+          if (needToDelete &&  fs.existsSync(oldPhoto)) {
+            await fs.promises.unlink(oldPhoto);
+          }
         }
-        if (req.user.id != product.seller) {                                // if seller id of product equal = to user.id who trying to edit > req.user.id // will upload 1 product to make sure 
-            return res.status(405).json({ status: 0,message: 'not allowed' });
+      } catch (err) {
+        // File does not exist, so it's a new upload
+        // Update the product with the new filename
+        await Product.updateOne({ _id: req.params.prodId }, { $set: { ...req.body, productImage: updatedImage, updatedAt: Date.now() } });
+  
+        if (needToDelete &&  fs.existsSync(oldPhoto)) {
+          await fs.promises.unlink(oldPhoto);
         }
-        const newPhoto = req.file ? req.file.path : null
-        const oldPhoto = product.productImage
-        const needToDelete = newPhoto && newPhoto !== oldPhoto;
-        const updatedImage = newPhoto ? newPhoto : oldPhoto          // if there is new image will put its new path on product image ,,, if not the old one will remain
-        await Product.updateOne({ _id: req.params.prodId }, { $set: req.body, productImage: updatedImage, updatedAt: Date.now() })
-        if (needToDelete && fs.existsSync(product.productImage)) {
-            fs.unlink(product.productImage, (err) => {
-                if (err) {
-                    console.error(err);
-                }
-            });
-        }
-        res.status(200).json({ status: 0,message: 'Product has been updated successfully' })
+      }
+  
+      res.status(200).json({ status: 0, message: 'Product has been updated successfully' });
     } catch (err) {
-        res.status(555).json({status: 1,err})
+        console.log(err)
+      res.status(555).json({ status: 1, err });
     }
-}
+  }
+  
+
+  
 
 exports.deleteProduct = (req, res) => {
     Product.findById(req.params.prodId).exec().then(doc => {

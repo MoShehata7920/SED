@@ -16,6 +16,13 @@ import SearchPage from "../Pages/searchdata/searchdata";
 import SeeAllData from "../Pages/seealldata/SeeAllData";
 import SignIn from "../Pages/SignIn/SignIn";
 import Register from "../Pages/SignUp/SignUp";
+import MyAdds from "../Pages/Profile/Settings/MyAdds/MyAdds";
+import Languages from "../Pages/Profile/Settings/Langages/Langagues";
+import Themes from "../Pages/Profile/Settings/Themes/Themes";
+import Notification from "../Pages/Profile/Settings/Notification/Notification";
+import Share from "../Pages/Profile/Settings/Share/Share";
+import Help from "../Pages/Profile/Settings/Help/Help";
+import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 
 function MainRoutes() {
   const storedToken = localStorage.getItem("usertoken");
@@ -34,9 +41,7 @@ function MainRoutes() {
         <Route path="/forgetpassword" element={<Forgetpass />} />
         <Route
           path="/Profile"
-          element={
-            storedToken ? <Profile /> : <Navigate replace to={"/profile"} />
-          }
+          element={storedToken ? <Profile /> : <Profile />}
         >
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
@@ -47,13 +52,13 @@ function MainRoutes() {
             path="/Profile/settings/myaccount"
             element={<MyAccount />}
           ></Route>
-          <Route path="/Profile/settings/myadds" element=""></Route>
-          <Route path="/Profile/settings/langages" element=""></Route>
-          <Route path="/Profile/settings/themes" element=""></Route>
-          <Route path="/Profile/settings/notification" element=""></Route>
-          <Route path="/Profile/settings/share" element=""></Route>
-          <Route path="/Profile/settings/help" element=""></Route>
-          <Route path="/Profile/settings/aboutus" element=""></Route>
+          <Route path="/Profile/settings/myadds" element={<MyAdds/>}></Route>
+          <Route path="/Profile/settings/langages" element={<Languages/>}></Route>
+          <Route path="/Profile/settings/themes" element={<Themes/>}></Route>
+          <Route path="/Profile/settings/notification" element={<Notification/>}></Route>
+          <Route path="/Profile/settings/share" element={<Share/>}></Route>
+          <Route path="/Profile/settings/help" element={<Help/>}></Route>
+          <Route path="/Profile/settings/aboutus" element={<Aboutus/>}></Route>
         </Route>
         <Route path="/items/:id" element={<Dataitems />} />
         <Route path="/Categories/:CategorieType" element={<Categories />} />
@@ -66,3 +71,7 @@ function MainRoutes() {
 }
 
 export default MainRoutes;
+
+{
+  /* <Navigate replace to={"/SignIn"} /> */
+}

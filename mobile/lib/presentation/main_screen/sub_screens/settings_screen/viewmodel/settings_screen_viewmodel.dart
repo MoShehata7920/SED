@@ -11,7 +11,6 @@ import '../../../../../domain/usecase/myprofile_data_usecase.dart';
 
 class SettingsScreenViewModel extends BaseViewModel
     with SettingsScreenViewModelInputs, SettingsScreenViewModelOutputs {
-
   final StreamController _contentStreamController =
       StreamController<GetMyProfileData>.broadcast();
 
@@ -43,12 +42,11 @@ class SettingsScreenViewModel extends BaseViewModel
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _myProfileDataUseCase.execute(Constants.token);
-
     response.fold(
         (failure) => {
               // left -> failure
 
-        inputState.add(ErrorState(
+              inputState.add(ErrorState(
                   StateRendererType.fullScreenLoadingState, failure.message))
             }, (response) {
       // right -> success
@@ -60,7 +58,6 @@ class SettingsScreenViewModel extends BaseViewModel
       inputState.add(ContentState());
     });
   }
-
 }
 
 abstract class SettingsScreenViewModelOutputs {
