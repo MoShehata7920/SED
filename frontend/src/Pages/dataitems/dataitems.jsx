@@ -7,7 +7,8 @@ import Footer from "../../Component/footer/Footer";
 
 export default function Dataitems() {
   let { id } = useParams();
-  let [Detaitmes, setDataitems] = useState({});
+  let [Dataitems, setDataitems] = useState({});
+  
   async function Getitems(id, callback) {
     let { data } = await Axios.get(
       `http://103.48.193.225:3000/products/product/${id}`
@@ -25,26 +26,35 @@ export default function Dataitems() {
       <section className=" h-auto">
         <div className="container">
           <div className="row">
-            <div className="col-6">
-              <div className="photo-div bg-black">
-                <img
-                  src={Detaitmes.productImage}
-                  className=" w-100 h-100 "
-                  alt="..."
-                />
-              </div>
+          <div className="contanier d-flex justify-content-center align-item-center">
+            <div className="product-div row col-lg-9  m-3 d-flex  justify-content-between rounded-3 bg-light pb-3 ">
+            
+                    <div className="col-6 ">    
+                    <div className="photo-div bg-light h-75   mb-3 rounded-3">
+                        <img
+                        src={Dataitems.productImage}
+                        className=" w-100 "
+                        alt="..."
+                        />
+                    </div>
+                    </div>
+                    <div className="product-info col-6  ">
+                        <div className=" mt-5 text-center">
+                            <h3 className="mt-5">{Dataitems.productName}</h3>
+                            <h6 className="mt-5">Price: {Dataitems.price}</h6>
+                            <h4 className="mt-3">Product Details</h4>
+                            <p className=" mt-3   ">{Dataitems.description}</p>
+                        </div>
+                        <div className="mt-5 text-center">
+                            <button className=" btn-items">Edit</button>
+                        </div>
+                    </div>
+
             </div>
-            <div className="col-6">
-              <div className="mt-5">
-                <h1 className="">{Detaitmes.productName}</h1>
-                <h3 className="mt-5">Price: {Detaitmes.price} LE</h3>
-                <h3 className="mt-5">Product details :-</h3>
-                <h5 className="mt-3">{Detaitmes.description}</h5>
-              </div>
-              <div className="mt-5">
-                <button className=" btn-items">Contact</button>
-              </div>
-            </div>
+
+        </div>
+
+
           </div>
         </div>
       </section>

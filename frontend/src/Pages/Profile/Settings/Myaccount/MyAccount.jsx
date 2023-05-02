@@ -12,16 +12,14 @@ function MyAccount() {
     address: "",
     phone: "",
   });
-
+  const Government = userInfoEdit.government;
+  console.log(Government);
   const [UserID, setUserID] = useState("");
-  console.log(UserID);
   const [UserToken, setUserToken] = useState("");
-  console.log(UserToken);
   console.log(userInfoEdit);
   const [ImgUrl, setImgUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [response, setResponse] = useState("");
-  console.log(response);
   const [ErrorMessage, setErrorMessage] = useState("");
   const handleImageChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -85,7 +83,7 @@ function MyAccount() {
       fullName: parsedUserData.user.fullName,
       phone: parsedUserData.user.phone,
       email: parsedUserData.user.email,
-      govrnment: parsedUserData.user.govrnment,
+      government: parsedUserData.user.government,
       address: parsedUserData.user.address,
     });
     setImgUrl(parsedUserData.user.userImage);

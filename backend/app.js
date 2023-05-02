@@ -21,7 +21,7 @@ app.use(express.json({limit:'100kb'}))
 
 //static middleware  for product images 
 // app.use('/uploads',express.static('uploads'))
-app.use('/SEDimages/products', express.static(path.join(__dirname, 'SEDimages/products')));
+app.use('/SEDimages', express.static(path.join(__dirname, 'SEDimages')));
 
 //google auth part
 const passport=require('passport')
