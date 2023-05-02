@@ -40,6 +40,9 @@ abstract class Repository {
 
   Future<Either<Failure, UpdateAd>> updateAd(UpdateAdRequest updateAdRequest);
 
+  Future<Either<Failure, Default>> updateUserProfile(
+      UpdateUserProfileRequest updateUserProfileRequest);
+
   Future<Either<Failure, Notifications>> notifications();
 
   Future<Either<Failure, ShowItems>> getSavedProducts();

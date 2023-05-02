@@ -43,6 +43,7 @@
   "resend_text" : "Please wait %d to send again",
   "forget_password" : "Forgot Password",
   "reset_password" : "Reset Password",
+  "confirm": "Confirm",
   "user_name_in_valid" : "UserName should be at least 6 chars ",
   "mobile_number_in_valid" : "Mobile Number is Wrong",
   "password_in_valid" : "Please your password should have at least one UpperCase, one lowerCase, one numeric Number and one special Character",

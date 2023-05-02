@@ -33,4 +33,5 @@ class JsonAssets {
   static const String empty = "$jsonPath/empty.json";
   static const String success = "$jsonPath/success.json";
   static const String verificationOTP = "$jsonPath/verification_code_otp.json";
+  static const String resetPassword = "$jsonPath/reset_password.json";
 }

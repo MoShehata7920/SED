@@ -1,4 +1,6 @@
 // onBoarding Models
+import 'dart:io';
+
 class SliderObject {
   String title;
   String subTitle;
@@ -114,9 +116,11 @@ class UserData {
   String name;
   String phone;
   String address;
+  String government;
   String image;
 
-  UserData(this.id, this.name, this.phone, this.address, this.image);
+  UserData(this.id, this.name, this.phone, this.address, this.government,
+      this.image);
 }
 
 class ShowItems {
@@ -154,6 +158,8 @@ class AddAdvertisement {
       this.purpose, this.category, this.condition, this.token);
 }
 
+class Default {}
+
 // My Profile Models
 class GetMyProfileData {
   UserData user;
@@ -186,6 +192,19 @@ class UpdateAd {
 
   UpdateAd(this.itemId, this.image, this.name, this.price, this.description,
       this.purpose, this.category, this.condition, this.token);
+}
+
+class UpdateUserProfile {
+  String userId;
+  File userImage;
+  String name;
+  String phoneNumber;
+  String government;
+  String address;
+  String password;
+
+  UpdateUserProfile(this.userId, this.userImage, this.name, this.phoneNumber,
+      this.government, this.address, this.password);
 }
 
 class Notification {
