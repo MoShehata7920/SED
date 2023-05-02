@@ -2,23 +2,27 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./MyAccount.css";
+import Axios from "axios";
 
 function MyAccount() {
   const [userInfoEdit, setuserInfoEdit] = useState({
-    username: "",
+    fullName: "",
     email: "",
-    password: "",
-    location: "",
-    dateofbirth: "",
-    mobilenumber: "",
+    government: "",
+    address: "",
+    phone: "",
   });
+
   const [UserID, setUserID] = useState("");
   console.log(UserID);
   const [UserToken, setUserToken] = useState("");
   console.log(UserToken);
   console.log(userInfoEdit);
+  const [ImgUrl, setImgUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [response, setResponse] = useState("");
+  console.log(response);
+  const [ErrorMessage, setErrorMessage] = useState("");
   const handleImageChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -29,17 +33,46 @@ function MyAccount() {
     setuserInfoEdit(myinfo);
   }
   const formData = new FormData();
-  formData.append("productImage", selectedFile);
-  formData.append("username", userInfoEdit.username);
+  formData.append("userImage", selectedFile);
+  formData.append("fullName", userInfoEdit.fullName);
   formData.append("email", userInfoEdit.email);
-  formData.append("password", userInfoEdit.password);
-  formData.append("mobilenumber", userInfoEdit.mobilenumber);
-  formData.append("location", userInfoEdit.location);
-  formData.append("dateofbirth", userInfoEdit.dateofbirth);
-  formData.append("seller", UserID);
-
+  formData.append("phone", userInfoEdit.phone);
+  formData.append("government", userInfoEdit.government);
+  formData.append("address", userInfoEdit.address);
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
+  }
+  const handleUrlSubmit = (event) => {
+    fetch(ImgUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const file = new File([blob], "image.jpg", { type: "image/jpeg" });
+        setSelectedFile(file);
+        setImgUrl("");
+      });
+  };
+  async function itemsubmit(e) {
+    e.preventDefault();
+
+    let request = await Axios.patch(
+      `http://103.48.193.225:3000/users/update/${UserID}`,
+      formData,
+      {
+        headers: {
+          Authentication: `Bearer ${UserToken}`,
+        },
+      }
+    )
+      .then((response) => {
+        setResponse(response.data.message);
+      })
+      .catch((error) => {
+        // check for the response property of the error object
+        if (error.response) {
+          // set the error message state variable with the error message
+          setErrorMessage(error.response.data.message);
+        }
+      });
   }
 
   useEffect(() => {
@@ -47,28 +80,38 @@ function MyAccount() {
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
     setUserID(parsedUserData.user._id);
-
-    // if (response) {
-    //   toast(`✔️ ${response}`);
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 5000);
-    // }
-    // if (ErrorMessage && response == "") {
-    //   toast(`❌ ${ErrorMessage} please fill all input field`);
-    // }
-  }, []);
+    setuserInfoEdit({
+      ...userInfoEdit,
+      fullName: parsedUserData.user.fullName,
+      phone: parsedUserData.user.phone,
+      email: parsedUserData.user.email,
+      govrnment: parsedUserData.user.govrnment,
+      address: parsedUserData.user.address,
+    });
+    setImgUrl(parsedUserData.user.userImage);
+    if (response) {
+      toast(`✔️ ${response}`);
+      setTimeout(() => {
+        window.location.href = "/Profile/userinfo";
+      }, 3000);
+    }
+    if (ErrorMessage && response == "") {
+      toast(`❌ ${ErrorMessage} `);
+    }
+    handleUrlSubmit();
+  }, [response, ErrorMessage]);
   return (
     <>
       <div className="container  ">
         <div className="row vh-100  flex-column align-items-center justify-content-center   ">
           <div className=" col-8 rounded-3 border border-dark  pt-3 pb-3">
-            <form className="row mt-3 ">
+            <form onSubmit={itemsubmit} className="row mt-3 ">
               <div className=" offset-1 col-4 ">
                 <div class="mb-3">
                   <label class="form-label">user name </label>
                   <input
-                    name="username"
+                    placeholder={userInfoEdit.fullName}
+                    name="fullName"
                     onChange={getUserinfo}
                     type="text"
                     class="form-control"
@@ -79,6 +122,7 @@ function MyAccount() {
                 <div class="mb-3">
                   <label class="form-label">Email </label>
                   <input
+                    placeholder={userInfoEdit.email}
                     name="email"
                     onChange={getUserinfo}
                     type="email"
@@ -87,20 +131,22 @@ function MyAccount() {
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label">Password</label>
+                  <label class="form-label">Government</label>
                   <input
-                    name="password"
+                    placeholder={userInfoEdit.government}
+                    name="government"
                     onChange={getUserinfo}
-                    type="password"
+                    type="text"
                     class="form-control"
                   ></input>
                 </div>
               </div>
               <div className=" offset-2 col-4">
                 <div class="mb-3">
-                  <label class="form-label">Location </label>
+                  <label class="form-label">Address </label>
                   <input
-                    name="location"
+                    placeholder={userInfoEdit.address}
+                    name="address"
                     onChange={getUserinfo}
                     type="text"
                     class="form-control"
@@ -110,19 +156,20 @@ function MyAccount() {
                 <div class="mb-3 "></div>
 
                 <div class="mb-3">
-                  <label class="form-label">date of birth </label>
+                  <label class="form-label">Your IMG </label>
                   <input
-                    name="dateofbirth"
-                    onChange={getUserinfo}
-                    type="date"
+                    onChange={handleImageChange}
                     class="form-control"
-                  ></input>
+                    type="file"
+                    id="formFile"
+                  />
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">mobile number </label>
                   <input
-                    name="mobilephone"
+                    placeholder={userInfoEdit.phone}
+                    name="phone"
                     onChange={getUserinfo}
                     type="text"
                     class="form-control"
@@ -133,12 +180,14 @@ function MyAccount() {
                 <button type="submit" class="btn btn-primary me-4 ">
                   Save Changes
                 </button>
+
                 <Link to={"/Profile/userinfo"}>
                   <button type="button" class="btn btn-primary  ">
                     Cancel
                   </button>
                 </Link>
               </div>
+              <ToastContainer />
             </form>
           </div>
         </div>

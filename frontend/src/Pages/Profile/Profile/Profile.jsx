@@ -2,7 +2,6 @@ import "./Profile.css";
 import "./Profile";
 import React, { useEffect, useState } from "react";
 import {} from "react-icons/ci";
-import "./user.png";
 import {
   BsBookmarkHeart,
   BsListCheck,
@@ -20,8 +19,6 @@ function Profile() {
         <div className="row">
           <div className="col-auto min-vh-100 bg-dark   profile-sidebar">
             <ul className="py-5">
-            
-             
               <li className="sidebar-item py-1">
                 <a href="{}">
                   <Link to={"/Profile/userinfo"}>
