@@ -52,11 +52,10 @@ class ForgotPasswordViewModel extends BaseViewModel
           .add(ErrorState(StateRendererType.popUpErrorState, failure.message));
     }, (response) {
       // right -> success
-      inputState.add(SuccessState(
-          StateRendererType.popUpSuccessState, response, AppStrings.success.tr(),(){}));
+      inputState.add(SuccessState(StateRendererType.popUpSuccessState, response,
+          AppStrings.success.tr(), () {}));
 
       _showResendStreamController.add(true);
-
     });
 
     _initTimers();
@@ -109,7 +108,7 @@ class ForgotPasswordViewModel extends BaseViewModel
     }
   }
 
-  String getResendText() => sprintf(AppStrings.resendText.tr(), [_secondsLeft]);
+  String getResendText() => sprintf(AppStrings.resendText, [_secondsLeft]);
 }
 
 abstract class ForgotPasswordViewModelInputs {

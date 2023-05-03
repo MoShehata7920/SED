@@ -60,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.darkBlack,
+      backgroundColor: ColorsManager.primaryBackground,
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
@@ -219,7 +219,7 @@ class _LoginViewState extends State<LoginView> {
                               context, Routes.forgotPasswordRoute);
                         },
                         child: Text(
-                          AppStrings.forgetPassword.tr(),
+                          AppStrings.forgetPassword,
                           style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold),
                         )),

@@ -288,6 +288,67 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<DefaultResponse> updateUserProfile(
+    userId,
+    image,
+    name,
+    phoneNumber,
+    government,
+    address,
+    password,
+    token,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'userImage',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'fullName',
+      name,
+    ));
+    _data.fields.add(MapEntry(
+      'phone',
+      phoneNumber,
+    ));
+    _data.fields.add(MapEntry(
+      'government',
+      government,
+    ));
+    _data.fields.add(MapEntry(
+      'address',
+      address,
+    ));
+    _data.fields.add(MapEntry(
+      'password',
+      password,
+    ));
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<DefaultResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/users/update/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DefaultResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<AddAdvertisementResponse> addAdvertisement(
     image,
     name,

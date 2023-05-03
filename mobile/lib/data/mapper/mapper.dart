@@ -104,7 +104,7 @@ extension ItemsResponseMapper on ItemsResponse? {
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
     return UserData(this?.id ?? "", this?.name ?? "", this?.phone ?? "",
-        this?.address ?? "", this?.image ?? "");
+        this?.address ?? "", this?.image ?? "", this?.government ?? "");
   }
 }
 
@@ -112,7 +112,7 @@ extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
     return Item(
         this?.product.toDomain() ?? Items("", "", "", 0, "", "", "", false),
-        this?.user.toDomain() ?? UserData("", "", "", "", ""));
+        this?.user.toDomain() ?? UserData("", "", "", "", "", ""));
   }
 }
 
@@ -146,7 +146,7 @@ extension AddAdvertisementMapper on AddAdvertisementResponse? {
 extension GetMyProfileMapper on GetMyProfileDataResponse? {
   GetMyProfileData toDomain() {
     return GetMyProfileData(
-        this?.user.toDomain() ?? UserData("", "", "", "", ""));
+        this?.user.toDomain() ?? UserData("", "", "", "", "", ""));
   }
 }
 
@@ -206,5 +206,11 @@ extension NotificationsMapper on NotificationsResponse? {
 extension SearchResponseMapper on SearchResponse? {
   ShowItems toDomain() {
     return this?.searchedProducts.toDomain() ?? ShowItems([]);
+  }
+}
+
+extension DefaultResponseMapper on DefaultResponse? {
+  Default toDomain() {
+    return Default();
   }
 }

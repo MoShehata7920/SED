@@ -110,6 +110,7 @@ flutter:
     - assets/json/error.json
     - assets/json/success.json
     - assets/json/verification_code_otp.json
+    - assets/json/reset_password.json
     - assets/json/on_boarding_sell.json
     - assets/json/on_boarding_exchange.json
     - assets/json/on_boarding_donate.json

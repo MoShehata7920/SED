@@ -6,8 +6,8 @@ import Dataitems from "../Pages/dataitems/dataitems";
 import Forgetpass from "../Pages/Forgetpassword/Forgetpass";
 import Home from "../Pages/home/Home";
 import Favourit from "../Pages/Profile/Favourit/Favourit";
-import Order from "../Pages/Profile/Order/Order";
 import Profile from "../Pages/Profile/Profile/Profile";
+import Product from "../Pages/Profile/Product/Product";
 import MyAccount from "../Pages/Profile/Settings/Myaccount/MyAccount";
 import Settings from "../Pages/Profile/Settings/Settings";
 import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
@@ -46,19 +46,28 @@ function MainRoutes() {
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
           <Route path="/Profile/watchlist" element={<Watchlist />}></Route>
-          <Route path="/Profile/myorders" element={<Order />}></Route>
+          <Route path="/Profile/myProduct" element={<Product />}></Route>
           <Route path="/Profile/settings" element={<Settings />}></Route>
           <Route
             path="/Profile/settings/myaccount"
             element={<MyAccount />}
           ></Route>
-          <Route path="/Profile/settings/myadds" element={<MyAdds/>}></Route>
-          <Route path="/Profile/settings/langages" element={<Languages/>}></Route>
-          <Route path="/Profile/settings/themes" element={<Themes/>}></Route>
-          <Route path="/Profile/settings/notification" element={<Notification/>}></Route>
-          <Route path="/Profile/settings/share" element={<Share/>}></Route>
-          <Route path="/Profile/settings/help" element={<Help/>}></Route>
-          <Route path="/Profile/settings/aboutus" element={<Aboutus/>}></Route>
+          <Route
+            path="/Profile/settings/myadds/:ProductId"
+            element={<MyAdds />}
+          ></Route>
+          <Route
+            path="/Profile/settings/langages"
+            element={<Languages />}
+          ></Route>
+          <Route path="/Profile/settings/themes" element={<Themes />}></Route>
+          <Route
+            path="/Profile/settings/notification"
+            element={<Notification />}
+          ></Route>
+          <Route path="/Profile/settings/share" element={<Share />}></Route>
+          <Route path="/Profile/settings/help" element={<Help />}></Route>
+          <Route path="/Profile/settings/aboutus" element={<Aboutus />}></Route>
         </Route>
         <Route path="/items/:id" element={<Dataitems />} />
         <Route path="/Categories/:CategorieType" element={<Categories />} />

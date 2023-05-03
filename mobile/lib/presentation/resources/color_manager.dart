@@ -3,9 +3,7 @@ import 'package:sed/presentation/resources/theme_manager.dart';
 
 class ColorsManager {
   static Color darkBlack = const Color(0xFF080e13);
-  static Color textFormFieldBackGroundColorDark = const Color(0xff1A1F24);
   static Color dark900 = const Color(0xFF1A1F24);
-  static Color grayDark = const Color(0xFF95A1AC);
 
   static Color get primaryColor => ThemeManager.isDarkMode
       ? const Color(0xFF96C3E2)

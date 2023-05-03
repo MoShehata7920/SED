@@ -2,4 +2,6 @@ const pushNotificationController = require("../controllers/pushNotificationContr
 const express = require("express");
 const router = express. Router ();
 router.post('/send', pushNotificationController.sendNotification);
+router.post('/send-all', pushNotificationController.sendNotificationToAll);
+
 module.exports = router;

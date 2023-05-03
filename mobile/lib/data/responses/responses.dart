@@ -445,3 +445,16 @@ class SearchResponse extends BaseResponse {
   // To Json
   Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }
+
+@JsonSerializable()
+class DefaultResponse extends BaseResponse {
+
+  DefaultResponse();
+
+  // From Json
+  factory DefaultResponse.fromJson(Map<String, dynamic> json) =>
+      _$DefaultResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$DefaultResponseToJson(this);
+}

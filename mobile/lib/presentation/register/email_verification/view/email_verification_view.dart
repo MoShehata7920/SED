@@ -129,7 +129,7 @@ class _EmailVerificationScreenViewState
                   onPressed: () {
                     _verifyEmailViewModel.verifyEmail(int.parse(currentText));
                   },
-                  child: const Text(AppStrings.submit))),
+                  child: Text(AppStrings.confirm))),
         ),
       ]),
     );

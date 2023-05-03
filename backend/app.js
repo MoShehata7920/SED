@@ -8,12 +8,12 @@ const cors = require('cors')
 var path = require('path');
 const hbs = require('hbs');
 const createError = require('http-errors');
-
+const {limiter}=require('./api/helpers/reqLimiter')
 
 
 app.use(morgan('dev'))
 app.use(cors())
-app.use(express.json())
+app.use(express.json({limit:'100kb'}))
 
 // app.set('view engine', 'hbs'); // Set view engine to HBS
 // app.set('views', path.join(__dirname, 'views')); // Set views directory
@@ -21,7 +21,7 @@ app.use(express.json())
 
 //static middleware  for product images 
 // app.use('/uploads',express.static('uploads'))
-app.use('/SEDimages/products', express.static(path.join(__dirname, 'SEDimages/products')));
+app.use('/SEDimages', express.static(path.join(__dirname, 'SEDimages')));
 
 //google auth part
 const passport=require('passport')
@@ -49,6 +49,8 @@ const chatRouter=require('./api/routes/chat');
 const searchRouter=require('./api/routes/search');
 const notificationRouter=require('./api/routes/notification');
 
+// setting request limits 
+app.use(limiter)
 
 //forwarding routes
 app.use('/users',usersRoute)
@@ -56,7 +58,7 @@ app.use('/products',productsRoute)
 app.use('/auth',authRoute)                    
 app.use('/home',homeRoute)
 app.use('/chat', chatRouter);
-app.use('/search',searchRouter);
+// app.use('/search',searchRouter);
 app.use('/fcm',notificationRouter);
 
 app.get('',(req,res)=>{
