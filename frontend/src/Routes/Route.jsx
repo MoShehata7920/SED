@@ -52,7 +52,10 @@ function MainRoutes() {
             path="/Profile/settings/myaccount"
             element={<MyAccount />}
           ></Route>
-          <Route path="/Profile/settings/myadds" element={<MyAdds />}></Route>
+          <Route
+            path="/Profile/settings/myadds/:ProductId"
+            element={<MyAdds />}
+          ></Route>
           <Route
             path="/Profile/settings/langages"
             element={<Languages />}

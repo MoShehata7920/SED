@@ -8,6 +8,8 @@ import Paginate from "../../../Component/pagination/Paginate";
 
 export default function Product() {
   const UserToken = localStorage.getItem("usertoken");
+  console.log(UserToken);
+  let [UserID, setUserID] = useState("");
   let [CategorieType, setCategorieType] = useState("all");
   let [UserData, setUserData] = useState([]);
   const [totalpageNum, settotalpageNum] = useState(1);
@@ -18,23 +20,21 @@ export default function Product() {
   let [sort, setsort] = useState("all");
   console.log(UserData);
   let [Service, setService] = useState("all");
-  const GetCategDeta = async () => {
+  const UserProduct = async () => {
     setError(null);
     setIsPending(true);
 
     try {
       let UserData = await Axios.get(
-        `http://103.48.193.225:3000/users/myproduct`,
+        `http://103.48.193.225:3000/products/seller/${UserID}`,
         {
           headers: {
             Authentication: `Bearer ${UserToken}`,
           },
         }
       );
-      setUserData(UserData.data.result);
-
+      setUserData(UserData.data.products);
       setIsPending(false);
-      // setError(null);
     } catch (err) {
       setIsPending(false);
       setError("could not fetch the data");
@@ -42,13 +42,19 @@ export default function Product() {
     }
   };
   useEffect(() => {
-    GetCategDeta();
-  }, []);
+    UserProduct();
+    const storedUserData = window.localStorage.getItem("UserData");
+    const parsedUserData = JSON.parse(storedUserData);
+    setUserID(parsedUserData.user._id);
+  }, [UserID, UserToken]);
   return (
     <>
-      <div className="container-fluid">
-        <div className=" row  vh-100   ">
-          <div className="col-12 col-xl-3 col-lg-3 col-md-3 overflow-scroll h-100   seeAll_bg navbar-expand-md">
+      <div className="container-fluid bg-dark  Productpage  ">
+        <div className=" row  vh-100    ">
+          <div
+            id="style-7"
+            className="col-12 col-xl-3 col-lg-3 col-md-3  scrollbar h-100   seeAll_bg navbar-expand-md"
+          >
             <div className=" d-flex mb-4">
               <h1 className=" ms-5 me-4 ">Filter</h1>
 
@@ -75,7 +81,7 @@ export default function Product() {
                   <div className="dropdown">
                     <button
                       GiToggles
-                      className="btn btn-secondary dropdown-toggle"
+                      className="btn btn-primary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"
@@ -192,7 +198,7 @@ export default function Product() {
               </div>
             </div>
           </div>
-          <div className="   col-9 overflow-scroll h-100 pt-4  ">
+          <div id="style-7" className="  col-8  scrollbar   h-100 pt-4 ps-4 ">
             <div className="row  w-100 h-100 align-items-center justify-content-center ">
               <div className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-12 w-100 ">
                 <div className="row justify-content-center">
@@ -200,7 +206,7 @@ export default function Product() {
                     <div className="col-xxl-4  col-xl-4  col-lg-6 col-sm-6 col-6  ">
                       <Link
                         key={index}
-                        to={`/items/${categ._id}`}
+                        to={`/Profile/settings/myadds/${categ._id}`}
                         className="text-decoration-none "
                       >
                         <div className="item slider-style2 mb-3 ">
