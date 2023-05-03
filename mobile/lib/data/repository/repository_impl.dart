@@ -473,9 +473,10 @@ class RepositoryImpl implements Repository {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
-  
+
   @override
-  Future<Either<Failure, Default>> updateUserProfile(UpdateUserProfileRequest updateUserProfileRequest) async {
+  Future<Either<Failure, Default>> updateUserProfile(
+      UpdateUserProfileRequest updateUserProfileRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
@@ -492,6 +493,7 @@ class RepositoryImpl implements Repository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
+        print(error);
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {

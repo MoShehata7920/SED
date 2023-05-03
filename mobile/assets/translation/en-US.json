@@ -1,5 +1,4 @@
 {
-  "sed" : "SED Inc.",
   "our_team" : "OUR TEAM",
   "mohamed_shehata" : "Mohamed Shehata",
   "mahmoud_hafez" : "Mahmoud Hafez",
@@ -148,5 +147,7 @@
   "rewrite_new_password": "Rewrite New Password",
   "save_changes": "Save Changes",
   "log_out": "Log out",
-  "delete_account": "Delete Account"
+  "delete_account": "Delete Account",
+  "address_error" : "Address invalid.",
+  "government_error" : "Government is invalid."
 }

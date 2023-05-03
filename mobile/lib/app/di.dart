@@ -22,6 +22,7 @@ import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
 import 'package:sed/domain/usecase/show_items_usecase.dart';
 import 'package:sed/domain/usecase/show_profile_usecase.dart';
+import 'package:sed/domain/usecase/update_profile_usecase.dart';
 import 'package:sed/domain/usecase/verify_email_usecase.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
@@ -123,6 +124,8 @@ Future<void> initAppModule() async {
 
 
   instance.registerFactory<GetSavedProductsUseCase>(() => GetSavedProductsUseCase(instance()));
+
+  instance.registerFactory<UpdateProfileUseCase>(() => UpdateProfileUseCase(instance()));
 
   await initNotificationModule();
 }

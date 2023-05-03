@@ -63,6 +63,7 @@ class IconsManager {
   static const share = CustomIcons.share;
   static const help = CustomIcons.customer_support;
   static const questionMark = CustomIcons.info;
+  static const password = IconBroken.password;
 
   // my Ads screen
   static const update = IconBroken.edit;

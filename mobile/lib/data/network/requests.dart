@@ -103,7 +103,6 @@ class UpdateUserProfileRequest {
   String phoneNumber;
   String government;
   String address;
-  String password;
 
   UpdateUserProfileRequest(
     this.userId,
@@ -112,7 +111,6 @@ class UpdateUserProfileRequest {
     this.phoneNumber,
     this.government,
     this.address,
-    this.password,
   );
 }
 

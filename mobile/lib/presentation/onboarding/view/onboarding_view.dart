@@ -114,7 +114,7 @@ class OnBoardingPage extends StatelessWidget {
                 top: AppSize.s45,
               ),
               child: Text(
-                AppStrings.sed.tr(),
+                AppStrings.sed,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: AppSize.s25, color: ColorsManager.primaryText),
               ).animateOnPageLoad(

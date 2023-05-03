@@ -18,6 +18,17 @@ class RegisterObject with _$RegisterObject {
 }
 
 @freezed
+class UserProfileObject with _$UserProfileObject {
+  factory UserProfileObject(
+    File userImage,
+    String userName,
+    String userPhone,
+    String government,
+    String address,
+  ) = _userProfileObject;
+}
+
+@freezed
 class AdvertisementObject with _$AdvertisementObject {
   factory AdvertisementObject(
       File image,

@@ -185,7 +185,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         updateUserProfileRequest.phoneNumber,
         updateUserProfileRequest.government,
         updateUserProfileRequest.address,
-        updateUserProfileRequest.password,
         "Bearer ${Constants.token}");
   }
 }

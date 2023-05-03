@@ -187,6 +187,14 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
+            _getInkwell(IconsManager.password, AppStrings.changePassword.tr(),
+                () {
+              Navigator.pushNamed(context, Routes.changePasswordScreenRoute);
+            }).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+            const SizedBox(
+              height: AppSize.s5,
+            ),
             _getInkwell(IconsManager.myAds, AppStrings.myAds.tr(), () {
               Navigator.pushNamed(context, Routes.myAdsScreenRoute);
             }).animateOnPageLoad(
@@ -262,7 +270,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs.tr(), () {
+            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs, () {
               Navigator.pushNamed(context, Routes.aboutUsScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),

@@ -1,5 +1,4 @@
 {
-    "sed" : "SED شركة",
     "our_team" : "فريقنا",
     "mohamed_shehata" : "محمد شحاتة تركى",
     "mahmoud_hafez" : "محمود حافظ",
@@ -148,5 +147,7 @@
     "rewrite_new_password": "إعادة كتابة كلمة المرور الجديدة",
     "save_changes": "حفظ التغييرات",
     "log_out": "تسجيل الخروج",
-    "delete_account": "حذف الحساب"
+    "delete_account": "حذف الحساب",
+    "address_error" : "يرجى التاكد من العنوان",
+    "government_error" : "يرجى التاكد من المحافظة"
 }

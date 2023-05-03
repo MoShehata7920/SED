@@ -353,6 +353,209 @@ abstract class _registerObject implements RegisterObject {
 }
 
 /// @nodoc
+mixin _$UserProfileObject {
+  File get userImage => throw _privateConstructorUsedError;
+  String get userName => throw _privateConstructorUsedError;
+  String get userPhone => throw _privateConstructorUsedError;
+  String get government => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $UserProfileObjectCopyWith<UserProfileObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserProfileObjectCopyWith<$Res> {
+  factory $UserProfileObjectCopyWith(
+          UserProfileObject value, $Res Function(UserProfileObject) then) =
+      _$UserProfileObjectCopyWithImpl<$Res, UserProfileObject>;
+  @useResult
+  $Res call(
+      {File userImage,
+      String userName,
+      String userPhone,
+      String government,
+      String address});
+}
+
+/// @nodoc
+class _$UserProfileObjectCopyWithImpl<$Res, $Val extends UserProfileObject>
+    implements $UserProfileObjectCopyWith<$Res> {
+  _$UserProfileObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userImage = null,
+    Object? userName = null,
+    Object? userPhone = null,
+    Object? government = null,
+    Object? address = null,
+  }) {
+    return _then(_value.copyWith(
+      userImage: null == userImage
+          ? _value.userImage
+          : userImage // ignore: cast_nullable_to_non_nullable
+              as File,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userPhone: null == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      government: null == government
+          ? _value.government
+          : government // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_userProfileObjectCopyWith<$Res>
+    implements $UserProfileObjectCopyWith<$Res> {
+  factory _$$_userProfileObjectCopyWith(_$_userProfileObject value,
+          $Res Function(_$_userProfileObject) then) =
+      __$$_userProfileObjectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {File userImage,
+      String userName,
+      String userPhone,
+      String government,
+      String address});
+}
+
+/// @nodoc
+class __$$_userProfileObjectCopyWithImpl<$Res>
+    extends _$UserProfileObjectCopyWithImpl<$Res, _$_userProfileObject>
+    implements _$$_userProfileObjectCopyWith<$Res> {
+  __$$_userProfileObjectCopyWithImpl(
+      _$_userProfileObject _value, $Res Function(_$_userProfileObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userImage = null,
+    Object? userName = null,
+    Object? userPhone = null,
+    Object? government = null,
+    Object? address = null,
+  }) {
+    return _then(_$_userProfileObject(
+      null == userImage
+          ? _value.userImage
+          : userImage // ignore: cast_nullable_to_non_nullable
+              as File,
+      null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == government
+          ? _value.government
+          : government // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_userProfileObject implements _userProfileObject {
+  _$_userProfileObject(this.userImage, this.userName, this.userPhone,
+      this.government, this.address);
+
+  @override
+  final File userImage;
+  @override
+  final String userName;
+  @override
+  final String userPhone;
+  @override
+  final String government;
+  @override
+  final String address;
+
+  @override
+  String toString() {
+    return 'UserProfileObject(userImage: $userImage, userName: $userName, userPhone: $userPhone, government: $government, address: $address)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_userProfileObject &&
+            (identical(other.userImage, userImage) ||
+                other.userImage == userImage) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.userPhone, userPhone) ||
+                other.userPhone == userPhone) &&
+            (identical(other.government, government) ||
+                other.government == government) &&
+            (identical(other.address, address) || other.address == address));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, userImage, userName, userPhone, government, address);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_userProfileObjectCopyWith<_$_userProfileObject> get copyWith =>
+      __$$_userProfileObjectCopyWithImpl<_$_userProfileObject>(
+          this, _$identity);
+}
+
+abstract class _userProfileObject implements UserProfileObject {
+  factory _userProfileObject(
+      final File userImage,
+      final String userName,
+      final String userPhone,
+      final String government,
+      final String address) = _$_userProfileObject;
+
+  @override
+  File get userImage;
+  @override
+  String get userName;
+  @override
+  String get userPhone;
+  @override
+  String get government;
+  @override
+  String get address;
+  @override
+  @JsonKey(ignore: true)
+  _$$_userProfileObjectCopyWith<_$_userProfileObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AdvertisementObject {
   File get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;

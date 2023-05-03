@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/viewmodel/my_account_screen_viewmodel.dart';
-import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -54,6 +53,22 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
     _governmentController = TextEditingController();
     _addressController = TextEditingController();
     _passwordController = TextEditingController();
+
+    _nameController.addListener(() {
+      _viewModel.setUserName(_nameController.text);
+    });
+
+    _phoneController.addListener(() {
+      _viewModel.setMobileNumber(_phoneController.text);
+    });
+
+    _governmentController.addListener(() {
+      _viewModel.setUserGovernment(_governmentController.text);
+    });
+
+    _addressController.addListener(() {
+      _viewModel.setAddress(_addressController.text);
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _bind();
@@ -185,73 +200,42 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
               ],
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
             ),
-            const SizedBox(height: AppSize.s8),
-            GestureDetector(
-              child: TextField(
-                decoration: InputDecoration(
-                    labelText: AppStrings.dob.tr(),
-                    suffixIcon: const Icon(IconsManager.calender),
-                    suffixIconColor: ColorsManager.primaryColor),
-                controller:
-                    _dobController, //editing controller of this TextField
-                readOnly:
-                    true, //set it true, so that user will not able to edit text
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(
-                          1900), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2040));
-
-                  if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
-
-                    setState(() {
-                      _dobController.text =
-                          formattedDate; //set output date to TextField value.
-                    });
-                  } else {
-                    print("Date is not selected");
-                  }
-                },
-              ),
-            ),
-            const SizedBox(height: AppSize.s8),
-            Text(AppStrings.changePassword.tr(),
-                style: TextStyle(
-                    fontSize: AppSize.s20,
-                    fontWeight: FontWeight.bold,
-                    color: ColorsManager.primaryText)),
-            const SizedBox(height: AppSize.s16),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: AppStrings.oldPassword.tr(),
-              ),
-            ),
-            const SizedBox(height: AppSize.s8),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: AppStrings.newPassword,
-              ),
-            ),
-            const SizedBox(height: AppSize.s8),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: AppStrings.rewriteNewPassword,
-              ),
-            ),
+            // const SizedBox(height: AppSize.s8),
+            // Text(AppStrings.changePassword.tr(),
+            //     style: TextStyle(
+            //         fontSize: AppSize.s20,
+            //         fontWeight: FontWeight.bold,
+            //         color: ColorsManager.primaryText)),
+            // const SizedBox(height: AppSize.s16),
+            // TextField(
+            //   controller: _passwordController,
+            //   obscureText: true,
+            //   decoration: InputDecoration(
+            //     labelText: AppStrings.oldPassword.tr(),
+            //   ),
+            // ),
+            // const SizedBox(height: AppSize.s8),
+            // TextField(
+            //   controller: _passwordController,
+            //   obscureText: true,
+            //   decoration: InputDecoration(
+            //     labelText: AppStrings.newPassword,
+            //   ),
+            // ),
+            // const SizedBox(height: AppSize.s8),
+            // TextField(
+            //   controller: _passwordController,
+            //   obscureText: true,
+            //   decoration: InputDecoration(
+            //     labelText: AppStrings.rewriteNewPassword,
+            //   ),
+            // ),
             const SizedBox(height: AppSize.s16),
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _viewModel.updateUserProfile();
+                },
                 child: Text(AppStrings.saveChanges.tr()),
               ),
             ),

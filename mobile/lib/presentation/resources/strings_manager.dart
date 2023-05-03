@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppStrings {
-  static const String ourTeam = "our_team";
-  static const String mohamedShehata = "mohamed_shehata";
-  static const String mahmoudHafez = "mahmoud_hafez";
-  static const String abdullahRagab = "abdullah_ragab";
-  static const String mahmoudElamrosy = "mahmoud_elamrosy";
-  static const String mohamedAdel = "mohamed_adel";
-  static const String abdElrahmanEzzat = "abdElrahman_ezzat";
-  static const String mobileDeveloper = "mobile_developer";
-  static const String backendDeveloper = "backend_developer";
-  static const String frontDeveloper = "front_developer";
+  static String ourTeam = "our_team".tr();
+  static String mohamedShehata = "mohamed_shehata".tr();
+  static String mahmoudHafez = "mahmoud_hafez".tr();
+  static String abdullahRagab = "abdullah_ragab".tr();
+  static String mahmoudElamrosy = "mahmoud_elamrosy".tr();
+  static String mohamedAdel = "mohamed_adel".tr();
+  static String abdElrahmanEzzat = "abdElrahman_ezzat".tr();
+  static String mobileDeveloper = "mobile_developer".tr();
+  static String backendDeveloper = "backend_developer".tr();
+  static String frontDeveloper = "front_developer".tr();
   static const String mohamedShehataImageUrl =
       'http://i.epvpimg.com/tRsTeab.png';
   static const String mahmoudHafezImageUrl = 'http://i.epvpimg.com/y6anfab.png';
@@ -21,18 +21,18 @@ class AppStrings {
   static const String mohamedAdelImageUrl = 'http://i.epvpimg.com/vTCgeab.png';
   static const String abdElrahmanEzzatImageUrl =
       'http://i.epvpimg.com/hB5oeab.png';
-  static const String drElshwimySupervisor = "dr_elshwimy_supervisor";
+  static String drElshwimySupervisor = "dr_elshwimy_supervisor".tr();
 
   static const String empty = "";
 
-  static const String sed = "sed";
+  static const String sed = "SED Inc.";
 
   //splash screen
-  static const String noRouteTitle = "no_route_title";
-  static const String noRouteFound = "no_route_found";
-  static const String poweredBy = "powered_by";
-  static const String eagles = "eagles";
-  static const String eaglesTeam = "eagles_team";
+  static String noRouteTitle = "no_route_title".tr();
+  static String noRouteFound = "no_route_found".tr();
+  static String poweredBy = "powered_by".tr();
+  static String eagles = "eagles".tr();
+  static String eaglesTeam = "eagles_team".tr();
 
   //on boarding screen
   static const List<String> onBoardingTitles = [
@@ -146,7 +146,7 @@ class AppStrings {
   static const String notifications = "notifications";
   static const String share = "share";
   static const String help = "help";
-  static const String aboutUs = "about_us";
+  static String aboutUs = "about_us".tr();
 
   // add and update screen
   static const String successfullyAddedAd = "successfully_added_ad";
@@ -206,8 +206,10 @@ class AppStrings {
   static const String address = "address";
   static const String dob = "dob";
   static const String changePassword = "change_password";
-  static const String oldPassword = "old_password";
+  static String oldPassword = "old_password".tr();
   static const String saveChanges = "save_changes";
   static const String logOut = "log_out";
   static const String deleteAccount = "delete_account";
+  static const String addressError = "address_error";
+  static const String governmentError = "government_error";
 }

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
@@ -16,7 +15,7 @@ class AboutUsScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: ColorsManager.primaryBackground,
         title: Text(
-          AppStrings.aboutUs.tr(),
+          AppStrings.aboutUs,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.secondaryText,
                 fontWeight: FontWeight.bold,
@@ -31,7 +30,7 @@ class AboutUsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppStrings.ourTeam.tr(),
+              AppStrings.ourTeam,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.primaryText,
                     fontWeight: FontWeight.bold,
@@ -40,43 +39,43 @@ class AboutUsScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mohamedShehata.tr(),
-              title: AppStrings.mobileDeveloper.tr(),
+              name: AppStrings.mohamedShehata,
+              title: AppStrings.mobileDeveloper,
               imageUrl: AppStrings.mohamedShehataImageUrl,
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mahmoudHafez.tr(),
-              title: AppStrings.mobileDeveloper.tr(),
+              name: AppStrings.mahmoudHafez,
+              title: AppStrings.mobileDeveloper,
               imageUrl: AppStrings.mahmoudHafezImageUrl,
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.abdullahRagab.tr(),
-              title: AppStrings.backendDeveloper.tr(),
+              name: AppStrings.abdullahRagab,
+              title: AppStrings.backendDeveloper,
               imageUrl: AppStrings.abdullahRagabImageUrl,
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mahmoudElamrosy.tr(),
-              title: AppStrings.backendDeveloper.tr(),
+              name: AppStrings.mahmoudElamrosy,
+              title: AppStrings.backendDeveloper,
               imageUrl: AppStrings.mahmoudElamrosyImageUrl,
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mohamedAdel.tr(),
-              title: AppStrings.frontDeveloper.tr(),
+              name: AppStrings.mohamedAdel,
+              title: AppStrings.frontDeveloper,
               imageUrl: AppStrings.mohamedAdelImageUrl,
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.abdElrahmanEzzat.tr(),
-              title: AppStrings.frontDeveloper.tr(),
+              name: AppStrings.abdElrahmanEzzat,
+              title: AppStrings.frontDeveloper,
               imageUrl: AppStrings.abdElrahmanEzzatImageUrl,
             ),
             const SizedBox(height: AppSize.s32),
             Text(
-              AppStrings.eaglesTeam.tr(),
+              AppStrings.eaglesTeam,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.primaryText,
                     fontWeight: FontWeight.bold,
@@ -85,7 +84,7 @@ class AboutUsScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSize.s8),
             Text(
-              AppStrings.drElshwimySupervisor.tr(),
+              AppStrings.drElshwimySupervisor,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.secondaryText,
                     fontSize: AppSize.s14,

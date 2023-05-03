@@ -20,6 +20,7 @@ import '../forgot_password/view/forgotpassword_view.dart';
 import '../main_screen/items_screen/view/products_screen_view.dart';
 import '../main_screen/main_screen_view/main_screen_view.dart';
 import '../main_screen/sub_screens/search_screen/view/search_view.dart';
+import '../main_screen/sub_screens/settings_screen/settings_sub_screens/change_password_screen/view/change_password_screen_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/view/my_account_screen_view.dart';
 import '../main_screen/sub_screens/settings_screen/settings_sub_screens/my_ads_screen/view/my_ads_view.dart';
 import '../register/email_verification/view/email_verification_view.dart';
@@ -45,6 +46,7 @@ class Routes {
   static const String searchScreenRoute = "/search";
   static const String notificationsScreenRoute = "/notifications";
   static const String myAccountScreenRoute = "/myAccount";
+  static const String changePasswordScreenRoute = "/changePassword";
   static const String messagingScreenRoute = "/messaging";
   static const String cameraScreenRoute = "/camera";
 }
@@ -141,6 +143,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => const MyAccountScreenView());
 
+      case Routes.changePasswordScreenRoute:
+        return MaterialPageRoute(
+            builder: (context) => const ChangePasswordScreenView());
+
       case Routes.messagingScreenRoute:
         return MaterialPageRoute(
             builder: (context) => const MessagingScreenView());
@@ -159,9 +165,9 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (context) => Scaffold(
               appBar: AppBar(
-                title: Text(AppStrings.noRouteTitle.tr()),
+                title: Text(AppStrings.noRouteTitle),
               ),
-              body: Center(child: Text(AppStrings.noRouteFound.tr())),
+              body: Center(child: Text(AppStrings.noRouteFound)),
             ));
   }
 }

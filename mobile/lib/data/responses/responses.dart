@@ -205,6 +205,9 @@ class UserDataResponse {
   @JsonKey(name: "fullName")
   String? name;
 
+  @JsonKey(name: "userImage")
+  String? image;
+  
   @JsonKey(name: "phone")
   String? phone;
 
@@ -214,8 +217,6 @@ class UserDataResponse {
   @JsonKey(name: "address")
   String? address;
 
-  @JsonKey(name: "userImage")
-  String? image;
 
   UserDataResponse(this.id, this.name, this.phone, this.government,
       this.address, this.image);

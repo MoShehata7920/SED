@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/constants.dart';
-import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import '../../../../../../../app/di.dart';
 import '../../../../../../../domain/usecase/myprofile_data_usecase.dart';
+import '../../../../../../../domain/usecase/update_profile_usecase.dart';
+import '../../../../../../common/freezed_data_classes.dart';
+import '../../../../../../resources/strings_manager.dart';
 
 class MyAccountViewModel extends BaseViewModel
     with MyAccountViewModelInputs, MyAccountViewModelOutputs {
@@ -26,19 +30,21 @@ class MyAccountViewModel extends BaseViewModel
   final StreamController _addressStreamController =
       StreamController<String>.broadcast();
 
-  final StreamController _oldPasswordStreamController =
-      StreamController<String>.broadcast();
-
-  final StreamController _passwordStreamController =
-      StreamController<String>.broadcast();
-
-  final StreamController _confirmPasswordStreamController =
-      StreamController<String>.broadcast();
-
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
   GetMyProfileData? userData;
+
+  var userProfileObject = UserProfileObject(
+    File(""),
+    "",
+    "",
+    "",
+    "",
+  );
+
+  final UpdateProfileUseCase _updateProfileUseCase =
+      instance<UpdateProfileUseCase>();
 
   @override
   Future start() async {
@@ -59,67 +65,66 @@ class MyAccountViewModel extends BaseViewModel
   Sink get inputAddress => _addressStreamController.sink;
 
   @override
-  Sink get inputOldPassword => _oldPasswordStreamController.sink;
-
-  @override
-  Sink get inputPassword => _passwordStreamController.sink;
-
-  @override
-  Sink get inputConfirmPassword => _confirmPasswordStreamController.sink;
-
-  @override
   Sink get inputAllInputsValid => _areAllInputsValidStreamController.sink;
 
   @override
   void setUserImage(XFile? userImage) {
-    // TODO: implement setUserImage
+    if (userImage != null) {
+      userProfileObject =
+          userProfileObject.copyWith(userImage: File(userImage.path));
+    }
   }
 
   @override
   setUserName(String userName) {
-    // TODO: implement setUserName
-    throw UnimplementedError();
+    inputUserName.add(userName);
+
+    if (_isUserNameValid(userName)) {
+      userProfileObject = userProfileObject.copyWith(userName: userName);
+    } else {
+      userProfileObject = userProfileObject.copyWith(userName: "");
+    }
+
+    validate();
   }
 
   @override
   setMobileNumber(String mobileNumber) {
-    // TODO: implement setMobileNumber
-    throw UnimplementedError();
+    inputPhoneNumber.add(mobileNumber);
+
+    if (_isMobileNumberValid(mobileNumber)) {
+      userProfileObject = userProfileObject.copyWith(userPhone: mobileNumber);
+    } else {
+      userProfileObject = userProfileObject.copyWith(userPhone: "");
+    }
+
+    validate();
   }
 
   @override
   setUserGovernment(String uerGovernment) {
-    // TODO: implement setUserGovernment
-    throw UnimplementedError();
+    inputGovernment.add(uerGovernment);
+
+    if (_isGovernmentValid(uerGovernment)) {
+      userProfileObject = userProfileObject.copyWith(government: uerGovernment);
+    } else {
+      userProfileObject = userProfileObject.copyWith(government: "");
+    }
+
+    validate();
   }
 
   @override
   setAddress(String userAddress) {
-    return userAddress.isNotEmpty;
-  }
+    inputAddress.add(userAddress);
 
-  @override
-  setOldPassword(String oldPassword) {
-    // TODO: implement setOldPassword
-    throw UnimplementedError();
-  }
+    if (_isAddressValid(userAddress)) {
+      userProfileObject = userProfileObject.copyWith(address: userAddress);
+    } else {
+      userProfileObject = userProfileObject.copyWith(address: "");
+    }
 
-  @override
-  setPassword(String password) {
-    // TODO: implement setPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  setConfirmPassword(String confirmPassword) {
-    // TODO: implement setConfirmPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  updateUserProfile() {
-    // TODO: implement updateUserProfile
-    throw UnimplementedError();
+    validate();
   }
 
   // Outputs
@@ -128,58 +133,36 @@ class MyAccountViewModel extends BaseViewModel
   Stream<String> get imageOutput => throw UnimplementedError();
 
   @override
-  // TODO: implement outputIsUserNameValid
-  Stream<bool> get outputIsUserNameValid => throw UnimplementedError();
+  Stream<bool> get outputIsUserNameValid => _userNameStreamController.stream
+      .map((userName) => _isUserNameValid(userName));
 
   @override
-  // TODO: implement outputErrorUserNameValid
-  Stream<String?> get outputErrorUserNameValid => throw UnimplementedError();
+  Stream<String?> get outputErrorUserNameValid =>
+      outputIsUserNameValid.map((isUserNameValid) =>
+          isUserNameValid ? null : AppStrings.userNameInValid.tr());
 
   @override
-  // TODO: implement outputIsMobileNumberValid
-  Stream<bool> get outputIsMobileNumberValid => throw UnimplementedError();
+  Stream<bool> get outputIsMobileNumberValid =>
+      _phoneNumberStreamController.stream
+          .map((mobileNumber) => _isMobileNumberValid(mobileNumber));
 
   @override
-  // TODO: implement outputErrorMobileNumberValid
   Stream<String?> get outputErrorMobileNumberValid =>
-      throw UnimplementedError();
+      outputIsMobileNumberValid.map((isMobileNumberValid) =>
+          isMobileNumberValid ? null : AppStrings.mobileNumberInValid.tr());
 
   @override
-  // TODO: implement outputIsUserGovernmentValid
-  Stream<bool> get outputIsUserGovernmentValid => throw UnimplementedError();
+  Stream<bool> get outputIsUserGovernmentValid =>
+      _governmentStreamController.stream
+          .map((government) => _isGovernmentValid(government));
 
   @override
-  // TODO: implement outputIsAddressValid
-  Stream<bool> get outputIsAddressValid => throw UnimplementedError();
+  Stream<bool> get outputIsAddressValid => _addressStreamController.stream
+      .map((address) => _isAddressValid(address));
 
   @override
-  // TODO: implement outputErrorAddressValid
-  Stream<String?> get outputErrorAddressValid => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputIsOldPasswordValid
-  Stream<bool> get outputIsOldPasswordValid => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputErrorOldPasswordValid
-  Stream<String?> get outputErrorOldPasswordValid => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputIsPasswordValid
-  Stream<bool> get outputIsPasswordValid => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputErrorPasswordValid
-  Stream<String?> get outputErrorPasswordValid => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputIsConfirmPasswordValid
-  Stream<bool> get outputIsConfirmPasswordValid => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputErrorConfirmPasswordValid
-  Stream<String?> get outputErrorConfirmPasswordValid =>
-      throw UnimplementedError();
+  Stream<String?> get outputErrorAddressValid => outputIsAddressValid.map(
+      (isAddressValid) => isAddressValid ? null : AppStrings.addressError.tr());
 
   @override
   // TODO: implement outputAreAllInputsValid
@@ -194,21 +177,12 @@ class MyAccountViewModel extends BaseViewModel
     return mobileNumber.length >= 9;
   }
 
+  bool _isGovernmentValid(String userGovernment) {
+    return userGovernment.isNotEmpty;
+  }
+
   bool _isAddressValid(String userAddress) {
     return userAddress.isNotEmpty;
-  }
-
-  bool _isOldPasswordValid(String oldPassword) {
-    return oldPassword.isPasswordValid();
-  }
-
-  bool _isPasswordValid(String password) {
-    return password.isPasswordValid();
-  }
-
-  bool _isConfirmPasswordValid(String confirmPassword) {
-    // TODO: implement _isConfirmPasswordValid
-    throw UnimplementedError();
   }
 
   bool _areAllInputsValid() {
@@ -218,6 +192,30 @@ class MyAccountViewModel extends BaseViewModel
 
   validate() {
     inputAllInputsValid.add(null);
+  }
+
+  @override
+  updateUserProfile() async {
+    var response = await _updateProfileUseCase.execute(
+        UpdateUserProfileUseCaseInput(
+            userData!.user.id,
+            userProfileObject.userImage,
+            userProfileObject.userName,
+            userProfileObject.userPhone,
+            userProfileObject.government,
+            userProfileObject.address));
+
+    // response.fold(
+    //     (failure) => {
+    //           // left -> failure
+    //           inputState.add(ErrorState(
+    //               StateRendererType.fullScreenLoadingState, failure.message))
+    //         }, (response) {
+    //   // right -> success
+
+    //   inputState.add(SuccessState(
+    //       StateRendererType.popUpSuccessState, "Success", AppStrings.success.tr(),(){}));
+    // });
   }
 
   Future getUserData() async {
@@ -246,9 +244,7 @@ class MyAccountViewModel extends BaseViewModel
     _phoneNumberStreamController.close();
     _governmentStreamController.close();
     _addressStreamController.close();
-    _oldPasswordStreamController.close();
-    _passwordStreamController.close();
-    _confirmPasswordStreamController.close();
+
     _areAllInputsValidStreamController.close();
   }
 }
@@ -261,12 +257,6 @@ abstract class MyAccountViewModelInputs {
   Sink get inputGovernment;
 
   Sink get inputAddress;
-
-  Sink get inputOldPassword;
-
-  Sink get inputPassword;
-
-  Sink get inputConfirmPassword;
 
   Sink get inputAllInputsValid;
 
@@ -281,12 +271,6 @@ abstract class MyAccountViewModelInputs {
   setUserGovernment(String uerGovernment);
 
   setAddress(String userAddress);
-
-  setOldPassword(String oldPassword);
-
-  setPassword(String password);
-
-  setConfirmPassword(String confirmPassword);
 }
 
 abstract class MyAccountViewModelOutputs {
@@ -305,18 +289,6 @@ abstract class MyAccountViewModelOutputs {
   Stream<bool> get outputIsAddressValid;
 
   Stream<String?> get outputErrorAddressValid;
-
-  Stream<bool> get outputIsOldPasswordValid;
-
-  Stream<String?> get outputErrorOldPasswordValid;
-
-  Stream<bool> get outputIsPasswordValid;
-
-  Stream<String?> get outputErrorPasswordValid;
-
-  Stream<bool> get outputIsConfirmPasswordValid;
-
-  Stream<String?> get outputErrorConfirmPasswordValid;
 
   Stream<bool> get outputAreAllInputsValid;
 }

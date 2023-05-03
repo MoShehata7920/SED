@@ -295,7 +295,6 @@ class _AppServiceClient implements AppServiceClient {
     phoneNumber,
     government,
     address,
-    password,
     token,
   ) async {
     const _extra = <String, dynamic>{};
@@ -325,10 +324,6 @@ class _AppServiceClient implements AppServiceClient {
     _data.fields.add(MapEntry(
       'address',
       address,
-    ));
-    _data.fields.add(MapEntry(
-      'password',
-      password,
     ));
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<DefaultResponse>(Options(

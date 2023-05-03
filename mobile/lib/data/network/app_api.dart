@@ -68,7 +68,7 @@ abstract class AppServiceClient {
     @Path("profileId") String profileId,
   );
 
-    @MultiPart()
+  @MultiPart()
   @PATCH("/users/update/{userId}")
   Future<DefaultResponse> updateUserProfile(
     @Path("userId") String userId,
@@ -77,9 +77,8 @@ abstract class AppServiceClient {
     @Part(name: "phone") String phoneNumber,
     @Part(name: "government") String government,
     @Part(name: "address") String address,
-    @Part(name: "password") String password,
-      @Header("Authentication") String token,
-      );
+    @Header("Authentication") String token,
+  );
 
   @MultiPart()
   @POST("/products/newproduct")
@@ -99,7 +98,8 @@ abstract class AppServiceClient {
 
   @GET("/products/seller/{sellerId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(
-      @Path("sellerId") String sellerId, @Header("Authentication") String token);
+      @Path("sellerId") String sellerId,
+      @Header("Authentication") String token);
 
   @DELETE("/products/product/{prodId}")
   Future<RemoveAdResponse> removeAd(
@@ -116,8 +116,8 @@ abstract class AppServiceClient {
     @Part(name: "purpose") String purpose,
     @Part(name: "category") String category,
     @Part(name: "condition") String condition,
-      @Header("Authentication") String token,
-      );
+    @Header("Authentication") String token,
+  );
 
   @GET("/Notifications")
   Future<NotificationsResponse> notifications(

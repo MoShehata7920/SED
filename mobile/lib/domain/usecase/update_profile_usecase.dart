@@ -23,7 +23,6 @@ class UpdateProfileUseCase
       input.phoneNumber,
       input.government,
       input.address,
-      input.password,
     ));
   }
 }
@@ -35,7 +34,6 @@ class UpdateUserProfileUseCaseInput {
   String phoneNumber;
   String government;
   String address;
-  String password;
 
   UpdateUserProfileUseCaseInput(
     this.userId,
@@ -43,7 +41,6 @@ class UpdateUserProfileUseCaseInput {
     this.name,
     this.phoneNumber,
     this.government,
-    this.address,
-    this.password,
+    this.address
   );
 }

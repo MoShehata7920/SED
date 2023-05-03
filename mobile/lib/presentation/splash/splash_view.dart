@@ -58,12 +58,12 @@ class _SplashViewState extends State<SplashView> {
                     ).animateOnPageLoad(
                         msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
                     Text(
-                      AppStrings.poweredBy.tr(),
+                      AppStrings.poweredBy,
                       style: Theme.of(context).textTheme.titleMedium,
                     ).animateOnPageLoad(
                         msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
                     Text(
-                      AppStrings.eagles.tr(),
+                      AppStrings.eagles,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ).animateOnPageLoad(
                         msDelay: 300, dx: 0.0, dy: 70.0, showDelay: 300),
@@ -96,7 +96,7 @@ class _SplashViewState extends State<SplashView> {
           if (isUseLoggedIn)
             {
               // navigate to main screen
-              Navigator.pushReplacementNamed(context, Routes.mainScreenRoute)
+              Navigator.pushReplacementNamed(context, Routes.registerRoute)
             }
           else
             {
