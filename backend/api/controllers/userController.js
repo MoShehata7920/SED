@@ -1,11 +1,6 @@
 const User = require('../models/user')
 const Product=require('../models/product');
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const { generateOTP, mailTransport, creatResetToken, generateForgotPasswordTemplate } = require('../helpers/mail')
-const EmailVerification = require('../models/emailVerification')
-const { body, validationResult } = require('express-validator')
+
 
 
 exports.addToWishList = async (req, res) => {
@@ -98,6 +93,11 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ status: 1, err });
   }
 };
+
+exports.userPostedProducts=async(req,res,next)=>{
+  const result= await Product.find({seller:req.user.id});
+  res.status(200).json({status:0,result})
+}
 
 
 // (3) deleting single user
