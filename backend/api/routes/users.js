@@ -22,6 +22,8 @@ const upload = multer({
 //updating user info
 router.patch("/update/:userId", verifyToken,upload.single('userImage'), userController.updateUser)
 
+router.get('/myproduct',verifyToken,userController.userPostedProducts)
+
 //deleting user by it's Id
 router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
 
