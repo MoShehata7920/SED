@@ -96,6 +96,26 @@ class UpdateAdRequest {
       this.token);
 }
 
+class UpdateUserProfileRequest {
+  String userId;
+  File userImage;
+  String name;
+  String phoneNumber;
+  String government;
+  String address;
+  String password;
+
+  UpdateUserProfileRequest(
+    this.userId,
+    this.userImage,
+    this.name,
+    this.phoneNumber,
+    this.government,
+    this.address,
+    this.password,
+  );
+}
+
 class SearchRequest {
   String searchText;
 

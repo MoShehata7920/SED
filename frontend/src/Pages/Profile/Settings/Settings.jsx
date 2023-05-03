@@ -12,7 +12,7 @@ export default function Settings() {
               <button type="button" className=" w-75  p-1 rounded-0">
                 <Link
                   className="text-decoration-none"
-                  to={"/Profile/settings/myadds"}
+                  to={"/Profile/settings/myadds/"}
                 >
                   My Adds
                 </Link>{" "}

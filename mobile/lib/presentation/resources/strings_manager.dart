@@ -79,9 +79,12 @@ class AppStrings {
   static const String noInternet = "no_internet";
 
   //forgot password screen
-  static const String resendText = "resend_text";
-  static const String forgetPassword = "forget_password";
-  static const String resetPassword = "reset_password";
+  static String resendText = "resend_text".tr();
+  static String forgetPassword = "forget_password".tr();
+  static String resetPassword = "reset_password".tr();
+  static String newPassword = "new_password".tr();
+  static String rewriteNewPassword = "rewrite_new_password".tr();
+  static String confirm = "confirm".tr();
 
   // Register Screen
   static const String userNameInValid = "user_name_in_valid";
@@ -204,8 +207,6 @@ class AppStrings {
   static const String dob = "dob";
   static const String changePassword = "change_password";
   static const String oldPassword = "old_password";
-  static const String newPassword = "new_password";
-  static const String rewriteNewPassword = "rewrite_new_password";
   static const String saveChanges = "save_changes";
   static const String logOut = "log_out";
   static const String deleteAccount = "delete_account";

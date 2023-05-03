@@ -52,7 +52,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       return Container();
     } else {
       return Scaffold(
-        backgroundColor: ColorsManager.darkBlack,
+        backgroundColor: ColorsManager.primaryBackground,
         body: PageView.builder(
             controller: _pageController,
             itemCount: sliderObject.numOfSlides,
@@ -197,7 +197,7 @@ class OnBoardingPage extends StatelessWidget {
   Widget _getBottomSheetWidget(SliderViewObject sliderViewObject,
       OnBoardingViewModel _viewModel, PageController _pageController) {
     return Container(
-      color: ColorsManager.darkBlack,
+      color: ColorsManager.primaryBackground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

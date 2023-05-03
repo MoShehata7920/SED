@@ -1,15 +1,15 @@
-import "./Product.css";
+import "./SellerInfo.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GiToggles } from "react-icons/gi";
 import Axios from "axios";
 import { useEffect, useState } from "react";
-import Paginate from "../../../Component/pagination/Paginate";
+import Paginate from "../../Component/pagination/Paginate";
 
-export default function Product() {
+export default function SellerInfo() {
+  let { SellerId } = useParams();
   const UserToken = localStorage.getItem("usertoken");
   console.log(UserToken);
-  let [UserID, setUserID] = useState("");
   let [CategorieType, setCategorieType] = useState("all");
   let [UserData, setUserData] = useState([]);
   const [totalpageNum, settotalpageNum] = useState(1);
@@ -26,7 +26,7 @@ export default function Product() {
 
     try {
       let UserData = await Axios.get(
-        `http://103.48.193.225:3000/products/seller/${UserID}`,
+        `http://103.48.193.225:3000/products/seller/${SellerId}`,
         {
           headers: {
             Authentication: `Bearer ${UserToken}`,
@@ -43,10 +43,7 @@ export default function Product() {
   };
   useEffect(() => {
     UserProduct();
-    const storedUserData = window.localStorage.getItem("UserData");
-    const parsedUserData = JSON.parse(storedUserData);
-    setUserID(parsedUserData.user._id);
-  }, [UserID, UserToken]);
+  }, [UserToken]);
   return (
     <>
       <div className="container-fluid bg-dark  Productpage  ">

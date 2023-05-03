@@ -23,6 +23,7 @@ import Notification from "../Pages/Profile/Settings/Notification/Notification";
 import Share from "../Pages/Profile/Settings/Share/Share";
 import Help from "../Pages/Profile/Settings/Help/Help";
 import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
+import SellerInfo from "../Pages/SellerInfo/SellerInfo";
 
 function MainRoutes() {
   const storedToken = localStorage.getItem("usertoken");
@@ -52,7 +53,10 @@ function MainRoutes() {
             path="/Profile/settings/myaccount"
             element={<MyAccount />}
           ></Route>
-          <Route path="/Profile/settings/myadds" element={<MyAdds />}></Route>
+          <Route
+            path="/Profile/settings/myadds/:ProductId"
+            element={<MyAdds />}
+          ></Route>
           <Route
             path="/Profile/settings/langages"
             element={<Languages />}
@@ -71,6 +75,8 @@ function MainRoutes() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/SeeAllData/:SeeData" element={<SeeAllData />} />
         <Route path="/AddItems" element={<AddItem />} />
+
+        <Route path="/SellerInfo/:SellerId" element={<SellerInfo />} />
       </Routes>
     </>
   );

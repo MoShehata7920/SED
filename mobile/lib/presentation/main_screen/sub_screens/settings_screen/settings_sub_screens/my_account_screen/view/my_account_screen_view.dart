@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/viewmodel/my_account_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -9,6 +10,7 @@ import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../../../../../../app/app_preferences.dart';
 import '../../../../../../../app/di.dart';
+import '../../../../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../../../../resources/values_manager.dart';
 
 class MyAccountScreenView extends StatefulWidget {
@@ -19,9 +21,12 @@ class MyAccountScreenView extends StatefulWidget {
 }
 
 class MyAccountScreenViewState extends State<MyAccountScreenView> {
+  final MyAccountViewModel _viewModel = MyAccountViewModel();
+
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _dobController = TextEditingController();
+  TextEditingController _governmentController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -29,14 +34,30 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
 
   String? selectedCity;
 
+  _bind() async {
+    await _viewModel.start(); //start the view model job
+
+    if (_viewModel.userData != null) {
+      _nameController.text = _viewModel.userData!.user.name;
+      _phoneController.text = _viewModel.userData!.user.phone;
+      _addressController.text = _viewModel.userData!.user.address;
+      _governmentController.text = _viewModel.userData!.user.government;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
     _phoneController = TextEditingController();
     _dobController = TextEditingController();
+    _governmentController = TextEditingController();
     _addressController = TextEditingController();
     _passwordController = TextEditingController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
+    });
   }
 
   @override
@@ -44,6 +65,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
     _nameController.dispose();
     _phoneController.dispose();
     _dobController.dispose();
+    _governmentController.dispose();
     _addressController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -52,7 +74,6 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
         backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
@@ -60,190 +81,204 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
         title: Text(AppStrings.myAccount.tr(),
             style: TextStyle(color: ColorsManager.secondaryText)),
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(AppStrings.profilePic.tr(),
-                  style: TextStyle(
-                      fontSize: AppSize.s20,
-                      fontWeight: FontWeight.bold,
-                      color: ColorsManager.primaryText)),
-              const SizedBox(height: AppSize.s16),
-              Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  CircleAvatar(
-                    radius: AppSize.s52,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    child: CircleAvatar(
-                        backgroundColor: ColorsManager.primaryBackground,
-                        radius: AppSize.s50,
-                        backgroundImage: AssetImage(ImageAssets.noImage)),
-                  ),
-                  IconButton(
-                    onPressed: () async {
-                      final image = await Navigator.pushNamed(
-                          context, Routes.cameraScreenRoute);
-                    },
-                    icon: const CircleAvatar(
-                      radius: AppSize.s16,
-                      child: Icon(
-                        IconsManager.update,
-                        size: AppSize.s16,
-                      ),
+      backgroundColor: ColorsManager.primaryBackground,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(
+                  context, _buildContentWidget(), () => _viewModel) ??
+              _buildContentWidget();
+        },
+      ),
+    );
+  }
+
+  Widget _buildContentWidget() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(AppStrings.profilePic.tr(),
+                style: TextStyle(
+                    fontSize: AppSize.s20,
+                    fontWeight: FontWeight.bold,
+                    color: ColorsManager.primaryText)),
+            const SizedBox(height: AppSize.s16),
+            Stack(
+              alignment: AlignmentDirectional.bottomEnd,
+              children: [
+                CircleAvatar(
+                  radius: AppSize.s52,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  child: CircleAvatar(
+                      backgroundColor: ColorsManager.primaryBackground,
+                      radius: AppSize.s50,
+                      backgroundImage: NetworkImage(_viewModel.userData != null
+                          ? _viewModel.userData!.user.image
+                          : "")),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final image = await Navigator.pushNamed(
+                        context, Routes.cameraScreenRoute);
+                  },
+                  icon: const CircleAvatar(
+                    radius: AppSize.s16,
+                    child: Icon(
+                      IconsManager.update,
+                      size: AppSize.s16,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: AppSize.s24),
-              Text(AppStrings.profileInfo.tr(),
-                  style: TextStyle(
-                      fontSize: AppSize.s20,
-                      fontWeight: FontWeight.bold,
-                      color: ColorsManager.primaryText)),
-              const SizedBox(height: AppSize.s16),
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: AppStrings.name.tr(),
                 ),
+              ],
+            ),
+            const SizedBox(height: AppSize.s24),
+            Text(AppStrings.profileInfo.tr(),
+                style: TextStyle(
+                    fontSize: AppSize.s20,
+                    fontWeight: FontWeight.bold,
+                    color: ColorsManager.primaryText)),
+            const SizedBox(height: AppSize.s16),
+            TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: AppStrings.name.tr(),
               ),
-              const SizedBox(height: AppSize.s8),
-              TextField(
-                controller: _phoneController,
-                decoration: InputDecoration(
-                  labelText: AppStrings.phoneNumber.tr(),
-                ),
+            ),
+            const SizedBox(height: AppSize.s8),
+            TextField(
+              controller: _phoneController,
+              decoration: InputDecoration(
+                labelText: AppStrings.phoneNumber.tr(),
               ),
-              const SizedBox(height: AppSize.s8),
-              DropdownButtonFormField<String>(
-                value: selectedCity,
+            ),
+            const SizedBox(height: AppSize.s8),
+            DropdownButtonFormField<String>(
+              value: selectedCity,
+              decoration: InputDecoration(
+                labelText: AppStrings.selectGovernment.tr(),
+              ),
+              dropdownColor: ColorsManager.primaryBackground,
+              items: AppStrings.governments.map((String government) {
+                return DropdownMenuItem<String>(
+                  value: government,
+                  child: Text(government),
+                );
+              }).toList(),
+              onChanged: (String? selected) {
+                setState(() {
+                  selectedCity = selected;
+                });
+              },
+            ),
+            const SizedBox(height: AppSize.s8),
+            TextField(
+              controller: _addressController,
+              decoration: InputDecoration(
+                labelText: AppStrings.address.tr(),
+              ),
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(50),
+              ],
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+            ),
+            const SizedBox(height: AppSize.s8),
+            GestureDetector(
+              child: TextField(
                 decoration: InputDecoration(
-                  labelText: AppStrings.selectGovernment.tr(),
-                ),
-                dropdownColor: ColorsManager.primaryBackground,
-                items: AppStrings.governments.map((String government) {
-                  return DropdownMenuItem<String>(
-                    value: government,
-                    child: Text(government),
-                  );
-                }).toList(),
-                onChanged: (String? selected) {
-                  setState(() {
-                    selectedCity = selected;
-                  });
+                    labelText: AppStrings.dob.tr(),
+                    suffixIcon: const Icon(IconsManager.calender),
+                    suffixIconColor: ColorsManager.primaryColor),
+                controller:
+                    _dobController, //editing controller of this TextField
+                readOnly:
+                    true, //set it true, so that user will not able to edit text
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(
+                          1900), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2040));
+
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('dd-MM-yyyy').format(pickedDate);
+
+                    setState(() {
+                      _dobController.text =
+                          formattedDate; //set output date to TextField value.
+                    });
+                  } else {
+                    print("Date is not selected");
+                  }
                 },
               ),
-              const SizedBox(height: AppSize.s8),
-              TextField(
-                controller: _addressController,
-                decoration: InputDecoration(
-                  labelText: AppStrings.address.tr(),
-                ),
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(25),
-                ],
-                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+            ),
+            const SizedBox(height: AppSize.s8),
+            Text(AppStrings.changePassword.tr(),
+                style: TextStyle(
+                    fontSize: AppSize.s20,
+                    fontWeight: FontWeight.bold,
+                    color: ColorsManager.primaryText)),
+            const SizedBox(height: AppSize.s16),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: AppStrings.oldPassword.tr(),
               ),
-              const SizedBox(height: AppSize.s8),
-              GestureDetector(
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: AppStrings.dob.tr(),
-                      suffixIcon: const Icon(IconsManager.calender),
-                      suffixIconColor: ColorsManager.primaryColor),
-                  controller:
-                      _dobController, //editing controller of this TextField
-                  readOnly:
-                      true, //set it true, so that user will not able to edit text
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(
-                            1900), //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2040));
-
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
-
-                      setState(() {
-                        _dobController.text =
-                            formattedDate; //set output date to TextField value.
-                      });
-                    } else {
-                      print("Date is not selected");
-                    }
+            ),
+            const SizedBox(height: AppSize.s8),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: AppStrings.newPassword,
+              ),
+            ),
+            const SizedBox(height: AppSize.s8),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: AppStrings.rewriteNewPassword,
+              ),
+            ),
+            const SizedBox(height: AppSize.s16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(AppStrings.saveChanges.tr()),
+              ),
+            ),
+            const SizedBox(height: AppSize.s16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    SchedulerBinding.instance.addPostFrameCallback((_) {
+                      _appPreferences.setUserLoggedInSuccessfully(false);
+                      Navigator.of(context)
+                          .pushReplacementNamed(Routes.loginRoute);
+                    });
                   },
+                  child: Text(AppStrings.logOut.tr()),
                 ),
-              ),
-              const SizedBox(height: AppSize.s8),
-              Text(AppStrings.changePassword.tr(),
-                  style: TextStyle(
-                      fontSize: AppSize.s20,
-                      fontWeight: FontWeight.bold,
-                      color: ColorsManager.primaryText)),
-              const SizedBox(height: AppSize.s16),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: AppStrings.oldPassword.tr(),
-                ),
-              ),
-              const SizedBox(height: AppSize.s8),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: AppStrings.newPassword.tr(),
-                ),
-              ),
-              const SizedBox(height: AppSize.s8),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: AppStrings.rewriteNewPassword.tr(),
-                ),
-              ),
-              const SizedBox(height: AppSize.s16),
-              Center(
-                child: ElevatedButton(
+                TextButton(
                   onPressed: () {},
-                  child: Text(AppStrings.saveChanges.tr()),
+                  child: Text(
+                    AppStrings.deleteAccount.tr(),
+                    style: TextStyle(color: ColorsManager.error),
+                  ),
                 ),
-              ),
-              const SizedBox(height: AppSize.s16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        _appPreferences.setUserLoggedInSuccessfully(false);
-                        Navigator.of(context)
-                            .pushReplacementNamed(Routes.loginRoute);
-                      });
-                    },
-                    child: Text(AppStrings.logOut.tr()),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      AppStrings.deleteAccount.tr(),
-                      style: TextStyle(color: ColorsManager.error),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+              ],
+            )
+          ],
         ),
       ),
     );

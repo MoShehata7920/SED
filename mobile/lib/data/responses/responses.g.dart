@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element
+
 part of 'responses.dart';
 
 // **************************************************************************
@@ -407,4 +409,15 @@ Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
       'status': instance.status,
       'message': instance.message,
       'searchedProducts': instance.searchedProducts,
+    };
+
+DefaultResponse _$DefaultResponseFromJson(Map<String, dynamic> json) =>
+    DefaultResponse()
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$DefaultResponseToJson(DefaultResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
     };

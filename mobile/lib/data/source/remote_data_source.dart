@@ -37,6 +37,9 @@ abstract class RemoteDataSource {
 
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest);
 
+  Future<DefaultResponse> updateUserProfile(
+      UpdateUserProfileRequest updateUserProfileRequest);
+
   Future<NotificationsResponse> notifications();
 
   Future<ShowItemsResponse> getSavedProducts();
@@ -119,7 +122,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<GetMyProfileDataResponse> getMyProfileData(String token) async {
-    return await _appServiceClient.getMyProfileData("Bearer ${Constants.token}");
+    return await _appServiceClient
+        .getMyProfileData("Bearer ${Constants.token}");
   }
 
   @override
@@ -131,7 +135,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<RemoveAdResponse> removeAd(String prodId) async {
-    return await _appServiceClient.removeAd(prodId, "Bearer ${Constants.token}");
+    return await _appServiceClient.removeAd(
+        prodId, "Bearer ${Constants.token}");
   }
 
   @override
@@ -144,7 +149,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         updateAdRequest.description,
         updateAdRequest.purpose,
         updateAdRequest.category,
-        updateAdRequest.condition,"Bearer ${Constants.token}");
+        updateAdRequest.condition,
+        "Bearer ${Constants.token}");
   }
 
   @override
@@ -167,5 +173,19 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<SearchResponse> getSearchedProducts(String searchText) async {
     return await _appServiceClient.getSearchProducts(Constants.token);
+  }
+
+  @override
+  Future<DefaultResponse> updateUserProfile(
+      UpdateUserProfileRequest updateUserProfileRequest) async {
+    return await _appServiceClient.updateUserProfile(
+        updateUserProfileRequest.userId,
+        updateUserProfileRequest.userImage,
+        updateUserProfileRequest.name,
+        updateUserProfileRequest.phoneNumber,
+        updateUserProfileRequest.government,
+        updateUserProfileRequest.address,
+        updateUserProfileRequest.password,
+        "Bearer ${Constants.token}");
   }
 }

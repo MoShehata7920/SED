@@ -68,6 +68,19 @@ abstract class AppServiceClient {
     @Path("profileId") String profileId,
   );
 
+    @MultiPart()
+  @PATCH("/users/update/{userId}")
+  Future<DefaultResponse> updateUserProfile(
+    @Path("userId") String userId,
+    @Part(name: "userImage") File image,
+    @Part(name: "fullName") String name,
+    @Part(name: "phone") String phoneNumber,
+    @Part(name: "government") String government,
+    @Part(name: "address") String address,
+    @Part(name: "password") String password,
+      @Header("Authentication") String token,
+      );
+
   @MultiPart()
   @POST("/products/newproduct")
   Future<AddAdvertisementResponse> addAdvertisement(

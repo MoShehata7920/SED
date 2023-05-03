@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/forgot_password/reset_password/view/reset_password_view.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
@@ -29,6 +30,7 @@ class Routes {
   static const String onBoardingRoute = "/onboarding";
   static const String loginRoute = "/login";
   static const String forgotPasswordRoute = "/forgotPassword";
+  static const String resetPasswordRoute = "/resetPassword";
   static const String registerRoute = "/register";
   static const String emailVerificationRoute = "/emailVerification";
   static const String mainScreenRoute = "/main";
@@ -64,6 +66,10 @@ class RouteGenerator {
         initForgotPasswordModule();
         return MaterialPageRoute(
             builder: (context) => const ForgotPasswordView());
+
+      case Routes.resetPasswordRoute:
+        return MaterialPageRoute(
+            builder: (context) => const ResetPasswordView());
 
       case Routes.registerRoute:
         initRegisterModule();
