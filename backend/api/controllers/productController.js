@@ -90,7 +90,7 @@ exports.updateProduct = async (req, res) => {
       res.status(200).json({ status: 0, message: 'Product has been updated successfully' });
     } catch (err) {
         console.log(err)
-      res.status(555).json({ status: 1, err });
+      res.status(500).json({ status: 1, err });
     }
   }
   
@@ -104,7 +104,7 @@ exports.deleteProduct = (req, res) => {
                 res.status(200).json({status: 0,message:'Product has been deleted successfully'})
             })
         } else {
-            res.status(404).json({status: 0,message:'There is no product with this id'})
+            res.status(200).json({status: 0,message:'There is no product with this id'})
         }
     }).catch(err => {
         res.status(500).json({status: 1,err})
@@ -116,7 +116,9 @@ exports.getProductsByQuery = async (req, res, next) => {
     const page = req.query.page || 1;
     const purpose = req.query.purpose || 'all';
     const category = req.query.category || 'all';
-    const sortBy=req.query.sort  || '-createdAt'
+    const sortBy = req.query.sort  || '-createdAt'
+    const { condition , minPrice , maxPrice }=req.query
+
     var userData = {};
     let wishList = [];
     if (req.headers.authentication) {
@@ -138,15 +140,32 @@ exports.getProductsByQuery = async (req, res, next) => {
         if (purpose !== 'all') {
             query.purpose = purpose;
         }
+        if(condition ){
+            query.condition=condition
+        }
+        if (minPrice && maxPrice) {
+            query.price = {
+                $gte: minPrice,
+                $lte: maxPrice
+            };
+        }else if (minPrice) {
+            query.price = {
+            $gte: minPrice
+            };
+        }else if (maxPrice) {
+            query.price = {
+            $lte: maxPrice
+            };
+        }
+
         const doc = await Product.find(query)
             .select('-seller -updatedAt -__v')
             .sort(sortBy)
             .lean()
             .skip(skip)
             .limit(perPage);
-        if (!doc) {
-            res.status(400).json({ status: 0, message: 'not found' });
-            return;
+        if (doc.length === 0) {
+            return res.status(200).json({ status: 0, message: 'There are no products with this filters' });
         }
 
         // calculating whole number of pages 
@@ -166,7 +185,7 @@ exports.getProductsByQuery = async (req, res, next) => {
             }
         }
 
-        res.status(200).json({ status: 0, items: doc , totalPageNumber , currentPage:page });
+        res.status(200).json({ status: 0, items: doc , totalDocs , totalPageNumber , currentPage:page });
         return;
     } catch (err) {
         res.status(404).json({ status: 1, message: err });
@@ -273,9 +292,11 @@ exports.userProducts=async(req,res)=>{
     const sellerId=req.params.sellerId
     try {
         const products =await Product.find({seller:sellerId})
-        // console.log(products);
-        res.status(200).json({products,status:0});
+        if(products.length === 0){
+            res.status(200).json({status: 0 , message:'There are no products for this user'})
+        }
+        res.status(200).json({status:0 , products });
     } catch (err) {
-        res.status(500).json({status:1,err});
+        res.status(500).json({status:1 , err});
     }
 }
