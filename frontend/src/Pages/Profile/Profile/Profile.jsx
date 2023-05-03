@@ -27,62 +27,47 @@ function Profile() {
                 <li className="sidebar-item py-1">
                   <a href="{}">
                     <Link to={"/Profile/userinfo"}>
-                      <i>{<BsPerson />}</i>{" "}
-                      <span className="ms-1 d-none d-sm-inline">
-                        {" "}
-                        User info{" "}
-                      </span>
+                      <i>{<BsPerson />}</i>
+                      <span className="ms-1 d-none d-sm-inline">User info</span>
                     </Link>
                   </a>
                 </li>
                 <li className="sidebar-item py-1">
                   <a href="{}">
                     <Link to={"/profile/favourit"}>
-                      <i>{<BsHeart />}</i>{" "}
-                      <span className="ms-1 d-none d-sm-inline">
-                        {" "}
-                        Favourit{" "}
-                      </span>
+                      <i>{<BsHeart />}</i>
+                      <span className="ms-1 d-none d-sm-inline">Favourit</span>
                     </Link>
                   </a>
                 </li>
                 <li className="sidebar-item py-1">
                   <a href="{}">
                     <Link to={"/profile/watchlist"}>
-                      <i>{<BsBookmarkHeart />}</i>{" "}
-                      <span className="ms-1 d-none d-sm-inline">
-                        {" "}
-                        Watchlist{" "}
-                      </span>
+                      <i>{<BsBookmarkHeart />}</i>
+                      <span className="ms-1 d-none d-sm-inline">Watchlist</span>
                     </Link>
                   </a>
                 </li>
                 <li className="sidebar-item py-1">
                   <a href="{}">
                     <Link to={"/profile/myProduct"}>
-                      <i>{<BsListCheck />}</i>{" "}
-                      <span className="ms-1 d-none d-sm-inline">
-                        {" "}
-                        My Orders{" "}
-                      </span>
+                      <i>{<BsListCheck />}</i>
+                      <span className="ms-1 d-none d-sm-inline"> Product </span>
                     </Link>
                   </a>
                 </li>
                 <li className="sidebar-item py-1">
                   <a href="{}">
                     <Link to={"/profile/settings"}>
-                      <i>{<BsGearWideConnected />}</i>{" "}
-                      <span className="ms-1 d-none d-sm-inline">
-                        {" "}
-                        Settings{" "}
-                      </span>
+                      <i>{<BsGearWideConnected />}</i>
+                      <span className="ms-1 d-none d-sm-inline">Settings</span>
                     </Link>
                   </a>
                 </li>
                 <li className="sidebar-item py-1">
                   <a href="{}">
                     <Link to={""}>
-                      <i>{<BsBoxArrowLeft />}</i>{" "}
+                      <i>{<BsBoxArrowLeft />}</i>
                       <span className="ms-1 d-none d-sm-inline"> Logout </span>
                     </Link>
                   </a>
