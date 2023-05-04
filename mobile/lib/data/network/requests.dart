@@ -74,15 +74,15 @@ class RemoveAdRequest {
 }
 
 class UpdateAdRequest {
-  String itemId;
-  File image;
-  String name;
-  int price;
-  String description;
-  String purpose;
-  String category;
-  String condition;
-  String token;
+  String? itemId;
+  File? image;
+  String? name;
+  int? price;
+  String? description;
+  String? purpose;
+  String? category;
+  String? condition;
+  String? token;
 
   UpdateAdRequest(
       this.itemId,
@@ -97,12 +97,12 @@ class UpdateAdRequest {
 }
 
 class UpdateUserProfileRequest {
-  String userId;
-  File userImage;
-  String name;
-  String phoneNumber;
-  String government;
-  String address;
+  String? userId;
+  File? userImage;
+  String? name;
+  String? phoneNumber;
+  String? government;
+  String? address;
 
   UpdateUserProfileRequest(
     this.userId,

@@ -35,13 +35,7 @@ class MyAccountViewModel extends BaseViewModel
 
   GetMyProfileData? userData;
 
-  var userProfileObject = UserProfileObject(
-    File(""),
-    "",
-    "",
-    "",
-    "",
-  );
+  var userProfileObject = UserProfileObject(null, null, null, null, null);
 
   final UpdateProfileUseCase _updateProfileUseCase =
       instance<UpdateProfileUseCase>();
@@ -196,6 +190,9 @@ class MyAccountViewModel extends BaseViewModel
 
   @override
   updateUserProfile() async {
+    inputState.add(LoadingState(
+        stateRendererType: StateRendererType.fullScreenLoadingState));
+
     var response = await _updateProfileUseCase.execute(
         UpdateUserProfileUseCaseInput(
             userData!.user.id,
@@ -205,17 +202,17 @@ class MyAccountViewModel extends BaseViewModel
             userProfileObject.government,
             userProfileObject.address));
 
-    // response.fold(
-    //     (failure) => {
-    //           // left -> failure
-    //           inputState.add(ErrorState(
-    //               StateRendererType.fullScreenLoadingState, failure.message))
-    //         }, (response) {
-    //   // right -> success
+    response.fold(
+        (failure) => {
+              // left -> failure
+              inputState.add(ErrorState(
+                  StateRendererType.fullScreenLoadingState, failure.message))
+            }, (response) {
+      // right -> success
 
-    //   inputState.add(SuccessState(
-    //       StateRendererType.popUpSuccessState, "Success", AppStrings.success.tr(),(){}));
-    // });
+      inputState.add(SuccessState(
+          StateRendererType.popUpSuccessState, "Success", AppStrings.success.tr(),(){}));
+    });
   }
 
   Future getUserData() async {

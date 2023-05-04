@@ -68,17 +68,19 @@ abstract class AppServiceClient {
     @Path("profileId") String profileId,
   );
 
-  @MultiPart()
   @PATCH("/users/update/{userId}")
   Future<DefaultResponse> updateUserProfile(
     @Path("userId") String userId,
-    @Part(name: "userImage") File image,
-    @Part(name: "fullName") String name,
-    @Part(name: "phone") String phoneNumber,
-    @Part(name: "government") String government,
-    @Part(name: "address") String address,
+    @Body() Map<String, dynamic> map,
     @Header("Authentication") String token,
   );
+
+  @MultiPart()
+  @PATCH("/users/update/{userId}")
+  Future<AddAdvertisementResponse> updateUserProfileImage(
+      @Path("userId") String userId,
+      @Part(name: "userImage") File image,
+      @Header("Authentication") String token);
 
   @MultiPart()
   @POST("/products/newproduct")
@@ -96,6 +98,7 @@ abstract class AppServiceClient {
   Future<GetMyProfileDataResponse> getMyProfileData(
       @Header("Authentication") String token);
 
+  //todo change getmyprofileads to getSellerAdsById
   @GET("/products/seller/{sellerId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       @Path("sellerId") String sellerId,
@@ -105,19 +108,19 @@ abstract class AppServiceClient {
   Future<RemoveAdResponse> removeAd(
       @Path("prodId") String prodId, @Header("Authentication") String token);
 
-  @MultiPart()
   @PATCH("/products/product/{prodId}")
   Future<UpdateAdResponse> updateAd(
-    @Path("prodId") String prodId,
-    @Part(name: "productImage") File image,
-    @Part(name: "name") String name,
-    @Part(name: "price") int price,
-    @Part(name: "description") String description,
-    @Part(name: "purpose") String purpose,
-    @Part(name: "category") String category,
-    @Part(name: "condition") String condition,
+      @Path("prodId") String prodId,
+      @Body() Map<String, dynamic> map,
     @Header("Authentication") String token,
   );
+
+  @MultiPart()
+  @PATCH("/products/product/{prodId}")
+  Future<AddAdvertisementResponse> updateProductImage(
+      @Path("prodId") String prodId,
+      @Part(name: "productImage") File image,
+      @Header("Authentication") String token);
 
   @GET("/Notifications")
   Future<NotificationsResponse> notifications(

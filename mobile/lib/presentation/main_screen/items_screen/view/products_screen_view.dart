@@ -174,6 +174,23 @@ class _ProductViewState extends State<ProductView> {
                                   ),
                             ),
                           ),
+                          const SizedBox(
+                            height: AppSize.s5,
+                          ),
+                          Container(
+                            color: item.item.condition == "Used"
+                                ? Colors.red.withOpacity(.4) : Colors.green.withOpacity(.4),
+                            child: Text(
+                              item.item.condition,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: ColorsManager.primaryText,
+                                    fontSize: AppSize.s14,
+                                  ),
+                            ),
+                          ),
                         ],
                       ),
                       Text(

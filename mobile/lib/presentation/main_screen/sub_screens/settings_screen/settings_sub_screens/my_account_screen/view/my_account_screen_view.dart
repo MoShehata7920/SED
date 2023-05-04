@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/my_account_screen/viewmodel/my_account_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -33,6 +36,8 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
 
   String? selectedCity;
 
+  XFile? _image;
+
   _bind() async {
     await _viewModel.start(); //start the view model job
 
@@ -40,7 +45,11 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
       _nameController.text = _viewModel.userData!.user.name;
       _phoneController.text = _viewModel.userData!.user.phone;
       _addressController.text = _viewModel.userData!.user.address;
-      _governmentController.text = _viewModel.userData!.user.government;
+
+      if(_viewModel.userData!.user.government.isNotEmpty)
+          selectedCity = _viewModel.userData!.user.government;
+
+      //_viewModel.userProfileObject.copyWith(userImage: _viewModel.userData!.user.image);
     }
   }
 
@@ -131,7 +140,9 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                   child: CircleAvatar(
                       backgroundColor: ColorsManager.primaryBackground,
                       radius: AppSize.s50,
-                      backgroundImage: NetworkImage(_viewModel.userData != null
+                      backgroundImage: _image != null ?
+                      FileImage(File(_image!.path)) as ImageProvider:
+                      NetworkImage(_viewModel.userData != null
                           ? _viewModel.userData!.user.image
                           : "")),
                 ),
@@ -139,6 +150,15 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                   onPressed: () async {
                     final image = await Navigator.pushNamed(
                         context, Routes.cameraScreenRoute);
+                    setState(() {
+                      _image = image as XFile;
+
+                      if(_image != null) {
+                        File imageFile = File(_image!.path);
+
+                        _viewModel.userProfileObject = _viewModel.userProfileObject.copyWith(userImage: imageFile);
+                      }
+                    });
                   },
                   icon: const CircleAvatar(
                     radius: AppSize.s16,
@@ -185,6 +205,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
               }).toList(),
               onChanged: (String? selected) {
                 setState(() {
+                  _governmentController.text = selected ?? "";
                   selectedCity = selected;
                 });
               },

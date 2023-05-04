@@ -153,6 +153,9 @@ class ItemsResponse {
   @JsonKey(name: "description")
   String? description;
 
+  @JsonKey(name: "condition")
+  String? condition;
+
   @JsonKey(name: "category")
   String? category;
 
@@ -218,8 +221,8 @@ class UserDataResponse {
   String? address;
 
 
-  UserDataResponse(this.id, this.name, this.phone, this.government,
-      this.address, this.image);
+  UserDataResponse(this.id, this.name, this.image, this.phone,
+      this.government, this.address);
 
   // From Json
   factory UserDataResponse.fromJson(Map<String, dynamic> json) =>

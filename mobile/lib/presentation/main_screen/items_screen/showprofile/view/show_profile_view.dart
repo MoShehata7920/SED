@@ -6,6 +6,7 @@ import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/items_screen/showprofile/viewmodel/show_profile_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/viewmodel/home_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 
@@ -160,9 +161,6 @@ class _ShowProfileViewState extends State<ShowProfileView> {
               ]),
             ),
           ),
-          const SizedBox(
-            height: AppSize.s3,
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
             child: Container(
@@ -173,7 +171,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
               ),
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.all(AppPadding.p10),
+                padding: const EdgeInsets.all(AppPadding.p15),
                 child: Center(
                   child: Text(
                     "Published Items (${showItemsContentObject.items.length})",
@@ -186,14 +184,17 @@ class _ShowProfileViewState extends State<ShowProfileView> {
             ),
           ),
           const SizedBox(
-            height: AppSize.s3,
+            height: AppSize.s20,
           ),
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: AppValues.showItemCrossAxisCounts,
-            physics: const NeverScrollableScrollPhysics(),
-            children: List.generate(showItemsContentObject.items.length,
-                (index) => _getItemWidget(index, showItemsContentObject)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
+            child: GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: AppValues.showItemCrossAxisCounts,
+              physics: const NeverScrollableScrollPhysics(),
+              children: List.generate(showItemsContentObject.items.length,
+                  (index) => _getItemWidget(index, showItemsContentObject)),
+            ),
           ),
         ]),
       );
@@ -319,7 +320,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                     ),
                     Expanded(
                       child: Text(
-                        'Gharbiya / Tanta',
+                        '${userData.government} / ${userData.address}',
                         textAlign: TextAlign.start,
                         maxLines: AppValues.maxAddressLines,
                         overflow: TextOverflow.ellipsis,
@@ -329,7 +330,7 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                     ),
                     Expanded(
                       child: Text(
-                        showItemsContentObject.items[index].date,
+                        Utils.getCreatedTime(showItemsContentObject.items[index].date),
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,

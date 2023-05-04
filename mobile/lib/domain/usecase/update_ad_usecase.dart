@@ -29,15 +29,15 @@ class UpdateAdUseCase implements BaseUseCase<UpdateAdUseCaseInput, UpdateAd> {
 }
 
 class UpdateAdUseCaseInput {
-  String itemId;
-  File image;
-  String name;
-  int price;
-  String description;
-  String purpose;
-  String category;
-  String condition;
-  String token;
+  String? itemId;
+  File? image;
+  String? name;
+  int? price;
+  String? description;
+  String? purpose;
+  String? category;
+  String? condition;
+  String? token;
 
   UpdateAdUseCaseInput(
       this.itemId,

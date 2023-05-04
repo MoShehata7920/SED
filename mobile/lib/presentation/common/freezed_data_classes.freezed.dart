@@ -354,11 +354,11 @@ abstract class _registerObject implements RegisterObject {
 
 /// @nodoc
 mixin _$UserProfileObject {
-  File get userImage => throw _privateConstructorUsedError;
-  String get userName => throw _privateConstructorUsedError;
-  String get userPhone => throw _privateConstructorUsedError;
-  String get government => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
+  File? get userImage => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
+  String? get userPhone => throw _privateConstructorUsedError;
+  String? get government => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserProfileObjectCopyWith<UserProfileObject> get copyWith =>
@@ -372,11 +372,11 @@ abstract class $UserProfileObjectCopyWith<$Res> {
       _$UserProfileObjectCopyWithImpl<$Res, UserProfileObject>;
   @useResult
   $Res call(
-      {File userImage,
-      String userName,
-      String userPhone,
-      String government,
-      String address});
+      {File? userImage,
+      String? userName,
+      String? userPhone,
+      String? government,
+      String? address});
 }
 
 /// @nodoc
@@ -392,33 +392,33 @@ class _$UserProfileObjectCopyWithImpl<$Res, $Val extends UserProfileObject>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userImage = null,
-    Object? userName = null,
-    Object? userPhone = null,
-    Object? government = null,
-    Object? address = null,
+    Object? userImage = freezed,
+    Object? userName = freezed,
+    Object? userPhone = freezed,
+    Object? government = freezed,
+    Object? address = freezed,
   }) {
     return _then(_value.copyWith(
-      userImage: null == userImage
+      userImage: freezed == userImage
           ? _value.userImage
           : userImage // ignore: cast_nullable_to_non_nullable
-              as File,
-      userName: null == userName
+              as File?,
+      userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      userPhone: null == userPhone
+              as String?,
+      userPhone: freezed == userPhone
           ? _value.userPhone
           : userPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      government: null == government
+              as String?,
+      government: freezed == government
           ? _value.government
           : government // ignore: cast_nullable_to_non_nullable
-              as String,
-      address: null == address
+              as String?,
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -432,11 +432,11 @@ abstract class _$$_userProfileObjectCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {File userImage,
-      String userName,
-      String userPhone,
-      String government,
-      String address});
+      {File? userImage,
+      String? userName,
+      String? userPhone,
+      String? government,
+      String? address});
 }
 
 /// @nodoc
@@ -450,33 +450,33 @@ class __$$_userProfileObjectCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userImage = null,
-    Object? userName = null,
-    Object? userPhone = null,
-    Object? government = null,
-    Object? address = null,
+    Object? userImage = freezed,
+    Object? userName = freezed,
+    Object? userPhone = freezed,
+    Object? government = freezed,
+    Object? address = freezed,
   }) {
     return _then(_$_userProfileObject(
-      null == userImage
+      freezed == userImage
           ? _value.userImage
           : userImage // ignore: cast_nullable_to_non_nullable
-              as File,
-      null == userName
+              as File?,
+      freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == userPhone
+              as String?,
+      freezed == userPhone
           ? _value.userPhone
           : userPhone // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == government
+              as String?,
+      freezed == government
           ? _value.government
           : government // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == address
+              as String?,
+      freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -488,15 +488,15 @@ class _$_userProfileObject implements _userProfileObject {
       this.government, this.address);
 
   @override
-  final File userImage;
+  final File? userImage;
   @override
-  final String userName;
+  final String? userName;
   @override
-  final String userPhone;
+  final String? userPhone;
   @override
-  final String government;
+  final String? government;
   @override
-  final String address;
+  final String? address;
 
   @override
   String toString() {
@@ -533,22 +533,22 @@ class _$_userProfileObject implements _userProfileObject {
 
 abstract class _userProfileObject implements UserProfileObject {
   factory _userProfileObject(
-      final File userImage,
-      final String userName,
-      final String userPhone,
-      final String government,
-      final String address) = _$_userProfileObject;
+      final File? userImage,
+      final String? userName,
+      final String? userPhone,
+      final String? government,
+      final String? address) = _$_userProfileObject;
 
   @override
-  File get userImage;
+  File? get userImage;
   @override
-  String get userName;
+  String? get userName;
   @override
-  String get userPhone;
+  String? get userPhone;
   @override
-  String get government;
+  String? get government;
   @override
-  String get address;
+  String? get address;
   @override
   @JsonKey(ignore: true)
   _$$_userProfileObjectCopyWith<_$_userProfileObject> get copyWith =>

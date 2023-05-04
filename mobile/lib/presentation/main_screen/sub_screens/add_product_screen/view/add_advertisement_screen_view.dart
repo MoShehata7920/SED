@@ -29,12 +29,18 @@ class AddAdvertisementView extends StatefulWidget {
 class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   int categoryId;
   int selectedIndex = 0;
+  int selectedCondition = 0;
   Items? item;
+  bool changeRequested = false;
+
   List<String> sedPurposes = [
     AppStrings.sellProducts.tr().toLowerCase(),
     AppStrings.exchange.tr().toLowerCase(),
     AppStrings.donate.tr().toLowerCase()
   ];
+
+  List<String> conditionLabels = [AppStrings.newItem.tr(), AppStrings.used.tr()];
+
   final AddAdvertisementViewModel _viewModel = AddAdvertisementViewModel();
 
   _AddAdvertisementViewState(this.categoryId, this.item);
@@ -123,6 +129,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                 InkWell(
                   child: _getImage(),
                   onTap: () async {
+                    changeRequested = true;
                     final image = await Navigator.pushNamed(
                         context, Routes.cameraScreenRoute);
 
@@ -262,11 +269,13 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                     activeFgColor: ColorsManager.primaryText,
                     inactiveBgColor: ColorsManager.secondaryBackground,
                     inactiveFgColor: ColorsManager.primaryText,
-                    initialLabelIndex: 0,
+                    initialLabelIndex: selectedCondition,
                     totalSwitches: 2,
-                    labels: [AppStrings.newItem.tr(), AppStrings.used.tr()],
+                    labels: conditionLabels,
                     radiusStyle: true,
-                    onToggle: (index) {},
+                    onToggle: (index) {
+                      selectedCondition = index ?? 0;
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -356,10 +365,10 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                         return ElevatedButton(
                             onPressed: (snapshot.data ?? false)
                                 ? () {
-                                    _viewModel.setIds(
+                                    _viewModel.setConditions(
                                         sedPurposes[selectedIndex],
                                         Utils.categories[categoryId].name,
-                                        "New");
+                                        conditionLabels[selectedCondition]);
                                     if (item == null) {
                                       _viewModel.addAdvertisement(context);
                                     } else {
@@ -391,7 +400,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
                   const BorderRadius.all(Radius.circular(AppSize.s20)),
               color: ColorsManager.secondaryBackground,
             ),
-            child: item == null
+            child: (item == null || changeRequested)
                 ? snapshot.data == null
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,

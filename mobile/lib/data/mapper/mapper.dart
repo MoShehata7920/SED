@@ -52,6 +52,7 @@ extension ItemsMapper on List<ItemsResponse?>? {
           element?.image ?? "",
           element?.price ?? 0,
           element?.description ?? "",
+          element?.condition ?? "",
           element?.category ?? "",
           element?.date ?? "",
           element?.isSaved ?? false));
@@ -95,6 +96,7 @@ extension ItemsResponseMapper on ItemsResponse? {
         this?.image ?? "",
         this?.price ?? 0,
         this?.description ?? "",
+        this?.condition ?? "",
         this?.category ?? "",
         this?.date ?? "",
         this?.isSaved ?? false);
@@ -103,15 +105,15 @@ extension ItemsResponseMapper on ItemsResponse? {
 
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
-    return UserData(this?.id ?? "", this?.name ?? "", this?.phone ?? "",
-        this?.address ?? "", this?.image ?? "", this?.government ?? "");
+    return UserData(this?.id ?? "", this?.name ?? "", this?.image ?? "",
+        this?.phone ?? "", this?.government ?? "", this?.address ?? "");
   }
 }
 
 extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
     return Item(
-        this?.product.toDomain() ?? Items("", "", "", 0, "", "", "", false),
+        this?.product.toDomain() ?? Items("", "", "", 0, "","", "", "", false),
         this?.user.toDomain() ?? UserData("", "", "", "", "", ""));
   }
 }

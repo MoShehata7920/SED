@@ -4,7 +4,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class Constants {
   //dio constants
-  static const String baseUrl = "http://103.48.193.225:3000";
+  static const String baseUrl = "http://47.243.7.214:3000";
 
   //mapper constants
   static const String empty = "";
@@ -15,6 +15,6 @@ class Constants {
   static String? userId;
 
   static const int apiTimeOut = 60000;
-  static io.Socket socket = io.io('http://103.48.193.225:9001',
+  static io.Socket socket = io.io('http://47.243.7.214:9001',
       OptionBuilder().setTransports(['websocket']).build());
 }

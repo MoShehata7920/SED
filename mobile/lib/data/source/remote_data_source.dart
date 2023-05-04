@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:sed/app/constants.dart';
 import 'package:sed/data/network/app_api.dart';
 import 'package:sed/data/network/requests.dart';
@@ -141,16 +143,28 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest) async {
-    return await _appServiceClient.updateAd(
-        updateAdRequest.itemId,
-        updateAdRequest.image,
-        updateAdRequest.name,
-        updateAdRequest.price,
-        updateAdRequest.description,
-        updateAdRequest.purpose,
-        updateAdRequest.category,
-        updateAdRequest.condition,
+    Map<String, dynamic> map = {};
+
+    if(updateAdRequest.name != null) map['name'] = updateAdRequest.name;
+    if(updateAdRequest.price != null) map['price'] = updateAdRequest.price;
+    if(updateAdRequest.description != null) map['description'] = updateAdRequest.description;
+    if(updateAdRequest.purpose != null) map['purpose'] = updateAdRequest.purpose;
+    if(updateAdRequest.category != null) map['category'] = updateAdRequest.category;
+    if(updateAdRequest.condition != null) map['condition'] = updateAdRequest.condition;
+
+    var result =  await _appServiceClient.updateAd(
+        updateAdRequest.itemId ?? "",
+        map,
         "Bearer ${Constants.token}");
+
+    if(updateAdRequest.image != null) {
+      await _appServiceClient.updateProductImage(
+          updateAdRequest.itemId ?? "",
+          updateAdRequest.image ?? File(""),
+          "Bearer ${Constants.token}");
+    }
+
+    return result;
   }
 
   @override
@@ -178,13 +192,25 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<DefaultResponse> updateUserProfile(
       UpdateUserProfileRequest updateUserProfileRequest) async {
-    return await _appServiceClient.updateUserProfile(
-        updateUserProfileRequest.userId,
-        updateUserProfileRequest.userImage,
-        updateUserProfileRequest.name,
-        updateUserProfileRequest.phoneNumber,
-        updateUserProfileRequest.government,
-        updateUserProfileRequest.address,
+    Map<String, dynamic> map = {};
+
+    if(updateUserProfileRequest.name != null) map['fullName'] = updateUserProfileRequest.name;
+    if(updateUserProfileRequest.phoneNumber != null) map['phone'] = updateUserProfileRequest.phoneNumber;
+    if(updateUserProfileRequest.government != null) map['government'] = updateUserProfileRequest.government;
+    if(updateUserProfileRequest.address != null) map['address'] = updateUserProfileRequest.address;
+
+    var result =  await _appServiceClient.updateUserProfile(
+        updateUserProfileRequest.userId ?? "",
+        map,
         "Bearer ${Constants.token}");
+
+    if(updateUserProfileRequest.userImage != null) {
+      await _appServiceClient.updateUserProfileImage(
+          updateUserProfileRequest.userId ?? "",
+          updateUserProfileRequest.userImage ?? File(""),
+          "Bearer ${Constants.token}");
+    }
+
+    return result;
   }
 }

@@ -86,11 +86,12 @@ class Items {
   String image;
   int price;
   String description;
+  String condition;
   String date;
   String category;
   bool isSaved;
 
-  Items(this.id, this.name, this.image, this.price, this.description,
+  Items(this.id, this.name, this.image, this.price, this.description,this.condition,
       this.category, this.date, this.isSaved);
 }
 
@@ -114,13 +115,13 @@ class Item {
 class UserData {
   String id;
   String name;
-  String phone;
-  String address;
-  String government;
   String image;
+  String phone;
+  String government;
+  String address;
 
-  UserData(this.id, this.name, this.phone, this.address, this.government,
-      this.image);
+  UserData(this.id, this.name, this.image, this.phone, this.government,
+      this.address);
 }
 
 class ShowItems {

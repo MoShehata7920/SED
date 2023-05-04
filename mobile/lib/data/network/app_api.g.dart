@@ -13,7 +13,7 @@ class _AppServiceClient implements AppServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://103.48.193.225:3000';
+    baseUrl ??= 'http://47.243.7.214:3000';
   }
 
   final Dio _dio;
@@ -290,11 +290,36 @@ class _AppServiceClient implements AppServiceClient {
   @override
   Future<DefaultResponse> updateUserProfile(
     userId,
+    map,
+    token,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(map);
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<DefaultResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/update/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DefaultResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<AddAdvertisementResponse> updateUserProfileImage(
+    userId,
     image,
-    name,
-    phoneNumber,
-    government,
-    address,
     token,
   ) async {
     const _extra = <String, dynamic>{};
@@ -309,24 +334,8 @@ class _AppServiceClient implements AppServiceClient {
         filename: image.path.split(Platform.pathSeparator).last,
       ),
     ));
-    _data.fields.add(MapEntry(
-      'fullName',
-      name,
-    ));
-    _data.fields.add(MapEntry(
-      'phone',
-      phoneNumber,
-    ));
-    _data.fields.add(MapEntry(
-      'government',
-      government,
-    ));
-    _data.fields.add(MapEntry(
-      'address',
-      address,
-    ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<DefaultResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AddAdvertisementResponse>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
@@ -339,7 +348,7 @@ class _AppServiceClient implements AppServiceClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = DefaultResponse.fromJson(_result.data!);
+    final value = AddAdvertisementResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -489,13 +498,36 @@ class _AppServiceClient implements AppServiceClient {
   @override
   Future<UpdateAdResponse> updateAd(
     prodId,
+    map,
+    token,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(map);
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UpdateAdResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/products/product/${prodId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpdateAdResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<AddAdvertisementResponse> updateProductImage(
+    prodId,
     image,
-    name,
-    price,
-    description,
-    purpose,
-    category,
-    condition,
     token,
   ) async {
     const _extra = <String, dynamic>{};
@@ -510,32 +542,8 @@ class _AppServiceClient implements AppServiceClient {
         filename: image.path.split(Platform.pathSeparator).last,
       ),
     ));
-    _data.fields.add(MapEntry(
-      'name',
-      name,
-    ));
-    _data.fields.add(MapEntry(
-      'price',
-      price.toString(),
-    ));
-    _data.fields.add(MapEntry(
-      'description',
-      description,
-    ));
-    _data.fields.add(MapEntry(
-      'purpose',
-      purpose,
-    ));
-    _data.fields.add(MapEntry(
-      'category',
-      category,
-    ));
-    _data.fields.add(MapEntry(
-      'condition',
-      condition,
-    ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UpdateAdResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AddAdvertisementResponse>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
@@ -548,7 +556,7 @@ class _AppServiceClient implements AppServiceClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UpdateAdResponse.fromJson(_result.data!);
+    final value = AddAdvertisementResponse.fromJson(_result.data!);
     return value;
   }
 

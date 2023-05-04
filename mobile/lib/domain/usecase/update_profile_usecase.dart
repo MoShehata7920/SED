@@ -28,12 +28,12 @@ class UpdateProfileUseCase
 }
 
 class UpdateUserProfileUseCaseInput {
-  String userId;
-  File userImage;
-  String name;
-  String phoneNumber;
-  String government;
-  String address;
+  String? userId;
+  File? userImage;
+  String? name;
+  String? phoneNumber;
+  String? government;
+  String? address;
 
   UpdateUserProfileUseCaseInput(
     this.userId,

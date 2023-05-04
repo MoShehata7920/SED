@@ -129,7 +129,7 @@ class AddAdvertisementViewModel extends BaseViewModel
   }
 
   @override
-  void setIds(String purpose, String category, String condition) {
+  void setConditions(String purpose, String category, String condition) {
     advertisementObject = advertisementObject.copyWith(
         purpose: purpose, category: category, condition: condition);
   }
@@ -248,7 +248,7 @@ abstract class AddAdvertisementViewModelInputs {
 
   void setDescription(String description);
 
-  void setIds(String purpose, String category, String condition);
+  void setConditions(String purpose, String category, String condition);
 
   void addAdvertisement(BuildContext context);
 }

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -156,13 +154,16 @@ ItemsResponse _$ItemsResponseFromJson(Map<String, dynamic> json) =>
       json['category'] as String?,
       json['createdAt'] as String?,
       json['isSaved'] as bool?,
-    )..id = json['_id'] as String?;
+    )
+      ..id = json['_id'] as String?
+      ..condition = json['condition'] as String?;
 
 Map<String, dynamic> _$ItemsResponseToJson(ItemsResponse instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'productName': instance.name,
       'description': instance.description,
+      'condition': instance.condition,
       'category': instance.category,
       'productImage': instance.image,
       'price': instance.price,
@@ -194,20 +195,20 @@ UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
     UserDataResponse(
       json['_id'] as String?,
       json['fullName'] as String?,
+      json['userImage'] as String?,
       json['phone'] as String?,
       json['government'] as String?,
       json['address'] as String?,
-      json['userImage'] as String?,
     );
 
 Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'fullName': instance.name,
+      'userImage': instance.image,
       'phone': instance.phone,
       'government': instance.government,
       'address': instance.address,
-      'userImage': instance.image,
     };
 
 ShowItemsResponse _$ShowItemsResponseFromJson(Map<String, dynamic> json) =>
