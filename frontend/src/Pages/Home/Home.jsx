@@ -23,14 +23,12 @@ export default function Home() {
   const [error, setError] = useState(null);
   const storedToken = localStorage.getItem("usertoken");
   window.localStorage.setItem("UserData", JSON.stringify(Userdata));
-  console.log(Userdata);
   const GetDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
       let respond = await Axios.get(`http://103.48.193.225:3000/home`);
-
       setcarousel(respond.data.carousel.Images);
       setDetasell(respond.data.sellItems);
       setDetadonat(respond.data.donateItems);

@@ -16,16 +16,30 @@ export default function SeeAllData() {
   let [AllData, setAllData] = useState([]);
   let [category, setcategory] = useState("all");
   let [sort, setsort] = useState("");
-  console.log(sort);
-
+  let [MaxPrice, setMaxPrice] = useState("");
+  let [MinPrice, setMinPrice] = useState("");
+  let [Condition, setCondition] = useState("");
+  console.log("min", MinPrice, "Max", MaxPrice);
+  let [Price, setPrice] = useState({ Min: "", Max: "" });
   const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
+  function pricedone() {
+    setMaxPrice(Price.Max);
+    setMinPrice(Price.Min);
+  }
+  function getPrice(e) {
+    let myitem = { ...Price };
+    myitem[e.target.name] = e.target.value;
+
+    setPrice(myitem);
+  }
+
   const GetseeallDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&page=${currentpageNum}`
+        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
       );
       setAllData(respond.data.items);
       settotalpageNum(respond.data.totalPageNumber);
@@ -39,7 +53,7 @@ export default function SeeAllData() {
   };
   useEffect(() => {
     GetseeallDeta();
-  }, [SeeData, currentpageNum, category, sort]);
+  }, [SeeData, currentpageNum, category, sort, MaxPrice, MinPrice, Condition]);
   return (
     <>
       <section>
@@ -120,9 +134,44 @@ export default function SeeAllData() {
                             Low price
                           </Link>
                         </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mb-4 ">
+                    <h4 className="me-1">Condition</h4>
+                    <div className="dropdown">
+                      <button
+                        GiToggles
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Recomended
+                      </button>
+                      <ul
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
                         <li>
-                          <Link className="dropdown-item" href="#">
-                            Something else here
+                          <Link
+                            onClick={() => {
+                              setCondition("New");
+                            }}
+                            className="dropdown-item"
+                          >
+                            New
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            onClick={() => {
+                              setCondition("Used");
+                            }}
+                            className="dropdown-item"
+                          >
+                            Used
                           </Link>
                         </li>
                       </ul>
@@ -194,7 +243,7 @@ export default function SeeAllData() {
                       <li className="list-group">
                         <Link
                           onClick={() => {
-                            setcategory("Vehicle");
+                            setcategory("Vehicles");
                           }}
                           className="mb-2 text-decoration-none text-black fs-4"
                         >
@@ -238,6 +287,8 @@ export default function SeeAllData() {
                     <div className="input-group mb-3">
                       <span className="input-group-text">$</span>
                       <input
+                        onChange={getPrice}
+                        name="Max"
                         type="text"
                         className="form-control"
                         aria-label="Amount (to the nearest dollar)"
@@ -250,12 +301,24 @@ export default function SeeAllData() {
                     <div className="input-group mb-3">
                       <span className="input-group-text">$</span>
                       <input
+                        onChange={getPrice}
+                        name="Min"
                         type="text"
                         className="form-control"
                         aria-label="Amount (to the nearest dollar)"
                       />
                       <span className="input-group-text">.00</span>
                     </div>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => {
+                        pricedone();
+                      }}
+                      className="btn btn-primary"
+                    >
+                      Price
+                    </button>
                   </div>
                 </div>
               </div>

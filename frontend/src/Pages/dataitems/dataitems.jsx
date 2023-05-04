@@ -59,7 +59,7 @@ export default function Dataitems() {
                       />
                     </div>
                     <div className="col-4 mt-4">
-                      <Link to={`/SellerInfo/${SellerData._id}`}>
+                      <Link to={`/SellerInfo/${SellerData._id}/${id}`}>
                         <button className="btn btn-primary">show more</button>
                       </Link>
                     </div>

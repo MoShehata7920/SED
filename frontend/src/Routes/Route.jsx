@@ -76,7 +76,10 @@ function MainRoutes() {
         <Route path="/SeeAllData/:SeeData" element={<SeeAllData />} />
         <Route path="/AddItems" element={<AddItem />} />
 
-        <Route path="/SellerInfo/:SellerId" element={<SellerInfo />} />
+        <Route
+          path="/SellerInfo/:SellerId/:ProductID"
+          element={<SellerInfo />}
+        />
       </Routes>
     </>
   );

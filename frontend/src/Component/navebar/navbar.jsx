@@ -88,10 +88,7 @@ function Navebar() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Furniture"}
-                    >
+                    <Link className="dropdown-item " to={"/Categories/Sports"}>
                       Sports
                     </Link>
                   </li>
