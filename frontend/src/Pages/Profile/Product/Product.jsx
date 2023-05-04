@@ -10,16 +10,13 @@ export default function Product() {
   const UserToken = localStorage.getItem("usertoken");
   console.log(UserToken);
   let [UserID, setUserID] = useState("");
-  let [CategorieType, setCategorieType] = useState("all");
   let [UserData, setUserData] = useState([]);
   const [totalpageNum, settotalpageNum] = useState(1);
   const [currentpageNum, setcurrentpageNum] = useState(1);
   const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-  let [sort, setsort] = useState("all");
   console.log(UserData);
-  let [Service, setService] = useState("all");
   const UserProduct = async () => {
     setError(null);
     setIsPending(true);
@@ -49,156 +46,9 @@ export default function Product() {
   }, [UserID, UserToken]);
   return (
     <>
-      <div className="container-fluid bg-dark  Productpage  ">
+      <div className="container-fluid  bg-dark  Productpage  ">
         <div className=" row  vh-100    ">
-          <div
-            id="style-7"
-            className="col-12 col-xl-3 col-lg-3 col-md-3  scrollbar h-100   seeAll_bg navbar-expand-md"
-          >
-            <div className=" d-flex mb-4">
-              <h1 className=" ms-5 me-4 ">Filter</h1>
-
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#SupportedContent"
-                aria-controls="SupportedContent"
-              >
-                <span className="seeAll_bg_troger_parent">
-                  <GiToggles className="seeAll_bg_troger " />
-                </span>
-              </button>
-            </div>
-            <div
-              className="navbar-collapse collapse  "
-              align="center"
-              id="SupportedContent"
-            >
-              <div className="">
-                <div className="mb-4 ">
-                  <h4 className="me-1">Sort By</h4>
-                  <div className="dropdown">
-                    <button
-                      GiToggles
-                      className="btn btn-primary dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Recomended
-                    </button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1"
-                    >
-                      <li>
-                        <Link
-                          onClick={() => {
-                            setsort("");
-                          }}
-                          className="dropdown-item"
-                        >
-                          Default
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          onClick={() => {
-                            setsort("-price");
-                          }}
-                          className="dropdown-item"
-                        >
-                          High price
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          onClick={() => {
-                            setsort("price");
-                          }}
-                          className="dropdown-item"
-                        >
-                          Low price
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div>
-                  <ul className="list-group mb-5 ">
-                    <h3>Services</h3>
-                    <li className="list-group ">
-                      <Link
-                        onClick={() => {
-                          setService("all");
-                        }}
-                        className=" mb-2 text-decoration-none text-black fs-4"
-                      >
-                        All(default)
-                      </Link>
-                    </li>
-                    <li className="list-group ">
-                      <Link
-                        onClick={() => {
-                          setService("sell");
-                        }}
-                        className=" mb-2 text-decoration-none text-black fs-4"
-                      >
-                        Sell
-                      </Link>
-                    </li>
-                    <li className="list-group">
-                      <Link
-                        onClick={() => {
-                          setService("exchange");
-                        }}
-                        className="mb-2 text-decoration-none text-black fs-4"
-                      >
-                        Exchange
-                      </Link>
-                    </li>
-                    <li className="list-group">
-                      <Link
-                        onClick={() => {
-                          setService("donate");
-                        }}
-                        className="mb-2 text-decoration-none text-black fs-4"
-                      >
-                        Donate
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h5>Max_Price</h5>
-                  <div className="input-group mb-3">
-                    <span className="input-group-text">$</span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      aria-label="Amount (to the nearest dollar)"
-                    />
-                    <span className="input-group-text">.00</span>
-                  </div>
-                </div>
-                <div>
-                  <h5>Min_Price</h5>
-                  <div className="input-group mb-3">
-                    <span className="input-group-text">$</span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      aria-label="Amount (to the nearest dollar)"
-                    />
-                    <span className="input-group-text">.00</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="style-7" className="  col-8  scrollbar   h-100 pt-4 ps-4 ">
+          <div id="style-7" className="  col-12  scrollbar   h-100 pt-4 ps-4 ">
             <div className="row  w-100 h-100 align-items-center justify-content-center ">
               <div className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-12 w-100 ">
                 <div className="row justify-content-center">

@@ -7,14 +7,13 @@ import { useParams, Link } from "react-router-dom";
 function MyAdds() {
   let { ProductId } = useParams();
   let [Productitems, setProductitems] = useState({});
-  let [SellerData, setSellerData] = useState([]);
 
+  window.localStorage.setItem("Productdata", JSON.stringify(Productitems));
   async function GetProductitems(ProductId, callback) {
     let { data } = await Axios.get(
       `http://103.48.193.225:3000/products/product/${ProductId}`
     );
     callback(data.product);
-    setSellerData(data.product.seller);
   }
   useEffect(() => {
     GetProductitems(ProductId, setProductitems);
@@ -86,7 +85,7 @@ function MyAdds() {
                   </button>
                 </div>
                 <div className="mt-5 text-center">
-                  <Link to={"/"}>
+                  <Link to={`/Product_Editing/${Productitems._id}`}>
                     <button className=" btn-items">Edit</button>
                   </Link>
                 </div>

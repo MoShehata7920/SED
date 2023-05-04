@@ -24,6 +24,7 @@ import Share from "../Pages/Profile/Settings/Share/Share";
 import Help from "../Pages/Profile/Settings/Help/Help";
 import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
+import Product_Editing from "../Pages/Profile/Product_Editing/Product_Editing";
 
 function MainRoutes() {
   const storedToken = localStorage.getItem("usertoken");
@@ -79,6 +80,10 @@ function MainRoutes() {
         <Route
           path="/SellerInfo/:SellerId/:ProductID"
           element={<SellerInfo />}
+        />
+        <Route
+          path="/Product_Editing/:Product_id"
+          element={<Product_Editing />}
         />
       </Routes>
     </>
