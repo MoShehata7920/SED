@@ -10,15 +10,15 @@ export default function Userinfo() {
   const [mobilenumber, setmobilenumber] = useState("");
   const [government, setgovernment] = useState("");
   const [address, setaddress] = useState("");
+  const [UserData, setUserData] = useState("");
   const [dateofbirth, setdateofbirth] = useState("");
   const [gender, setgender] = useState("");
   const [userImage, setUserimg] = useState(null);
   const [UserID, setUserID] = useState("");
   console.log(UserID);
-
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-
+  window.localStorage.setItem("UserData", JSON.stringify(UserData));
   const GetUserDeta = async () => {
     setError(null);
     setIsPending(true);
@@ -29,6 +29,7 @@ export default function Userinfo() {
           Authentication: `Bearer ${UserToken}`,
         },
       });
+      setUserData(UserData.data);
       setUserID(UserData.data.user._id);
       setusername(UserData.data.user.fullName);
       setemail(UserData.data.user.email);
@@ -37,7 +38,6 @@ export default function Userinfo() {
       setaddress(UserData.data.user.address);
       setgovernment(UserData.data.user.government);
       setIsPending(false);
-      // setError(null);
     } catch (err) {
       setIsPending(false);
       setError("could not fetch the data");

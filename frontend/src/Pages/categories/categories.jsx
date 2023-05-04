@@ -16,7 +16,21 @@ export default function Categories() {
   let [sort, setsort] = useState("");
   let [Detcateg, setDetcateg] = useState([]);
   let [Service, setService] = useState("all");
+  let [MaxPrice, setMaxPrice] = useState("");
+  let [MinPrice, setMinPrice] = useState("");
+  let [Condition, setCondition] = useState("");
+  let [Price, setPrice] = useState({ Min: "", Max: "" });
   console.log(Detcateg);
+  function pricedone() {
+    setMaxPrice(Price.Max);
+    setMinPrice(Price.Min);
+  }
+  function getPrice(e) {
+    let myitem = { ...Price };
+    myitem[e.target.name] = e.target.value;
+
+    setPrice(myitem);
+  }
   const GetCategDeta = async () => {
     setError(null);
     setIsPending(true);
@@ -27,7 +41,7 @@ export default function Categories() {
         CategorieType == "Phones & Tablets"
       ) {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&page=${currentpageNum}`
+          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
@@ -36,13 +50,13 @@ export default function Categories() {
         CategorieType == "Body & Health Care"
       ) {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&page=${currentpageNum}`
+          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
       } else {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&page=${currentpageNum}`
+          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
@@ -57,7 +71,15 @@ export default function Categories() {
   };
   useEffect(() => {
     GetCategDeta();
-  }, [CategorieType, currentpageNum, Service, sort]);
+  }, [
+    CategorieType,
+    currentpageNum,
+    Service,
+    sort,
+    MaxPrice,
+    MinPrice,
+    Condition,
+  ]);
   return (
     <>
       <section>
@@ -142,6 +164,46 @@ export default function Categories() {
                       </ul>
                     </div>
                   </div>
+                  <div className="mb-4 ">
+                    <h4 className="me-1">Condition</h4>
+                    <div className="dropdown">
+                      <button
+                        GiToggles
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Recomended
+                      </button>
+                      <ul
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>
+                          <Link
+                            onClick={() => {
+                              setCondition("New");
+                            }}
+                            className="dropdown-item"
+                          >
+                            New
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            onClick={() => {
+                              setCondition("Used");
+                            }}
+                            className="dropdown-item"
+                          >
+                            Used
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                   <div>
                     <ul className="list-group mb-5 ">
                       <h3>Services</h3>
@@ -192,6 +254,8 @@ export default function Categories() {
                     <div className="input-group mb-3">
                       <span className="input-group-text">$</span>
                       <input
+                        onChange={getPrice}
+                        name="Max"
                         type="text"
                         className="form-control"
                         aria-label="Amount (to the nearest dollar)"
@@ -204,12 +268,24 @@ export default function Categories() {
                     <div className="input-group mb-3">
                       <span className="input-group-text">$</span>
                       <input
+                        onChange={getPrice}
+                        name="Min"
                         type="text"
                         className="form-control"
                         aria-label="Amount (to the nearest dollar)"
                       />
                       <span className="input-group-text">.00</span>
                     </div>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => {
+                        pricedone();
+                      }}
+                      className="btn btn-primary"
+                    >
+                      Price
+                    </button>
                   </div>
                 </div>
               </div>
