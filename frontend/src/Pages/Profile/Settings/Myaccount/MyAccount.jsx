@@ -77,16 +77,16 @@ function MyAccount() {
     setUserToken(window.localStorage.getItem("usertoken"));
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
-    setUserID(parsedUserData.user._id);
+    setUserID(parsedUserData._id);
     setuserInfoEdit({
       ...userInfoEdit,
-      fullName: parsedUserData.user.fullName,
-      phone: parsedUserData.user.phone,
-      email: parsedUserData.user.email,
-      government: parsedUserData.user.government,
-      address: parsedUserData.user.address,
+      fullName: parsedUserData.fullName,
+      phone: parsedUserData.phone,
+      email: parsedUserData.email,
+      government: parsedUserData.government,
+      address: parsedUserData.address,
     });
-    setImgUrl(parsedUserData.user.userImage);
+    setImgUrl(parsedUserData.userImage);
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {

@@ -42,7 +42,7 @@ export default function Product() {
     UserProduct();
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
-    setUserID(parsedUserData.user._id);
+    setUserID(parsedUserData._id);
   }, [UserID, UserToken]);
   return (
     <>

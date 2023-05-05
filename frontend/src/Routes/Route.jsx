@@ -11,7 +11,6 @@ import Product from "../Pages/Profile/Product/Product";
 import MyAccount from "../Pages/Profile/Settings/Myaccount/MyAccount";
 import Settings from "../Pages/Profile/Settings/Settings";
 import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
-import Watchlist from "../Pages/Profile/Watchlist/Watchlist";
 import SearchPage from "../Pages/searchdata/searchdata";
 import SeeAllData from "../Pages/seealldata/SeeAllData";
 import SignIn from "../Pages/SignIn/SignIn";
@@ -47,7 +46,6 @@ function MainRoutes() {
         >
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
-          <Route path="/Profile/watchlist" element={<Watchlist />}></Route>
           <Route path="/Profile/myProduct" element={<Product />}></Route>
           <Route path="/Profile/settings" element={<Settings />}></Route>
           <Route
