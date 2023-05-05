@@ -334,8 +334,8 @@ export default function SeeAllData() {
                       to={`/items/${All._id}`}
                       className="text-decoration-none "
                     >
-                      <div className=" item slider-style2 mb-3  ">
-                        <div className="slider-service-div  text-center seeAll_bg_item w-100 ">
+                      <div className=" item slider-style2 mb-3  d-flex justify-content-center ">
+                        <div className="slider-service-div  text-center seeAll_bg_item  ">
                           <div className="slider-service-img ">
                             <img
                               src={All.productImage}

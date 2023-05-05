@@ -117,3 +117,36 @@ body {
       width:992px;
     }
   }
+  @media screen and (min-width: 2560px) {
+    .swiper-container {
+      width:2560px;
+    }
+  }  
+  @media screen and (min-width: 3840px) {
+    .swiper-container {
+      width:3840px;
+    }
+  }  
+  @media screen and (min-width: 4096px) {
+    .swiper-container {
+      width:4096px;
+    }
+  }  
+  @media screen and (min-width: 5120px) {
+    .swiper-container {
+      width:5120px;
+    }
+  }  
+  
+  @media screen and (min-width: 750px) {
+    .swiper-container {
+      width:750px;
+    }
+  }  
+  @media screen and (min-width: 500px) {
+    .swiper-container {
+      width:500px;
+    }
+  }  
+  
+   

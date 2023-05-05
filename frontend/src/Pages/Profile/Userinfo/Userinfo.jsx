@@ -22,7 +22,6 @@ export default function Userinfo() {
   const GetUserDeta = async () => {
     setError(null);
     setIsPending(true);
-
     try {
       let UserData = await axios.get(`http://103.48.193.225:3000/users/get`, {
         headers: {
@@ -51,10 +50,10 @@ export default function Userinfo() {
     <>
       <div className="container  ">
         <div className="row vh-100 flex-column align-items-center justify-content-center   ">
-          <div className=" col-8 rounded-4 border border-dark  pt-4 ">
+          <div className="  col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 rounded-4 border border-dark  pt-4 ">
             <div className="row   align-items-center justify-content-center ">
-              <div className="col-2  ">
-                <img src={userImage} alt="" className="w-100 userinfo_img" />
+              <div className=" col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-6 col-6  ">
+                <img src={userImage} alt="" className="w-100 rounded-5" />
               </div>
               <div className=" offset-7 col-2   ">
                 <Link to={"/Profile/settings/myaccount"}>
@@ -62,10 +61,10 @@ export default function Userinfo() {
                 </Link>
               </div>
             </div>
-            <div className="row  mb-3  ">
-              <div className="profile-user-info offset-1 col-4  justify-content-center ">
+            <div className="row  mb-3 justify-content-center text-center ">
+              <div className="profile-user-info   col-xxl-4 col-xl-4  col-lg-6 col-md-6 col-sm-12 col-12  ">
                 <div className="user-info mt-4  ">
-                  <h5 className=" "> User Name </h5>
+                  <h5 className=" "> Full Name </h5>
                   <h6 className="w-100 "> {username} </h6>
                 </div>
                 <div className="user-info mt-5  ">
@@ -78,7 +77,7 @@ export default function Userinfo() {
                   <h6 className="w-100  ">{mobilenumber}</h6>
                 </div>
               </div>
-              <div className="profile-user-info offset-1 col-4   ">
+              <div className="profile-user-info h-100  col-xxl-4 col-xl-4  col-lg-6 col-md-6 col-sm-12 col-12    ">
                 <div className=" user-info mt-4  ">
                   <h5 className="">Location </h5>
                   <h6 className="w-100  ">

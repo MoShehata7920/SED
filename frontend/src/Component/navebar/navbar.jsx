@@ -31,13 +31,13 @@ function Navebar() {
   return (
     <>
       <nav className="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">
-        <div className="container">
-          <div className="col-xl-2 col-lg-1 col-xxl-3 col-md-2 col-sm-10 col-10">
+        <div className=" container-fluid">
+          <div className="ms-4 col-xl-2 col-lg-1 col-xxl-3 col-md-2 col-sm-9 col-9">
             <Link className="navbar-brand text-white fs-3" to={"/"}>
               SED
             </Link>
           </div>
-          <div className="  col-">
+          <div className="">
             <button
               className="navbar-toggler"
               type="button"
@@ -51,14 +51,13 @@ function Navebar() {
             </button>
           </div>
           <div
-            className="collapse navbar-collapse col-5"
+            className="collapse navbar-collapse col-5 me-4"
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li className="nav-item dropdown me-2 ">
                 <Link
                   className="nav-Link dropdown-toggle text-white fs-4 "
-                  to={"a"}
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -176,7 +175,7 @@ function Navebar() {
             </ul>
 
             <form onSubmit={handleSubmit} className="d-flex" role="search">
-              <div className="input-group me-5">
+              <div className="input-group me-3">
                 <input
                   type="text"
                   aria-label="First name"
@@ -194,23 +193,21 @@ function Navebar() {
               </div>
             </form>
             {storedToken ? (
-              <ul className="navbar-nav ">
-                <li className="nav-item">
+              <ul className="navbar-nav  pb-3">
+                <li className="nav-item ">
                   <Link
-                    to={"/Profile"}
-                    className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
+                    to={"/Profile/userinfo"}
+                    className="text-white nav-Link fs-1 me-4 "
                   >
                     <CiUser />
                   </Link>
-                </li>
-                <li className="nav-item">
                   <Link
                     onClick={() => {
                       logout();
                       window.location.reload();
                     }}
                     to={"/"}
-                    className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
+                    className="text-white nav-Link fs-1   "
                   >
                     <BiLogOut />
                   </Link>

@@ -21,8 +21,8 @@ function Profile() {
       </section>
       <section>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-auto vh-100   bg-dark   profile-sidebar">
+          <div className="row  ">
+            <div className="col-auto vh-100   bg-dark   profile-sidebar d-flex flex-column  justify-content-center">
               <ul className="py-5">
                 <li className="sidebar-item py-1">
                   <a href="{}">
@@ -61,14 +61,6 @@ function Profile() {
                     <Link to={"/profile/settings"}>
                       <i>{<BsGearWideConnected />}</i>
                       <span className="ms-1 d-none d-sm-inline">Settings</span>
-                    </Link>
-                  </a>
-                </li>
-                <li className="sidebar-item py-1">
-                  <a href="{}">
-                    <Link to={""}>
-                      <i>{<BsBoxArrowLeft />}</i>
-                      <span className="ms-1 d-none d-sm-inline"> Logout </span>
                     </Link>
                   </a>
                 </li>

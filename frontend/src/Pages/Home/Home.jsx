@@ -110,10 +110,19 @@ export default function Home() {
                 slidesPerView: 1,
               },
               400: {
+                slidesPerView: 1,
+              },
+              500: {
+                slidesPerView: 2,
+              },
+              600: {
                 slidesPerView: 2,
               },
               639: {
                 slidesPerView: 2,
+              },
+              750: {
+                slidesPerView: 3,
               },
               865: {
                 slidesPerView: 3,
@@ -126,6 +135,18 @@ export default function Home() {
               },
               1700: {
                 slidesPerView: 7,
+              },
+              2560: {
+                slidesPerView: 8,
+              },
+              3840: {
+                slidesPerView: 9,
+              },
+              4096: {
+                slidesPerView: 10,
+              },
+              5120: {
+                slidesPerView: 11,
               },
             }}
           >
@@ -179,10 +200,19 @@ export default function Home() {
               slidesPerView: 1,
             },
             400: {
+              slidesPerView: 1,
+            },
+            500: {
+              slidesPerView: 2,
+            },
+            600: {
               slidesPerView: 2,
             },
             639: {
               slidesPerView: 2,
+            },
+            750: {
+              slidesPerView: 3,
             },
             865: {
               slidesPerView: 3,
@@ -196,6 +226,18 @@ export default function Home() {
             1700: {
               slidesPerView: 7,
             },
+            2560: {
+              slidesPerView: 8,
+            },
+            3840: {
+              slidesPerView: 9,
+            },
+            4096: {
+              slidesPerView: 10,
+            },
+            5120: {
+              slidesPerView: 11,
+            },
           }}
         >
           <SwiperSlide>
@@ -208,7 +250,10 @@ export default function Home() {
           </SwiperSlide>
 
           {Detasell.map((sell, index) => (
-            <SwiperSlide key={index} className="mb-5">
+            <SwiperSlide
+              key={index}
+              className="mb-5 d-flex justify-content-center"
+            >
               <SellSlider sell={sell} />
             </SwiperSlide>
           ))}
@@ -227,10 +272,19 @@ export default function Home() {
               slidesPerView: 1,
             },
             400: {
+              slidesPerView: 1,
+            },
+            500: {
+              slidesPerView: 2,
+            },
+            600: {
               slidesPerView: 2,
             },
             639: {
               slidesPerView: 2,
+            },
+            750: {
+              slidesPerView: 3,
             },
             865: {
               slidesPerView: 3,
@@ -244,6 +298,18 @@ export default function Home() {
             1700: {
               slidesPerView: 7,
             },
+            2560: {
+              slidesPerView: 8,
+            },
+            3840: {
+              slidesPerView: 9,
+            },
+            4096: {
+              slidesPerView: 10,
+            },
+            5120: {
+              slidesPerView: 11,
+            },
           }}
         >
           <SwiperSlide>
@@ -256,7 +322,10 @@ export default function Home() {
           </SwiperSlide>
 
           {Detaexchange.map((exchange, ind) => (
-            <SwiperSlide key={ind} className="mb-5">
+            <SwiperSlide
+              key={ind}
+              className="mb-5 d-flex justify-content-center"
+            >
               <ExchangeSlider exchange={exchange} />
             </SwiperSlide>
           ))}
@@ -288,10 +357,19 @@ export default function Home() {
               slidesPerView: 1,
             },
             400: {
+              slidesPerView: 1,
+            },
+            500: {
+              slidesPerView: 2,
+            },
+            600: {
               slidesPerView: 2,
             },
             639: {
               slidesPerView: 2,
+            },
+            750: {
+              slidesPerView: 3,
             },
             865: {
               slidesPerView: 3,
@@ -305,6 +383,18 @@ export default function Home() {
             1700: {
               slidesPerView: 7,
             },
+            2560: {
+              slidesPerView: 8,
+            },
+            3840: {
+              slidesPerView: 9,
+            },
+            4096: {
+              slidesPerView: 10,
+            },
+            5120: {
+              slidesPerView: 11,
+            },
           }}
         >
           <SwiperSlide>
@@ -316,7 +406,10 @@ export default function Home() {
             </div>
           </SwiperSlide>
           {Detadonat.map((donate, donateindex) => (
-            <SwiperSlide key={donateindex} className="mb-5">
+            <SwiperSlide
+              key={donateindex}
+              className="mb-5 d-flex justify-content-center"
+            >
               <DonateSlider donate={donate} />
             </SwiperSlide>
           ))}

@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link, useParams } from "react-router-dom";
 import "./Product_editing.css";
 import Axios from "axios";
+import Navebar from "../../../Component/navebar/navbar";
 
 export default function Product_Editing() {
   let { Product_id } = useParams();
@@ -10,6 +11,9 @@ export default function Product_Editing() {
     productName: "",
     price: "",
     description: "",
+    category: "",
+    condition: "",
+    purpose: "",
   });
   const [UserToken, setUserToken] = useState("");
   const [ImgUrl, setImgUrl] = useState("");
@@ -31,6 +35,9 @@ export default function Product_Editing() {
   formData.append("productName", ProductEdit.productName);
   formData.append("price", ProductEdit.price);
   formData.append("description", ProductEdit.description);
+  formData.append("category", ProductEdit.category);
+  formData.append("condition", ProductEdit.condition);
+  formData.append("purpose", ProductEdit.purpose);
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
@@ -99,6 +106,9 @@ export default function Product_Editing() {
       productName: parsedUserData.productName,
       price: parsedUserData.price,
       description: parsedUserData.description,
+      category: parsedUserData.category,
+      purpose: parsedUserData.purpose,
+      condition: parsedUserData.condition,
     });
     setImgUrl(parsedUserData.productImage);
     if (response) {
@@ -115,11 +125,14 @@ export default function Product_Editing() {
   }, [response, ErrorMessage]);
   return (
     <>
+      <section>
+        <Navebar />
+      </section>
       <div className="container  ">
         <div className="row vh-100  flex-column align-items-center justify-content-center   ">
-          <div className=" col-8 rounded-3 border border-dark  pt-3 pb-3">
+          <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12  rounded-3 border border-dark  pt-3 pb-3">
             <form onSubmit={itemsubmit} className="row mt-3 ">
-              <div className=" offset-1 col-4 ">
+              <div className=" ms-4 col-5 ">
                 <div class="mb-3">
                   <label class="form-label">Product_name </label>
                   <input
@@ -143,17 +156,6 @@ export default function Product_Editing() {
                   ></input>
                 </div>
 
-                <div class="mb-3 "></div>
-                <div class="mb-3">
-                  <label class="form-label">Product IMG </label>
-                  <input
-                    onChange={handleImageChange}
-                    class="form-control"
-                    type="file"
-                    id="formFile"
-                  />
-                </div>
-
                 <div class="mb-3">
                   <label class="form-label">Description</label>
                   <input
@@ -165,12 +167,55 @@ export default function Product_Editing() {
                   ></input>
                 </div>
               </div>
-              <div className="mb-3 mt-3 d-flex justify-content-center ">
+              <div className=" offset-1 col-5 ">
+                <div class="mb-3">
+                  <label class="form-label">Condition </label>
+                  <input
+                    placeholder={ProductEdit.condition}
+                    name="productName"
+                    onChange={getUserinfo}
+                    type="text"
+                    class="form-control"
+                    aria-describedby="priceHelp"
+                  ></input>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Purpose </label>
+                  <input
+                    placeholder={ProductEdit.purpose}
+                    name="price"
+                    onChange={getUserinfo}
+                    type="text"
+                    class="form-control"
+                  ></input>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <input
+                    placeholder={ProductEdit.category}
+                    name="description"
+                    onChange={getUserinfo}
+                    type="text"
+                    class="form-control"
+                  ></input>
+                </div>
+              </div>
+              <div class="mb-3  d-flex flex-column align-items-center justify-content-center ">
+                <label class="form-label">Product IMG </label>
+                <input
+                  onChange={handleImageChange}
+                  class="form-control w-50"
+                  type="file"
+                  id="formFile"
+                />
+              </div>
+              <div className="mb-3 mt-3  d-flex  justify-content-center ">
                 <button type="submit" class="btn btn-primary me-4 ">
                   Save Changes
                 </button>
 
-                <Link to={"/Profile/userinfo"}>
+                <Link to={"/profile/myProduct"}>
                   <button type="button" class="btn btn-primary  ">
                     Cancel
                   </button>
@@ -178,7 +223,11 @@ export default function Product_Editing() {
               </div>
               <ToastContainer />
             </form>
-            <form onSubmit={itemRemove} action="">
+            <form
+              onSubmit={itemRemove}
+              action=""
+              className="d-flex  justify-content-end"
+            >
               <button type="submit" class="btn btn-primary me-4 ">
                 Remove
               </button>
