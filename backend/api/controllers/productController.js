@@ -164,9 +164,9 @@ exports.getProductsByQuery = async (req, res, next) => {
             .lean()
             .skip(skip)
             .limit(perPage);
-        if (doc.length === 0) {
-            return res.status(200).json({ status: 0, message: 'There are no products with this filters' });
-        }
+        // if (doc.length === 0) {          // commented for frontend , he need items to be empty better
+        //     return res.status(200).json({ status: 0, message: 'There are no products with this filters' });
+        // }
 
         // calculating whole number of pages 
         const totalDocs=await Product.countDocuments(query)
