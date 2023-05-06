@@ -52,7 +52,9 @@ router.get('/product/:prodId', productController.getSingleProduct)
 router.patch('/product/:prodId', verifyToken, upload.single('productImage'), productController.updateProduct)
 
 //deleting a product by it's Id
-router.delete('/product/:prodId', verifyTokenAndAuthorization, productController.deleteProduct)
+// router.delete('/product/:prodId', verifyTokenAndAuthorization, productController.deleteProduct)     
+router.delete('/product/:prodId', verifyToken, productController.deleteProduct)       // till finishing development 
+
 
 router.get('/get',productController.getProductsByQuery)
 

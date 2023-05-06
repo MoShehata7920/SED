@@ -13,7 +13,7 @@ exports.createProduct = (req, res) => {
         category: req.body.category,
         purpose: req.body.purpose,
         // productImage: `localhost:3000/${req.file.path}` ,
-        productImage: `http://103.48.193.225:3000/${req.file.path}` || `http://103.48.193.225:3000/${req.file.name}` ,
+        productImage: `http://47.243.7.214:3000/${req.file.path}` || `http://47.243.7.214:3000/${req.file.name}` ,
         condition:req.body.condition,
         price: req.body.price,
         seller: req.user.id
@@ -36,7 +36,7 @@ exports.getSingleProduct = async(req, res) => {
     try {
         const product=await Product.findById(req.params.prodId).populate('seller','fullName _id email phone userImage government address ')
         const sellerInfo=product.seller
-        res.status(200).json({status: 0 , product }) // sending product information and some of seller information and status
+        res.status(200).json({status: 0 , product , sellerInfo }) // sending product information and some of seller information and status
     } catch (err) {
         res.status(500).json({status: 1,err})
     }
@@ -52,7 +52,7 @@ exports.updateProduct = async (req, res) => {
         return res.status(405).json({ status: 0, message: 'not allowed' });
       }
   
-      const newPhoto = req.file ? req.file.path : null;
+      const newPhoto = req.file ? `http://47.243.7.214:3000/${req.file.path}` : null;
       const oldPhoto = product.productImage;
       const needToDelete = newPhoto !== oldPhoto;
       const updatedImage = newPhoto ? newPhoto : oldPhoto;
