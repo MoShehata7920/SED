@@ -30,16 +30,19 @@ exports.homePage = async (req, res) => {
     const sellPromise = Product.find({ purpose: 'sell' }).sort({ createdAt: -1 })
       .limit(productPerCat)
       .select('productName description category price productImage seller createdAt')
+      .populate('seller','government address')
       .lean()
       .exec();
     const exchangePromise = Product.find({ purpose: 'exchange' }).sort({ createdAt: -1 })
       .limit(productPerCat)
+      .populate('seller','government address')
       .select('productName description category price productImage seller createdAt')
       .lean()
       .exec();
     const donatePromise = Product.find({ purpose: 'donate' }).sort({ createdAt: -1 })
       .limit(productPerCat)
       .select('productName description category price productImage seller createdAt')
+      .populate('seller','government address')
       .lean()
       .exec();
 
