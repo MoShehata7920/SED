@@ -114,6 +114,21 @@ class UpdateUserProfileRequest {
   );
 }
 
+class ChangePasswordRequest {
+  String userId;
+  String oldPassword;
+  String newPassword;
+  String confirmNewPassword;
+
+  ChangePasswordRequest(
+    this.userId,
+    this.oldPassword,
+    this.newPassword,
+    this.confirmNewPassword,
+
+  );
+}
+
 class SearchRequest {
   String searchText;
 

@@ -353,6 +353,40 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<DefaultResponse> changePassword(
+    userId,
+    oldPassword,
+    newPassword,
+    confirmNewPassword,
+    token,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {
+      'oldPassword': oldPassword,
+      'password': newPassword,
+      'confirmPassword': confirmNewPassword,
+    };
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<DefaultResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/change-password/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DefaultResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<AddAdvertisementResponse> addAdvertisement(
     image,
     name,

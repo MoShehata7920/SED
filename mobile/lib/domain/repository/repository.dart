@@ -43,6 +43,9 @@ abstract class Repository {
   Future<Either<Failure, Default>> updateUserProfile(
       UpdateUserProfileRequest updateUserProfileRequest);
 
+  Future<Either<Failure, Default>> changePassword(
+      ChangePasswordRequest changePasswordRequest);
+
   Future<Either<Failure, Notifications>> notifications();
 
   Future<Either<Failure, ShowItems>> getSavedProducts();

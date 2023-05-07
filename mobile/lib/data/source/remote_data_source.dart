@@ -42,6 +42,9 @@ abstract class RemoteDataSource {
   Future<DefaultResponse> updateUserProfile(
       UpdateUserProfileRequest updateUserProfileRequest);
 
+  Future<DefaultResponse> changePassword(
+      ChangePasswordRequest changePasswordRequest);
+
   Future<NotificationsResponse> notifications();
 
   Future<ShowItemsResponse> getSavedProducts();
@@ -145,23 +148,23 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<UpdateAdResponse> updateAd(UpdateAdRequest updateAdRequest) async {
     Map<String, dynamic> map = {};
 
-    if(updateAdRequest.name != null) map['name'] = updateAdRequest.name;
-    if(updateAdRequest.price != null) map['price'] = updateAdRequest.price;
-    if(updateAdRequest.description != null) map['description'] = updateAdRequest.description;
-    if(updateAdRequest.purpose != null) map['purpose'] = updateAdRequest.purpose;
-    if(updateAdRequest.category != null) map['category'] = updateAdRequest.category;
-    if(updateAdRequest.condition != null) map['condition'] = updateAdRequest.condition;
+    if (updateAdRequest.name != null) map['name'] = updateAdRequest.name;
+    if (updateAdRequest.price != null) map['price'] = updateAdRequest.price;
+    if (updateAdRequest.description != null)
+      map['description'] = updateAdRequest.description;
+    if (updateAdRequest.purpose != null)
+      map['purpose'] = updateAdRequest.purpose;
+    if (updateAdRequest.category != null)
+      map['category'] = updateAdRequest.category;
+    if (updateAdRequest.condition != null)
+      map['condition'] = updateAdRequest.condition;
 
-    var result =  await _appServiceClient.updateAd(
-        updateAdRequest.itemId ?? "",
-        map,
-        "Bearer ${Constants.token}");
+    var result = await _appServiceClient.updateAd(
+        updateAdRequest.itemId ?? "", map, "Bearer ${Constants.token}");
 
-    if(updateAdRequest.image != null) {
-      await _appServiceClient.updateProductImage(
-          updateAdRequest.itemId ?? "",
-          updateAdRequest.image ?? File(""),
-          "Bearer ${Constants.token}");
+    if (updateAdRequest.image != null) {
+      await _appServiceClient.updateProductImage(updateAdRequest.itemId ?? "",
+          updateAdRequest.image ?? File(""), "Bearer ${Constants.token}");
     }
 
     return result;
@@ -194,17 +197,21 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       UpdateUserProfileRequest updateUserProfileRequest) async {
     Map<String, dynamic> map = {};
 
-    if(updateUserProfileRequest.name != null) map['fullName'] = updateUserProfileRequest.name;
-    if(updateUserProfileRequest.phoneNumber != null) map['phone'] = updateUserProfileRequest.phoneNumber;
-    if(updateUserProfileRequest.government != null) map['government'] = updateUserProfileRequest.government;
-    if(updateUserProfileRequest.address != null) map['address'] = updateUserProfileRequest.address;
+    if (updateUserProfileRequest.name != null)
+      map['fullName'] = updateUserProfileRequest.name;
+    if (updateUserProfileRequest.phoneNumber != null)
+      map['phone'] = updateUserProfileRequest.phoneNumber;
+    if (updateUserProfileRequest.government != null)
+      map['government'] = updateUserProfileRequest.government;
+    if (updateUserProfileRequest.address != null)
+      map['address'] = updateUserProfileRequest.address;
 
-    var result =  await _appServiceClient.updateUserProfile(
+    var result = await _appServiceClient.updateUserProfile(
         updateUserProfileRequest.userId ?? "",
         map,
         "Bearer ${Constants.token}");
 
-    if(updateUserProfileRequest.userImage != null) {
+    if (updateUserProfileRequest.userImage != null) {
       await _appServiceClient.updateUserProfileImage(
           updateUserProfileRequest.userId ?? "",
           updateUserProfileRequest.userImage ?? File(""),
@@ -212,5 +219,16 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     return result;
+  }
+
+  @override
+  Future<DefaultResponse> changePassword(
+      ChangePasswordRequest changePasswordRequest) async {
+    return await _appServiceClient.changePassword(
+        changePasswordRequest.userId,
+        changePasswordRequest.oldPassword,
+        changePasswordRequest.newPassword,
+        changePasswordRequest.confirmNewPassword,
+        "Bearer ${Constants.token}");
   }
 }

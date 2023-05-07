@@ -9,6 +9,7 @@ import 'package:sed/data/network/network_info.dart';
 import 'package:sed/data/repository/repository_impl.dart';
 import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/repository/repository.dart';
+import 'package:sed/domain/usecase/change_password_usecase.dart';
 import 'package:sed/domain/usecase/delete_item_usecase.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/domain/usecase/get_saved_products.dart';
@@ -76,8 +77,7 @@ Future<void> initAppModule() async {
       () => RepositoryImpl(instance(), instance()));
 
   // main screen view
-  instance
-      .registerFactory<MainScreenViewModel>(() => MainScreenViewModel());
+  instance.registerFactory<MainScreenViewModel>(() => MainScreenViewModel());
 
   // home screen view
   instance
@@ -120,12 +120,17 @@ Future<void> initAppModule() async {
   instance.registerFactory<NotificationsUseCase>(
       () => NotificationsUseCase(instance()));
 
-  instance.registerFactory<VerifyEmailUseCase>(() => VerifyEmailUseCase(instance()));
+  instance.registerFactory<VerifyEmailUseCase>(
+      () => VerifyEmailUseCase(instance()));
 
+  instance.registerFactory<GetSavedProductsUseCase>(
+      () => GetSavedProductsUseCase(instance()));
 
-  instance.registerFactory<GetSavedProductsUseCase>(() => GetSavedProductsUseCase(instance()));
+  instance.registerFactory<UpdateProfileUseCase>(
+      () => UpdateProfileUseCase(instance()));
 
-  instance.registerFactory<UpdateProfileUseCase>(() => UpdateProfileUseCase(instance()));
+  instance.registerFactory<ChangePasswordUsecase>(
+      () => ChangePasswordUsecase(instance()));
 
   await initNotificationModule();
 }
@@ -169,8 +174,8 @@ initRegisterModule() async {
 
 initNotificationModule() async {
   // Notification use case
-  instance
-      .registerFactory<FlutterLocalNotificationsPlugin>(() => FlutterLocalNotificationsPlugin());
+  instance.registerFactory<FlutterLocalNotificationsPlugin>(
+      () => FlutterLocalNotificationsPlugin());
 
   Noti.initialize(instance<FlutterLocalNotificationsPlugin>());
 }

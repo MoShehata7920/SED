@@ -29,6 +29,15 @@ class UserProfileObject with _$UserProfileObject {
 }
 
 @freezed
+class ChangePasswordObject with _$ChangePasswordObject {
+  factory ChangePasswordObject(
+    String oldPassword,
+    String newPassword,
+    String confirmNewPassword,
+  ) = _changePasswordObject;
+}
+
+@freezed
 class AdvertisementObject with _$AdvertisementObject {
   factory AdvertisementObject(
       File image,

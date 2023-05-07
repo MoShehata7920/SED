@@ -556,6 +556,167 @@ abstract class _userProfileObject implements UserProfileObject {
 }
 
 /// @nodoc
+mixin _$ChangePasswordObject {
+  String get oldPassword => throw _privateConstructorUsedError;
+  String get newPassword => throw _privateConstructorUsedError;
+  String get confirmNewPassword => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ChangePasswordObjectCopyWith<ChangePasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChangePasswordObjectCopyWith<$Res> {
+  factory $ChangePasswordObjectCopyWith(ChangePasswordObject value,
+          $Res Function(ChangePasswordObject) then) =
+      _$ChangePasswordObjectCopyWithImpl<$Res, ChangePasswordObject>;
+  @useResult
+  $Res call(
+      {String oldPassword, String newPassword, String confirmNewPassword});
+}
+
+/// @nodoc
+class _$ChangePasswordObjectCopyWithImpl<$Res,
+        $Val extends ChangePasswordObject>
+    implements $ChangePasswordObjectCopyWith<$Res> {
+  _$ChangePasswordObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? oldPassword = null,
+    Object? newPassword = null,
+    Object? confirmNewPassword = null,
+  }) {
+    return _then(_value.copyWith(
+      oldPassword: null == oldPassword
+          ? _value.oldPassword
+          : oldPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      newPassword: null == newPassword
+          ? _value.newPassword
+          : newPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmNewPassword: null == confirmNewPassword
+          ? _value.confirmNewPassword
+          : confirmNewPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_changePasswordObjectCopyWith<$Res>
+    implements $ChangePasswordObjectCopyWith<$Res> {
+  factory _$$_changePasswordObjectCopyWith(_$_changePasswordObject value,
+          $Res Function(_$_changePasswordObject) then) =
+      __$$_changePasswordObjectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String oldPassword, String newPassword, String confirmNewPassword});
+}
+
+/// @nodoc
+class __$$_changePasswordObjectCopyWithImpl<$Res>
+    extends _$ChangePasswordObjectCopyWithImpl<$Res, _$_changePasswordObject>
+    implements _$$_changePasswordObjectCopyWith<$Res> {
+  __$$_changePasswordObjectCopyWithImpl(_$_changePasswordObject _value,
+      $Res Function(_$_changePasswordObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? oldPassword = null,
+    Object? newPassword = null,
+    Object? confirmNewPassword = null,
+  }) {
+    return _then(_$_changePasswordObject(
+      null == oldPassword
+          ? _value.oldPassword
+          : oldPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == newPassword
+          ? _value.newPassword
+          : newPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == confirmNewPassword
+          ? _value.confirmNewPassword
+          : confirmNewPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_changePasswordObject implements _changePasswordObject {
+  _$_changePasswordObject(
+      this.oldPassword, this.newPassword, this.confirmNewPassword);
+
+  @override
+  final String oldPassword;
+  @override
+  final String newPassword;
+  @override
+  final String confirmNewPassword;
+
+  @override
+  String toString() {
+    return 'ChangePasswordObject(oldPassword: $oldPassword, newPassword: $newPassword, confirmNewPassword: $confirmNewPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_changePasswordObject &&
+            (identical(other.oldPassword, oldPassword) ||
+                other.oldPassword == oldPassword) &&
+            (identical(other.newPassword, newPassword) ||
+                other.newPassword == newPassword) &&
+            (identical(other.confirmNewPassword, confirmNewPassword) ||
+                other.confirmNewPassword == confirmNewPassword));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, oldPassword, newPassword, confirmNewPassword);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_changePasswordObjectCopyWith<_$_changePasswordObject> get copyWith =>
+      __$$_changePasswordObjectCopyWithImpl<_$_changePasswordObject>(
+          this, _$identity);
+}
+
+abstract class _changePasswordObject implements ChangePasswordObject {
+  factory _changePasswordObject(
+      final String oldPassword,
+      final String newPassword,
+      final String confirmNewPassword) = _$_changePasswordObject;
+
+  @override
+  String get oldPassword;
+  @override
+  String get newPassword;
+  @override
+  String get confirmNewPassword;
+  @override
+  @JsonKey(ignore: true)
+  _$$_changePasswordObjectCopyWith<_$_changePasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AdvertisementObject {
   File get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;

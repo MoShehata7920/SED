@@ -91,8 +91,8 @@ class Items {
   String category;
   bool isSaved;
 
-  Items(this.id, this.name, this.image, this.price, this.description,this.condition,
-      this.category, this.date, this.isSaved);
+  Items(this.id, this.name, this.image, this.price, this.description,
+      this.condition, this.category, this.date, this.isSaved);
 }
 
 // Show Items Models
@@ -206,6 +206,16 @@ class UpdateUserProfile {
 
   UpdateUserProfile(this.userId, this.userImage, this.name, this.phoneNumber,
       this.government, this.address, this.password);
+}
+
+class ChangePassword {
+  String userId;
+  String oldPassword;
+  String newPassword;
+  String confirmNewPassword;
+
+  ChangePassword(
+      this.userId, this.oldPassword, this.newPassword, this.confirmNewPassword);
 }
 
 class Notification {

@@ -1,6 +1,11 @@
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/app/functions.dart';
+import 'package:sed/domain/usecase/change_password_usecase.dart';
+import 'package:sed/presentation/common/freezed_data_classes.dart';
+import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
+import '../../../../../../../app/di.dart';
 import '../../../../../../base/baseviewmodel.dart';
 import '../../../../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../../../../resources/strings_manager.dart';
@@ -18,6 +23,14 @@ class ChangePasswordViewModel extends BaseViewModel
 
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
+
+  StreamController isUserChangedPasswordSuccessfullyStreamController =
+      StreamController<bool>();
+
+  var changePasswordObject = ChangePasswordObject("", "", "");
+
+  final ChangePasswordUsecase _changePasswordUsecase =
+      instance<ChangePasswordUsecase>();
 
   @override
   void start() {
@@ -39,20 +52,45 @@ class ChangePasswordViewModel extends BaseViewModel
 
   @override
   setOldPassword(String oldPassword) {
-    // TODO: implement setOldPassword
-    throw UnimplementedError();
+    inputNewPassword.add(oldPassword);
+    if (_isNewPasswordValid(oldPassword)) {
+      // update oldPassword view object
+      changePasswordObject =
+          changePasswordObject.copyWith(oldPassword: oldPassword);
+    } else {
+      // reset oldPassword value in register view object
+      changePasswordObject = changePasswordObject.copyWith(oldPassword: "");
+    }
+    validate();
   }
 
   @override
   setNewPassword(String newPassword) {
-    // TODO: implement setPassword
-    throw UnimplementedError();
+    inputNewPassword.add(newPassword);
+    if (_isNewPasswordValid(newPassword)) {
+      // update newPassword view object
+      changePasswordObject =
+          changePasswordObject.copyWith(newPassword: newPassword);
+    } else {
+      // reset newPassword value in register view object
+      changePasswordObject = changePasswordObject.copyWith(newPassword: "");
+    }
+    validate();
   }
 
   @override
   setConfirmNewPassword(String confirmNewPassword) {
-    // TODO: implement setConfirmPassword
-    throw UnimplementedError();
+    inputNewPassword.add(confirmNewPassword);
+    if (_isNewPasswordValid(confirmNewPassword)) {
+      // update confirmNewPassword view object
+      changePasswordObject =
+          changePasswordObject.copyWith(confirmNewPassword: confirmNewPassword);
+    } else {
+      // reset confirmNewPassword value in register view object
+      changePasswordObject =
+          changePasswordObject.copyWith(confirmNewPassword: "");
+    }
+    validate();
   }
 
   // Outputs
@@ -62,6 +100,11 @@ class ChangePasswordViewModel extends BaseViewModel
           .map((oldPassword) => _isOldPasswordValid(oldPassword));
 
   @override
+  Stream<String?> get outputErrorOldPasswordValid =>
+      outputIsOldPasswordValid.map((isOldPasswordValid) =>
+          isOldPasswordValid ? null : AppStrings.passwordError.tr());
+
+  @override
   Stream<bool> get outputIsNewPasswordValid =>
       _newPasswordStreamController.stream
           .map((newPassword) => _isNewPasswordValid(newPassword));
@@ -69,7 +112,7 @@ class ChangePasswordViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorNewPasswordValid =>
       outputIsNewPasswordValid.map((isNewPasswordValid) =>
-          isNewPasswordValid ? null : AppStrings.passwordError.tr());
+          isNewPasswordValid ? null : AppStrings.passwordInValid.tr());
 
   @override
   Stream<bool> get outputIsConfirmNewPasswordValid =>
@@ -98,13 +141,13 @@ class ChangePasswordViewModel extends BaseViewModel
   }
 
   bool _isConfirmNewPasswordValid(String confirmPassword) {
-    // TODO: implement _isConfirmPasswordValid
-    throw UnimplementedError();
+    return changePasswordObject.newPassword == confirmPassword;
   }
 
   bool _areAllInputsValid() {
-    // TODO: implement _areAllInputsValid
-    throw UnimplementedError();
+    return changePasswordObject.oldPassword.isNotEmpty &&
+        changePasswordObject.newPassword.isNotEmpty &&
+        changePasswordObject.confirmNewPassword.isNotEmpty;
   }
 
   validate() {
@@ -117,6 +160,34 @@ class ChangePasswordViewModel extends BaseViewModel
     _newPasswordStreamController.close();
     _confirmNewPasswordStreamController.close();
     _areAllInputsValidStreamController.close();
+    isUserChangedPasswordSuccessfullyStreamController.close();
+  }
+
+  @override
+  changePassword() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
+
+    var response = await _changePasswordUsecase.execute(
+        ChangePasswordUsecaseInput(
+            Constants.userId ?? "",
+            changePasswordObject.oldPassword,
+            changePasswordObject.newPassword,
+            changePasswordObject.confirmNewPassword));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+              inputState.add(ErrorState(
+                  StateRendererType.popUpErrorState, failure.message))
+            }, (response) {
+      // right -> success
+      inputState.add(SuccessState(StateRendererType.popUpSuccessState,
+          "Successfully changed password", AppStrings.success.tr(), () {}));
+
+      // navigate to main screen
+      isUserChangedPasswordSuccessfullyStreamController.add(true);
+    });
   }
 }
 
@@ -134,10 +205,14 @@ abstract class ChangePasswordViewModelInputs {
   setNewPassword(String newPassword);
 
   setConfirmNewPassword(String confirmNewPassword);
+
+  changePassword();
 }
 
 abstract class ChangePasswordViewModelOutputs {
   Stream<bool> get outputIsOldPasswordValid;
+
+  Stream<String?> get outputErrorOldPasswordValid;
 
   Stream<bool> get outputIsNewPasswordValid;
 

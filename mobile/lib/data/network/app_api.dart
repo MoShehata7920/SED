@@ -82,6 +82,14 @@ abstract class AppServiceClient {
       @Part(name: "userImage") File image,
       @Header("Authentication") String token);
 
+  @PATCH("/users/change-password/{userId}")
+  Future<DefaultResponse> changePassword(
+      @Path("userId") String userId,
+      @Field("oldPassword") String oldPassword,
+      @Field("password") String newPassword,
+      @Field("confirmPassword") String confirmNewPassword,
+      @Header("Authentication") String token);
+
   @MultiPart()
   @POST("/products/newproduct")
   Future<AddAdvertisementResponse> addAdvertisement(
@@ -110,8 +118,8 @@ abstract class AppServiceClient {
 
   @PATCH("/products/product/{prodId}")
   Future<UpdateAdResponse> updateAd(
-      @Path("prodId") String prodId,
-      @Body() Map<String, dynamic> map,
+    @Path("prodId") String prodId,
+    @Body() Map<String, dynamic> map,
     @Header("Authentication") String token,
   );
 
