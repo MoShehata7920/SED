@@ -216,3 +216,23 @@ extension DefaultResponseMapper on DefaultResponse? {
     return Default();
   }
 }
+
+extension NewConversationMapper on NewConversationResponse? {
+  NewConversation toDomain() {
+    return NewConversation(
+        this?.savedConversation?.conversationId ?? ""
+    );
+  }
+}
+
+extension GetAllConversationsMapper on GetAllConversationsResponse? {
+  GetAllConversations toDomain() {
+    List<ConversationsData> temp = [];
+
+    this?.conversations?.forEach((element) {
+      temp.add(ConversationsData(element?.conversationId ?? ""));
+    });
+
+    return GetAllConversations(temp);
+  }
+}

@@ -14,9 +14,18 @@ class ChatScreenView extends StatefulWidget {
 
 class _ChatScreenViewState extends State<ChatScreenView> {
   final ChatViewModel _chatViewModel = ChatViewModel();
+
+  void _bind() {
+    _chatViewModel.getAllConversations();
+  }
+
   @override
   void initState() {
     _chatViewModel.start();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bind();
+    });
 
     super.initState();
   }

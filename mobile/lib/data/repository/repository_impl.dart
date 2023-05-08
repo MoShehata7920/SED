@@ -566,7 +566,7 @@ class RepositoryImpl implements Repository {
       //device is connected to the internet, call api
       try {
         final response =
-            await _remoteDataSource.changePassword(changePasswordRequest);
+            await _remoteDataSource.getAllConversations(GetAllConversationsRequest(getAllConversationsRequest.userId));
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data
@@ -587,6 +587,4 @@ class RepositoryImpl implements Repository {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
-  
-  
 }

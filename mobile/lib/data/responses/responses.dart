@@ -479,8 +479,8 @@ class NewConversationResponse extends BaseResponse {
 
 @JsonSerializable()
 class SavedConversationsResponse extends BaseResponse {
-  @JsonKey(name: "conversationId")
-  int? conversationId;
+  @JsonKey(name: "_id")
+  String? conversationId;
 
   SavedConversationsResponse(this.conversationId);
 
@@ -510,7 +510,7 @@ class GetAllConversationsResponse extends BaseResponse {
 @JsonSerializable()
 class ConversationsResponse extends BaseResponse {
   @JsonKey(name: "conversationId")
-  int? conversationId;
+  String? conversationId;
 
   ConversationsResponse(this.conversationId);
 

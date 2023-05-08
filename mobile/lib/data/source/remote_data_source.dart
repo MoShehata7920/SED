@@ -244,18 +244,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       NewConversationRequest newConversationRequest) async {
     return await _appServiceClient.openNewConversation(
         newConversationRequest.senderId,
-        newConversationRequest.receiverId,
-        "Bearer ${Constants.token}");
+        newConversationRequest.receiverId);
   }
 
   @override
   Future<GetAllConversationsResponse> getAllConversations(
       GetAllConversationsRequest getAllConversationsRequest) async {
     return await _appServiceClient.getAllConversations(
-        getAllConversationsRequest.,
-        getAllConversationsRequest.oldPassword,
-        changePasswordRequest.newPassword,
-        changePasswordRequest.confirmNewPassword,
-        "Bearer ${Constants.token}");
+        getAllConversationsRequest.userId);
   }
 }

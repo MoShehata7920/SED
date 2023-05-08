@@ -259,10 +259,9 @@ class User {
 
 // Chat
 class NewConversation {
-  String senderId;
-  String receiverId;
+  String conversationId;
 
-  NewConversation(this.senderId, this.receiverId);
+  NewConversation(this.conversationId);
 }
 
 class SavedConversation {
@@ -272,23 +271,13 @@ class SavedConversation {
 }
 
 class GetAllConversations {
-  String id;
-  String title;
-  String description;
-  DateTime dateTime;
-  bool isSeen;
+  List<ConversationsData> conversationsData;
 
-  GetAllConversations(
-      this.id, this.title, this.description, this.dateTime, this.isSeen);
+  GetAllConversations(this.conversationsData);
 }
 
-class Conversations {
+class ConversationsData {
   String id;
-  String title;
-  String description;
-  DateTime dateTime;
-  bool isSeen;
 
-  Conversations(
-      this.id, this.title, this.description, this.dateTime, this.isSeen);
+  ConversationsData(this.id);
 }

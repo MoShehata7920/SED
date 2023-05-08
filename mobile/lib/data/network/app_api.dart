@@ -142,13 +142,13 @@ abstract class AppServiceClient {
 
   // chat
   @POST("/chat/new-conversation")
-  Future<SearchResponse> openNewConversation(
+  Future<NewConversationResponse> openNewConversation(
     @Field("senderId") String senderId,
     @Field("receiverId") String receiverId,
   );
 
   @GET("/chat/user-convs/{userId}")
-  Future<NotificationsResponse> getAllConversations(
+  Future<GetAllConversationsResponse> getAllConversations(
     @Path("userId") String userId,
   );
 }

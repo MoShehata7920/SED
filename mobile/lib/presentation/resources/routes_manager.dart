@@ -1,12 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/reset_password/view/reset_password_view.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
-import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
-import 'package:sed/presentation/main_screen/sub_screens/chat_screen/message/message_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/chat_screen/message/view/message_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/notification_screen/view/notifications_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/about_us_screen/aboutus_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/help_screen/help_screen_view.dart';
@@ -15,6 +14,7 @@ import 'package:sed/presentation/main_screen/utils/camera_screen/view/camera_scr
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+
 import '../../domain/model/models.dart';
 import '../forgot_password/view/forgotpassword_view.dart';
 import '../main_screen/items_screen/view/products_screen_view.dart';
@@ -148,8 +148,10 @@ class RouteGenerator {
             builder: (context) => const ChangePasswordScreenView());
 
       case Routes.messagingScreenRoute:
+        List<dynamic> args = settings.arguments as List<dynamic>;
+
         return MaterialPageRoute(
-            builder: (context) => const MessagingScreenView());
+            builder: (context) => MessagingScreenView(args[0], args[1], args[2], args[3]));
 
       case Routes.cameraScreenRoute:
         initLoginModule();

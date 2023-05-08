@@ -144,7 +144,7 @@ class NewConversationRequest {
 }
 
 class GetAllConversationsRequest {
-  String searchText;
+  String userId;
 
-  GetAllConversationsRequest(this.searchText);
+  GetAllConversationsRequest(this.userId);
 }

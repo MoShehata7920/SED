@@ -445,7 +445,7 @@ Map<String, dynamic> _$NewConversationResponseToJson(
 SavedConversationsResponse _$SavedConversationsResponseFromJson(
         Map<String, dynamic> json) =>
     SavedConversationsResponse(
-      json['conversationId'] as int?,
+      json['_id'] as String?,
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -455,7 +455,7 @@ Map<String, dynamic> _$SavedConversationsResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'conversationId': instance.conversationId,
+      '_id': instance.conversationId,
     };
 
 GetAllConversationsResponse _$GetAllConversationsResponseFromJson(
@@ -481,7 +481,7 @@ Map<String, dynamic> _$GetAllConversationsResponseToJson(
 ConversationsResponse _$ConversationsResponseFromJson(
         Map<String, dynamic> json) =>
     ConversationsResponse(
-      json['conversationId'] as int?,
+      json['conversationId'] as String?,
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;

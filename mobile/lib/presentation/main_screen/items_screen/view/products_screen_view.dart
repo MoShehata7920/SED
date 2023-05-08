@@ -331,7 +331,15 @@ class _ProductViewState extends State<ProductView> {
                           borderRadius: BorderRadius.circular(AppSize.s24),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.pushNamed(
+                            context, Routes.messagingScreenRoute, arguments: [
+                          item.userData.image,
+                          item.userData.name,
+                          item.userData.id,
+                          null
+                        ])
+                      },
                       icon: Icon(
                         IconsManager.chat,
                         color: ColorsManager.primaryBackground,

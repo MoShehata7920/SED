@@ -12,12 +12,14 @@ import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/change_password_usecase.dart';
 import 'package:sed/domain/usecase/delete_item_usecase.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
+import 'package:sed/domain/usecase/get_all_conversations_usecase.dart';
 import 'package:sed/domain/usecase/get_saved_products.dart';
 import 'package:sed/domain/usecase/home_usecase.dart';
 import 'package:sed/domain/usecase/item_usecase.dart';
 import 'package:sed/domain/usecase/login_usecase.dart';
 import 'package:sed/domain/usecase/myprofile_data_usecase.dart';
 import 'package:sed/domain/usecase/myprofile_get_ads_usecase.dart';
+import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/domain/usecase/notifications.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
@@ -131,6 +133,12 @@ Future<void> initAppModule() async {
 
   instance.registerFactory<ChangePasswordUsecase>(
       () => ChangePasswordUsecase(instance()));
+
+  instance.registerFactory<NewConversationUseCase>(
+      () => NewConversationUseCase(instance()));
+
+  instance.registerFactory<GetAllConversationsUseCase>(
+      () => GetAllConversationsUseCase(instance()));
 
   await initNotificationModule();
 }

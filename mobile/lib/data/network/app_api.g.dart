@@ -643,7 +643,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<SearchResponse> openNewConversation(
+  Future<NewConversationResponse> openNewConversation(
     senderId,
     receiverId,
   ) async {
@@ -654,8 +654,8 @@ class _AppServiceClient implements AppServiceClient {
       'senderId': senderId,
       'receiverId': receiverId,
     };
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<SearchResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<NewConversationResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -667,18 +667,18 @@ class _AppServiceClient implements AppServiceClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SearchResponse.fromJson(_result.data!);
+    final value = NewConversationResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<NotificationsResponse> getAllConversations(userId) async {
+  Future<GetAllConversationsResponse> getAllConversations(userId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<NotificationsResponse>(Options(
+        _setStreamType<GetAllConversationsResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -690,7 +690,7 @@ class _AppServiceClient implements AppServiceClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = NotificationsResponse.fromJson(_result.data!);
+    final value = GetAllConversationsResponse.fromJson(_result.data!);
     return value;
   }
 
