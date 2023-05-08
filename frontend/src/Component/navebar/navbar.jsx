@@ -32,7 +32,7 @@ function Navebar() {
     <>
       <nav className="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">
         <div className=" container-fluid">
-          <div className="ms-4 col-xl-2 col-lg-1 col-xxl-3 col-md-2 col-sm-9 col-9">
+          <div className="ms-4 col-xl-2 col-lg-1 col-xxl-3 col-md-2 col-sm-8 col-8">
             <Link className="navbar-brand text-white fs-3" to={"/"}>
               SED
             </Link>

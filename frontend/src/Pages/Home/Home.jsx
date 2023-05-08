@@ -28,7 +28,7 @@ export default function Home() {
     setIsPending(true);
 
     try {
-      let respond = await Axios.get(`http://103.48.193.225:3000/home`);
+      let respond = await Axios.get(`http://47.243.7.214:3000/home`);
       setcarousel(respond.data.carousel.Images);
       setDetasell(respond.data.sellItems);
       setDetadonat(respond.data.donateItems);
@@ -47,7 +47,7 @@ export default function Home() {
     setIsPending(true);
 
     try {
-      let User = await Axios.get(`http://103.48.193.225:3000/users/get`, {
+      let User = await Axios.get(`http://47.243.7.214:3000/users/get`, {
         headers: {
           Authentication: `Bearer ${storedToken}`,
         },

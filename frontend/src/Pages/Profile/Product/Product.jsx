@@ -23,7 +23,7 @@ export default function Product() {
 
     try {
       let UserData = await Axios.get(
-        `http://103.48.193.225:3000/products/seller/${UserID}`,
+        `http://47.243.7.214:3000/products/seller/${UserID}`,
         {
           headers: {
             Authentication: `Bearer ${UserToken}`,

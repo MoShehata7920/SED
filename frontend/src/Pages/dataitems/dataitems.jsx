@@ -13,7 +13,7 @@ export default function Dataitems() {
 
   async function Getitems(id, callback) {
     let { data } = await Axios.get(
-      `http://103.48.193.225:3000/products/product/${id}`
+      `http://47.243.7.214:3000/products/product/${id}`
     );
     callback(data.product);
     setSellerData(data.product.seller);
