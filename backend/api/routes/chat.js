@@ -48,8 +48,10 @@ router.get("/user-convs/:userId", async (req, res) => {
       path:'messages',
       select:'text createdAt',
       options:{
-        sort:{createdAt:-1}                       // selecting the first item of messages array is the last message on the conversation
-      }
+        sort:{createdAt:-1},                       // selecting the first item of messages array is the last message on the conversation,
+        perDocumentLimit:1              // only the last message to show from outside view    
+      },
+      // perDocumentLimit:1
     })
     if(conversations.length===0){
       res.status(200).json({status:0 , message : "There are no conversations , start One !", conversations })
@@ -82,8 +84,8 @@ router.get('/get/:conversationId/:user/:receive', async (req, res) => {
   const reciverId = req.params.receive;
 
   try {
-    const currentUser = await User.findById(currentUserId);
-    const conversation = await Conversation.findById(conversationId).populate('users', '_id name')
+    const currentUser = await User.findById(currentUserId).select('_id email fullName userImage')
+    const conversation = await Conversation.findById(conversationId).populate('users', '_id name').select('-messages -__V')
     // if (!conversation) {
     //   await new Conversation({
     //     users: [currentUserId, reciverId]
