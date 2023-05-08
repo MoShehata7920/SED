@@ -44,7 +44,13 @@ router.get("/user-convs/:userId", async (req, res) => {
     const conversations = await Conversation.find({
       // users: { $in: [req.params.userId] },
       users: { $in: [mongoose.Types.ObjectId(req.params.userId)] }, // for better security 'preventing injection attacks' 
-    }).populate('users','_id fullName email userImage ').populate('messages','text')
+    }).populate('users','_id fullName email userImage ').populate({
+      path:'messages',
+      select:'text createdAt',
+      options:{
+        sort:{createdAt:-1}                       // selecting the first item of messages array is the last message on the conversation
+      }
+    })
     if(conversations.length===0){
       res.status(200).json({status:0 , message : "There are no conversations , start One !", conversations })
     }
@@ -54,11 +60,6 @@ router.get("/user-convs/:userId", async (req, res) => {
     res.status(500).json({status:1 , message:err.message , err});
   }
 });
-
-// router.get("/omg/:conversationI", async (req, res) => {
-
-// });
-
 
 
 //creating new conversation
