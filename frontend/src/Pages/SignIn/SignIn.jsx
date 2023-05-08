@@ -20,10 +20,7 @@ function SignIn() {
 
   async function usersubmit(e) {
     e.preventDefault();
-    let request = await axios.post(
-      "http://103.48.193.225:3000/auth/login",
-      user
-    );
+    let request = await axios.post("http://47.243.7.214:3000/auth/login", user);
     localStorage.setItem("usertoken", request.data.token);
     navigate("/");
   }

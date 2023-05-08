@@ -8,6 +8,7 @@ import 'package:sed/domain/usecase/myprofile_get_ads_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 
 class MyAdsViewModel extends BaseViewModel
     with MyAdsViewModelInputs, MyAdsViewModelOutputs {
@@ -48,7 +49,7 @@ class MyAdsViewModel extends BaseViewModel
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
     var response = await _myProfileAdsUseCase
-        .execute(GetMyProfileAdsInput(Constants.userId ?? "", Constants.token));
+        .execute(GetMyProfileAdsInput(Utils.getUserId(), Constants.token));
 
     response.fold(
         (failure) => {

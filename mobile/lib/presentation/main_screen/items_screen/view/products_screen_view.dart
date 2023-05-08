@@ -179,7 +179,8 @@ class _ProductViewState extends State<ProductView> {
                           ),
                           Container(
                             color: item.item.condition == "Used"
-                                ? Colors.red.withOpacity(.4) : Colors.green.withOpacity(.4),
+                                ? Colors.red.withOpacity(.4)
+                                : Colors.green.withOpacity(.4),
                             child: Text(
                               item.item.condition,
                               style: Theme.of(context)
@@ -225,7 +226,7 @@ class _ProductViewState extends State<ProductView> {
                       ),
                       Expanded(
                         child: Text(
-                          item.userData.address,
+                          "${item.userData.government} \\ ${item.userData.address}",
                           textAlign: TextAlign.start,
                           maxLines: AppValues.maxAddressLines,
                           overflow: TextOverflow.ellipsis,
@@ -330,7 +331,15 @@ class _ProductViewState extends State<ProductView> {
                           borderRadius: BorderRadius.circular(AppSize.s24),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.pushNamed(
+                            context, Routes.messagingScreenRoute, arguments: [
+                          item.userData.image,
+                          item.userData.name,
+                          item.userData.id,
+                          null
+                        ])
+                      },
                       icon: Icon(
                         IconsManager.chat,
                         color: ColorsManager.primaryBackground,

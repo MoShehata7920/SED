@@ -56,7 +56,7 @@ export default function AddItem() {
     e.preventDefault();
 
     let request = await axios
-      .post("http://103.48.193.225:3000/products/newproduct", formData, {
+      .post("http://47.243.7.214:3000/products/newproduct", formData, {
         headers: {
           Authentication: `Bearer ${UserToken}`,
         },
@@ -94,9 +94,9 @@ export default function AddItem() {
         <Navebar />
       </section>
       <section>
-        <div className="container-fluid additembackground">
-          <div className="row ">
-            <div className=" offset-2 col-8 mt-4 mb-4  ">
+        <div className="container-fluid h-auto  additembackground">
+          <div className="row  justify-content-center   ">
+            <div className="  col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12 mt-5 mb-5 ">
               <div className="ADDitemparent py-1">
                 <form
                   onSubmit={itemsubmit}

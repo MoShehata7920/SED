@@ -256,3 +256,28 @@ class User {
     );
   }
 }
+
+// Chat
+class NewConversation {
+  String conversationId;
+
+  NewConversation(this.conversationId);
+}
+
+class SavedConversation {
+  String conversationId;
+
+  SavedConversation(this.conversationId);
+}
+
+class GetAllConversations {
+  List<ConversationsData> conversationsData;
+
+  GetAllConversations(this.conversationsData);
+}
+
+class ConversationsData {
+  String id;
+
+  ConversationsData(this.id);
+}

@@ -16,7 +16,6 @@ export default function Product_Editing() {
     purpose: "",
   });
   const [UserToken, setUserToken] = useState("");
-  const [ImgUrl, setImgUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [response, setResponse] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -31,26 +30,31 @@ export default function Product_Editing() {
     setProductEdit(myinfo);
   }
   const formData = new FormData();
-  formData.append("productImage", selectedFile);
-  formData.append("productName", ProductEdit.productName);
-  formData.append("price", ProductEdit.price);
-  formData.append("description", ProductEdit.description);
-  formData.append("category", ProductEdit.category);
-  formData.append("condition", ProductEdit.condition);
-  formData.append("purpose", ProductEdit.purpose);
+  if (selectedFile) {
+    formData.append("productImage", selectedFile);
+  }
+  if (ProductEdit.productName) {
+    formData.append("productName", ProductEdit.productName);
+  }
+  if (ProductEdit.price) {
+    formData.append("price", ProductEdit.price);
+  }
+  if (ProductEdit.description) {
+    formData.append("description", ProductEdit.description);
+  }
+  if (ProductEdit.category) {
+    formData.append("category", ProductEdit.category);
+  }
+  if (ProductEdit.condition) {
+    formData.append("condition", ProductEdit.condition);
+  }
+  if (ProductEdit.purpose) {
+    formData.append("purpose", ProductEdit.purpose);
+  }
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
 
-  const handleUrlSubmit = (event) => {
-    fetch(ImgUrl)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const file = new File([blob], "image.jpg", { type: "image/jpeg" });
-        setSelectedFile(file);
-        setImgUrl("");
-      });
-  };
   async function itemsubmit(e) {
     e.preventDefault();
 
@@ -78,7 +82,7 @@ export default function Product_Editing() {
     e.preventDefault();
 
     let request = await Axios.delete(
-      `http://103.48.193.225:3000/products/product/${Product_id}`,
+      `http://47.243.7.214:3000/products/product/${Product_id}`,
       {
         headers: {
           Authentication: `Bearer ${UserToken}`,
@@ -99,18 +103,6 @@ export default function Product_Editing() {
 
   useEffect(() => {
     setUserToken(window.localStorage.getItem("usertoken"));
-    const storedUserData = window.localStorage.getItem("Productdata");
-    const parsedUserData = JSON.parse(storedUserData);
-    setProductEdit({
-      ...ProductEdit,
-      productName: parsedUserData.productName,
-      price: parsedUserData.price,
-      description: parsedUserData.description,
-      category: parsedUserData.category,
-      purpose: parsedUserData.purpose,
-      condition: parsedUserData.condition,
-    });
-    setImgUrl(parsedUserData.productImage);
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
@@ -121,7 +113,6 @@ export default function Product_Editing() {
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);
     }
-    handleUrlSubmit();
   }, [response, ErrorMessage]);
   return (
     <>

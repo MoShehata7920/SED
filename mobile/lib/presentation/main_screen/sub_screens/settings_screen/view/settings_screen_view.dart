@@ -151,7 +151,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               ).animateOnPageLoad(
                   msDelay: 150, dx: -70.0, dy: 0.0, showDelay: 600),
               Text(
-                getMyProfileData.user.address,
+                "${getMyProfileData.user.government} \\ ${getMyProfileData.user.address} ",
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.secondaryText,
                       fontSize: AppSize.s14,

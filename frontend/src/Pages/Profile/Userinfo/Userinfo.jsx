@@ -13,7 +13,7 @@ export default function Userinfo() {
     setError(null);
     setIsPending(true);
     try {
-      let UserData = await axios.get(`http://103.48.193.225:3000/users/get`, {
+      let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
         headers: {
           Authentication: `Bearer ${UserToken}`,
         },

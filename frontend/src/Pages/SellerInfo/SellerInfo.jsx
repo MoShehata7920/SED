@@ -25,7 +25,7 @@ export default function SellerInfo() {
 
     try {
       let UserData = await Axios.get(
-        `http://103.48.193.225:3000/products/seller/${SellerId}`,
+        `http://47.243.7.214:3000/products/seller/${SellerId}`,
         {
           headers: {
             Authentication: `Bearer ${UserToken}`,
@@ -42,7 +42,7 @@ export default function SellerInfo() {
   };
   async function GetUserInfo() {
     let { data } = await Axios.get(
-      `http://103.48.193.225:3000/products/product/${ProductID}`
+      `http://47.243.7.214:3000/products/product/${ProductID}`
     );
     setUserInfo(data.product.seller);
   }
