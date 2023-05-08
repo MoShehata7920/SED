@@ -134,3 +134,17 @@ class SearchRequest {
 
   SearchRequest(this.searchText);
 }
+
+// Chat
+class NewConversationRequest {
+  String senderId;
+  String receiverId;
+
+  NewConversationRequest(this.senderId,this.receiverId);
+}
+
+class GetAllConversationsRequest {
+  String searchText;
+
+  GetAllConversationsRequest(this.searchText);
+}

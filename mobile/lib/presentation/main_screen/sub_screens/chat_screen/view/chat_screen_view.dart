@@ -30,13 +30,15 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget("asd");
+    return _getContentWidget("Messages");
   }
 
   Widget _getContentWidget(snapshot) {
+
     if (snapshot == null) {
       return Container();
     }
+    
     return Scaffold(
       backgroundColor: ColorsManager.background,
       appBar: AppBar(
@@ -278,13 +280,6 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: 1.0,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFE8E8E8),
                           ),
                         ),
                       ],

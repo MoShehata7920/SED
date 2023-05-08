@@ -210,7 +210,7 @@ class UserDataResponse {
 
   @JsonKey(name: "userImage")
   String? image;
-  
+
   @JsonKey(name: "phone")
   String? phone;
 
@@ -220,9 +220,8 @@ class UserDataResponse {
   @JsonKey(name: "address")
   String? address;
 
-
-  UserDataResponse(this.id, this.name, this.image, this.phone,
-      this.government, this.address);
+  UserDataResponse(this.id, this.name, this.image, this.phone, this.government,
+      this.address);
 
   // From Json
   factory UserDataResponse.fromJson(Map<String, dynamic> json) =>
@@ -452,7 +451,6 @@ class SearchResponse extends BaseResponse {
 
 @JsonSerializable()
 class DefaultResponse extends BaseResponse {
-
   DefaultResponse();
 
   // From Json
@@ -461,4 +459,65 @@ class DefaultResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$DefaultResponseToJson(this);
+}
+
+// Chat
+@JsonSerializable()
+class NewConversationResponse extends BaseResponse {
+  @JsonKey(name: "savedConversation")
+  SavedConversationsResponse? savedConversation;
+
+  NewConversationResponse(this.savedConversation);
+
+  // From Json
+  factory NewConversationResponse.fromJson(Map<String, dynamic> json) =>
+      _$NewConversationResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$NewConversationResponseToJson(this);
+}
+
+@JsonSerializable()
+class SavedConversationsResponse extends BaseResponse {
+  @JsonKey(name: "conversationId")
+  int? conversationId;
+
+  SavedConversationsResponse(this.conversationId);
+
+  // From Json
+  factory SavedConversationsResponse.fromJson(Map<String, dynamic> json) =>
+      _$SavedConversationsResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$SavedConversationsResponseToJson(this);
+}
+
+@JsonSerializable()
+class GetAllConversationsResponse extends BaseResponse {
+  @JsonKey(name: "conversations")
+  List<ConversationsResponse?>? conversations;
+
+  GetAllConversationsResponse(this.conversations);
+
+  // From Json
+  factory GetAllConversationsResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetAllConversationsResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$GetAllConversationsResponseToJson(this);
+}
+
+@JsonSerializable()
+class ConversationsResponse extends BaseResponse {
+  @JsonKey(name: "conversationId")
+  int? conversationId;
+
+  ConversationsResponse(this.conversationId);
+
+  // From Json
+  factory ConversationsResponse.fromJson(Map<String, dynamic> json) =>
+      _$ConversationsResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$ConversationsResponseToJson(this);
 }

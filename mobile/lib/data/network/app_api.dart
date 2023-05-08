@@ -139,4 +139,16 @@ abstract class AppServiceClient {
   Future<SearchResponse> getSearchProducts(
     @Header("token") String token,
   );
+
+  // chat
+  @POST("/chat/new-conversation")
+  Future<SearchResponse> openNewConversation(
+    @Field("senderId") String senderId,
+    @Field("receiverId") String receiverId,
+  );
+
+  @GET("/chat/user-convs/{userId}")
+  Future<NotificationsResponse> getAllConversations(
+    @Path("userId") String userId,
+  );
 }

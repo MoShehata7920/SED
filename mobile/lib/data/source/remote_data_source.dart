@@ -50,6 +50,13 @@ abstract class RemoteDataSource {
   Future<ShowItemsResponse> getSavedProducts();
 
   Future<SearchResponse> getSearchedProducts(String searchText);
+
+  // Chat
+  Future<NewConversationResponse> newConversation(
+      NewConversationRequest newConversationRequest);
+
+  Future<GetAllConversationsResponse> getAllConversations(
+      GetAllConversationsRequest getAllConversationsRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -227,6 +234,26 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     return await _appServiceClient.changePassword(
         changePasswordRequest.userId,
         changePasswordRequest.oldPassword,
+        changePasswordRequest.newPassword,
+        changePasswordRequest.confirmNewPassword,
+        "Bearer ${Constants.token}");
+  }
+
+  @override
+  Future<NewConversationResponse> newConversation(
+      NewConversationRequest newConversationRequest) async {
+    return await _appServiceClient.openNewConversation(
+        newConversationRequest.senderId,
+        newConversationRequest.receiverId,
+        "Bearer ${Constants.token}");
+  }
+
+  @override
+  Future<GetAllConversationsResponse> getAllConversations(
+      GetAllConversationsRequest getAllConversationsRequest) async {
+    return await _appServiceClient.getAllConversations(
+        getAllConversationsRequest.,
+        getAllConversationsRequest.oldPassword,
         changePasswordRequest.newPassword,
         changePasswordRequest.confirmNewPassword,
         "Bearer ${Constants.token}");

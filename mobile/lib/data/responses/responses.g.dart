@@ -422,3 +422,74 @@ Map<String, dynamic> _$DefaultResponseToJson(DefaultResponse instance) =>
       'status': instance.status,
       'message': instance.message,
     };
+
+NewConversationResponse _$NewConversationResponseFromJson(
+        Map<String, dynamic> json) =>
+    NewConversationResponse(
+      json['savedConversation'] == null
+          ? null
+          : SavedConversationsResponse.fromJson(
+              json['savedConversation'] as Map<String, dynamic>),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$NewConversationResponseToJson(
+        NewConversationResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'savedConversation': instance.savedConversation,
+    };
+
+SavedConversationsResponse _$SavedConversationsResponseFromJson(
+        Map<String, dynamic> json) =>
+    SavedConversationsResponse(
+      json['conversationId'] as int?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$SavedConversationsResponseToJson(
+        SavedConversationsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'conversationId': instance.conversationId,
+    };
+
+GetAllConversationsResponse _$GetAllConversationsResponseFromJson(
+        Map<String, dynamic> json) =>
+    GetAllConversationsResponse(
+      (json['conversations'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : ConversationsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$GetAllConversationsResponseToJson(
+        GetAllConversationsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'conversations': instance.conversations,
+    };
+
+ConversationsResponse _$ConversationsResponseFromJson(
+        Map<String, dynamic> json) =>
+    ConversationsResponse(
+      json['conversationId'] as int?,
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$ConversationsResponseToJson(
+        ConversationsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'conversationId': instance.conversationId,
+    };

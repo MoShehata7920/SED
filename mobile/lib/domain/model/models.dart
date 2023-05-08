@@ -256,3 +256,39 @@ class User {
     );
   }
 }
+
+// Chat
+class NewConversation {
+  String senderId;
+  String receiverId;
+
+  NewConversation(this.senderId, this.receiverId);
+}
+
+class SavedConversation {
+  String conversationId;
+
+  SavedConversation(this.conversationId);
+}
+
+class GetAllConversations {
+  String id;
+  String title;
+  String description;
+  DateTime dateTime;
+  bool isSeen;
+
+  GetAllConversations(
+      this.id, this.title, this.description, this.dateTime, this.isSeen);
+}
+
+class Conversations {
+  String id;
+  String title;
+  String description;
+  DateTime dateTime;
+  bool isSeen;
+
+  Conversations(
+      this.id, this.title, this.description, this.dateTime, this.isSeen);
+}
