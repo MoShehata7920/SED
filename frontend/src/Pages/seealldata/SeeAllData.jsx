@@ -11,8 +11,8 @@ export default function SeeAllData() {
   let { SeeData } = useParams();
   let [totalpageNum, settotalpageNum] = useState(1);
   let [currentpageNum, setcurrentpageNum] = useState(1);
-  let [isPending, setIsPending] = useState(false);
-  let [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
   let [AllData, setAllData] = useState([]);
   let [category, setcategory] = useState("all");
   let [sort, setsort] = useState("");
@@ -39,7 +39,7 @@ export default function SeeAllData() {
 
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
+        `http://47.243.7.214:3000/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
       );
       setAllData(respond.data.items);
       settotalpageNum(respond.data.totalPageNumber);
@@ -51,6 +51,7 @@ export default function SeeAllData() {
       console.log(err.message);
     }
   };
+
   useEffect(() => {
     GetseeallDeta();
   }, [SeeData, currentpageNum, category, sort, MaxPrice, MinPrice, Condition]);

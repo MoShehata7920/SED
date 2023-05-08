@@ -40,10 +40,7 @@ function MainRoutes() {
           element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
         />
         <Route path="/forgetpassword" element={<Forgetpass />} />
-        <Route
-          path="/Profile"
-          element={storedToken ? <Profile /> : <Profile />}
-        >
+        <Route path="/Profile" element={storedToken ? <Profile /> : <SignIn />}>
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
           <Route path="/Profile/myProduct" element={<Product />}></Route>

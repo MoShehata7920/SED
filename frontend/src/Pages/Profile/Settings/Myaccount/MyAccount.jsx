@@ -12,12 +12,9 @@ function MyAccount() {
     address: "",
     phone: "",
   });
-  const Government = userInfoEdit.government;
-  console.log(Government);
   const [UserID, setUserID] = useState("");
   const [UserToken, setUserToken] = useState("");
   console.log(userInfoEdit);
-  const [ImgUrl, setImgUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [response, setResponse] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -31,29 +28,32 @@ function MyAccount() {
     setuserInfoEdit(myinfo);
   }
   const formData = new FormData();
-  formData.append("userImage", selectedFile);
-  formData.append("fullName", userInfoEdit.fullName);
-  formData.append("email", userInfoEdit.email);
-  formData.append("phone", userInfoEdit.phone);
-  formData.append("government", userInfoEdit.government);
-  formData.append("address", userInfoEdit.address);
+  if (selectedFile) {
+    formData.append("userImage", selectedFile);
+  }
+  if (userInfoEdit.fullName) {
+    formData.append("fullName", userInfoEdit.fullName);
+  }
+  if (userInfoEdit.email) {
+    formData.append("email", userInfoEdit.email);
+  }
+  if (userInfoEdit.phone) {
+    formData.append("phone", userInfoEdit.phone);
+  }
+  if (userInfoEdit.government) {
+    formData.append("government", userInfoEdit.government);
+  }
+  if (userInfoEdit.address) {
+    formData.append("address", userInfoEdit.address);
+  }
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
-  const handleUrlSubmit = (event) => {
-    fetch(ImgUrl)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const file = new File([blob], "image.jpg", { type: "image/jpeg" });
-        setSelectedFile(file);
-        setImgUrl("");
-      });
-  };
   async function itemsubmit(e) {
     e.preventDefault();
 
     let request = await Axios.patch(
-      `http://103.48.193.225:3000/users/update/${UserID}`,
+      `http://47.243.7.214:3000/users/update/${UserID}`,
       formData,
       {
         headers: {
@@ -78,15 +78,7 @@ function MyAccount() {
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
     setUserID(parsedUserData._id);
-    setuserInfoEdit({
-      ...userInfoEdit,
-      fullName: parsedUserData.fullName,
-      phone: parsedUserData.phone,
-      email: parsedUserData.email,
-      government: parsedUserData.government,
-      address: parsedUserData.address,
-    });
-    setImgUrl(parsedUserData.userImage);
+
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
@@ -96,7 +88,6 @@ function MyAccount() {
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);
     }
-    handleUrlSubmit();
   }, [response, ErrorMessage]);
   return (
     <>

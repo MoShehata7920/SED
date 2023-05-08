@@ -41,7 +41,7 @@ export default function Categories() {
         CategorieType == "Phones & Tablets"
       ) {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
+          `http://47.243.7.214:3000/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
@@ -50,13 +50,13 @@ export default function Categories() {
         CategorieType == "Body & Health Care"
       ) {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
+          `http://47.243.7.214:3000/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);
       } else {
         let respond = await Axios.get(
-          `http://103.48.193.225:3000/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
+          `http://47.243.7.214:3000/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
         );
         setDetcateg(respond.data.items);
         settotalpageNum(respond.data.totalPageNumber);

@@ -22,7 +22,7 @@ function Profile() {
     setError(null);
     setIsPending(true);
     try {
-      let UserData = await axios.get(`http://103.48.193.225:3000/users/get`, {
+      let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
         headers: {
           Authentication: `Bearer ${UserToken}`,
         },
@@ -44,7 +44,7 @@ function Profile() {
         <Navebar />
       </section>
       <section>
-        <div className="container-fluid">
+        <div className="container-fluid bg-light ">
           <div className="row">
             <div className="col-2 vh-100  bg-light   profile-sidebar d-flex flex-column  justify-content-center">
               <ul className=" text-center">
