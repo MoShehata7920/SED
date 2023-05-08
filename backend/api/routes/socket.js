@@ -8,7 +8,7 @@ module.exports = function (io) {
 
             // Load previous messages
             try {
-                const messages = await Message.find({ conversation: conversationId }).populate('sender', 'userName');
+                const messages = await Message.find({ conversation: conversationId }).populate('sender', 'fullName');
                 socket.emit('previousMessages', messages);
             } catch (err) {
                 console.error(err);
@@ -22,7 +22,7 @@ module.exports = function (io) {
             try {
                 // Save message to database
                 const savedMessage = await message.save();
-                const messageWithSender = await Message.findById(savedMessage._id).populate('sender', 'userName');
+                const messageWithSender = await Message.findById(savedMessage._id).populate('sender', 'fullName');
                 io.to(conversationId).emit('messageReceived', messageWithSender);
             } catch (err) {
                 console.error(err);
