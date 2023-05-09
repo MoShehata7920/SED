@@ -117,8 +117,8 @@ exports.getProductsByQuery = async (req, res, next) => {
     const purpose = req.query.purpose || 'all';
     const category = req.query.category || 'all';
     const sortBy = req.query.sort  || '-createdAt'
-    const { condition , minPrice , maxPrice }=req.query
-
+    const { condition , minPrice , maxPrice , search }=req.query
+    
     var userData = {};
     let wishList = [];
     if (req.headers.authentication) {
@@ -156,6 +156,12 @@ exports.getProductsByQuery = async (req, res, next) => {
             query.price = {
             $lte: maxPrice
             };
+        }
+        if(search){
+            query.$or = [
+                {productName:{$regex:search , $options:'i' }}, // i option to disable key sensetivity
+                {description:{$regex:search , $options: 'i' }}
+                ]
         }
 
         const doc = await Product.find(query)
@@ -296,6 +302,24 @@ exports.userProducts=async(req,res)=>{
             res.status(200).json({status: 0 , message:'There are no products for this user'})
         }
         res.status(200).json({status:0 , products });
+    } catch (err) {
+        res.status(500).json({status:1 , err});
+    }
+}
+
+exports.searchQuery=async(req,res)=>{
+    const search=req.query.search
+    let query={}
+    try {
+        query.$or = [
+                {productName:{$regex:search , $options:'i' }}, // i option to disable key sensetivity
+                {description:{$regex:search , $options: 'i' }},
+                {purpose:{$regex:search , $options: 'i' }},
+                {category:{$regex:search , $options: 'i' }},
+            ]
+        const result=await Product.find(query)
+        const result_number=result.length
+        res.status(200).json({status:0,result ,result_number})
     } catch (err) {
         res.status(500).json({status:1 , err});
     }

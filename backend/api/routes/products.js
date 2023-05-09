@@ -61,6 +61,9 @@ router.get('/:purpose/:category/:page',productController.getProductsByParams)
 //specific user products
 router.get('/seller/:sellerId',verifyToken,productController.userProducts)
 
+//seperated search router
+router.get('/search',productController.searchQuery)
+
 //for admin dashboard
 //getting all products
 router.get('/getallproducts', verifyTokenAndAdmin, productController.getAllProducts)
