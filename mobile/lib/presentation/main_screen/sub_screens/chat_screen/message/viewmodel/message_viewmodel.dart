@@ -1,4 +1,3 @@
-import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';

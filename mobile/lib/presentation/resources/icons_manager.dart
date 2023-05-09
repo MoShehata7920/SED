@@ -79,4 +79,7 @@ class IconsManager {
   static const done = Icons.done;
 
   static const calender = IconBroken.calendar;
+
+  // chat
+  static const send = IconBroken.send;
 }

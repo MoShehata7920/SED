@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
-
+import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../../../resources/values_manager.dart';
 
 class ChatScreenView extends StatefulWidget {
@@ -39,19 +39,18 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget("Messages");
+    return _getContentWidget(AppStrings.messages);
   }
 
   Widget _getContentWidget(snapshot) {
-
     if (snapshot == null) {
       return Container();
     }
-    
+
     return Scaffold(
-      backgroundColor: ColorsManager.background,
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
-        backgroundColor: ColorsManager.background,
+        backgroundColor: ColorsManager.primaryBackground,
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
@@ -65,8 +64,8 @@ class _ChatScreenViewState extends State<ChatScreenView> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding:
-                  const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                  AppPadding.p0, AppPadding.p0, AppPadding.p0, AppPadding.p12),
               child: Wrap(
                 spacing: 0.0,
                 runSpacing: 0.0,
@@ -83,7 +82,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                     scrollDirection: Axis.vertical,
                     children: [
                       const SizedBox(
-                        height: 5,
+                        height: AppSize.s5,
                       ),
                       InkWell(
                         onTap: () {
@@ -162,21 +161,22 @@ class _ChatScreenViewState extends State<ChatScreenView> {
       String _messageTitle,
       bool _isUnread) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
-      child: Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(
+          AppPadding.p0, AppPadding.p6, AppPadding.p0, AppPadding.p0),
+      child: SizedBox(
         width: double.infinity,
-        height: 65.0,
-        decoration: BoxDecoration(),
+        height: AppSize.s65,
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(
+              AppPadding.p12, AppPadding.p0, AppPadding.p0, AppPadding.p0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (_isUnread == true)
                 Container(
-                  width: 10.0,
-                  height: 10.0,
+                  width: AppSize.s10,
+                  height: AppSize.s10,
                   decoration: BoxDecoration(
                     color: ColorsManager.primaryColor,
                     shape: BoxShape.circle,
@@ -184,20 +184,21 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                 )
               else
                 Container(
-                  width: 10.0,
-                  height: 10.0,
+                  width: AppSize.s10,
+                  height: AppSize.s10,
                   decoration: BoxDecoration(
-                    color: ColorsManager.background,
+                    color: ColorsManager.primaryBackground,
                     shape: BoxShape.circle,
                   ),
                 ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 12.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p10,
+                    AppPadding.p0, AppPadding.p12, AppPadding.p0),
                 child: Container(
-                  width: 45.0,
-                  height: 45.0,
+                  width: AppSize.s45,
+                  height: AppSize.s45,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: Image.network(
@@ -216,8 +217,11 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 12.0, 0.0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                AppPadding.p0,
+                                AppPadding.p0,
+                                AppPadding.p12,
+                                AppPadding.p0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,9 +239,9 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                             .textTheme
                                             .bodyLarge
                                             ?.copyWith(
-                                                fontSize: 16.0,
+                                                fontSize: AppSize.s16,
                                                 fontWeight: FontWeight.w500,
-                                                height: 1.2,
+                                                height: AppSize.s1_2,
                                                 color:
                                                     ColorsManager.primaryText),
                                       ),
@@ -253,17 +257,20 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                               ?.copyWith(
                                                 color:
                                                     ColorsManager.secondaryText,
-                                                fontSize: 14.0,
+                                                fontSize: AppSize.s14,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  6.0, 0.0, 0.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                              AppPadding.p6,
+                                              AppPadding.p0,
+                                              AppPadding.p0,
+                                              AppPadding.p0),
                                           child: Icon(
                                             Icons.chevron_right_rounded,
                                             color: ColorsManager.primaryColor,
-                                            size: 20.0,
+                                            size: AppSize.s20,
                                           ),
                                         ),
                                       ],
@@ -271,8 +278,11 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 22.0, 0.0),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      AppPadding.p0,
+                                      AppPadding.p0,
+                                      AppPadding.p22,
+                                      AppPadding.p0),
                                   child: Text(
                                     _messageTitle,
                                     maxLines: 2,
@@ -281,9 +291,9 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                         .bodyMedium
                                         ?.copyWith(
                                           color: ColorsManager.secondaryText,
-                                          fontSize: 14.0,
+                                          fontSize: AppSize.s14,
                                           fontWeight: FontWeight.normal,
-                                          height: 1.3,
+                                          height: AppSize.s1_2,
                                         ),
                                   ),
                                 ),

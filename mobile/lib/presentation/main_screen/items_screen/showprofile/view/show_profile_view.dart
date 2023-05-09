@@ -20,7 +20,6 @@ class ShowProfileView extends StatefulWidget {
   ShowProfileView(this.userData, {Key? key}) : super(key: key);
 
   @override
-  // ignore: no_logic_in_create_state
   State<ShowProfileView> createState() =>
       _ShowProfileViewState(userData as UserData);
 }
@@ -330,7 +329,8 @@ class _ShowProfileViewState extends State<ShowProfileView> {
                     ),
                     Expanded(
                       child: Text(
-                        Utils.getCreatedTime(showItemsContentObject.items[index].date),
+                        Utils.getCreatedTime(
+                            showItemsContentObject.items[index].date),
                         textAlign: TextAlign.end,
                         maxLines: AppValues.maxDateLines,
                         overflow: TextOverflow.ellipsis,

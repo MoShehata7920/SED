@@ -1,24 +1,26 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/message/viewmodel/message_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class MessagingScreenView extends StatefulWidget {
-  MessagingScreenView(this.image, this.name, this.sellerId, this.conversationId, {super.key});
+  const MessagingScreenView(
+      this.image, this.name, this.sellerId, this.conversationId,
+      {super.key});
 
-  String? image;
-  String? name;
-  String? sellerId;
-  String? conversationId;
+  final String? image;
+  final String? name;
+  final String? sellerId;
+  final String? conversationId;
 
   @override
-  // ignore: no_logic_in_create_state
-  State<MessagingScreenView> createState() => _MessagingScreenViewState(image, name, sellerId, conversationId);
+  State<MessagingScreenView> createState() =>
+      _MessagingScreenViewState(image, name, sellerId, conversationId);
 }
 
 class _MessagingScreenViewState extends State<MessagingScreenView> {
@@ -26,21 +28,21 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
   String? name;
   String? sellerId;
   String? conversationId;
-  _MessagingScreenViewState(this.image, this.name, this.sellerId, this.conversationId);
+  _MessagingScreenViewState(
+      this.image, this.name, this.sellerId, this.conversationId);
 
   final ImagePicker _imagePicker = ImagePicker();
 
   final MessageViewModel _messageViewModel = MessageViewModel();
 
-  void _bind() async{
-    if(conversationId != null) {
+  void _bind() async {
+    if (conversationId != null) {
       //load messages
-
     } else {
       //make new conversation
-      conversationId = await _messageViewModel.createNewConversation(sellerId ?? "");
+      conversationId =
+          await _messageViewModel.createNewConversation(sellerId ?? "");
     }
-
   }
 
   @override
@@ -52,31 +54,31 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.background,
+      backgroundColor: ColorsManager.primaryBackground,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(AppSize.s70),
         child: AppBar(
-          backgroundColor: ColorsManager.background,
+          backgroundColor: ColorsManager.primaryBackground,
           automaticallyImplyLeading: false,
           elevation: 0,
           centerTitle: true,
           title: Column(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(image ?? AppStrings.abdullahRagabImageUrl),
+                backgroundColor: ColorsManager.primaryBackground,
+                backgroundImage: NetworkImage(image ?? AppStrings.noProfilePic),
               ),
               const SizedBox(
-                height: 5,
+                height: AppSize.s5,
               ),
               Text(
-                name ?? "",
+                name ?? AppStrings.empty,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.primaryText,
-                      fontSize: 12.0,
+                      fontSize: AppSize.s12,
                     ),
               ),
             ],
@@ -87,7 +89,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
         stream: _messageViewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data
-              ?.getScreenWidget(context, _getBody(), () => () {}) ??
+                  ?.getScreenWidget(context, _getBody(), () => () {}) ??
               _getBody();
         },
       ),
@@ -95,105 +97,108 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
   }
 
   Widget _getBody() => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Column(
-      children: [
-        Expanded(
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemCount: 70,
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 15,
-            ),
-            itemBuilder: ((context, index) {
-              var random = Random();
-              bool me = random.nextBool();
-
-              if (me)
-                return buildReceivedMessage("hello world");
-              else
-                return buildMyMessage(
-                    "hello world 2 asfas fas asf asf hello world 2 asfas fas asf asf hello world 2 asfas fas asf asf hello world 2 asfas fas asf asf hello world 2 asfas fas asf asf");
-            }),
-          ),
-        ),
-        SizedBox(height: 20),
-        Row(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+        child: Column(
           children: [
             Expanded(
-              child: TextFormField(
-                // controller: _textEditingController,
-                decoration: InputDecoration(
-                  hintText: "Type a message",
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 10),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: 70,
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: AppSize.s15,
+                ),
+                itemBuilder: ((context, index) {
+                  var random = Random();
+                  bool me = random.nextBool();
+
+                  if (me)
+                    return buildReceivedMessage("hello world");
+                  else
+                    return buildMyMessage(
+                        "hello world 2 asfas fas asf asf hello world 2 asfas fas asf asf ");
+                }),
+              ),
+            ),
+            const SizedBox(height: AppSize.s20),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    // controller: _textEditingController,
+                    decoration: InputDecoration(
+                      hintText: AppStrings.typeMessage,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppPadding.p20, vertical: AppPadding.p10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppSize.s30),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppSize.s30),
+                        borderSide:
+                            BorderSide(color: ColorsManager.tertiaryColor),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(width: AppSize.s20),
+                IconButton(
+                  onPressed: () {
+                    // TODO: Implement sending message
+                    // _textEditingController.clear();
+                  },
+                  icon: Icon(
+                    IconsManager.send,
+                    color: ColorsManager.grayIcon,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    var image =
+                        _imagePicker.pickImage(source: ImageSource.gallery);
+                  },
+                  icon: Icon(
+                    IconsManager.gallery,
+                    color: ColorsManager.grayIcon,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(width: 20),
-            IconButton(
-              onPressed: () {
-                var image =
-                _imagePicker.pickImage(source: ImageSource.gallery);
-              },
-              icon: Icon(
-                Icons.image,
-                color: ColorsManager.primaryBtnText,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                // TODO: Implement sending message
-                // _textEditingController.clear();
-              },
-              icon: Icon(
-                Icons.send,
-                color: ColorsManager.primaryBtnText,
-              ),
-            ),
+            const SizedBox(
+              height: AppSize.s5,
+            )
           ],
         ),
-        SizedBox(
-          height: 5,
-        )
-      ],
-    ),
-  );
-
+      );
 
   Widget buildReceivedMessage(String model) => Align(
         alignment: AlignmentDirectional.centerStart,
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFD7D7D7), Color(0xFFF2F2F2)],
+              colors: [
+                ColorsManager.receivedMessage,
+                ColorsManager.receivedMessage
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              stops: [0.0, 1.0],
+              stops: const [0.0, 1.0],
               tileMode: TileMode.clamp,
             ),
             borderRadius: const BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(10),
-              topStart: Radius.circular(10),
-              topEnd: Radius.circular(10),
+              bottomEnd: Radius.circular(AppSize.s10),
+              topStart: Radius.circular(AppSize.s10),
+              topEnd: Radius.circular(AppSize.s10),
             ),
           ),
           padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
+            vertical: AppPadding.p5,
+            horizontal: AppPadding.p10,
           ),
           child: Text(
             model,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.black,
-                fontSize: 12.0,
+                color: ColorsManager.receivedMessageText,
+                fontSize: AppSize.s12,
                 fontWeight: FontWeight.w100),
           ),
         ),
@@ -204,27 +209,27 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF3196FC), Color(0xFF007AFF)],
+              colors: [ColorsManager.myMessage, ColorsManager.myMessage],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              stops: [0.0, 1.0],
+              stops: const [0.0, 1.0],
               tileMode: TileMode.clamp,
             ),
             borderRadius: const BorderRadiusDirectional.only(
-              bottomStart: Radius.circular(10),
-              topStart: Radius.circular(10),
-              topEnd: Radius.circular(10),
+              bottomStart: Radius.circular(AppSize.s10),
+              topStart: Radius.circular(AppSize.s10),
+              topEnd: Radius.circular(AppSize.s10),
             ),
           ),
           padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
+            vertical: AppPadding.p5,
+            horizontal: AppPadding.p10,
           ),
           child: Text(
             model,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorsManager.primaryText,
-                fontSize: 12.0,
+                color: ColorsManager.myMessageText,
+                fontSize: AppSize.s12,
                 fontWeight: FontWeight.w100),
           ),
         ),
