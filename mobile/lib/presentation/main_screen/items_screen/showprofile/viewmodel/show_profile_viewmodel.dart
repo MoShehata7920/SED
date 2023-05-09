@@ -4,20 +4,18 @@ import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/myprofile_get_ads_usecase.dart';
-import 'package:sed/domain/usecase/show_profile_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class ShowProfileViewModel extends BaseViewModel
     with ShowProfileViewModelInputs, ShowProfileViewModelOutputs {
-
- // final ShowProfileUseCase _profileUseCase = instance<ShowProfileUseCase>();
+  // final ShowProfileUseCase _profileUseCase = instance<ShowProfileUseCase>();
 
   final MyProfileAdsUseCase _profileUseCase = instance<MyProfileAdsUseCase>();
 
   final StreamController _contentStreamController =
-  StreamController<ShowItemsContentObject>.broadcast();
+      StreamController<ShowItemsContentObject>.broadcast();
 
   @override
   void start() {}
@@ -33,8 +31,8 @@ class ShowProfileViewModel extends BaseViewModel
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var response =
-        await _profileUseCase.execute(GetMyProfileAdsInput(profileId, "Bearer ${Constants.token}"));
+    var response = await _profileUseCase
+        .execute(GetMyProfileAdsInput(profileId, "Bearer ${Constants.token}"));
 
     response.fold(
         (failure) => {

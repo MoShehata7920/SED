@@ -24,6 +24,8 @@ class AppStrings {
   static String drElshwimySupervisor = "dr_elshwimy_supervisor".tr();
 
   static const String empty = "";
+  static const String noProfilePic =
+      "https://th.bing.com/th/id/R.11b7aa3235fc4fc998e8d4578e464e27?rik=FBoEUrt%2fOIeilA&riu=http%3a%2f%2fgetdrawings.com%2ffree-icon%2fgeneric-person-icon-63.png&ehk=%2fiJ0VKyxWO7cvvlMLZVsE%2fd1FrC7GDDB8IhS%2fp3dtd0%3d&risl=&pid=ImgRaw&r=0";
 
   static const String sed = "SED Inc.";
 
@@ -212,4 +214,8 @@ class AppStrings {
   static const String deleteAccount = "delete_account";
   static const String addressError = "address_error";
   static const String governmentError = "government_error";
+
+  // chat
+  static const String typeMessage = "Type a message";
+  static const String messages = "Messages";
 }

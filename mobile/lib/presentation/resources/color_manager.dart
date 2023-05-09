@@ -42,6 +42,20 @@ class ColorsManager {
       ? const Color(0xFF6E6E6E)
       : const Color(0xFFFAFAFA);
 
+  static Color get receivedMessage => ThemeManager.isDarkMode
+      ? const Color(0xFFD9D9D9)
+      : const Color(0xFF333333);
+
+  static Color get receivedMessageText => ThemeManager.isDarkMode
+      ? const Color(0xFF333333)
+      : const Color(0xFFD9D9D9);
+
+  static Color get myMessage => ThemeManager.isDarkMode
+      ? const Color(0xFF0084ff)
+      : const Color(0xFF2962ff);
+
+  static Color get myMessageText => const Color(0xFFFFFFFF);
+
   static Color grey = const Color(0xff737477);
   static Color lightGrey = const Color(0xffD9D9D6);
   static Color black = const Color(0xff000000);

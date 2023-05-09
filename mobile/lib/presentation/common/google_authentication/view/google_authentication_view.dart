@@ -86,7 +86,7 @@ class _SignInDemoState extends State<SignInDemo> {
     setState(() {
       _contactText = 'Loading contact info...';
     });
-    final String apiUrl = 'http://sed.zapto.org:3000/auth/google/redirect';
+    const String apiUrl = 'http://sed.zapto.org:3000/auth/google/redirect';
     final Map<String, String> queryParams = {
       'code': serverAuthToken,
       'scope':

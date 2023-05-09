@@ -493,7 +493,6 @@ class RepositoryImpl implements Repository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        print(error);
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {
@@ -522,7 +521,6 @@ class RepositoryImpl implements Repository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        print(error);
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {
@@ -533,7 +531,8 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, NewConversation>> newConversation(NewConversationRequest newConversationRequest) async {
+  Future<Either<Failure, NewConversation>> newConversation(
+      NewConversationRequest newConversationRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
@@ -550,7 +549,6 @@ class RepositoryImpl implements Repository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        print(error);
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {
@@ -559,14 +557,15 @@ class RepositoryImpl implements Repository {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
-  
+
   @override
-  Future<Either<Failure, GetAllConversations>> getAllConversations(GetAllConversationsRequest getAllConversationsRequest) async {
+  Future<Either<Failure, GetAllConversations>> getAllConversations(
+      GetAllConversationsRequest getAllConversationsRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
-        final response =
-            await _remoteDataSource.getAllConversations(GetAllConversationsRequest(getAllConversationsRequest.userId));
+        final response = await _remoteDataSource.getAllConversations(
+            GetAllConversationsRequest(getAllConversationsRequest.userId));
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data
@@ -578,7 +577,6 @@ class RepositoryImpl implements Repository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        print(error);
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {
