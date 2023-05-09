@@ -7,14 +7,17 @@ function Chat(){
 
    const[username,setusername]=useState("");
    const[room,setroom]=useState("");
+   const[showchat,setshowchat]=useState(false)
 
    const joinRoom = ()=> {
     if (username!=="" && room !==""){
         socket.emit("join_room",room)
+        setshowchat(true)
     }}
 
     return(
         <>
+        {!showchat?(
         <div className="d-flex justify-content-center text-center">
             <div className="m-5 border border-black d-block">
                 <h3> JOIN A Chat </h3>
@@ -23,8 +26,9 @@ function Chat(){
                 <button onClick={joinRoom}>Join A Room</button>
             </div>
 
-        </div>
-        <Mainchat socket={socket} username={username} room={room}/>
+        </div>)
+        :(<Mainchat socket={socket} username={username} room={room}/>
+        )}
         </>
     )
 }
