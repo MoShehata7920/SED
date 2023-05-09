@@ -56,7 +56,7 @@ class _MyAdsScreenViewState extends State<MyAdsScreenView> {
         toolbarHeight: AppSize.s50,
         iconTheme: IconThemeData(color: ColorsManager.secondaryText),
         title: Text(
-          AppStrings.myAds.tr(),
+          AppStrings.myAds,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.lineColor,
                 fontSize: AppSize.s30,

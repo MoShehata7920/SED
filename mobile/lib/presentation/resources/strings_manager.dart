@@ -49,18 +49,18 @@ class AppStrings {
   ];
 
   //login screen
-  static const String email = "email";
-  static const String emailInValid = "email_in_valid";
-  static const String password = "password";
-  static const String confirmPassword = "confirm_password";
-  static const String passwordError = "password_error";
-  static const String confirmPasswordError = "confirm_password_error";
-  static const String login = "login";
+  static String email = "email".tr();
+  static String emailInValid = "email_in_valid".tr();
+  static String password = "password".tr();
+  static String confirmPassword = "confirm_password".tr();
+  static String passwordError = "password_error".tr();
+  static String confirmPasswordError = "confirm_password_error".tr();
+  static String login = "login".tr();
 
   // email verify screen
-  static const String verifyYourEmail = "verify_your_email";
-  static const String enterOtp = "enter_otp";
-  static const String resendCode = "resend_code";
+  static String verifyYourEmail = "verify_your_email".tr();
+  static String enterOtp = "enter_otp".tr();
+  static String resendCode = "resend_code".tr();
 
   //state renderer
   static const String loading = "loading";
@@ -71,14 +71,14 @@ class AppStrings {
   static const String cancel = "cancel";
 
   // error handler
-  static const String badRequest = "bad_request";
-  static const String unAuthorized = "un_authorized";
-  static const String forbidden = "forbidden";
-  static const String somethingWrong = "something_wrong";
-  static const String timeOut = "time_out";
-  static const String cancelRequest = "cancel_request";
-  static const String cacheError = "cache_error";
-  static const String noInternet = "no_internet";
+  static String badRequest = "bad_request".tr();
+  static String unAuthorized = "un_authorized".tr();
+  static String forbidden = "forbidden".tr();
+  static String somethingWrong = "something_wrong".tr();
+  static String timeOut = "time_out".tr();
+  static String cancelRequest = "cancel_request".tr();
+  static String cacheError = "cache_error".tr();
+  static String noInternet = "no_internet".tr();
 
   //forgot password screen
   static String resendText = "resend_text".tr();
@@ -89,21 +89,18 @@ class AppStrings {
   static String confirm = "confirm".tr();
 
   // Register Screen
-  static const String userNameInValid = "user_name_in_valid";
-
-  static const String mobileNumberInValid = "mobile_number_in_valid";
-  static const String passwordInValid = "password_in_valid";
-  static const String loginText = "login_text";
-  static const String useSocialToLoginText = "use_social_to_login_text";
-  static const String register = "register";
-  static const String mobileNumber = "mobile_number";
-  static const String username = "user_name";
-  static const String countrySearchBar = "country_search_bar";
+  static String userNameInValid = "user_name_in_valid".tr();
+  static String mobileNumberInValid = "mobile_number_in_valid".tr();
+  static String passwordInValid = "password_in_valid".tr();
+  static String loginText = "login_text".tr();
+  static String useSocialToLoginText = "use_social_to_login_text".tr();
+  static String register = "register".tr();
+  static String mobileNumber = "mobile_number".tr();
+  static String username = "user_name".tr();
 
   // Home Screen
   static const String welcomeMessage = "welcome_message";
   static const String allCategories = "all_categories";
-
   static const String sellProducts = "sell_products";
   static const String exchange = "exchange";
   static const String donate = "donate";
@@ -119,63 +116,63 @@ class AppStrings {
   static const String sell = "sell";
 
   // Add products screen
-  static const String addAdvertisement = "add_advertisement";
-  static const String addImage = "add_image";
-  static const String selectedCategory = "selected_category";
-  static const String change = "change";
-  static const String selectSection = "select_section";
-  static const String condition = "condition";
-  static const String used = "used";
-  static const String newItem = "new_item";
-  static const String name = "name";
-  static const String productName = "product_name";
-  static const String price = "price";
-  static const String productPrice = "product_price";
-  static const String description = "description";
-  static const String productDescription = "product_description";
-  static const String submit = "submit";
-  static const String categories = "categories";
-  static const String fieldError = "field_error";
+  static String addAdvertisement = "add_advertisement".tr();
+  static String addImage = "add_image".tr();
+  static String selectedCategory = "selected_category".tr();
+  static String change = "change".tr();
+  static String selectSection = "select_section".tr();
+  static String condition = "condition".tr();
+  static String used = "used".tr();
+  static String newItem = "new_item".tr();
+  static String name = "name".tr();
+  static String productName = "product_name".tr();
+  static String price = "price".tr();
+  static String productPrice = "product_price".tr();
+  static String description = "description".tr();
+  static String productDescription = "product_description".tr();
+  static String submit = "submit".tr();
+  static String categories = "categories".tr();
+  static String fieldError = "field_error".tr();
 
   //  setting screen
-  static const String settings = "settings";
-  static const String general = "general";
-  static const String account = "account";
-  static const String myAds = "my_ads";
-  static const String language = "language";
-  static const String convertToLightMode = "convert_to_light_mode";
-  static const String convertToDarkMode = "convert_to_dark_mode";
-  static const String notifications = "notifications";
-  static const String share = "share";
-  static const String help = "help";
+  static String settings = "settings".tr();
+  static String general = "general".tr();
+  static String account = "account".tr();
+  static String myAds = "my_ads".tr();
+  static String language = "language".tr();
+  static String convertToLightMode = "convert_to_light_mode".tr();
+  static String convertToDarkMode = "convert_to_dark_mode".tr();
+  static String notifications = "notifications".tr();
+  static String share = "share".tr();
+  static String help = "help".tr();
   static String aboutUs = "about_us".tr();
 
   // add and update screen
-  static const String successfullyAddedAd = "successfully_added_ad";
-  static const String successfullyUpdatedAd = "successfully_updated_ad";
+  static String successfullyAddedAd = "successfully_added_ad".tr();
+  static String successfullyUpdatedAd = "successfully_updated_ad".tr();
 
   // help screen
-  static const String needHelp = "needHelp";
-  static const String ifYouNeedHelp = "ifYouNeedHelp";
-  static const String phone = "phone";
-  static const String appreciateFeedBack = "appreciateFeedBack";
-  static const String byEaglesTeam = "byEaglesTeam";
+  static String needHelp = "needHelp".tr();
+  static String ifYouNeedHelp = "ifYouNeedHelp".tr();
+  static String phone = "phone".tr();
+  static String appreciateFeedBack = "appreciateFeedBack".tr();
+  static String byEaglesTeam = "byEaglesTeam".tr();
 
   // search Screen
-  static const String enterSearchTerm = "enter_search_term";
+  static String enterSearchTerm = "enter_search_term".tr();
 
   // camera screen
-  static const String uploadImage = "upload_image";
-  static const String noImageSelected = "no_image_selected";
-  static const String takeAPhoto = "take_photo";
-  static const String selectFromGallery = "select_from_gallery";
+  static String uploadImage = "upload_image".tr();
+  static String noImageSelected = "no_image_selected".tr();
+  static String takeAPhoto = "take_photo".tr();
+  static String selectFromGallery = "select_from_gallery".tr();
 
   // My Account Screen
-  static const String myAccount = "my_account";
-  static const String profilePic = "profile_pic";
-  static const String profileInfo = "profile_info";
-  static const String phoneNumber = "phone_number";
-  static const String selectGovernment = "select_government";
+  static String myAccount = "my_account".tr();
+  static String profilePic = "profile_pic".tr();
+  static String profileInfo = "profile_info".tr();
+  static String phoneNumber = "phone_number".tr();
+  static String selectGovernment = "select_government".tr();
   static List<String> get governments => [
         'alexandria'.tr(),
         'aswan'.tr(),
@@ -205,17 +202,15 @@ class AppStrings {
         'south_sinai'.tr(),
         'suez'.tr(),
       ];
-  static const String address = "address";
-  static const String dob = "dob";
-  static const String changePassword = "change_password";
+  static String address = "address".tr();
+  static String changePassword = "change_password".tr();
   static String oldPassword = "old_password".tr();
-  static const String saveChanges = "save_changes";
-  static const String logOut = "log_out";
-  static const String deleteAccount = "delete_account";
-  static const String addressError = "address_error";
-  static const String governmentError = "government_error";
+  static String saveChanges = "save_changes".tr();
+  static String logOut = "log_out".tr();
+  static String deleteAccount = "delete_account".tr();
+  static String addressError = "address_error".tr();
 
   // chat
-  static const String typeMessage = "Type a message";
-  static const String messages = "Messages";
+  static String typeMessage = "type_message".tr();
+  static String messages = "messages".tr();
 }

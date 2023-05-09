@@ -38,7 +38,7 @@ class NotificationScreenViewState extends State<NotificationScreenView> {
         elevation: 0,
         backgroundColor: ColorsManager.primaryBackground,
         title: Text(
-          AppStrings.notifications.tr(),
+          AppStrings.notifications,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.primaryText,
                 fontWeight: FontWeight.bold,

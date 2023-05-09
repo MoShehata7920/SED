@@ -141,24 +141,24 @@ class ResponseMessage {
   static String NO_CONTENT =
       AppStrings.success.tr(); // success with no data (no content)
   static String BAD_REQUEST =
-      AppStrings.badRequest.tr(); // failure, API rejected request
+      AppStrings.badRequest; // failure, API rejected request
   static String UNAUTHORIZED =
-      AppStrings.unAuthorized.tr(); // failure, user is not authorized
+      AppStrings.unAuthorized; // failure, user is not authorized
   static String FORBIDDEN =
-      AppStrings.forbidden.tr(); //  failure, API rejected request
+      AppStrings.forbidden; //  failure, API rejected request
   static String INTERNAL_SERVER_ERROR =
-      AppStrings.somethingWrong.tr(); // failure, crash in server side
+      AppStrings.somethingWrong; // failure, crash in server side
   static String NOT_FOUND =
-      AppStrings.somethingWrong.tr(); // failure, data not found
+      AppStrings.somethingWrong; // failure, data not found
 
   // local status code
-  static String CONNECT_TIMEOUT = AppStrings.timeOut.tr();
-  static String CANCEL = AppStrings.cancelRequest.tr();
-  static String RECEIVE_TIMEOUT = AppStrings.timeOut.tr();
-  static String SEND_TIMEOUT = AppStrings.timeOut.tr();
-  static String CACHE_ERROR = AppStrings.cacheError.tr();
-  static String NO_INTERNET_CONNECTION = AppStrings.noInternet.tr();
-  static String DEFAULT = AppStrings.somethingWrong.tr();
+  static String CONNECT_TIMEOUT = AppStrings.timeOut;
+  static String CANCEL = AppStrings.cancelRequest;
+  static String RECEIVE_TIMEOUT = AppStrings.timeOut;
+  static String SEND_TIMEOUT = AppStrings.timeOut;
+  static String CACHE_ERROR = AppStrings.cacheError;
+  static String NO_INTERNET_CONNECTION = AppStrings.noInternet;
+  static String DEFAULT = AppStrings.somethingWrong;
 }
 
 class ApiInternalStatus {

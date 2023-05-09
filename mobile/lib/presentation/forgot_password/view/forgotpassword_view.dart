@@ -97,8 +97,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         obscureText: false,
                         controller: _emailController,
                         decoration: InputDecoration(
-                          hintText: AppStrings.email.tr(),
-                          labelText: AppStrings.email.tr(),
+                          hintText: AppStrings.email,
+                          labelText: AppStrings.email,
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),

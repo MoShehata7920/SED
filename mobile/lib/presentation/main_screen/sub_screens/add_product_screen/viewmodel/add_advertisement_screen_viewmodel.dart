@@ -12,9 +12,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'dart:convert';
-
 import 'package:sed/presentation/resources/strings_manager.dart';
-
 import '../../../../../domain/usecase/update_ad_usecase.dart';
 
 class AddAdvertisementViewModel extends BaseViewModel
@@ -188,7 +186,7 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyAddedAd.tr(),
+          AppStrings.successfullyAddedAd,
           AppStrings.success.tr(),
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));
@@ -221,7 +219,7 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyUpdatedAd.tr(),
+          AppStrings.successfullyUpdatedAd,
           AppStrings.success.tr(),
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));

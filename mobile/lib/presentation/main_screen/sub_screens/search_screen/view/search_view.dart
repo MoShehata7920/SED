@@ -64,7 +64,7 @@ class SearchViewState extends State<SearchView> {
             // TODO: use search term to fetch data and display it
           }
           return Center(
-            child: Text(AppStrings.enterSearchTerm.tr()),
+            child: Text(AppStrings.enterSearchTerm),
           );
         },
       ),
