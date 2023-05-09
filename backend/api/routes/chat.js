@@ -11,8 +11,8 @@ router.post("/new-message", async (req, res) => {
   const newMessage = new Message(req.body);
   try {
     const savedMessage = await newMessage.save();
-    // saving message to conversation
-    await Conversation.findByIdAndUpdate(req.body.conversation,{$push:{messages:savedMessage},},{new:true}) // to add message to conversation document
+    // updating last message on conversation
+    await Conversation.findByIdAndUpdate(req.body.conversation,{$set:{lastMessage:savedMessage.text}},{new:true}) // to add message to conversation document
     res.status(200).json({status:0 , savedMessage });
   } catch (err) {
     res.status(500).json({status:1 , message:err.message ,err});
@@ -44,24 +44,23 @@ router.get("/user-convs/:userId", async (req, res) => {
     const conversations = await Conversation.find({
       // users: { $in: [req.params.userId] },
       users: { $in: [mongoose.Types.ObjectId(req.params.userId)] }, // for better security 'preventing injection attacks' 
-    }).populate('users','_id fullName email userImage ').populate({
-      path:'messages',
-      select:'text createdAt',
-      options:{
-        sort:{createdAt:-1},                       // selecting the first item of messages array is the last message on the conversation,
-        perDocumentLimit:1              // only the last message to show from outside view    
-      },
-      // perDocumentLimit:1
-    })
+    }).populate('users','fullName email userImage ')
+    // .populate({
+    //   path:'messages',
+    //   select:'text createdAt',
+    //   options:{
+    //     sort:{createdAt:-1},                       // selecting the first item of messages array is the last message on the conversation,
+    //     perDocumentLimit:1              // only the last message to show from outside view    
+    //   },
     if(conversations.length===0){
       res.status(200).json({status:0 , message : "There are no conversations , start One !", conversations })
     }
-    // console.log(conversations[0].messages[conversations[0].messages.length -1]);
     res.status(200).json({ status:0 , conversations });
   } catch (err) {
     res.status(500).json({status:1 , message:err.message , err});
   }
 });
+
 
 
 //creating new conversation
