@@ -71,7 +71,6 @@ class ChatViewModel extends BaseViewModel
       // right -> success
       conversations = response;
 
-      print(conversations.conversationsData.length);
       inputState.add(ContentState());
     });
   }

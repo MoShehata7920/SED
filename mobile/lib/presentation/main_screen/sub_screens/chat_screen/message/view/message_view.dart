@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/domain/model/models.dart';
@@ -40,9 +39,12 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
 
   final TextEditingController _textEditingController = TextEditingController();
 
+  final scrollController = ScrollController();
+
   void _bind() async {
     if (conversationId != null) {
       messages = await _messageViewModel.getConversationMessages(this.conversationId!);
+
     } else {
       //make new conversation
       conversationId =
@@ -61,7 +63,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    Widget result = Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(AppSize.s70),
@@ -82,9 +84,9 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
               Text(
                 name ?? AppStrings.empty,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: ColorsManager.primaryText,
-                      fontSize: AppSize.s12,
-                    ),
+                  color: ColorsManager.primaryText,
+                  fontSize: AppSize.s12,
+                ),
               ),
             ],
           ),
@@ -94,84 +96,105 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
         stream: _messageViewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data
-                  ?.getScreenWidget(context, _getBody(), () => () {}) ??
+              ?.getScreenWidget(context, _getBody(), () => () {}) ??
               _getBody();
         },
       ),
     );
+
+    return result;
   }
 
-  Widget _getBody() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemCount: messages != null ? messages!.messages.length : 0,
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: AppSize.s15,
-                ),
-                itemBuilder: ((context, index) {
-                  if (messages!.messages[index].senderId == Utils.getUserId()) {
-                    return buildReceivedMessage(messages!.messages[index].message);
-                  } else {
-                    return buildMyMessage(
-                        messages!.messages[index].message);
-                  }
-                }),
+  Widget _getBody() {
+    Widget result = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              controller: scrollController,
+              physics: const BouncingScrollPhysics(),
+              itemCount: messages != null ? messages!.messages.length : 0,
+              separatorBuilder: (context, index) => const SizedBox(
+                height: AppSize.s15,
               ),
+              itemBuilder: ((context, index) {
+                if (messages!.messages[index].senderId == Utils.getUserId()) {
+                  return buildMyMessage(messages!.messages[index].message);
+                } else {
+                  return buildReceivedMessage(
+                      messages!.messages[index].message);
+                }
+
+
+              }),
             ),
-            const SizedBox(height: AppSize.s20),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: _textEditingController,
-                    decoration: InputDecoration(
-                      hintText: AppStrings.typeMessage,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.p20, vertical: AppPadding.p10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(AppSize.s30),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(AppSize.s30),
-                        borderSide:
-                            BorderSide(color: ColorsManager.tertiaryColor),
-                      ),
+          ),
+          const SizedBox(height: AppSize.s20),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: _textEditingController,
+                  decoration: InputDecoration(
+                    hintText: AppStrings.typeMessage,
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p20, vertical: AppPadding.p10),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s30),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s30),
+                      borderSide:
+                      BorderSide(color: ColorsManager.tertiaryColor),
                     ),
                   ),
                 ),
-                const SizedBox(width: AppSize.s20),
-                IconButton(
-                  onPressed: () {
-                    _messageViewModel.sendMessage(conversationId ?? "", Utils.getUserId(), _textEditingController.text);
-                     _textEditingController.clear();
-                  },
-                  icon: Icon(
-                    IconsManager.send,
-                    color: ColorsManager.grayIcon,
-                  ),
+              ),
+              const SizedBox(width: AppSize.s20),
+              IconButton(
+                onPressed: () {
+                  messages!.messages.add(Messages(
+                      conversationId ?? "",
+                      Utils.getUserId(),
+                      _textEditingController.text,
+                      DateTime.now().toString()));
+                  _messageViewModel.sendMessage(conversationId ?? "",
+                      Utils.getUserId(), _textEditingController.text);
+                  scrollController.animateTo(
+                    scrollController.position.maxScrollExtent+50,
+                    duration: const Duration(milliseconds: 1),
+                    curve: Curves.easeOut,
+                  );
+                  _textEditingController.clear();
+
+                },
+                icon: Icon(
+                  IconsManager.send,
+                  color: ColorsManager.grayIcon,
                 ),
-                IconButton(
-                  onPressed: () {
-                    var image =
-                        _imagePicker.pickImage(source: ImageSource.gallery);
-                  },
-                  icon: Icon(
-                    IconsManager.gallery,
-                    color: ColorsManager.grayIcon,
-                  ),
+              ),
+              IconButton(
+                onPressed: () {
+                  var image =
+                  _imagePicker.pickImage(source: ImageSource.gallery);
+                },
+                icon: Icon(
+                  IconsManager.gallery,
+                  color: ColorsManager.grayIcon,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: AppSize.s5,
-            )
-          ],
-        ),
-      );
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: AppSize.s5,
+          )
+        ],
+      ),
+    );
+
+    return result;
+  }
 
   Widget buildReceivedMessage(String model) => Align(
         alignment: AlignmentDirectional.centerStart,

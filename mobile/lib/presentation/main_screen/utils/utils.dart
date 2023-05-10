@@ -64,7 +64,6 @@ class Utils {
   static String getUserId() {
     try {
       // Decode the token payload
-      print(Constants.token);
       Map<String, dynamic> decodedToken = json
           .decode(utf8.decode(base64Url.decode(Constants.token.split(".")[1])));
 

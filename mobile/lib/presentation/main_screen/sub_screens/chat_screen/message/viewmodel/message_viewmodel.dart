@@ -72,6 +72,8 @@ class MessageViewModel extends BaseViewModel
 
   @override
   void sendMessage(String conversationId, String senderId, String message) async{
+    inputState.add(ContentState());
+
     var response = await _newMessageUseCase.execute(
         NewMessageUseCaseInput(conversationId, senderId, message));
 
@@ -81,7 +83,6 @@ class MessageViewModel extends BaseViewModel
         }, (response) {
       // right -> success
 
-      inputState.add(ContentState());
     });
   }
 
