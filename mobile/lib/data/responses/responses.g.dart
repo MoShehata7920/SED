@@ -483,7 +483,12 @@ Map<String, dynamic> _$GetAllConversationsResponseToJson(
 ConversationsResponse _$ConversationsResponseFromJson(
         Map<String, dynamic> json) =>
     ConversationsResponse(
-      json['conversationId'] as String?,
+      json['_id'] as String?,
+      (json['users'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : UserDataResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -493,5 +498,6 @@ Map<String, dynamic> _$ConversationsResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'conversationId': instance.conversationId,
+      '_id': instance.conversationId,
+      'users': instance.usersData,
     };

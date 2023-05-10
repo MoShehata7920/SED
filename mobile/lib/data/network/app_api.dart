@@ -135,9 +135,10 @@ abstract class AppServiceClient {
     @Header("token") String token,
   );
 
-  @POST("/products/search")
-  Future<SearchResponse> getSearchProducts(
-    @Header("token") String token,
+  // search
+  @GET("/products/search")
+  Future<ShowItemsResponse> getSearchProducts(
+    @Query("search") String searchText,
   );
 
   // chat

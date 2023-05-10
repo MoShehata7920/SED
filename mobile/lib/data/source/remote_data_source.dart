@@ -49,7 +49,7 @@ abstract class RemoteDataSource {
 
   Future<ShowItemsResponse> getSavedProducts();
 
-  Future<SearchResponse> getSearchedProducts(String searchText);
+  Future<ShowItemsResponse> getSearchedProducts(SearchRequest searchRequest);
 
   // Chat
   Future<NewConversationResponse> newConversation(
@@ -171,11 +171,15 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     var result = await _appServiceClient.updateAd(
-        updateAdRequest.itemId ?? AppStrings.empty, map, "Bearer ${Constants.token}");
+        updateAdRequest.itemId ?? AppStrings.empty,
+        map,
+        "Bearer ${Constants.token}");
 
     if (updateAdRequest.image != null) {
-      await _appServiceClient.updateProductImage(updateAdRequest.itemId ?? AppStrings.empty,
-          updateAdRequest.image ?? File(""), "Bearer ${Constants.token}");
+      await _appServiceClient.updateProductImage(
+          updateAdRequest.itemId ?? AppStrings.empty,
+          updateAdRequest.image ?? File(""),
+          "Bearer ${Constants.token}");
     }
 
     return result;
@@ -199,8 +203,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<SearchResponse> getSearchedProducts(String searchText) async {
-    return await _appServiceClient.getSearchProducts(Constants.token);
+  Future<ShowItemsResponse> getSearchedProducts(
+      SearchRequest searchRequest) async {
+    return await _appServiceClient.getSearchProducts(searchRequest.searchText);
   }
 
   @override
@@ -251,14 +256,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<NewConversationResponse> newConversation(
       NewConversationRequest newConversationRequest) async {
     return await _appServiceClient.openNewConversation(
-        newConversationRequest.senderId,
-        newConversationRequest.receiverId);
+        newConversationRequest.senderId, newConversationRequest.receiverId);
   }
 
   @override
   Future<GetAllConversationsResponse> getAllConversations(
       GetAllConversationsRequest getAllConversationsRequest) async {
-    return await _appServiceClient.getAllConversations(
-        getAllConversationsRequest.userId);
+    return await _appServiceClient
+        .getAllConversations(getAllConversationsRequest.userId);
   }
 }

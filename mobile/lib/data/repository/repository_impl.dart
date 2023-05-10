@@ -448,12 +448,12 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, ShowItems>> getSearchedProducts(
-      String searchText) async {
+      SearchRequest searchRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
         final response =
-            await _remoteDataSource.getSearchedProducts(searchText);
+            await _remoteDataSource.getSearchedProducts(searchRequest);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data

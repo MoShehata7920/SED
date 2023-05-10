@@ -113,7 +113,7 @@ extension UserDataResponseMapper on UserDataResponse? {
 extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
     return Item(
-        this?.product.toDomain() ?? Items("", "", "", 0, "","", "", "", false),
+        this?.product.toDomain() ?? Items("", "", "", 0, "", "", "", "", false),
         this?.user.toDomain() ?? UserData("", "", "", "", "", ""));
   }
 }
@@ -219,9 +219,7 @@ extension DefaultResponseMapper on DefaultResponse? {
 
 extension NewConversationMapper on NewConversationResponse? {
   NewConversation toDomain() {
-    return NewConversation(
-        this?.savedConversation?.conversationId ?? ""
-    );
+    return NewConversation(this?.savedConversation?.conversationId ?? "");
   }
 }
 
@@ -230,9 +228,23 @@ extension GetAllConversationsMapper on GetAllConversationsResponse? {
     List<ConversationsData> temp = [];
 
     this?.conversations?.forEach((element) {
-      temp.add(ConversationsData(element?.conversationId ?? ""));
+      temp.add(
+          ConversationsData(element?.conversationId ?? "", element?.usersData.toDomain() ?? []));
     });
 
     return GetAllConversations(temp);
+  }
+}
+
+extension GetUserDataMapper on List<UserDataResponse?>? {
+  List<UserData> toDomain() {
+    List<UserData> tempUserData = [];
+
+    this?.forEach((element) {
+      tempUserData.add(UserData(element?.id ?? "", element?.name ?? "",
+          element?.image ?? "", "", "", ""));
+    });
+
+    return tempUserData;
   }
 }

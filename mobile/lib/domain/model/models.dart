@@ -278,6 +278,8 @@ class GetAllConversations {
 
 class ConversationsData {
   String id;
+  
+  List<UserData> usersData;
 
-  ConversationsData(this.id);
+  ConversationsData(this.id, this.usersData);
 }

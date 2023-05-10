@@ -509,10 +509,13 @@ class GetAllConversationsResponse extends BaseResponse {
 
 @JsonSerializable()
 class ConversationsResponse extends BaseResponse {
-  @JsonKey(name: "conversationId")
+  @JsonKey(name: "_id")
   String? conversationId;
 
-  ConversationsResponse(this.conversationId);
+  @JsonKey(name: "users")
+  List<UserDataResponse?>? usersData;
+
+  ConversationsResponse(this.conversationId, this.usersData);
 
   // From Json
   factory ConversationsResponse.fromJson(Map<String, dynamic> json) =>

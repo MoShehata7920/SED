@@ -50,10 +50,13 @@ abstract class Repository {
 
   Future<Either<Failure, ShowItems>> getSavedProducts();
 
-  Future<Either<Failure, ShowItems>> getSearchedProducts(String searchText);
+  Future<Either<Failure, ShowItems>> getSearchedProducts(
+      SearchRequest searchRequest);
 
   // Chat
-  Future<Either<Failure, NewConversation>> newConversation(NewConversationRequest newConversationRequest);
+  Future<Either<Failure, NewConversation>> newConversation(
+      NewConversationRequest newConversationRequest);
 
-  Future<Either<Failure, GetAllConversations>> getAllConversations(GetAllConversationsRequest getAllConversationsRequest);
+  Future<Either<Failure, GetAllConversations>> getAllConversations(
+      GetAllConversationsRequest getAllConversationsRequest);
 }
