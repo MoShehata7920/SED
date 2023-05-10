@@ -248,3 +248,22 @@ extension GetUserDataMapper on List<UserDataResponse?>? {
     return tempUserData;
   }
 }
+
+extension GetChatMessagesMapper on GetChatMessagesResponse? {
+  GetChatMessages toDomain() {
+    List<Messages> temp = [];
+
+    this?.messages?.forEach((element) {
+      temp.add(
+          Messages(element?.conversationId ?? "", element?.senderId ?? "",element?.text ?? "", element?.createdAt ?? ""));
+    });
+
+    return GetChatMessages(temp);
+  }
+}
+
+extension NewMessageMapper on NewMessageResponse? {
+  NewMessage toDomain() {
+    return NewMessage(Message(this?.savedMessage?.conversationId ?? "", this?.savedMessage?.senderId ?? "",this?.savedMessage?.text ?? ""));
+  }
+}

@@ -152,4 +152,16 @@ abstract class AppServiceClient {
   Future<GetAllConversationsResponse> getAllConversations(
     @Path("userId") String userId,
   );
+
+  @GET("/chat/messages/{conversationId}")
+  Future<GetChatMessagesResponse> getChatMessages(
+    @Path("conversationId") String conversationId,
+  );
+
+  @POST("/chat/new-message")
+  Future<NewMessageResponse> newMessage(
+    @Field("conversation") String conversationId,
+    @Field("sender") String senderId,
+    @Field("text") String text,
+  );
 }

@@ -4,6 +4,7 @@ import 'package:sed/data/network/error_handler.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/data/network/network_info.dart';
 import 'package:sed/data/network/requests.dart';
+import 'package:sed/data/responses/responses.dart';
 import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/repository/repository.dart';
@@ -566,6 +567,59 @@ class RepositoryImpl implements Repository {
       try {
         final response = await _remoteDataSource.getAllConversations(
             GetAllConversationsRequest(getAllConversationsRequest.userId));
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetChatMessages>> getChatMessages(ChatMessagesRequest chatMessagesRequest) async{
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response = await _remoteDataSource.getChatMessages(
+            ChatMessagesRequest(chatMessagesRequest.conversationId));
+
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success , return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          //return either left
+          return Left(Failure(ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      //return connection error
+      //return either left
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, NewMessage>> newMessage(NewMessageRequest newMessageRequest) async{
+    if (await _networkInfo.isConnected) {
+      //device is connected to the internet, call api
+      try {
+        final response = await _remoteDataSource.newMessage(newMessageRequest);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //success , return data

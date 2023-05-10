@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/message/viewmodel/message_viewmodel.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -28,6 +30,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
   String? name;
   String? sellerId;
   String? conversationId;
+  GetChatMessages? messages;
   _MessagingScreenViewState(
       this.image, this.name, this.sellerId, this.conversationId);
 
@@ -35,9 +38,11 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
 
   final MessageViewModel _messageViewModel = MessageViewModel();
 
+  final TextEditingController _textEditingController = TextEditingController();
+
   void _bind() async {
     if (conversationId != null) {
-      //load messages
+      messages = await _messageViewModel.getConversationMessages(this.conversationId!);
     } else {
       //make new conversation
       conversationId =
@@ -103,19 +108,17 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
             Expanded(
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
-                itemCount: 70,
+                itemCount: messages != null ? messages!.messages.length : 0,
                 separatorBuilder: (context, index) => const SizedBox(
                   height: AppSize.s15,
                 ),
                 itemBuilder: ((context, index) {
-                  var random = Random();
-                  bool me = random.nextBool();
-
-                  if (me)
-                    return buildReceivedMessage("hello world");
-                  else
+                  if (messages!.messages[index].senderId == Utils.getUserId()) {
+                    return buildReceivedMessage(messages!.messages[index].message);
+                  } else {
                     return buildMyMessage(
-                        "hello world 2 asfas fas asf asf hello world 2 asfas fas asf asf ");
+                        messages!.messages[index].message);
+                  }
                 }),
               ),
             ),
@@ -124,7 +127,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    // controller: _textEditingController,
+                    controller: _textEditingController,
                     decoration: InputDecoration(
                       hintText: AppStrings.typeMessage,
                       contentPadding: const EdgeInsets.symmetric(
@@ -143,8 +146,8 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                 const SizedBox(width: AppSize.s20),
                 IconButton(
                   onPressed: () {
-                    // TODO: Implement sending message
-                    // _textEditingController.clear();
+                    _messageViewModel.sendMessage(conversationId ?? "", Utils.getUserId(), _textEditingController.text);
+                     _textEditingController.clear();
                   },
                   icon: Icon(
                     IconsManager.send,

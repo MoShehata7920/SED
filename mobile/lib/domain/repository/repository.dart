@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/data/network/requests.dart';
+import 'package:sed/data/responses/responses.dart';
 import 'package:sed/domain/model/models.dart';
 
 abstract class Repository {
@@ -59,4 +60,10 @@ abstract class Repository {
 
   Future<Either<Failure, GetAllConversations>> getAllConversations(
       GetAllConversationsRequest getAllConversationsRequest);
+
+  Future<Either<Failure, GetChatMessages>> getChatMessages(
+      ChatMessagesRequest chatMessagesRequest);
+
+  Future<Either<Failure, NewMessage>> newMessage(
+      NewMessageRequest newMessageRequest);
 }

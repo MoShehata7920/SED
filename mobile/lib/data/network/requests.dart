@@ -148,3 +148,17 @@ class GetAllConversationsRequest {
 
   GetAllConversationsRequest(this.userId);
 }
+
+class ChatMessagesRequest {
+  String conversationId;
+
+  ChatMessagesRequest(this.conversationId);
+}
+
+class NewMessageRequest {
+  String conversationId;
+  String senderId;
+  String text;
+
+  NewMessageRequest(this.conversationId, this.senderId, this.text);
+}

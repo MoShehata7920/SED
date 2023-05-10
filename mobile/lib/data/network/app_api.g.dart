@@ -693,6 +693,60 @@ class _AppServiceClient implements AppServiceClient {
     return value;
   }
 
+  @override
+  Future<GetChatMessagesResponse> getChatMessages(conversationId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetChatMessagesResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/chat/messages/${conversationId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetChatMessagesResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NewMessageResponse> newMessage(
+    conversationId,
+    senderId,
+    text,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'conversation': conversationId,
+      'sender': senderId,
+      'text': text,
+    };
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<NewMessageResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/chat/new-message',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = NewMessageResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

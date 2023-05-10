@@ -1,4 +1,7 @@
 import 'package:sed/app/di.dart';
+import 'package:sed/domain/model/models.dart';
+import 'package:sed/domain/usecase/chat_messages_usecase.dart';
+import 'package:sed/domain/usecase/chat_send_message_usecase.dart';
 import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
@@ -9,6 +12,12 @@ class MessageViewModel extends BaseViewModel
     with MessageViewModelInputs, MessageViewModelOutputs {
   final NewConversationUseCase _newConversationUseCase =
       instance<NewConversationUseCase>();
+
+  final ChatMessagesUseCase _chatMessagesUseCase =
+      instance<ChatMessagesUseCase>();
+
+  final NewMessageUseCase _newMessageUseCase =
+      instance<NewMessageUseCase>();
 
   @override
   void start() {}
@@ -37,10 +46,53 @@ class MessageViewModel extends BaseViewModel
     return conversationId;
   }
 
+  @override
+  Future<GetChatMessages> getConversationMessages(String conversationId) async {
+    inputState.add(LoadingState(
+        stateRendererType: StateRendererType.fullScreenLoadingState));
+
+    var response = await _chatMessagesUseCase.execute(
+        ChatMessageUseCaseInput(conversationId));
+
+    GetChatMessages result = GetChatMessages([]);
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+            }, (response) {
+      // right -> success
+
+      result = response;
+      
+      inputState.add(ContentState());
+    });
+
+    return result;
+  }
+
+  @override
+  void sendMessage(String conversationId, String senderId, String message) async{
+    var response = await _newMessageUseCase.execute(
+        NewMessageUseCaseInput(conversationId, senderId, message));
+
+    response.fold(
+            (failure) => {
+          // left -> failure
+        }, (response) {
+      // right -> success
+
+      inputState.add(ContentState());
+    });
+  }
+
 }
 
 abstract class MessageViewModelInputs {
   Future<String> createNewConversation(String sellerId);
+
+  Future<GetChatMessages> getConversationMessages(String conversationId);
+
+  void sendMessage(String conversationId, String senderId, String message);
 }
 
 abstract class MessageViewModelOutputs {}

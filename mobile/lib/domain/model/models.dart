@@ -283,3 +283,32 @@ class ConversationsData {
 
   ConversationsData(this.id, this.usersData);
 }
+
+class GetChatMessages {
+  List<Messages> messages;
+
+  GetChatMessages(this.messages);
+}
+
+class Messages {
+  String conversationId;
+  String senderId;
+  String message;
+  String createdAt;
+
+  Messages(this.conversationId, this.senderId, this.message, this.createdAt);
+}
+
+class NewMessage {
+  Message message;
+
+  NewMessage(this.message);
+}
+
+class Message {
+  String conversationId;
+  String senderId;
+  String message;
+
+  Message(this.conversationId, this.senderId, this.message);
+}

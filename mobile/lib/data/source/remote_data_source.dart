@@ -57,6 +57,12 @@ abstract class RemoteDataSource {
 
   Future<GetAllConversationsResponse> getAllConversations(
       GetAllConversationsRequest getAllConversationsRequest);
+
+  Future<GetChatMessagesResponse> getChatMessages(
+      ChatMessagesRequest chatMessagesRequest);
+
+  Future<NewMessageResponse> newMessage(
+      NewMessageRequest newMessageRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -264,5 +270,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       GetAllConversationsRequest getAllConversationsRequest) async {
     return await _appServiceClient
         .getAllConversations(getAllConversationsRequest.userId);
+  }
+
+  @override
+  Future<GetChatMessagesResponse> getChatMessages(
+      ChatMessagesRequest chatMessagesRequest) async {
+    return await _appServiceClient
+        .getChatMessages(chatMessagesRequest.conversationId);
+  }
+
+  @override
+  Future<NewMessageResponse> newMessage(NewMessageRequest newMessageRequest) async{
+    return await _appServiceClient
+        .newMessage(newMessageRequest.conversationId, newMessageRequest.senderId, newMessageRequest.text);
   }
 }
