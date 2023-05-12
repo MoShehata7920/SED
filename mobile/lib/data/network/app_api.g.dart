@@ -54,7 +54,7 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {'email': email};
+    final _data = {'searchOption': email};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ForgotPasswordResponse>(Options(
       method: 'POST',
@@ -63,7 +63,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/customers/forgotPassword',
+              '/auth/forgot',
               queryParameters: queryParameters,
               data: _data,
             )

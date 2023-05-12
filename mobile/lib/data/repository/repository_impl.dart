@@ -4,7 +4,6 @@ import 'package:sed/data/network/error_handler.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/data/network/network_info.dart';
 import 'package:sed/data/network/requests.dart';
-import 'package:sed/data/responses/responses.dart';
 import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/repository/repository.dart';
@@ -588,7 +587,8 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, GetChatMessages>> getChatMessages(ChatMessagesRequest chatMessagesRequest) async{
+  Future<Either<Failure, GetChatMessages>> getChatMessages(
+      ChatMessagesRequest chatMessagesRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {
@@ -615,7 +615,8 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, NewMessage>> newMessage(NewMessageRequest newMessageRequest) async{
+  Future<Either<Failure, NewMessage>> newMessage(
+      NewMessageRequest newMessageRequest) async {
     if (await _networkInfo.isConnected) {
       //device is connected to the internet, call api
       try {

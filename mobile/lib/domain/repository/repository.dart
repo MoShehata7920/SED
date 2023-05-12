@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/data/network/requests.dart';
-import 'package:sed/data/responses/responses.dart';
 import 'package:sed/domain/model/models.dart';
 
 abstract class Repository {

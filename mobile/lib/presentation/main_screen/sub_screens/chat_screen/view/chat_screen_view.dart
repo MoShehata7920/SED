@@ -41,13 +41,16 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FlowState>(
-      stream: _chatViewModel.outputState,
-      builder: (context, snapshot) {
-        return snapshot.data
-                ?.getScreenWidget(context, _getContentWidget(), () => () {}) ??
-            _getContentWidget();
-      },
+    return Scaffold(
+      backgroundColor: ColorsManager.primaryBackground,
+      body: StreamBuilder<FlowState>(
+        stream: _chatViewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getScreenWidget(
+                  context, _getContentWidget(), () => () {}) ??
+              _getContentWidget();
+        },
+      ),
     );
   }
 
