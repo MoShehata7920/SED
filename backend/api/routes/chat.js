@@ -26,7 +26,7 @@ router.get("/messages/:conversationId", async (req, res) => {
       conversation: req.params.conversationId,      //  conversation >> 'conversation id'
     });
     if(messages.length===0){
-      res.status(200).json({status:0 , message : "No messages yet", messages })
+      return res.status(200).json({status:0 , message : "No messages yet", messages })
     }
     res.status(200).json({status:0 , messages});
   } catch (err) {
