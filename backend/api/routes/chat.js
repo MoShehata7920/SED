@@ -65,6 +65,13 @@ router.get("/user-convs/:userId", async (req, res) => {
 
 //creating new conversation
 router.post("/new-conversation", async (req, res) => {
+  const existingConv=await Conversation.findOne({users:{ $all: [req.body.senderId, req.body.receiverId]}})
+
+  console.log(existingConv);
+
+  if(existingConv){
+    return res.status(200).json({status:0 , message : "This Conversation already exists " , existingConv})
+  }
   const newConversation = new Conversation({
     users: [req.body.senderId, req.body.receiverId],
   });
