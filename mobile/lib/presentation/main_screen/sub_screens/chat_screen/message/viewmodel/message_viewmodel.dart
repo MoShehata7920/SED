@@ -6,6 +6,7 @@ import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 
 class MessageViewModel extends BaseViewModel
@@ -72,18 +73,16 @@ class MessageViewModel extends BaseViewModel
 
   @override
   void sendMessage(String conversationId, String senderId, String message) async{
-    inputState.add(ContentState());
+    final ChatViewModel _chatViewModel =
+    instance<ChatViewModel>();
 
-    var response = await _newMessageUseCase.execute(
-        NewMessageUseCaseInput(conversationId, senderId, message));
+Map<String, dynamic> messageData = {
+  'conversationId': conversationId,
+  'senderId': senderId,
+  'text': message,
+};
 
-    response.fold(
-            (failure) => {
-          // left -> failure
-        }, (response) {
-      // right -> success
-
-    });
+    _chatViewModel.socket.emit('sendMessage', messageData);
   }
 
 }

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/app_preferences.dart';
@@ -195,7 +194,7 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget _getBottomSheetWidget(SliderViewObject sliderViewObject,
-      OnBoardingViewModel _viewModel, PageController _pageController) {
+      OnBoardingViewModel viewModel, PageController pageController) {
     return Container(
       color: ColorsManager.primaryBackground,
       child: Row(
@@ -216,7 +215,7 @@ class OnBoardingPage extends StatelessWidget {
               ),
               onTap: () {
                 // go to previous slide
-                _pageController.animateToPage(_viewModel.goPrevious(),
+                pageController.animateToPage(viewModel.goPrevious(),
                     duration: const Duration(
                         milliseconds: AppConstants.sliderAnimationTime),
                     curve: Curves.bounceIn);
@@ -224,7 +223,7 @@ class OnBoardingPage extends StatelessWidget {
             ),
           ),
           SmoothPageIndicator(
-              controller: _pageController, // PageController
+              controller: pageController, // PageController
               count: sliderViewObject.numOfSlides,
               effect: ExpandingDotsEffect(
                 expansionFactor: 4.0,
@@ -252,7 +251,7 @@ class OnBoardingPage extends StatelessWidget {
               ),
               onTap: () {
                 // go to previous slide
-                _pageController.animateToPage(_viewModel.goNext(),
+                pageController.animateToPage(viewModel.goNext(),
                     duration: const Duration(
                         milliseconds: AppConstants.sliderAnimationTime),
                     curve: Curves.bounceInOut);

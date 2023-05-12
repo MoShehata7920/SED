@@ -78,7 +78,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.darkBlack,
+      backgroundColor: ColorsManager.primaryBackground,
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {

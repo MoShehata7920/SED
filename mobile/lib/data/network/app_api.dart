@@ -19,9 +19,9 @@ abstract class AppServiceClient {
     @Field("password") String password,
   );
 
-  @POST("/customers/forgotPassword")
+  @POST("/auth/forgot")
   Future<ForgotPasswordResponse> forgotPassword(
-    @Field("email") String email,
+    @Field("searchOption") String email,
   );
 
   @POST("/auth/register")
@@ -106,7 +106,7 @@ abstract class AppServiceClient {
   Future<GetMyProfileDataResponse> getMyProfileData(
       @Header("Authentication") String token);
 
-  //todo change getmyprofileads to getSellerAdsById
+  //todo change getMyProfileAds to getSellerAdsById
   @GET("/products/seller/{sellerId}")
   Future<GetMyProfileAdsResponse> getMyProfileAds(
       @Path("sellerId") String sellerId,
