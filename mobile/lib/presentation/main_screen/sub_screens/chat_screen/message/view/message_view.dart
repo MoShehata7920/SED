@@ -154,18 +154,18 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
               const SizedBox(width: AppSize.s20),
               IconButton(
                 onPressed: () {
-                  messages!.messages.add(Messages(
-                      conversationId ?? "",
-                      Utils.getUserId(),
-                      _textEditingController.text,
-                      DateTime.now().toString()));
+                  // messages!.messages.add(Messages(
+                  //     conversationId ?? "",
+                  //     Utils.getUserId(),
+                  //     _textEditingController.text,
+                  //     DateTime.now().toString()));
                   _messageViewModel.sendMessage(conversationId ?? "",
                       Utils.getUserId(), _textEditingController.text);
-                  scrollController.animateTo(
-                    scrollController.position.maxScrollExtent+50,
-                    duration: const Duration(milliseconds: 1),
-                    curve: Curves.easeOut,
-                  );
+                  // scrollController.animateTo(
+                  //   scrollController.position.maxScrollExtent+50,
+                  //   duration: const Duration(milliseconds: 1),
+                  //   curve: Curves.easeOut,
+                  // );
                   _textEditingController.clear();
 
                 },

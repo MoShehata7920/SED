@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -15,7 +16,8 @@ class ChatScreenView extends StatefulWidget {
 }
 
 class _ChatScreenViewState extends State<ChatScreenView> {
-  final ChatViewModel _chatViewModel = ChatViewModel();
+  final ChatViewModel _chatViewModel =
+  instance<ChatViewModel>();
 
   void _bind() {
     _chatViewModel.getAllConversations();

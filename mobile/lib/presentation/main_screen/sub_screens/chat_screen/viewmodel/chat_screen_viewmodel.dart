@@ -20,6 +20,8 @@ class ChatViewModel extends BaseViewModel
   final GetAllConversationsUseCase _newConversationUseCase =
       instance<GetAllConversationsUseCase>();
 
+  late io.Socket socket;
+
   GetAllConversations conversations = GetAllConversations([]);
   @override
   void start() {
@@ -41,19 +43,18 @@ class ChatViewModel extends BaseViewModel
       _socketStreamController.stream.map((response) => response);
 
   void connectAndListen() {
-    io.Socket socket = io.io('http://192.168.1.2:9001',
+    socket = io.io('http://47.243.7.214:3000',
         OptionBuilder().setTransports(['websocket']).build());
 
     socket.onConnect((_) {
-      socket.emit('token', Constants.token);
+      socket.emit('token', "Bearer ${Constants.token}");
     });
 
     //When an event received from server, data is added to the stream
     socket.on('event', (data) => print(data));
     socket.onDisconnect((_) => print('disconnect'));
-    socket.emit("event", "{0,12}00");
 
-    socket.on('message', (data) => socketInput.add(data));
+    socket.on('messageReceived', (data) => socketInput.add(data));
   }
 
   @override
