@@ -13,7 +13,7 @@ exports.homePage = async (req, res) => {
     userData = check_auth.verifyTokenWithReturn(req.headers.authentication);
   }
   if (!lodash.isEmpty(userData)) {
-    const doc = await User.findById(userData.id).select('wishList -_id');
+    const doc = await User.findById(userData.id).select('wishList fullName -_id -__V');
     if (doc) { // check if doc is not null or undefined
       wishList = doc.wishList;
     }

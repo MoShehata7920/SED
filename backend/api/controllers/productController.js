@@ -160,7 +160,9 @@ exports.getProductsByQuery = async (req, res, next) => {
         if(search){
             query.$or = [
                 {productName:{$regex:search , $options:'i' }}, // i option to disable key sensetivity
-                {description:{$regex:search , $options: 'i' }}
+                {description:{$regex:search , $options: 'i' }},
+                {purpose:{$regex:search , $options: 'i' }},
+                {category:{$regex:search , $options: 'i' }}
                 ]
         }
 
