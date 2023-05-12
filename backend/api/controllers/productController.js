@@ -164,6 +164,7 @@ exports.getProductsByQuery = async (req, res, next) => {
                 {purpose:{$regex:search , $options: 'i' }},
                 {category:{$regex:search , $options: 'i' }}
                 ]
+            // query.$text= { $search: search, $diacriticSensitive: false }   
         }
 
         const doc = await Product.find(query)
@@ -309,20 +310,32 @@ exports.userProducts=async(req,res)=>{
     }
 }
 
-exports.searchQuery=async(req,res)=>{
-    const search=req.query.search
-    let query={}
+exports.searchQuery = async (req, res) => {
+    const search = req.query.search;
     try {
-        query.$or = [
-                {productName:{$regex:search , $options:'i' }}, // i option to disable key sensetivity
-                {description:{$regex:search , $options: 'i' }},
-                {purpose:{$regex:search , $options: 'i' }},
-                {category:{$regex:search , $options: 'i' }},
-            ]
-        const result=await Product.find(query)
-        const result_number=result.length
-        res.status(200).json({status:0,result ,result_number})
+        const result = await Product.find({ $text: { $search: search, $diacriticSensitive: false } });
+        const result_number = result.length;
+        res.status(200).json({ status: 0, result, result_number });
     } catch (err) {
-        res.status(500).json({status:1 , err});
+        res.status(500).json({ status: 1, err });
     }
 }
+
+// exports.searchQuery=async(req,res)=>{
+//     const search=req.query.search
+//     let query={}
+//     try {
+//         query.$or = [
+//                 {productName:{$regex:search , $options:'i' }}, // i option to disable key sensetivity
+//                 {description:{$regex:search , $options: 'i' }},
+//                 {purpose:{$regex:search , $options: 'i' }},
+//                 {category:{$regex:search , $options: 'i' }},
+//             ]
+//         const result=await Product.find(query)
+//         const result_number=result.length
+//         res.status(200).json({status:0,result ,result_number})
+//     } catch (err) {
+//         res.status(500).json({status:1 , err});
+//     }
+// }
+

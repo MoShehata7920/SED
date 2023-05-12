@@ -53,8 +53,10 @@ const productSchema = mongoose.Schema({
     }
 })
 
-productSchema.index({ purpose: 1 });
-productSchema.index({ productName: 'text' });
-productSchema.index({category:1});
+// productSchema.index({ purpose: 1 });
+// productSchema.index({ productName: 'text' });
+// productSchema.index({category:1});
+productSchema.index({ productName: "text", description: "text", purpose: "text", category: "text" }, { default_language: "english" });
+
 
 module.exports=mongoose.model('Product',productSchema)
