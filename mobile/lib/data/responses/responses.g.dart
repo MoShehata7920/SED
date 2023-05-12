@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -483,7 +481,12 @@ Map<String, dynamic> _$GetAllConversationsResponseToJson(
 ConversationsResponse _$ConversationsResponseFromJson(
         Map<String, dynamic> json) =>
     ConversationsResponse(
-      json['conversationId'] as String?,
+      json['_id'] as String?,
+      (json['users'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : UserDataResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -493,5 +496,60 @@ Map<String, dynamic> _$ConversationsResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'conversationId': instance.conversationId,
+      '_id': instance.conversationId,
+      'users': instance.usersData,
+    };
+
+GetChatMessagesResponse _$GetChatMessagesResponseFromJson(
+        Map<String, dynamic> json) =>
+    GetChatMessagesResponse(
+      (json['messages'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : MessagesResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$GetChatMessagesResponseToJson(
+        GetChatMessagesResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'messages': instance.messages,
+    };
+
+NewMessageResponse _$NewMessageResponseFromJson(Map<String, dynamic> json) =>
+    NewMessageResponse(
+      json['savedMessage'] == null
+          ? null
+          : MessagesResponse.fromJson(
+              json['savedMessage'] as Map<String, dynamic>),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$NewMessageResponseToJson(NewMessageResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'savedMessage': instance.savedMessage,
+    };
+
+MessagesResponse _$MessagesResponseFromJson(Map<String, dynamic> json) =>
+    MessagesResponse(
+      json['conversation'] as String?,
+      json['sender'] as String?,
+      json['text'] as String?,
+      json['createdAt'] as String?,
+    )..status = json['status'] as int?;
+
+Map<String, dynamic> _$MessagesResponseToJson(MessagesResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'conversation': instance.conversationId,
+      'sender': instance.senderId,
+      'text': instance.message,
+      'createdAt': instance.createdAt,
     };

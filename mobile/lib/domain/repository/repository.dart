@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:sed/data/network/failure.dart';
 import 'package:sed/data/network/requests.dart';
+import 'package:sed/data/responses/responses.dart';
 import 'package:sed/domain/model/models.dart';
 
 abstract class Repository {
@@ -50,10 +51,19 @@ abstract class Repository {
 
   Future<Either<Failure, ShowItems>> getSavedProducts();
 
-  Future<Either<Failure, ShowItems>> getSearchedProducts(String searchText);
+  Future<Either<Failure, ShowItems>> getSearchedProducts(
+      SearchRequest searchRequest);
 
   // Chat
-  Future<Either<Failure, NewConversation>> newConversation(NewConversationRequest newConversationRequest);
+  Future<Either<Failure, NewConversation>> newConversation(
+      NewConversationRequest newConversationRequest);
 
-  Future<Either<Failure, GetAllConversations>> getAllConversations(GetAllConversationsRequest getAllConversationsRequest);
+  Future<Either<Failure, GetAllConversations>> getAllConversations(
+      GetAllConversationsRequest getAllConversationsRequest);
+
+  Future<Either<Failure, GetChatMessages>> getChatMessages(
+      ChatMessagesRequest chatMessagesRequest);
+
+  Future<Either<Failure, NewMessage>> newMessage(
+      NewMessageRequest newMessageRequest);
 }

@@ -149,5 +149,7 @@
   "log_out": "Log out",
   "delete_account": "Delete Account",
   "address_error" : "Address invalid.",
-  "government_error" : "Government is invalid."
+  "government_error" : "Government is invalid.",
+  "type_message": "Type a message",
+  "messages": "Messages"
 }

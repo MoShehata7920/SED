@@ -46,8 +46,9 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
       _phoneController.text = _viewModel.userData!.user.phone;
       _addressController.text = _viewModel.userData!.user.address;
 
-      if(_viewModel.userData!.user.government.isNotEmpty)
-          selectedCity = _viewModel.userData!.user.government;
+      if (_viewModel.userData!.user.government.isNotEmpty) {
+        selectedCity = _viewModel.userData!.user.government;
+      }
 
       //_viewModel.userProfileObject.copyWith(userImage: _viewModel.userData!.user.image);
     }
@@ -102,7 +103,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
         backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
         iconTheme: IconThemeData(color: ColorsManager.secondaryText),
-        title: Text(AppStrings.myAccount.tr(),
+        title: Text(AppStrings.myAccount,
             style: TextStyle(color: ColorsManager.secondaryText)),
       ),
       backgroundColor: ColorsManager.primaryBackground,
@@ -125,7 +126,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(AppStrings.profilePic.tr(),
+            Text(AppStrings.profilePic,
                 style: TextStyle(
                     fontSize: AppSize.s20,
                     fontWeight: FontWeight.bold,
@@ -140,11 +141,11 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                   child: CircleAvatar(
                       backgroundColor: ColorsManager.primaryBackground,
                       radius: AppSize.s50,
-                      backgroundImage: _image != null ?
-                      FileImage(File(_image!.path)) as ImageProvider:
-                      NetworkImage(_viewModel.userData != null
-                          ? _viewModel.userData!.user.image
-                          : "")),
+                      backgroundImage: _image != null
+                          ? FileImage(File(_image!.path)) as ImageProvider
+                          : NetworkImage(_viewModel.userData != null
+                              ? _viewModel.userData!.user.image
+                              : "")),
                 ),
                 IconButton(
                   onPressed: () async {
@@ -153,10 +154,12 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                     setState(() {
                       _image = image as XFile;
 
-                      if(_image != null) {
+                      if (_image != null) {
                         File imageFile = File(_image!.path);
 
-                        _viewModel.userProfileObject = _viewModel.userProfileObject.copyWith(userImage: imageFile);
+                        _viewModel.userProfileObject = _viewModel
+                            .userProfileObject
+                            .copyWith(userImage: imageFile);
                       }
                     });
                   },
@@ -171,7 +174,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
               ],
             ),
             const SizedBox(height: AppSize.s24),
-            Text(AppStrings.profileInfo.tr(),
+            Text(AppStrings.profileInfo,
                 style: TextStyle(
                     fontSize: AppSize.s20,
                     fontWeight: FontWeight.bold,
@@ -180,21 +183,21 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: AppStrings.name.tr(),
+                labelText: AppStrings.name,
               ),
             ),
             const SizedBox(height: AppSize.s8),
             TextField(
               controller: _phoneController,
               decoration: InputDecoration(
-                labelText: AppStrings.phoneNumber.tr(),
+                labelText: AppStrings.phoneNumber,
               ),
             ),
             const SizedBox(height: AppSize.s8),
             DropdownButtonFormField<String>(
               value: selectedCity,
               decoration: InputDecoration(
-                labelText: AppStrings.selectGovernment.tr(),
+                labelText: AppStrings.selectGovernment,
               ),
               dropdownColor: ColorsManager.primaryBackground,
               items: AppStrings.governments.map((String government) {
@@ -214,7 +217,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
             TextField(
               controller: _addressController,
               decoration: InputDecoration(
-                labelText: AppStrings.address.tr(),
+                labelText: AppStrings.address,
               ),
               inputFormatters: [
                 LengthLimitingTextInputFormatter(50),
@@ -257,7 +260,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                 onPressed: () {
                   _viewModel.updateUserProfile();
                 },
-                child: Text(AppStrings.saveChanges.tr()),
+                child: Text(AppStrings.saveChanges),
               ),
             ),
             const SizedBox(height: AppSize.s16),
@@ -272,12 +275,12 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                           .pushReplacementNamed(Routes.loginRoute);
                     });
                   },
-                  child: Text(AppStrings.logOut.tr()),
+                  child: Text(AppStrings.logOut),
                 ),
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    AppStrings.deleteAccount.tr(),
+                    AppStrings.deleteAccount,
                     style: TextStyle(color: ColorsManager.error),
                   ),
                 ),

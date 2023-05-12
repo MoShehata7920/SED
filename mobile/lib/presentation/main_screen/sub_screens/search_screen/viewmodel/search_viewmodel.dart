@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:sed/domain/usecase/search_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import '../../../../../app/di.dart';
+import '../../../../../domain/model/models.dart';
 
 class SearchViewModel extends BaseViewModel
     with SearchViewModelInputs, SearchViewModelOutputs {
@@ -14,10 +17,13 @@ class SearchViewModel extends BaseViewModel
   final StreamController _isListeningStreamController =
       StreamController<bool>.broadcast();
 
+  final SearchUseCase _searchUseCase = instance<SearchUseCase>();
+
   final SpeechToText speech = SpeechToText();
 
   Stream<String> get onSearchChanged => _searchStreamController.stream;
 
+  ShowItems? items;
   @override
   void start() {
     // TODO: implement start
@@ -25,6 +31,7 @@ class SearchViewModel extends BaseViewModel
 
   void onSearchTextChanged(String value) {
     _searchStreamController.add(value);
+    getProducts(value);
   }
 
   Future<void> initSpeechRecognition() async {
@@ -68,6 +75,22 @@ class SearchViewModel extends BaseViewModel
     print("Status: $status");
   }
 
+  @override
+  void getProducts(String text) async {
+    items = null;
+    var response = await _searchUseCase.execute(SearchUseCaseInputs(text));
+
+    response.fold(
+        (failure) => {
+              // left -> failure
+            }, (response) {
+      items = response;
+
+      _searchStreamController.add("1");
+    });
+  }
+
+  @override
   void dispose() {
     searchController.dispose();
     _searchStreamController.close();
@@ -85,6 +108,8 @@ class SearchViewModel extends BaseViewModel
 
 abstract class SearchViewModelInputs {
   Sink get micInput;
+
+  void getProducts(String text);
 }
 
 abstract class SearchViewModelOutputs {

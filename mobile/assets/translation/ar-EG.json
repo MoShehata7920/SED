@@ -149,5 +149,7 @@
     "log_out": "تسجيل الخروج",
     "delete_account": "حذف الحساب",
     "address_error" : "يرجى التاكد من العنوان",
-    "government_error" : "يرجى التاكد من المحافظة"
+    "government_error" : "يرجى التاكد من المحافظة",
+    "type_message": "اكتب رسالة",
+    "messages": "الرسائل"
 }

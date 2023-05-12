@@ -164,7 +164,7 @@ class OnBoardingPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Routes.registerRoute);
                 },
-                child: Text(AppStrings.register.tr())),
+                child: Text(AppStrings.register)),
           ).animateOnPageLoad(msDelay: 550, dx: -79.0, dy: 0, showDelay: 900),
         ),
         Row(
@@ -172,7 +172,7 @@ class OnBoardingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppStrings.loginText.tr(),
+              AppStrings.loginText,
               style: TextStyle(color: ColorsManager.secondaryText),
             ),
             TextButton(
@@ -180,7 +180,7 @@ class OnBoardingPage extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, Routes.loginRoute);
               },
               child: Text(
-                AppStrings.login.tr(),
+                AppStrings.login,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

@@ -32,10 +32,11 @@ class Utils {
 
   static String getCreatedTime(String dateString) {
     var dt = DateTime.parse(dateString);
-    var now =  DateTime.now().toUtc();
-    var dtUtc = DateTime.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second);
+    var now = DateTime.now().toUtc();
+    var dtUtc =
+        DateTime.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second);
 
-    var timeSpan =now.difference(dtUtc);
+    var timeSpan = now.difference(dtUtc);
 
     if (timeSpan.inSeconds <= 60) {
       return sprintf("%d seconds ago", [timeSpan.inSeconds]);
@@ -63,14 +64,11 @@ class Utils {
   static String getUserId() {
     try {
       // Decode the token payload
-      print(Constants.token);
       Map<String, dynamic> decodedToken = json
           .decode(utf8.decode(base64Url.decode(Constants.token.split(".")[1])));
 
       // Get the user ID from the decoded JSON object
       return decodedToken["id"];
-
-      return "userId";
     } catch (e) {
       print("Error decoding JWT token: $e");
       return "";

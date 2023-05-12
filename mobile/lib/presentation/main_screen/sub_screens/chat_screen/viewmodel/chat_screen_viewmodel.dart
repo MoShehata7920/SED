@@ -10,14 +10,17 @@ import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:socket_io_client/socket_io_client.dart';
 
+import '../../../../../domain/model/models.dart';
+
 class ChatViewModel extends BaseViewModel
     with ChatViewModelInputs, ChatViewModelOutputs {
   final StreamController _socketStreamController =
       StreamController<String>.broadcast();
 
   final GetAllConversationsUseCase _newConversationUseCase =
-  instance<GetAllConversationsUseCase>();
+      instance<GetAllConversationsUseCase>();
 
+  GetAllConversations conversations = GetAllConversations([]);
   @override
   void start() {
     connectAndListen();
@@ -54,18 +57,19 @@ class ChatViewModel extends BaseViewModel
   }
 
   @override
-  void getAllConversations() async{
+  void getAllConversations() async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    var response = await _newConversationUseCase.execute(
-        GetAllConversationsUseCaseInput(Utils.getUserId()));
+    var response = await _newConversationUseCase
+        .execute(GetAllConversationsUseCaseInput(Utils.getUserId()));
 
     response.fold(
-            (failure) => {
-          // left -> failure
-        }, (response) {
+        (failure) => {
+              // left -> failure
+            }, (response) {
       // right -> success
+      conversations = response;
 
       inputState.add(ContentState());
     });

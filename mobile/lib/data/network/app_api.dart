@@ -135,9 +135,10 @@ abstract class AppServiceClient {
     @Header("token") String token,
   );
 
-  @POST("/products/search")
-  Future<SearchResponse> getSearchProducts(
-    @Header("token") String token,
+  // search
+  @GET("/products/search")
+  Future<ShowItemsResponse> getSearchProducts(
+    @Query("search") String searchText,
   );
 
   // chat
@@ -150,5 +151,17 @@ abstract class AppServiceClient {
   @GET("/chat/user-convs/{userId}")
   Future<GetAllConversationsResponse> getAllConversations(
     @Path("userId") String userId,
+  );
+
+  @GET("/chat/messages/{conversationId}")
+  Future<GetChatMessagesResponse> getChatMessages(
+    @Path("conversationId") String conversationId,
+  );
+
+  @POST("/chat/new-message")
+  Future<NewMessageResponse> newMessage(
+    @Field("conversation") String conversationId,
+    @Field("sender") String senderId,
+    @Field("text") String text,
   );
 }

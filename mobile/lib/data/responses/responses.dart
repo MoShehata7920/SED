@@ -509,10 +509,13 @@ class GetAllConversationsResponse extends BaseResponse {
 
 @JsonSerializable()
 class ConversationsResponse extends BaseResponse {
-  @JsonKey(name: "conversationId")
+  @JsonKey(name: "_id")
   String? conversationId;
 
-  ConversationsResponse(this.conversationId);
+  @JsonKey(name: "users")
+  List<UserDataResponse?>? usersData;
+
+  ConversationsResponse(this.conversationId, this.usersData);
 
   // From Json
   factory ConversationsResponse.fromJson(Map<String, dynamic> json) =>
@@ -520,4 +523,60 @@ class ConversationsResponse extends BaseResponse {
 
   // To Json
   Map<String, dynamic> toJson() => _$ConversationsResponseToJson(this);
+}
+
+@JsonSerializable()
+class GetChatMessagesResponse extends BaseResponse {
+  @JsonKey(name: "messages")
+  List<MessagesResponse?>? messages;
+
+  GetChatMessagesResponse(this.messages);
+
+  // From Json
+  factory GetChatMessagesResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetChatMessagesResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$GetChatMessagesResponseToJson(this);
+}
+
+@JsonSerializable()
+class NewMessageResponse extends BaseResponse {
+  @JsonKey(name: "savedMessage")
+  MessagesResponse? savedMessage;
+
+  NewMessageResponse(this.savedMessage);
+
+  // From Json
+  factory NewMessageResponse.fromJson(Map<String, dynamic> json) =>
+      _$NewMessageResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$NewMessageResponseToJson(this);
+}
+
+
+@JsonSerializable()
+class MessagesResponse extends BaseResponse {
+  @JsonKey(name: "conversation")
+  String? conversationId;
+
+  @JsonKey(name: "sender")
+  String? senderId;
+
+  @JsonKey(name: "text")
+  String? text;
+
+  @JsonKey(name: "createdAt")
+  String? createdAt;
+
+
+  MessagesResponse(this.conversationId, this.senderId, this.text, this.createdAt);
+
+  // From Json
+  factory MessagesResponse.fromJson(Map<String, dynamic> json) =>
+      _$MessagesResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$MessagesResponseToJson(this);
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import '../../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../../resources/values_manager.dart';
 
 class ChatScreenView extends StatefulWidget {
@@ -39,14 +41,17 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget(AppStrings.messages);
+    return StreamBuilder<FlowState>(
+      stream: _chatViewModel.outputState,
+      builder: (context, snapshot) {
+        return snapshot.data
+                ?.getScreenWidget(context, _getContentWidget(), () => () {}) ??
+            _getContentWidget();
+      },
+    );
   }
 
-  Widget _getContentWidget(snapshot) {
-    if (snapshot == null) {
-      return Container();
-    }
-
+  Widget _getContentWidget() {
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
@@ -54,7 +59,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
-          snapshot,
+          AppStrings.messages,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontSize: AppSize.s16, color: ColorsManager.primaryText),
         ),
@@ -84,64 +89,9 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                       const SizedBox(
                         height: AppSize.s5,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, Routes.messagingScreenRoute);
-                        },
-                        child: _messageObject(
-                            context,
-                            "http://i.epvpimg.com/tRsTeab.png",
-                            "Mohamed Shehata",
-                            "1:05",
-                            "Hey bo, i wanna to buy this phone",
-                            true),
-                      ),
-                      InkWell(
-                        child: _messageObject(
-                            context,
-                            "http://i.epvpimg.com/y6anfab.png",
-                            "Mahmoud Hafez",
-                            "10:55",
-                            "Let's connect Monday and talk about exchanging phones deal!",
-                            false),
-                      ),
-                      InkWell(
-                        child: _messageObject(
-                            context,
-                            "http://i.epvpimg.com/EKVpeab.png",
-                            "Abdallah",
-                            "1:43",
-                            "Let's connect Monday and talk about exchanging phones deal! or u don't have free time",
-                            false),
-                      ),
-                      InkWell(
-                        child: _messageObject(
-                            context,
-                            "http://i.epvpimg.com/ioIcfab.png",
-                            "Mahmoud Elamrosy",
-                            "1:05",
-                            "Let's connect Monday and talk about exchanging phones deal!",
-                            true),
-                      ),
-                      InkWell(
-                        child: _messageObject(
-                            context,
-                            "http://i.epvpimg.com/vTCgeab.png",
-                            "Firminio",
-                            "1:05",
-                            "Let's connect Monday and talk about exchanging phones deal!",
-                            true),
-                      ),
-                      InkWell(
-                        child: _messageObject(
-                            context,
-                            "http://i.epvpimg.com/hB5oeab.png",
-                            "Ezzat",
-                            "1:05",
-                            "Let's connect Monday and talk about exchanging phones deal!",
-                            false),
-                      ),
+                      Column(
+                        children: _buildConversation(),
+                      )
                     ],
                   )
                 ],
@@ -153,13 +103,49 @@ class _ChatScreenViewState extends State<ChatScreenView> {
     );
   }
 
+  List<Widget> _buildConversation() {
+    List<Widget> widgets = [];
+
+    for (var element in _chatViewModel.conversations.conversationsData) {
+      widgets.add(InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, Routes.messagingScreenRoute, arguments: [
+            element.usersData[0].id == Utils.getUserId()
+                ? element.usersData[1].image
+                : element.usersData[0].image,
+            element.usersData[0].id == Utils.getUserId()
+                ? element.usersData[1].name
+                : element.usersData[0].name,
+            element.usersData[0].id == Utils.getUserId()
+                ? element.usersData[1].id
+                : element.usersData[0].id,
+            element.id
+          ]);
+        },
+        child: _messageObject(
+            context,
+            element.usersData[0].id == Utils.getUserId()
+                ? element.usersData[1].image
+                : element.usersData[0].image,
+            element.usersData[0].id == Utils.getUserId()
+                ? element.usersData[1].name
+                : element.usersData[0].name,
+            "1:05",
+            "Hey bo, i wanna to buy this phone",
+            true),
+      ));
+    }
+
+    return widgets;
+  }
+
   Widget _messageObject(
       BuildContext context,
-      String _messageImage,
-      String _messageSender,
-      String _messageTime,
-      String _messageTitle,
-      bool _isUnread) {
+      String messageImage,
+      String messageSender,
+      String messageTime,
+      String messageTitle,
+      bool isUnread) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(
           AppPadding.p0, AppPadding.p6, AppPadding.p0, AppPadding.p0),
@@ -173,7 +159,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if (_isUnread == true)
+              if (isUnread == true)
                 Container(
                   width: AppSize.s10,
                   height: AppSize.s10,
@@ -202,7 +188,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                     shape: BoxShape.circle,
                   ),
                   child: Image.network(
-                    _messageImage,
+                    messageImage,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -233,7 +219,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        _messageSender,
+                                        messageSender,
                                         maxLines: 1,
                                         style: Theme.of(context)
                                             .textTheme
@@ -250,7 +236,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          _messageTime,
+                                          messageTime,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge
@@ -284,7 +270,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                       AppPadding.p22,
                                       AppPadding.p0),
                                   child: Text(
-                                    _messageTitle,
+                                    messageTitle,
                                     maxLines: 2,
                                     style: Theme.of(context)
                                         .textTheme

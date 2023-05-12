@@ -117,15 +117,15 @@ class _LoginViewState extends State<LoginView> {
                         controller: _userNameController,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: AppStrings.email.tr(),
+                          hintText: AppStrings.email,
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),
-                          labelText: AppStrings.email.tr(),
+                          labelText: AppStrings.email,
                           errorText: (snapshot.data ??
                                   true) //check if the username was null
                               ? null //then no errors
-                              : AppStrings.emailInValid.tr(),
+                              : AppStrings.emailInValid,
                           //else present the error to the user
                         ),
                         style: TextStyle(color: ColorsManager.secondaryText),
@@ -143,8 +143,8 @@ class _LoginViewState extends State<LoginView> {
                         controller: _userPasswordController,
                         obscureText: _viewModel.obscureText,
                         decoration: InputDecoration(
-                          hintText: AppStrings.password.tr(),
-                          labelText: AppStrings.password.tr(),
+                          hintText: AppStrings.password,
+                          labelText: AppStrings.password,
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),
@@ -186,7 +186,7 @@ class _LoginViewState extends State<LoginView> {
                                     _viewModel.login();
                                   }
                                 : null,
-                            child: Text(AppStrings.login.tr())),
+                            child: Text(AppStrings.login)),
                       );
                     }),
               ),
@@ -203,7 +203,7 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.registerRoute);
                         },
-                        child: Text(AppStrings.register.tr())),
+                        child: Text(AppStrings.register)),
                   ),
                   const SizedBox(
                     width: AppSize.s10,
@@ -230,7 +230,7 @@ class _LoginViewState extends State<LoginView> {
                 padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
                     AppPadding.p12, AppPadding.p0, AppPadding.p0),
                 child: Text(
-                  AppStrings.useSocialToLoginText.tr(),
+                  AppStrings.useSocialToLoginText,
                   style: TextStyle(color: ColorsManager.secondaryText),
                 ),
               ),

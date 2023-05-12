@@ -10,6 +10,8 @@ import 'package:sed/data/repository/repository_impl.dart';
 import 'package:sed/data/source/remote_data_source.dart';
 import 'package:sed/domain/repository/repository.dart';
 import 'package:sed/domain/usecase/change_password_usecase.dart';
+import 'package:sed/domain/usecase/chat_messages_usecase.dart';
+import 'package:sed/domain/usecase/chat_send_message_usecase.dart';
 import 'package:sed/domain/usecase/delete_item_usecase.dart';
 import 'package:sed/domain/usecase/forgotpassword_usecase.dart';
 import 'package:sed/domain/usecase/get_all_conversations_usecase.dart';
@@ -23,6 +25,7 @@ import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/domain/usecase/notifications.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
+import 'package:sed/domain/usecase/search_usecase.dart';
 import 'package:sed/domain/usecase/show_items_usecase.dart';
 import 'package:sed/domain/usecase/show_profile_usecase.dart';
 import 'package:sed/domain/usecase/update_profile_usecase.dart';
@@ -134,11 +137,19 @@ Future<void> initAppModule() async {
   instance.registerFactory<ChangePasswordUsecase>(
       () => ChangePasswordUsecase(instance()));
 
+  instance.registerFactory<SearchUseCase>(() => SearchUseCase(instance()));
+
   instance.registerFactory<NewConversationUseCase>(
       () => NewConversationUseCase(instance()));
 
   instance.registerFactory<GetAllConversationsUseCase>(
       () => GetAllConversationsUseCase(instance()));
+
+  instance.registerFactory<ChatMessagesUseCase>(
+      () => ChatMessagesUseCase(instance()));
+
+  instance.registerFactory<NewMessageUseCase>(
+      () => NewMessageUseCase(instance()));
 
   await initNotificationModule();
 }

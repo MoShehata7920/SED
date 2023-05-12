@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -50,7 +49,7 @@ class _EmailVerificationScreenViewState
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
           child: Text(
-            AppStrings.verifyYourEmail.tr(),
+            AppStrings.verifyYourEmail,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.primaryText,
                   fontSize: AppSize.s20,
@@ -60,7 +59,7 @@ class _EmailVerificationScreenViewState
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text(
-            AppStrings.enterOtp.tr(),
+            AppStrings.enterOtp,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorsManager.secondaryText,
                   fontSize: AppSize.s15,
@@ -116,7 +115,7 @@ class _EmailVerificationScreenViewState
             child: TextButton(
                 onPressed: () {},
                 child: Text(
-                  AppStrings.resendCode.tr(),
+                  AppStrings.resendCode,
                   style: TextStyle(color: ColorsManager.primaryColor),
                 ))),
         Padding(
