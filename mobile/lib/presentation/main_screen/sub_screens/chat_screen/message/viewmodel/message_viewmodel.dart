@@ -76,7 +76,13 @@ class MessageViewModel extends BaseViewModel
     final ChatViewModel _chatViewModel =
     instance<ChatViewModel>();
 
-    _chatViewModel.socket.emit('sendMessage', NewMessageUseCaseInput(conversationId, senderId, message));
+Map<String, dynamic> messageData = {
+  'conversationId': conversationId,
+  'senderId': senderId,
+  'text': message,
+};
+
+    _chatViewModel.socket.emit('sendMessage', messageData);
   }
 
 }
