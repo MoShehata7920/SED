@@ -4,22 +4,51 @@ import { useEffect, useState } from "react";
 import Navebar from "../../Component/navebar/navbar";
 import "./dataitems.css";
 import Footer from "../../Component/footer/Footer";
+import { MdOutlineFavorite } from "react-icons/md";
 
 export default function Dataitems() {
   let { id } = useParams();
   let [Dataitems, setDataitems] = useState([]);
   let [SellerData, setSellerData] = useState([]);
-  console.log(SellerData._id);
+  const [response, setResponse] = useState("");
+  const [ID, setID] = useState({
+    prodId: id,
+  });
+  const [ErrorMessage, setErrorMessage] = useState("");
+  const storedToken = localStorage.getItem("usertoken");
 
-  async function Getitems(id, callback) {
+  async function Getitems(callback) {
     let { data } = await Axios.get(
       `http://47.243.7.214:3000/products/product/${id}`
     );
     callback(data.product);
     setSellerData(data.product.seller);
   }
+
+  async function SetWichlist() {
+    let request = await Axios.patch(
+      `http://47.243.7.214:3000/users/addToWishlist`,
+      ID,
+      {
+        headers: {
+          Authentication: `Bearer ${storedToken}`,
+        },
+      }
+    )
+      .then((response) => {
+        setResponse(response.data.message);
+      })
+      .catch((error) => {
+        // check for the response property of the error object
+        if (error.response) {
+          // set the error message state variable with the error message
+          setErrorMessage(error.response.data.message);
+        }
+      });
+  }
+
   useEffect(() => {
-    Getitems(id, setDataitems);
+    Getitems(setDataitems);
   }, []);
   return (
     <>
@@ -66,6 +95,15 @@ export default function Dataitems() {
                   </div>
                   <div className="mt-3 text-center">
                     <button className=" btn-items">contact</button>
+                  </div>
+                  <div className="  text-end me-2">
+                    <Link onClick={SetWichlist}>
+                      <ul className=" text-decoration-none">
+                        <i className=" fs-1 whichlist_bg">
+                          <MdOutlineFavorite />
+                        </i>
+                      </ul>
+                    </Link>
                   </div>
                 </div>
               </div>

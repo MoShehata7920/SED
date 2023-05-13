@@ -10,14 +10,16 @@ export default function SearchPage() {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   let [Searchdata, setSearchdata] = useState([]);
+
   const SearchDeta = async () => {
     setError(null);
     setIsPending(true);
     try {
       let respond = await Axios.get(
-        `http://103.48.193.225:3000/products/get?purpose=${greeting}&page=1`
+        `http://47.243.7.214:3000/products/search?search=${greeting}`
       );
       setSearchdata(respond.data.items);
+      console.log(respond.data);
       setIsPending(false);
       //setError(null);
     } catch (err) {
@@ -42,14 +44,14 @@ export default function SearchPage() {
               <div className="col-3">
                 <Link
                   key={index}
-                  to={`/items/${search.ID}`}
+                  to={`/items/${search._id}`}
                   className="text-decoration-none "
                 >
                   <div className="item slider-style2 mb-1 ">
                     <div className="slider-service-div  text-center  ">
                       <div className="slider-service-img ">
                         <img
-                          src={search.Image}
+                          src={search.productImage}
                           className="card-img-top w-100 h-100  "
                           alt="..."
                         />
@@ -57,18 +59,17 @@ export default function SearchPage() {
 
                       <div className="slider-service-title">
                         <h5 className="card-title text-black mb-3 mt-3">
-                          {search.Name}
+                          {search.productName}
                         </h5>
                       </div>
                       <div className="slider-service-detailes ">
                         <p className=" text-black  h-100 w-100 ">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content
+                          {search.description}
                         </p>
                       </div>
                       <div className="slider-service-price ">
                         <p className=" text-black mb-3 h-100 w-100">
-                          {search.Price}
+                          {search.price}
                         </p>
                       </div>
 

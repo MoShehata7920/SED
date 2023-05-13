@@ -24,7 +24,7 @@ import Help from "../Pages/Profile/Settings/Help/Help";
 import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
 import Product_Editing from "../Pages/Profile/Product_Editing/Product_Editing";
-import Chat from "../Pages/Chat/Chat";
+// import Chat from "../Pages/Chat/Chat";
 
 function MainRoutes() {
   const storedToken = localStorage.getItem("usertoken");
@@ -82,7 +82,7 @@ function MainRoutes() {
           element={<Product_Editing />}
         />
       </Routes>
-      <Chat/>
+      {/* <Chat /> */}
     </>
   );
 }
