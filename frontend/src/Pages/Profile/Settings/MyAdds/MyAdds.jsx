@@ -11,7 +11,7 @@ function MyAdds() {
   window.localStorage.setItem("Productdata", JSON.stringify(Productitems));
   async function GetProductitems(ProductId, callback) {
     let { data } = await Axios.get(
-      `http://103.48.193.225:3000/products/product/${ProductId}`
+      `http://47.243.7.214:3000/products/product/${ProductId}`
     );
     callback(data.product);
   }
