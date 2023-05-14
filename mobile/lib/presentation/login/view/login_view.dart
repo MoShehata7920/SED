@@ -8,6 +8,7 @@ import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart'
 import 'package:sed/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sed/presentation/resources/theme_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/routes_manager.dart';
@@ -84,20 +85,27 @@ class _LoginViewState extends State<LoginView> {
         Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage(ImageAssets.loginBackground)))),
+                    image: ThemeManager.isDarkMode
+                        ? const AssetImage(ImageAssets.loginBackgroundDarkMode)
+                        : const AssetImage(
+                            ImageAssets.loginBackgroundLightMode)))),
         SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
                     AppPadding.p65, AppPadding.p0, AppPadding.p25),
                 child: Image(
-                  image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
+                  image: ThemeManager.isDarkMode
+                      ? const AssetImage(
+                          ImageAssets.loginDarkModeLoginLogoDarkMode)
+                      : const AssetImage(
+                          ImageAssets.loginDarkModeLoginLogoLightMode),
                   width: AppSize.s160,
                   height: AppSize.s140,
                   fit: BoxFit.cover,

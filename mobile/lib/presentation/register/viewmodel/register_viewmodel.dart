@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
+import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../common/freezed_data_classes.dart';
 import '../../common/state_renderer/state_renderer.dart';
@@ -26,6 +28,9 @@ class RegisterViewModel extends BaseViewModel
   final StreamController _confirmPasswordStreamController =
       StreamController<String>.broadcast();
 
+  final StreamController _passwordVisibilityController =
+      StreamController<void>.broadcast();
+
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
@@ -38,6 +43,10 @@ class RegisterViewModel extends BaseViewModel
   var registerObject = RegisterObject("", "", "", "", "");
 
   RegisterViewModel(this._registerUseCase);
+
+  IconData passwordSuffixIcon = IconsManager.passwordVisible;
+
+  bool obscureText = true;
 
   // inputs
   @override
@@ -131,6 +140,9 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Sink get inputConfirmPassword => _confirmPasswordStreamController.sink;
+
+  @override
+  Sink get inputPasswordVisible => _passwordVisibilityController.sink;
 
   @override
   register() async {
@@ -256,6 +268,19 @@ class RegisterViewModel extends BaseViewModel
     }
     validate();
   }
+
+  @override
+  togglePasswordVisibility() {
+    obscureText = !obscureText;
+
+    if (obscureText) {
+      passwordSuffixIcon = IconsManager.passwordVisible;
+    } else {
+      passwordSuffixIcon = IconsManager.passwordNotVisible;
+    }
+
+    inputPasswordVisible.add(null);
+  }
 }
 
 abstract class RegisterViewModelInputs {
@@ -269,9 +294,13 @@ abstract class RegisterViewModelInputs {
 
   Sink get inputConfirmPassword;
 
+  Sink get inputPasswordVisible;
+
   Sink get inputAllInputsValid;
 
   register();
+
+  togglePasswordVisibility();
 
   setUserName(String userName);
 

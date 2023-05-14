@@ -99,6 +99,11 @@ class AppStrings {
   static String username = "user_name".tr();
 
   // Home Screen
+  static String home = "Home";
+  static String chat = "Chat";
+  static String add = "Add";
+  static String saved = "Saved";
+  static String settings = "Settings";
   static const String welcomeMessage = "welcome_message";
   static const String allCategories = "all_categories";
   static const String sellProducts = "sell_products";
@@ -108,11 +113,9 @@ class AppStrings {
   static const String lastProducts = "last_products";
   static const String searchHere = "search_here";
   static const String user = "user";
-  static const String chat = "chat";
   static const String showProfile = "show_profile";
   static const String topCategories = "top_categories";
   static const String findYourProducts = "find_your_products";
-  static const String saved = "saved";
   static const String sell = "sell";
 
   // Add products screen
@@ -135,11 +138,10 @@ class AppStrings {
   static String fieldError = "field_error".tr();
 
   //  setting screen
-  static String settings = "settings".tr();
   static String general = "general".tr();
   static String account = "account".tr();
   static String myAds = "my_ads".tr();
-  static String language = "language".tr();
+  static String language = "language";
   static String convertToLightMode = "convert_to_light_mode".tr();
   static String convertToDarkMode = "convert_to_dark_mode".tr();
   static String notifications = "notifications".tr();

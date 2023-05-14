@@ -7,9 +7,14 @@ class ImageAssets {
   static const String lightModeSplashLogo = '$imagePath/light_mode_logo.png';
   static const String darkModeSplashLogo = '$imagePath/dark_mode_logo.png';
   static const String onBoardingLogo = '$imagePath/onboarding_logo.png';
-  static const String loginDarkModeLoginLogo =
-      '$imagePath/login_dark_mode_logo.png';
-  static const String loginBackground = '$imagePath/login_background.png';
+  static const String loginDarkModeLoginLogoDarkMode =
+      '$imagePath/login_dark_mode_logo_dark_mode.png';
+  static const String loginDarkModeLoginLogoLightMode =
+      '$imagePath/login_dark_mode_logo_light_mode.png';
+  static const String loginBackgroundDarkMode =
+      '$imagePath/login_background_dark_mode.png';
+  static const String loginBackgroundLightMode =
+      '$imagePath/login_background_light_mode.png';
   static const String noImage = "$imagePath/no_image.png";
   static const String emailVerification = "$imagePath/email_verification.png";
   static const String egyptFlag = "$imagePath/egypt.png";

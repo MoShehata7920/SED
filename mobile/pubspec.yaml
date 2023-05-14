@@ -96,8 +96,10 @@ flutter:
     - assets/images/light_mode_logo.png
     - assets/images/dark_mode_logo.png
     - assets/images/onboarding_logo.png
-    - assets/images/login_dark_mode_logo.png
-    - assets/images/login_background.png
+    - assets/images/login_dark_mode_logo_dark_mode.png
+    - assets/images/login_background_dark_mode.png
+    - assets/images/login_background_light_mode.png
+    - assets/images/login_dark_mode_logo_light_mode.png
     - assets/images/no_image.png
     - assets/images/egypt.png
     - assets/images/email_verification.png

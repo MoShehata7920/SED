@@ -30,7 +30,7 @@ class _MainScreenViewState extends State<MainScreenView> {
         builder: (context, snapshot) {
           return Scaffold(
               extendBody: true,
-              backgroundColor: ColorsManager.darkBlack,
+              backgroundColor: ColorsManager.primaryBackground,
               body: snapshot.data ??
                   _viewModel.mainScreenWidgets[0], //destination screen
               bottomNavigationBar: ConvexAppBar.badge(
@@ -38,6 +38,7 @@ class _MainScreenViewState extends State<MainScreenView> {
                 badgeMargin: const EdgeInsets.only(
                     left: AppPadding.p14, bottom: AppPadding.p14),
                 activeColor: ColorsManager.secondaryText,
+                color: ColorsManager.grayIcon,
                 backgroundColor: ColorsManager.primaryBackground,
                 items: IconsManager.iconsList,
                 onTap: (int i) => _viewModel.onIndexChange(i),

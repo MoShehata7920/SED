@@ -5,6 +5,7 @@ import 'package:sed/presentation/resources/assets_manager.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
+import 'package:sed/presentation/resources/theme_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 import '../../../app/di.dart';
 import '../../common/google_authentication/view/google_authentication_view.dart';
@@ -95,20 +96,27 @@ class _RegisterViewState extends State<RegisterView> {
         Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage(ImageAssets.loginBackground)))),
+                    image: ThemeManager.isDarkMode
+                        ? const AssetImage(ImageAssets.loginBackgroundDarkMode)
+                        : const AssetImage(
+                            ImageAssets.loginBackgroundLightMode)))),
         SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
                       AppPadding.p65, AppPadding.p0, AppPadding.p0),
                   child: Image(
-                    image: AssetImage(ImageAssets.loginDarkModeLoginLogo),
+                    image: ThemeManager.isDarkMode
+                        ? const AssetImage(
+                            ImageAssets.loginDarkModeLoginLogoDarkMode)
+                        : const AssetImage(
+                            ImageAssets.loginDarkModeLoginLogoLightMode),
                     width: AppSize.s160,
                     height: AppSize.s140,
                     fit: BoxFit.cover,
@@ -197,9 +205,23 @@ class _RegisterViewState extends State<RegisterView> {
                         return TextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: _passwordEditingController,
+                            obscureText: _viewModel.obscureText,
                             decoration: InputDecoration(
                               hintText: AppStrings.password,
                               labelText: AppStrings.password,
+                              suffixIcon: InkWell(
+                                focusNode: FocusNode(skipTraversal: true),
+                                onTap: () {
+                                  setState(() {
+                                    _viewModel.togglePasswordVisibility();
+                                  });
+                                },
+                                child: Icon(
+                                  _viewModel.passwordSuffixIcon,
+                                  color: ColorsManager.grayIcon,
+                                  size: AppSize.s24,
+                                ),
+                              ),
                               errorMaxLines: 3,
                               errorText: snapshot
                                   .data, //else present the error to the user
@@ -218,9 +240,23 @@ class _RegisterViewState extends State<RegisterView> {
                         return TextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: _confirmPasswordEditingController,
+                            obscureText: _viewModel.obscureText,
                             decoration: InputDecoration(
                               hintText: AppStrings.confirmPassword,
                               labelText: AppStrings.confirmPassword,
+                              suffixIcon: InkWell(
+                                focusNode: FocusNode(skipTraversal: true),
+                                onTap: () {
+                                  setState(() {
+                                    _viewModel.togglePasswordVisibility();
+                                  });
+                                },
+                                child: Icon(
+                                  _viewModel.passwordSuffixIcon,
+                                  color: ColorsManager.grayIcon,
+                                  size: AppSize.s24,
+                                ),
+                              ),
                               errorMaxLines: 3,
                               errorText: snapshot
                                   .data, //else present the error to the user

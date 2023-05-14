@@ -195,7 +195,10 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                     ),
                     onTap: () {
                       Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                          arguments: [Views.CATEGORY, Utils.categories[i].name]);
+                          arguments: [
+                            Views.CATEGORY,
+                            Utils.categories[i].name
+                          ]);
                     },
                   ),
               ],
@@ -238,7 +241,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       child: Text(
                         AppStrings.welcomeMessage.tr(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: AppSize.s24, color: ColorsManager.primaryText),
+                            fontSize: AppSize.s24,
+                            color: ColorsManager.primaryText),
                       ),
                     ),
                     const SizedBox(height: AppSize.s10),
@@ -297,8 +301,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                                 .textTheme
                                                 .bodyLarge
                                                 ?.copyWith(
-                                                  color: ColorsManager
-                                                      .primaryBtnText,
+                                                  color:
+                                                      ColorsManager.primaryText,
                                                   fontSize: AppSize.s15,
                                                 ),
                                           ),
@@ -365,7 +369,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                                   .bodyLarge
                                                   ?.copyWith(
                                                     color: ColorsManager
-                                                        .primaryBtnText,
+                                                        .primaryText,
                                                     fontSize: AppSize.s15,
                                                   ),
                                             ),
@@ -464,7 +468,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         .textTheme
                                         .bodyLarge
                                         ?.copyWith(
-                                          color: ColorsManager.primaryBtnText,
+                                          color: ColorsManager.primaryColor,
                                           fontSize: AppSize.s14,
                                         ),
                                   ))
@@ -559,7 +563,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                         .textTheme
                                         .bodyLarge
                                         ?.copyWith(
-                                          color: ColorsManager.primaryBtnText,
+                                          color: ColorsManager.primaryColor,
                                           fontSize: AppSize.s14,
                                         ),
                                   ))

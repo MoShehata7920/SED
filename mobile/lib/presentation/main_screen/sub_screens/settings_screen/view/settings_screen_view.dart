@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sed/domain/model/models.dart';
@@ -55,6 +56,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       appBar: AppBar(
+        backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
         toolbarHeight: AppSize.s140,
         title: _getProfileInformation(getMyProfileData),
@@ -186,8 +188,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.password, AppStrings.changePassword,
-                () {
+            _getInkwell(IconsManager.password, AppStrings.changePassword, () {
               Navigator.pushNamed(context, Routes.changePasswordScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
@@ -213,8 +214,8 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               ),
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
-            _getInkwell(
-                IconsManager.languageController, AppStrings.language, () {
+            _getInkwell(IconsManager.languageController, AppStrings.language.tr(),
+                () {
               _appPreferences.changeAppLanguage();
               Phoenix.rebirth(context);
             }).animateOnPageLoad(
@@ -235,8 +236,8 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.notification,
-                    AppStrings.notifications, () {})
+            _getInkwell(
+                    IconsManager.notification, AppStrings.notifications, () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             Padding(
