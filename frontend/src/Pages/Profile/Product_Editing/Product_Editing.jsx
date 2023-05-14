@@ -5,7 +5,7 @@ import "./Product_editing.css";
 import Axios from "axios";
 import Navebar from "../../../Component/navebar/navbar";
 
-export default function Product_Editing() {
+export default function ProductEditing() {
   let { Product_id } = useParams();
   const [ProductEdit, setProductEdit] = useState({
     productName: "",
@@ -59,7 +59,7 @@ export default function Product_Editing() {
     e.preventDefault();
 
     let request = await Axios.patch(
-      `http://103.48.193.225:3000/products/product/${Product_id}`,
+      `http://47.243.7.214:3000/products/product/${Product_id}`,
       formData,
       {
         headers: {

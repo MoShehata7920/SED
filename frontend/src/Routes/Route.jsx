@@ -23,7 +23,7 @@ import Share from "../Pages/Profile/Settings/Share/Share";
 import Help from "../Pages/Profile/Settings/Help/Help";
 import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
-import Product_Editing from "../Pages/Profile/Product_Editing/Product_Editing";
+import ProductEditing from "../Pages/Profile/Product_Editing/Product_Editing";
 // import Chat from "../Pages/Chat/Chat";
 
 function MainRoutes() {
@@ -79,7 +79,7 @@ function MainRoutes() {
         />
         <Route
           path="/Product_Editing/:Product_id"
-          element={<Product_Editing />}
+          element={<ProductEditing />}
         />
       </Routes>
       {/* <Chat /> */}
@@ -88,7 +88,3 @@ function MainRoutes() {
 }
 
 export default MainRoutes;
-
-{
-  /* <Navigate replace to={"/SignIn"} /> */
-}

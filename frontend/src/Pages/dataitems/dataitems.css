@@ -18,3 +18,9 @@
 .whichlist_bg{
     color: red;
 }
+.radius_circle{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
