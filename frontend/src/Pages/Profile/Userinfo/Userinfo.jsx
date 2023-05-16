@@ -2,8 +2,12 @@ import "./Userinfo.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 export default function Userinfo() {
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
+
   const UserToken = localStorage.getItem("usertoken");
   const [UserData, setUserData] = useState("");
   const [isPending, setIsPending] = useState(false);
@@ -15,7 +19,7 @@ export default function Userinfo() {
     try {
       let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
         headers: {
-          Authentication: `Bearer ${UserToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       });
       setUserData(UserData.data.user);

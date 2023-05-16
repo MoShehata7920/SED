@@ -6,10 +6,13 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 import Paginate from "../../Component/pagination/Paginate";
 import Navebar from "../../Component/navebar/navbar";
+import { encrypt, decrypt, compare } from "n-krypta";
 
 export default function SellerInfo() {
   let { SellerId, ProductID } = useParams();
-  const UserToken = localStorage.getItem("usertoken");
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   let [UserData, setUserData] = useState([]);
   const [totalpageNum, settotalpageNum] = useState(1);
   const [currentpageNum, setcurrentpageNum] = useState(1);
@@ -28,7 +31,7 @@ export default function SellerInfo() {
         `http://47.243.7.214:3000/products/seller/${SellerId}`,
         {
           headers: {
-            Authentication: `Bearer ${UserToken}`,
+            Authentication: `Bearer ${decryptedData}`,
           },
         }
       );
@@ -50,7 +53,7 @@ export default function SellerInfo() {
   useEffect(() => {
     UserProduct();
     GetUserInfo();
-  }, [UserToken]);
+  }, []);
   return (
     <>
       <section>

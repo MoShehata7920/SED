@@ -27,7 +27,7 @@ import ProductEditing from "../Pages/Profile/Product_Editing/Product_Editing";
 // import Chat from "../Pages/Chat/Chat";
 
 function MainRoutes() {
-  const storedToken = localStorage.getItem("usertoken");
+  const storedToken = localStorage.getItem("encryptedToken");
   return (
     <>
       <Routes>

@@ -6,7 +6,7 @@ import "./dataitems.css";
 import Footer from "../../Component/footer/Footer";
 import { BiHeart } from "react-icons/bi";
 import { FaHeart } from "react-icons/fa";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 export default function Dataitems() {
   let { id } = useParams();
   let [Dataitems, setDataitems] = useState([]);
@@ -17,7 +17,9 @@ export default function Dataitems() {
     prodId: id,
   });
   let [ErrorMessage, setErrorMessage] = useState("");
-  let storedToken = localStorage.getItem("usertoken");
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   async function Getitems(callback) {
     let { data } = await Axios.get(
       `http://47.243.7.214:3000/products/product/${id}`
@@ -32,7 +34,7 @@ export default function Dataitems() {
       ID,
       {
         headers: {
-          Authentication: `Bearer ${storedToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       }
     )

@@ -3,11 +3,13 @@ import Footer from "../../Component/footer/Footer";
 import Navebar from "../../Component/navebar/navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import "./additem.css";
 import axios from "axios";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 export default function AddItem() {
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   const [item, setitem] = useState({
     productName: "",
     description: "",
@@ -17,12 +19,7 @@ export default function AddItem() {
     price: "",
     seller: "",
   });
-
   const [UserID, setUserID] = useState("");
-  console.log(UserID);
-  const [UserToken, setUserToken] = useState("");
-  console.log(UserToken);
-  console.log(item);
   const [selectedFile, setSelectedFile] = useState(null);
   const [response, setResponse] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -58,7 +55,7 @@ export default function AddItem() {
     let request = await axios
       .post("http://47.243.7.214:3000/products/newproduct", formData, {
         headers: {
-          Authentication: `Bearer ${UserToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       })
       .then((response) => {
@@ -74,7 +71,6 @@ export default function AddItem() {
   }
 
   useEffect(() => {
-    setUserToken(window.localStorage.getItem("usertoken"));
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
     setUserID(parsedUserData.user._id);

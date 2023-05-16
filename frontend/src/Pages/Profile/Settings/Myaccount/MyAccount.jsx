@@ -3,8 +3,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./MyAccount.css";
 import Axios from "axios";
+import { encrypt, decrypt, compare } from "n-krypta";
 
 function MyAccount() {
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   const [userInfoEdit, setuserInfoEdit] = useState({
     fullName: "",
     email: "",
@@ -13,7 +17,7 @@ function MyAccount() {
     phone: "",
   });
   const [UserID, setUserID] = useState("");
-  const [UserToken, setUserToken] = useState("");
+
   console.log(userInfoEdit);
   const [selectedFile, setSelectedFile] = useState(null);
   const [response, setResponse] = useState("");
@@ -57,7 +61,7 @@ function MyAccount() {
       formData,
       {
         headers: {
-          Authentication: `Bearer ${UserToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       }
     )
@@ -74,7 +78,6 @@ function MyAccount() {
   }
 
   useEffect(() => {
-    setUserToken(window.localStorage.getItem("usertoken"));
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
     setUserID(parsedUserData._id);

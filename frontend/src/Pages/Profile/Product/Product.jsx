@@ -5,10 +5,11 @@ import { GiToggles } from "react-icons/gi";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import Paginate from "../../../Component/pagination/Paginate";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 export default function Product() {
-  const UserToken = localStorage.getItem("usertoken");
-  console.log(UserToken);
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   let [UserID, setUserID] = useState("");
   let [UserData, setUserData] = useState([]);
   const [totalpageNum, settotalpageNum] = useState(1);
@@ -26,7 +27,7 @@ export default function Product() {
         `http://47.243.7.214:3000/products/seller/${UserID}`,
         {
           headers: {
-            Authentication: `Bearer ${UserToken}`,
+            Authentication: `Bearer ${decryptedData}`,
           },
         }
       );
@@ -43,7 +44,7 @@ export default function Product() {
     const storedUserData = window.localStorage.getItem("UserData");
     const parsedUserData = JSON.parse(storedUserData);
     setUserID(parsedUserData._id);
-  }, [UserID, UserToken]);
+  }, [UserID]);
   return (
     <>
       <div className="container-fluid  bg-dark  Productpage  ">

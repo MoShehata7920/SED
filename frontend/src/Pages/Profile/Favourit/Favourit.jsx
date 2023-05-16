@@ -5,8 +5,11 @@ import { GiToggles } from "react-icons/gi";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import Paginate from "../../../Component/pagination/Paginate";
+import { encrypt, decrypt, compare } from "n-krypta";
 export default function Favourit() {
-  const UserToken = localStorage.getItem("usertoken");
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   let [UserData, setUserData] = useState([]);
   console.log(UserData);
   const [totalpageNum, settotalpageNum] = useState(1);
@@ -23,7 +26,7 @@ export default function Favourit() {
         `http://47.243.7.214:3000/users/getWishlist`,
         {
           headers: {
-            Authentication: `Bearer ${UserToken}`,
+            Authentication: `Bearer ${decryptedData}`,
           },
         }
       );

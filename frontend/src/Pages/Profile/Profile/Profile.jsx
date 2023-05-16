@@ -12,9 +12,11 @@ import {
 } from "react-icons/bs";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 function Profile() {
-  const UserToken = localStorage.getItem("usertoken");
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [UserData, setUserData] = useState("");
@@ -24,7 +26,7 @@ function Profile() {
     try {
       let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
         headers: {
-          Authentication: `Bearer ${UserToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       });
       setUserData(UserData.data.user);

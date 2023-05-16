@@ -9,9 +9,9 @@ function Navebar() {
   let [SearchData, setSearchData] = useState("");
 
   const [error, setError] = useState(null);
-  const storedToken = localStorage.getItem("usertoken");
+  const storedToken = localStorage.getItem("encryptedToken");
   function logout() {
-    localStorage.removeItem("usertoken");
+    localStorage.removeItem("encryptedToken");
     localStorage.removeItem("UserData");
   }
   const navigate = useNavigate();
