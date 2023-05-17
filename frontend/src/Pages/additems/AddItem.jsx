@@ -7,7 +7,7 @@ import "./additem.css";
 import axios from "axios";
 import { encrypt, decrypt, compare } from "n-krypta";
 export default function AddItem() {
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const secret = process.env.REACT_APP_SECRET_KEY;
   const storedEncryptedData = localStorage.getItem("encryptedToken");
   const decryptedData = decrypt(storedEncryptedData, secret);
   const [item, setitem] = useState({
@@ -21,6 +21,8 @@ export default function AddItem() {
   });
   const [UserID, setUserID] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
   const [response, setResponse] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
   console.log(response);
@@ -35,6 +37,7 @@ export default function AddItem() {
     myitem[e.target.name] = e.target.value;
     setitem(myitem);
   }
+
   const formData = new FormData();
   formData.append("productImage", selectedFile);
   formData.append("productName", item.productName);
@@ -69,11 +72,25 @@ export default function AddItem() {
         }
       });
   }
-
+  const GetUserDeta = async () => {
+    setError(null);
+    setIsPending(true);
+    try {
+      let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
+        headers: {
+          Authentication: `Bearer ${decryptedData}`,
+        },
+      });
+      setUserID(UserData.data.user._id);
+      setIsPending(false);
+    } catch (err) {
+      setIsPending(false);
+      setError("could not fetch the data");
+      console.log(err.message);
+    }
+  };
   useEffect(() => {
-    const storedUserData = window.localStorage.getItem("UserData");
-    const parsedUserData = JSON.parse(storedUserData);
-    setUserID(parsedUserData.user._id);
+    GetUserDeta();
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {

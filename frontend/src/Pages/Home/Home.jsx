@@ -13,22 +13,23 @@ import ExchangeSlider from "../../Component/exchange_slider/exchange_slider";
 import SellSlider from "../../Component/sell_slider/sell_slider";
 import DonateSlider from "../../Component/donate_slider/donate_slider";
 export default function Home() {
+  const API_KEY = process.env.REACT_APP_API_KEY;
   let [carousel, setcarousel] = useState([]);
   let [Detasell, setDetasell] = useState([]);
   let [Detadonat, setDetadonat] = useState([]);
-  let [Userdata, setUserdata] = useState([]);
+  // let [Userdata, setUserdata] = useState([]);
   let [Detaexchange, setDetaexchange] = useState([]);
   let [categories, setcategories] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-  const storedToken = localStorage.getItem("usertoken");
-  window.localStorage.setItem("UserData", JSON.stringify(Userdata));
+  // const storedToken = localStorage.getItem("usertoken");
+  // window.localStorage.setItem("UserData", JSON.stringify(Userdata));
   const GetDeta = async () => {
     setError(null);
     setIsPending(true);
 
     try {
-      let respond = await Axios.get(`http://47.243.7.214:3000/home`);
+      let respond = await Axios.get(`${API_KEY}/home`);
       setcarousel(respond.data.carousel.Images);
       setDetasell(respond.data.sellItems);
       setDetadonat(respond.data.donateItems);
@@ -42,28 +43,33 @@ export default function Home() {
       console.log(err.message);
     }
   };
-  const GetUserDeta = async () => {
-    setError(null);
-    setIsPending(true);
+  // const GetUserDeta = async () => {
+  //   setError(null);
+  //   setIsPending(true);
 
-    try {
-      let User = await Axios.get(`http://47.243.7.214:3000/users/get`, {
-        headers: {
-          Authentication: `Bearer ${storedToken}`,
-        },
-      });
-      setUserdata(User.data);
-      setIsPending(false);
-      // setError(null);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
-  };
+  //   try {
+  //     let User = await Axios.get(`http://47.243.7.214:3000/users/get`, {
+  //       headers: {
+  //         Authentication: `Bearer ${storedToken}`,
+  //       },
+  //     });
+  //     setUserdata(User.data);
+  //     setIsPending(false);
+  //     // setError(null);
+  //   } catch (err) {
+  //     setIsPending(false);
+  //     setError("could not fetch the data");
+  //     console.log(err.message);
+  //   }
+  // };
+  function RemoveLocal() {
+    localStorage.removeItem("UserData");
+    localStorage.removeItem("Productdata");
+  }
   useEffect(() => {
+    RemoveLocal();
     GetDeta();
-    GetUserDeta();
+    // GetUserDeta();
   }, []);
   return (
     <>

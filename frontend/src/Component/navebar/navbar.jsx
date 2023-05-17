@@ -13,6 +13,7 @@ function Navebar() {
   function logout() {
     localStorage.removeItem("encryptedToken");
     localStorage.removeItem("UserData");
+    localStorage.removeItem("Productdata");
   }
   const navigate = useNavigate();
   const handleSubmit = (event) => {

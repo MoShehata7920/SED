@@ -208,7 +208,12 @@ export default function ProductEditing() {
                   Save Changes
                 </button>
 
-                <Link to={"/profile/myProduct"}>
+                <Link
+                  to={"/profile/myProduct"}
+                  onClick={() => {
+                    localStorage.removeItem("Productdata");
+                  }}
+                >
                   <button type="button" class="btn btn-primary  ">
                     Cancel
                   </button>
