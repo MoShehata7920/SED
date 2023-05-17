@@ -4,12 +4,9 @@ import Navebar from "../../Component/navebar/navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./additem.css";
-import axios from "axios";
-import { encrypt, decrypt, compare } from "n-krypta";
+import { UseAxiosPost } from "../../Component/PostApi/PostApi";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 export default function AddItem() {
-  const secret = process.env.REACT_APP_SECRET_KEY;
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
   const [item, setitem] = useState({
     productName: "",
     description: "",
@@ -19,14 +16,11 @@ export default function AddItem() {
     price: "",
     seller: "",
   });
-  const [UserID, setUserID] = useState("");
+  const postAPi = "/products/newproduct";
+  const GetApi = "/users/get";
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  const [response, setResponse] = useState("");
-  const [ErrorMessage, setErrorMessage] = useState("");
-  console.log(response);
-  console.log(ErrorMessage);
+  const { data, isPending, error } = UseAxiosGet(GetApi);
+  let UserID = data ? data.user._id : null;
 
   const handleImageChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -51,46 +45,16 @@ export default function AddItem() {
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
-
-  async function itemsubmit(e) {
+  const { response, ErrorMessage, HandelPostApi } = UseAxiosPost(
+    postAPi,
+    formData
+  );
+  const itemsubmit = (e) => {
     e.preventDefault();
-
-    let request = await axios
-      .post("http://47.243.7.214:3000/products/newproduct", formData, {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      })
-      .then((response) => {
-        setResponse(response.data.message);
-      })
-      .catch((error) => {
-        // check for the response property of the error object
-        if (error.response) {
-          // set the error message state variable with the error message
-          setErrorMessage(error.response.data.message);
-        }
-      });
-  }
-  const GetUserDeta = async () => {
-    setError(null);
-    setIsPending(true);
-    try {
-      let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      });
-      setUserID(UserData.data.user._id);
-      setIsPending(false);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
+    HandelPostApi();
   };
+
   useEffect(() => {
-    GetUserDeta();
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
@@ -100,7 +64,7 @@ export default function AddItem() {
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} please fill all input field`);
     }
-  }, [response, ErrorMessage]);
+  }, [response, ErrorMessage, data]);
   return (
     <>
       <section>
