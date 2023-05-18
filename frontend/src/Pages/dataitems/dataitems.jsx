@@ -19,14 +19,11 @@ export default function Dataitems() {
   const { data, isPending, error } = UseAxiosGet(GetApi);
   const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(patchApi, ID);
   let response_lenth = response ? response.user.length : null;
-  let SellerData = data ? data.product.seller : null;
-  let Dataitems = data ? data.product : null;
   let [Wishlist, setWishlist] = useState(false);
   async function SetWichlist() {
     HandelPachApi();
   }
 
-  useEffect(() => {}, [data, response]);
   return (
     <>
       <section>
@@ -36,12 +33,12 @@ export default function Dataitems() {
         <div className="container">
           <div className="row  align-items-center justify-content-center mt-5 mb-5 ">
             <div className=" col-8   rounded-5 bg-light  ">
-              {Dataitems && (
+              {data && (
                 <div className="row">
                   <div className="col-xxl-6 col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 mb-1">
                     <div className="photo-div bg-light   rounded-3">
                       <img
-                        src={Dataitems.productImage}
+                        src={data.product.productImage}
                         className=" w-100 "
                         alt="..."
                       />
@@ -80,24 +77,26 @@ export default function Dataitems() {
                       </div>
                     )}
                     <div className="text-center">
-                      <h3 className="">{Dataitems.productName}</h3>
-                      <h6 className="mt-5">Price: {Dataitems.price}</h6>
+                      <h3 className="">{data.product.productName}</h3>
+                      <h6 className="mt-5">Price: {data.product.price}</h6>
                       <h4 className="mt-3">Product Details</h4>
-                      <p className=" mt-3   ">{Dataitems.description}</p>
+                      <p className=" mt-3   ">{data.product.description}</p>
                     </div>
                     <div className="row mt-5">
                       <div className=" offset-2 col-12">
-                        <h6>Uploaded By:- {SellerData.fullName} </h6>
+                        <h6>Uploaded By:- {data.product.seller.fullName} </h6>
                       </div>
                       <div className=" offset-2 col-3 ">
                         <img
-                          src={SellerData.userImage}
+                          src={data.product.seller.userImage}
                           alt=""
                           className="w-100  rounded-circle"
                         />
                       </div>
                       <div className="col-6 mt-4">
-                        <Link to={`/SellerInfo/${SellerData._id}/${id}`}>
+                        <Link
+                          to={`/SellerInfo/${data.product.seller._id}/${id}`}
+                        >
                           <button className="btn btn-primary">show more</button>
                         </Link>
                       </div>

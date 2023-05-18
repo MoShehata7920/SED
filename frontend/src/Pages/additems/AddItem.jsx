@@ -4,7 +4,7 @@ import Navebar from "../../Component/navebar/navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./additem.css";
-import { UseAxiosPost } from "../../Component/PostApi/PostApi";
+import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 export default function AddItem() {
   const [item, setitem] = useState({
