@@ -4,9 +4,12 @@ import { Link, useParams } from "react-router-dom";
 import "./Product_editing.css";
 import Axios from "axios";
 import Navebar from "../../../Component/navebar/navbar";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 export default function ProductEditing() {
   let { Product_id } = useParams();
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const decryptedData = decrypt(storedEncryptedData, secret);
   const [ProductEdit, setProductEdit] = useState({
     productName: "",
     price: "",
@@ -63,7 +66,7 @@ export default function ProductEditing() {
       formData,
       {
         headers: {
-          Authentication: `Bearer ${UserToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       }
     )
@@ -85,7 +88,7 @@ export default function ProductEditing() {
       `http://47.243.7.214:3000/products/product/${Product_id}`,
       {
         headers: {
-          Authentication: `Bearer ${UserToken}`,
+          Authentication: `Bearer ${decryptedData}`,
         },
       }
     )
@@ -102,7 +105,6 @@ export default function ProductEditing() {
   }
 
   useEffect(() => {
-    setUserToken(window.localStorage.getItem("usertoken"));
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
@@ -206,7 +208,12 @@ export default function ProductEditing() {
                   Save Changes
                 </button>
 
-                <Link to={"/profile/myProduct"}>
+                <Link
+                  to={"/profile/myProduct"}
+                  onClick={() => {
+                    localStorage.removeItem("Productdata");
+                  }}
+                >
                   <button type="button" class="btn btn-primary  ">
                     Cancel
                   </button>

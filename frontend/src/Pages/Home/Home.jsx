@@ -6,65 +6,36 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { Link } from "react-router-dom";
-import Axios from "axios";
 import { useEffect, useState } from "react";
 import Footer from "../../Component/footer/Footer";
 import ExchangeSlider from "../../Component/exchange_slider/exchange_slider";
 import SellSlider from "../../Component/sell_slider/sell_slider";
 import DonateSlider from "../../Component/donate_slider/donate_slider";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 export default function Home() {
+  const url = "/home";
   let [carousel, setcarousel] = useState([]);
   let [Detasell, setDetasell] = useState([]);
   let [Detadonat, setDetadonat] = useState([]);
-  let [Userdata, setUserdata] = useState([]);
   let [Detaexchange, setDetaexchange] = useState([]);
   let [categories, setcategories] = useState([]);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  const storedToken = localStorage.getItem("usertoken");
-  window.localStorage.setItem("UserData", JSON.stringify(Userdata));
-  const GetDeta = async () => {
-    setError(null);
-    setIsPending(true);
-
-    try {
-      let respond = await Axios.get(`http://47.243.7.214:3000/home`);
-      setcarousel(respond.data.carousel.Images);
-      setDetasell(respond.data.sellItems);
-      setDetadonat(respond.data.donateItems);
-      setDetaexchange(respond.data.exchangeItems);
-      setcategories(respond.data.categories);
-      setIsPending(false);
-      // setError(null);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
+  const { data, isPending, error } = UseAxiosGet(url);
+  console.log(data);
+  const Setdata = async () => {
+    setcarousel(data.carousel.Images);
+    setDetasell(data.sellItems);
+    setDetadonat(data.donateItems);
+    setDetaexchange(data.exchangeItems);
+    setcategories(data.categories);
   };
-  const GetUserDeta = async () => {
-    setError(null);
-    setIsPending(true);
-
-    try {
-      let User = await Axios.get(`http://47.243.7.214:3000/users/get`, {
-        headers: {
-          Authentication: `Bearer ${storedToken}`,
-        },
-      });
-      setUserdata(User.data);
-      setIsPending(false);
-      // setError(null);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
-  };
+  function RemoveLocal() {
+    localStorage.removeItem("UserData");
+    localStorage.removeItem("Productdata");
+  }
   useEffect(() => {
-    GetDeta();
-    GetUserDeta();
-  }, []);
+    Setdata();
+    RemoveLocal();
+  }, [data]);
   return (
     <>
       <section>

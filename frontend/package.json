@@ -9,6 +9,10 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "env-cmd": "^10.1.0",
+    "n-krypta": "^1.0.6",
     "owl.carousel": "^2.3.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
@@ -53,6 +57,8 @@
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",
     "gh-pages": "^5.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^8.3.1"
   }

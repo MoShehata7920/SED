@@ -4,9 +4,10 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Navebar from "../../Component/navebar/navbar";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 function Register() {
   const navigate = useNavigate();
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
   const [user, setuser] = useState({
     fullName: "",
     password: "",
@@ -27,7 +28,8 @@ function Register() {
       "http://47.243.7.214:3000/auth/register ",
       user
     );
-    localStorage.setItem("usertoken", request.data.token);
+    const encryptedData = encrypt(request.data.token, secret);
+    localStorage.setItem("encryptedToken", encryptedData);
     navigate("/");
   }
 

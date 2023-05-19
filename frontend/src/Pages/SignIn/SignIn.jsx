@@ -1,12 +1,12 @@
 import "./SignIn.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navebar from "../../Component/navebar/navbar";
-
+import { encrypt, decrypt, compare } from "n-krypta";
 function SignIn() {
   const navigate = useNavigate();
-  let [userdata, setuserdata] = useState([]);
+  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
   const [user, setuser] = useState({
     password: "",
     loginOption: "",
@@ -21,10 +21,10 @@ function SignIn() {
   async function usersubmit(e) {
     e.preventDefault();
     let request = await axios.post("http://47.243.7.214:3000/auth/login", user);
-    localStorage.setItem("usertoken", request.data.token);
+    const encryptedData = encrypt(request.data.token, secret);
+    localStorage.setItem("encryptedToken", encryptedData);
     navigate("/");
   }
-
   return (
     <>
       <section>
