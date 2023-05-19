@@ -28,7 +28,6 @@ class VerifyEmailViewModel extends BaseViewModel
       // right -> success
       inputState.add(ContentState());
 
-      print(response);
       // navigate to main screen
 
       // _appPreferences.setToken(response.token ?? AppStrings.empty);

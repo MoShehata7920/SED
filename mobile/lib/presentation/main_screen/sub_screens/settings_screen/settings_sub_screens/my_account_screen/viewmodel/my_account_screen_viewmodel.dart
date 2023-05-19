@@ -179,10 +179,6 @@ class MyAccountViewModel extends BaseViewModel
     return userAddress.isNotEmpty;
   }
 
-  bool _areAllInputsValid() {
-    // TODO: implement _areAllInputsValid
-    throw UnimplementedError();
-  }
 
   validate() {
     inputAllInputsValid.add(null);

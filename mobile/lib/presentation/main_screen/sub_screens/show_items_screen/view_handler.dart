@@ -9,7 +9,6 @@ import 'package:sed/presentation/resources/routes_manager.dart';
 import '../../../resources/icons_manager.dart';
 import '../../../resources/strings_manager.dart';
 import '../../../resources/values_manager.dart';
-import 'viewmodel/show_items_screen_viewmodel.dart';
 
 enum Views { SELL, DONATE, EXCHANGE, CATEGORY, SAVED, SEARCHIMAGE }
 
@@ -70,8 +69,6 @@ class ViewCard {
     final HomeScreenViewModel homeScreenViewModel =
         instance<HomeScreenViewModel>();
 
-    final ShowItemsViewModel showItemsViewModel =
-        instance<ShowItemsViewModel>();
 
     return InkWell(
       child: Card(

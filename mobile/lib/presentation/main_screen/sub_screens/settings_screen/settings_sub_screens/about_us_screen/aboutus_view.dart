@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 
 import '../../../../../resources/color_manager.dart';
@@ -42,37 +43,43 @@ class AboutUsScreen extends StatelessWidget {
               name: AppStrings.mohamedShehata,
               title: AppStrings.mobileDeveloper,
               imageUrl: AppStrings.mohamedShehataImageUrl,
-            ),
+            ).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
               name: AppStrings.mahmoudHafez,
               title: AppStrings.mobileDeveloper,
               imageUrl: AppStrings.mahmoudHafezImageUrl,
-            ),
+            ).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
               name: AppStrings.abdullahRagab,
               title: AppStrings.backendDeveloper,
               imageUrl: AppStrings.abdullahRagabImageUrl,
-            ),
+            ).animateOnPageLoad(
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
               name: AppStrings.mahmoudElamrosy,
               title: AppStrings.backendDeveloper,
               imageUrl: AppStrings.mahmoudElamrosyImageUrl,
-            ),
+            ).animateOnPageLoad(
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
               name: AppStrings.mohamedAdel,
               title: AppStrings.frontDeveloper,
               imageUrl: AppStrings.mohamedAdelImageUrl,
-            ),
+            ).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
               name: AppStrings.abdElrahmanEzzat,
               title: AppStrings.frontDeveloper,
               imageUrl: AppStrings.abdElrahmanEzzatImageUrl,
-            ),
+            ).animateOnPageLoad(
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s32),
             Text(
               AppStrings.eaglesTeam,

@@ -41,7 +41,6 @@ class SearchViewModel extends BaseViewModel
       onStatus: statusListener,
     );
     if (!hasSpeech) {
-      print("Speech recognition not available");
     }
   }
 
@@ -56,7 +55,6 @@ class SearchViewModel extends BaseViewModel
   }
 
   void resultListener(SpeechRecognitionResult result) {
-    print("results: $result.recognizedWords");
 
     if (result.finalResult) {
       String spokenText = result.recognizedWords;
@@ -67,12 +65,10 @@ class SearchViewModel extends BaseViewModel
   }
 
   void errorListener(SpeechRecognitionError error) {
-    print("Error: $error");
     micInput.add(speech.isNotListening);
   }
 
   void statusListener(String status) {
-    print("Status: $status");
   }
 
   @override

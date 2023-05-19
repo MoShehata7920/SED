@@ -191,14 +191,14 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             _getInkwell(IconsManager.password, AppStrings.changePassword, () {
               Navigator.pushNamed(context, Routes.changePasswordScreenRoute);
             }).animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
             _getInkwell(IconsManager.myAds, AppStrings.myAds, () {
               Navigator.pushNamed(context, Routes.myAdsScreenRoute);
             }).animateOnPageLoad(
-                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             Padding(
               padding: const EdgeInsets.only(
                   top: AppPadding.p25,
@@ -209,13 +209,13 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                 textAlign: TextAlign.start,
                 AppStrings.settings,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: ColorsManager.grey,
+                      color: ColorsManager.secondaryText,
                     ),
               ),
             ).animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
-            _getInkwell(IconsManager.languageController, AppStrings.language.tr(),
-                () {
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+            _getInkwell(
+                IconsManager.languageController, AppStrings.language.tr(), () {
               _appPreferences.changeAppLanguage();
               Phoenix.rebirth(context);
             }).animateOnPageLoad(
@@ -226,8 +226,8 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             _getInkwell(
                 IconsManager.themeController,
                 ThemeManager.isDarkMode == true
-                    ? AppStrings.convertToLightMode
-                    : AppStrings.convertToDarkMode, () {
+                    ? AppStrings.convertToLightMode.tr()
+                    : AppStrings.convertToDarkMode.tr(), () {
               setState(() {
                 ThemeManager.isDarkMode = !ThemeManager.isDarkMode;
               });
@@ -250,7 +250,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                 textAlign: TextAlign.start,
                 AppStrings.general,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: ColorsManager.grey,
+                      color: ColorsManager.secondaryText,
                     ),
               ),
             ).animateOnPageLoad(
@@ -259,21 +259,21 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               Share.share(
                   'https://instagram.com/mohamed_shehata7920?igshid=ZDdkNTZiNTM=');
             }).animateOnPageLoad(
-                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
             _getInkwell(IconsManager.help, AppStrings.help, () {
               Navigator.pushNamed(context, Routes.helpScreenRoute);
             }).animateOnPageLoad(
-                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
+                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
             _getInkwell(IconsManager.questionMark, AppStrings.aboutUs, () {
               Navigator.pushNamed(context, Routes.aboutUsScreenRoute);
             }).animateOnPageLoad(
-                msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
+                msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
           ],
         ),
       ],

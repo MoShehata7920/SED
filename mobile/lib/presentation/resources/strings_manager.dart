@@ -32,9 +32,9 @@ class AppStrings {
   //splash screen
   static String noRouteTitle = "no_route_title".tr();
   static String noRouteFound = "no_route_found".tr();
-  static String poweredBy = "powered_by".tr();
-  static String eagles = "eagles".tr();
-  static String eaglesTeam = "eagles_team".tr();
+  static String poweredBy = "powered_by";
+  static String eagles = "eagles";
+  static String eaglesTeam = "eagles_team";
 
   //on boarding screen
   static const List<String> onBoardingTitles = [
@@ -176,33 +176,33 @@ class AppStrings {
   static String phoneNumber = "phone_number".tr();
   static String selectGovernment = "select_government".tr();
   static List<String> get governments => [
-        'alexandria'.tr(),
-        'aswan'.tr(),
-        'asyut'.tr(),
-        'beheira'.tr(),
-        'beni_suef'.tr(),
-        'cairo'.tr(),
-        'dakahlia'.tr(),
-        'damietta'.tr(),
-        'faiyum'.tr(),
-        'gharbia'.tr(),
-        'giza'.tr(),
-        'ismailia'.tr(),
-        'kafr_el_sheikh'.tr(),
-        'luxor'.tr(),
-        'matrouh'.tr(),
-        'minya'.tr(),
-        'monufia'.tr(),
-        'new_valley'.tr(),
-        'north_sinai'.tr(),
-        'port_said'.tr(),
-        'qalyubia'.tr(),
-        'qena'.tr(),
-        'red_sea'.tr(),
-        'sharqia'.tr(),
-        'sohag'.tr(),
-        'south_sinai'.tr(),
-        'suez'.tr(),
+        'alexandria',
+        'aswan',
+        'asyut',
+        'beheira',
+        'beni_suef',
+        'cairo',
+        'dakahlia',
+        'damietta',
+        'faiyum',
+        'Gharbia',
+        'giza',
+        'ismailia',
+        'kafr_el_sheikh',
+        'luxor',
+        'matrouh',
+        'minya',
+        'monufia',
+        'new_valley',
+        'north_sinai',
+        'port_said',
+        'qalyubia',
+        'qena',
+        'red_sea',
+        'sharqia',
+        'sohag',
+        'south_sinai',
+        'suez',
       ];
   static String address = "address".tr();
   static String changePassword = "change_password".tr();

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';

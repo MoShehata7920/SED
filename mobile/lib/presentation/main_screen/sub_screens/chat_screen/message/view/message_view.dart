@@ -43,8 +43,8 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
 
   void _bind() async {
     if (conversationId != null) {
-      messages = await _messageViewModel.getConversationMessages(this.conversationId!);
-
+      messages =
+          await _messageViewModel.getConversationMessages(conversationId!);
     } else {
       //make new conversation
       conversationId =
@@ -84,9 +84,9 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
               Text(
                 name ?? AppStrings.empty,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: ColorsManager.primaryText,
-                  fontSize: AppSize.s12,
-                ),
+                      color: ColorsManager.primaryText,
+                      fontSize: AppSize.s12,
+                    ),
               ),
             ],
           ),
@@ -96,7 +96,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
         stream: _messageViewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data
-              ?.getScreenWidget(context, _getBody(), () => () {}) ??
+                  ?.getScreenWidget(context, _getBody(), () => () {}) ??
               _getBody();
         },
       ),
@@ -125,8 +125,6 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                   return buildReceivedMessage(
                       messages!.messages[index].message);
                 }
-
-
               }),
             ),
           ),
@@ -146,7 +144,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(AppSize.s30),
                       borderSide:
-                      BorderSide(color: ColorsManager.tertiaryColor),
+                          BorderSide(color: ColorsManager.tertiaryColor),
                     ),
                   ),
                 ),
@@ -167,7 +165,6 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                   //   curve: Curves.easeOut,
                   // );
                   _textEditingController.clear();
-
                 },
                 icon: Icon(
                   IconsManager.send,
@@ -177,7 +174,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
               IconButton(
                 onPressed: () {
                   var image =
-                  _imagePicker.pickImage(source: ImageSource.gallery);
+                      _imagePicker.pickImage(source: ImageSource.gallery);
                 },
                 icon: Icon(
                   IconsManager.gallery,

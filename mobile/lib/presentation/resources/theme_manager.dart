@@ -13,8 +13,6 @@ ThemeData getApplicationTheme() {
     primaryColorDark: ColorsManager.primaryColor,
     disabledColor: ColorsManager.grey1,
     splashColor: ColorsManager.primaryColor,
-    // todo , use colorScheme instead of backgroundColor
-    backgroundColor: ColorsManager.primaryColor,
 
     //cardView  Theme
     cardTheme: CardTheme(
@@ -58,16 +56,16 @@ ThemeData getApplicationTheme() {
 
     //text theme
     textTheme: TextTheme(
-        displayLarge:
-            getLightStyle(color: ColorsManager.primaryText, fontSize: FontSize.s24),
+        displayLarge: getLightStyle(
+            color: ColorsManager.primaryText, fontSize: FontSize.s24),
         headlineLarge: getSemiBoldStyle(
             color: ColorsManager.primaryText, fontSize: FontSize.s16),
-        headlineMedium:
-            getRegularStyle(color: ColorsManager.primaryText, fontSize: FontSize.s14),
+        headlineMedium: getRegularStyle(
+            color: ColorsManager.primaryText, fontSize: FontSize.s14),
         titleMedium: getMediumStyle(
             color: ColorsManager.secondaryText, fontSize: FontSize.s14),
         bodyLarge: getRegularStyle(color: ColorsManager.grey1),
-        bodySmall: getRegularStyle(color: ColorsManager.grey)),
+        bodySmall: getRegularStyle(color: ColorsManager.secondaryText)),
 
     //input decoration Theme (Text form field)
     inputDecorationTheme: InputDecorationTheme(
@@ -76,10 +74,10 @@ ThemeData getApplicationTheme() {
       filled: true,
       fillColor: ColorsManager.secondaryBackground,
       //hint style
-      hintStyle:
-          getRegularStyle(color: ColorsManager.grey, fontSize: FontSize.s14),
-      labelStyle:
-          getMediumStyle(color: ColorsManager.grey, fontSize: FontSize.s14),
+      hintStyle: getRegularStyle(
+          color: ColorsManager.secondaryText, fontSize: FontSize.s14),
+      labelStyle: getMediumStyle(
+          color: ColorsManager.secondaryText, fontSize: FontSize.s14),
       errorStyle: getRegularStyle(color: ColorsManager.error),
 
       //enabled border style
@@ -118,6 +116,18 @@ ThemeData getApplicationTheme() {
         borderRadius: BorderRadius.circular(20.0),
       ),
     ),
+    colorScheme: ColorScheme(
+        background: ColorsManager.primaryColor,
+        brightness: Brightness.light,
+        error: ColorsManager.error,
+        onBackground: ColorsManager.primaryText,
+        onError: ColorsManager.primaryText,
+        onPrimary: ColorsManager.primaryText,
+        onSecondary: ColorsManager.secondaryText,
+        onSurface: ColorsManager.secondaryText,
+        primary: ColorsManager.primaryColor,
+        surface: ColorsManager.secondaryBackground,
+        secondary: ColorsManager.secondaryColor),
   );
 }
 

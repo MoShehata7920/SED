@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:sed/presentation/resources/theme_manager.dart';
 
 class ColorsManager {
-  static Color darkBlack = const Color(0xFF080e13);
   static Color dark900 = const Color(0xFF1A1F24);
 
   static Color get primaryColor => ThemeManager.isDarkMode
@@ -42,23 +41,19 @@ class ColorsManager {
       ? const Color(0xFF6E6E6E)
       : const Color(0xFFFAFAFA);
 
+  // Chat
   static Color get receivedMessage => ThemeManager.isDarkMode
       ? const Color(0xFFD9D9D9)
       : const Color(0xFF333333);
-
   static Color get receivedMessageText => ThemeManager.isDarkMode
       ? const Color(0xFF333333)
       : const Color(0xFFD9D9D9);
-
   static Color get myMessage => ThemeManager.isDarkMode
       ? const Color(0xFF0084ff)
       : const Color(0xFF2962ff);
-
   static Color get myMessageText => const Color(0xFFFFFFFF);
 
   static Color grey = const Color(0xff737477);
-  static Color lightGrey = const Color(0xffD9D9D6);
-  static Color black = const Color(0xff000000);
 
   static Color grey1 = const Color(0xff707070);
   static Color grey2 = const Color(0xff797979);

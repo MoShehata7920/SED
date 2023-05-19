@@ -207,7 +207,7 @@ class SearchViewState extends State<SearchView> {
                                         .textTheme
                                         .bodyLarge
                                         ?.copyWith(
-                                          color: ColorsManager.grey,
+                                          color: ColorsManager.secondaryText,
                                           fontSize: AppSize.s12,
                                         ),
                                     overflow: TextOverflow.ellipsis,
