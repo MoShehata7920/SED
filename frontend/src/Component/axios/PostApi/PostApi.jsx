@@ -3,9 +3,11 @@ import axios from "axios";
 import { decrypt } from "n-krypta";
 export const UseAxiosPost = (url, formData) => {
   const secret = process.env.REACT_APP_SECRET_KEY;
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const storedEncryptedData =
+    localStorage.getItem("encryptedToken") ?? "nothing";
   const decryptedData = decrypt(storedEncryptedData, secret);
   const API_KEY = process.env.REACT_APP_API_KEY;
+  const [data, setData] = useState(null);
   const [response, setResponse] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
   const HandelPostApi = async () => {
@@ -15,8 +17,10 @@ export const UseAxiosPost = (url, formData) => {
           Authentication: `Bearer ${decryptedData}`,
         },
       })
+
       .then((response) => {
         setResponse(response.data.message);
+        setData(response.data.token);
       })
       .catch((error) => {
         // check for the response property of the error object
@@ -27,5 +31,5 @@ export const UseAxiosPost = (url, formData) => {
       });
   };
 
-  return { response, ErrorMessage, HandelPostApi };
+  return { response, data, ErrorMessage, HandelPostApi };
 };

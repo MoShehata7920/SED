@@ -6,21 +6,22 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 import Paginate from "../../Component/pagination/Paginate";
 import "./seealldata.css";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 
 export default function SeeAllData() {
   let { SeeData } = useParams();
   let [totalpageNum, settotalpageNum] = useState(1);
   let [currentpageNum, setcurrentpageNum] = useState(1);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
   let [AllData, setAllData] = useState([]);
   let [category, setcategory] = useState("all");
   let [sort, setsort] = useState("");
   let [MaxPrice, setMaxPrice] = useState("");
   let [MinPrice, setMinPrice] = useState("");
   let [Condition, setCondition] = useState("");
-  console.log("min", MinPrice, "Max", MaxPrice);
   let [Price, setPrice] = useState({ Min: "", Max: "" });
+  console.log("min", Price.Min);
+  const GetApi = `/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
   const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
   function pricedone() {
     setMaxPrice(Price.Max);
@@ -29,32 +30,25 @@ export default function SeeAllData() {
   function getPrice(e) {
     let myitem = { ...Price };
     myitem[e.target.name] = e.target.value;
-
     setPrice(myitem);
   }
-
-  const GetseeallDeta = async () => {
-    setError(null);
-    setIsPending(true);
-
-    try {
-      let respond = await Axios.get(
-        `http://47.243.7.214:3000/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
-      );
-      setAllData(respond.data.items);
-      settotalpageNum(respond.data.totalPageNumber);
-      setIsPending(false);
-      //setError(null);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
+  const Datareturn = async () => {
+    setAllData(data.items);
+    settotalpageNum(data.totalPageNumber);
   };
-
   useEffect(() => {
-    GetseeallDeta();
-  }, [SeeData, currentpageNum, category, sort, MaxPrice, MinPrice, Condition]);
+    Datareturn();
+  }, [
+    data,
+    SeeData,
+    currentpageNum,
+    category,
+    sort,
+    MaxPrice,
+    MinPrice,
+    Condition,
+    GetApi,
+  ]);
   return (
     <>
       <section>

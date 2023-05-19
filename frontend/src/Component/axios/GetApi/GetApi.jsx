@@ -3,7 +3,8 @@ import axios from "axios";
 import { decrypt } from "n-krypta";
 export const UseAxiosGet = (url) => {
   const secret = process.env.REACT_APP_SECRET_KEY;
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const storedEncryptedData =
+    localStorage.getItem("encryptedToken") ?? "nothing";
   const decryptedData = decrypt(storedEncryptedData, secret);
   const API_KEY = process.env.REACT_APP_API_KEY;
   const [data, setData] = useState(null);

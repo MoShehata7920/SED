@@ -1,30 +1,39 @@
 import "./SignIn.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Navebar from "../../Component/navebar/navbar";
-import { encrypt, decrypt, compare } from "n-krypta";
+import { encrypt } from "n-krypta";
+import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 function SignIn() {
   const navigate = useNavigate();
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const secret = process.env.REACT_APP_SECRET_KEY;
+  const postAPi = "/auth/login";
   const [user, setuser] = useState({
     password: "",
     loginOption: "",
   });
-
+  const { response, data, ErrorMessage, HandelPostApi } = UseAxiosPost(
+    postAPi,
+    user
+  );
   function getuserinfo(e) {
     let myuser = { ...user };
     myuser[e.target.name] = e.target.value;
     setuser(myuser);
   }
 
-  async function usersubmit(e) {
+  const usersubmit = (e) => {
     e.preventDefault();
-    let request = await axios.post("http://47.243.7.214:3000/auth/login", user);
-    const encryptedData = encrypt(request.data.token, secret);
-    localStorage.setItem("encryptedToken", encryptedData);
-    navigate("/");
-  }
+    HandelPostApi();
+  };
+  useEffect(() => {
+    if (data) {
+      const encryptedData = encrypt(data, secret);
+      localStorage.setItem("encryptedToken", encryptedData);
+      navigate("/");
+    }
+  }, [data]);
+
   return (
     <>
       <section>

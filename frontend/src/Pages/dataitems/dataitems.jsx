@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import Axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navebar from "../../Component/navebar/navbar";
 import "./dataitems.css";
 import Footer from "../../Component/footer/Footer";

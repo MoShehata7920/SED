@@ -20,7 +20,6 @@ export default function Home() {
   let [Detaexchange, setDetaexchange] = useState([]);
   let [categories, setcategories] = useState([]);
   const { data, isPending, error } = UseAxiosGet(url);
-  console.log(data);
   const Setdata = async () => {
     setcarousel(data.carousel.Images);
     setDetasell(data.sellItems);

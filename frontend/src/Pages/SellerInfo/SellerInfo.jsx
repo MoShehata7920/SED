@@ -1,96 +1,77 @@
 import "./SellerInfo.css";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { GiToggles } from "react-icons/gi";
-import Axios from "axios";
 import { useEffect, useState } from "react";
-import Paginate from "../../Component/pagination/Paginate";
 import Navebar from "../../Component/navebar/navbar";
-import { encrypt, decrypt, compare } from "n-krypta";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
+import Footer from "../../Component/footer/Footer";
 
 export default function SellerInfo() {
   let { SellerId, ProductID } = useParams();
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
+  const GetApiData = `/products/seller/${SellerId}`;
+  const {
+    data: dataData,
+    isPending: isPendingData,
+    error: errorData,
+  } = UseAxiosGet(GetApiData);
+  const GetApiUser = `/products/product/${ProductID}`;
+  const {
+    data: dataUser,
+    isPending: isPendingUser,
+    error: errorUser,
+  } = UseAxiosGet(GetApiUser);
   let [UserData, setUserData] = useState([]);
-  const [totalpageNum, settotalpageNum] = useState(1);
-  const [currentpageNum, setcurrentpageNum] = useState(1);
-  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
   let [UserInfo, setUserInfo] = useState([]);
-  console.log(UserData);
-  console.log(UserInfo);
-  const UserProduct = async () => {
-    setError(null);
-    setIsPending(true);
-
-    try {
-      let UserData = await Axios.get(
-        `http://47.243.7.214:3000/products/seller/${SellerId}`,
-        {
-          headers: {
-            Authentication: `Bearer ${decryptedData}`,
-          },
-        }
-      );
-      setUserData(UserData.data.products);
-      setIsPending(false);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
+  const Setdata = async () => {
+    setUserData(dataData.products);
   };
-  async function GetUserInfo() {
-    let { data } = await Axios.get(
-      `http://47.243.7.214:3000/products/product/${ProductID}`
-    );
-    setUserInfo(data.product.seller);
-  }
-
+  const SetUser = async () => {
+    setUserInfo(dataUser.product.seller);
+  };
   useEffect(() => {
-    UserProduct();
-    GetUserInfo();
-  }, []);
+    Setdata();
+    SetUser();
+  }, [dataData, dataUser]);
   return (
     <>
       <section>
         <Navebar />
       </section>
+
       <section>
         <div className="container-fluid SellInfo_bg    ">
-          <div className="row ">
-            <div className=" col-8 border-bottom-0  SellInfo_bg pt-4 ">
-              <div className="row mb-4 justify-content-center  ">
-                <div className="col-2 ">
-                  <div className=" Sellerinfo_Img_hight">
-                    <img
-                      src={UserInfo.userImage}
-                      alt=""
-                      className=" w-100 h-100  rounded-circle"
-                    />
-                  </div>
-                </div>
-                <div className="col-10 mt-3">
-                  <div className="row">
-                    <div className="col-6">
-                      <h5>Fullname:- {UserInfo.fullName}</h5>
-                      <h5>Email:- {UserInfo.email}</h5>
+          {dataUser && (
+            <div className="row ">
+              <div className=" col-8 border-bottom-0  SellInfo_bg pt-4 ">
+                <div className="row mb-4 justify-content-center  ">
+                  <div className="col-2 ">
+                    <div className=" Sellerinfo_Img_hight">
+                      <img
+                        src={UserInfo.userImage}
+                        alt=""
+                        className=" w-100 h-100  rounded-circle"
+                      />
                     </div>
-                    <div className="col-6">
-                      <h5>Phone Number:- {UserInfo.phone}</h5>
-                      <h5>
-                        Address:-
-                        {UserInfo.government}/{UserInfo.address}
-                      </h5>
+                  </div>
+                  <div className="col-10 mt-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <h5>Fullname:- {UserInfo.fullName}</h5>
+                        <h5>Email:- {UserInfo.email}</h5>
+                      </div>
+                      <div className="col-6">
+                        <h5>Phone Number:- {UserInfo.phone}</h5>
+                        <h5>
+                          Address:-
+                          {UserInfo.government}/{UserInfo.address}
+                        </h5>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="row">
             <div
               id="style-7"
@@ -151,13 +132,14 @@ export default function SellerInfo() {
                     ))}
                   </div>
                 </div>
-                <div className=" d-flex justify-content-center pb-5 ">
-                  <Paginate paginate={paginate} totalpageNum={totalpageNum} />
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
+
+      <section>
+        <Footer />
       </section>
     </>
   );

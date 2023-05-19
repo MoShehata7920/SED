@@ -1,36 +1,21 @@
 import Footer from "../../Component/footer/Footer";
 import Navebar from "../../Component/navebar/navbar";
-import { Link, useParams, useSearchParams } from "react-router-dom";
-import Axios from "axios";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
   const greeting = searchParams.get("query");
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
+  const GetApi = `/products/search?search=${greeting}`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
   let [Searchdata, setSearchdata] = useState([]);
-
-  const SearchDeta = async () => {
-    setError(null);
-    setIsPending(true);
-    try {
-      let respond = await Axios.get(
-        `http://47.243.7.214:3000/products/search?search=${greeting}`
-      );
-      setSearchdata(respond.data.items);
-      console.log(respond.data);
-      setIsPending(false);
-      //setError(null);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
+  const Setdata = async () => {
+    setSearchdata(data.items);
   };
   useEffect(() => {
-    SearchDeta();
-  }, [greeting]);
+    Setdata();
+  }, [greeting, data]);
   return (
     <>
       <section>
