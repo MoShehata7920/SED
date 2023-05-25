@@ -30,7 +30,7 @@ function SignIn() {
     if (data) {
       const encryptedData = encrypt(data, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      navigate("/");
+      window.location.href = "/";
     }
   }, [data]);
 

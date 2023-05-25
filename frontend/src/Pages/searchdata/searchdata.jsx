@@ -9,13 +9,7 @@ export default function SearchPage() {
   const greeting = searchParams.get("query");
   const GetApi = `/products/search?search=${greeting}`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
-  let [Searchdata, setSearchdata] = useState([]);
-  const Setdata = async () => {
-    setSearchdata(data.items);
-  };
-  useEffect(() => {
-    Setdata();
-  }, [greeting, data]);
+  let Searchdata = data ? data.items : [];
   return (
     <>
       <section>

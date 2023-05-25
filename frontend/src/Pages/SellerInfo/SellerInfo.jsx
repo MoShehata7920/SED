@@ -10,7 +10,7 @@ export default function SellerInfo() {
   let { SellerId, ProductID } = useParams();
   const GetApiData = `/products/seller/${SellerId}`;
   const {
-    data: dataData,
+    data: dataProduct,
     isPending: isPendingData,
     error: errorData,
   } = UseAxiosGet(GetApiData);
@@ -20,18 +20,9 @@ export default function SellerInfo() {
     isPending: isPendingUser,
     error: errorUser,
   } = UseAxiosGet(GetApiUser);
-  let [UserData, setUserData] = useState([]);
-  let [UserInfo, setUserInfo] = useState([]);
-  const Setdata = async () => {
-    setUserData(dataData.products);
-  };
-  const SetUser = async () => {
-    setUserInfo(dataUser.product.seller);
-  };
-  useEffect(() => {
-    Setdata();
-    SetUser();
-  }, [dataData, dataUser]);
+  let UserInfo = dataUser ? dataUser.product.seller : "";
+  let UserProduct = dataProduct ? dataProduct.products : [];
+
   return (
     <>
       <section>
@@ -80,7 +71,7 @@ export default function SellerInfo() {
               <div className="row  ">
                 <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-12 w-100 ">
                   <div className="row justify-content-center">
-                    {UserData.map((categ, index) => (
+                    {UserProduct.map((categ, index) => (
                       <div className="col-xxl-3  col-xl-3  col-lg-4 col-sm-6 col-6  ">
                         <Link
                           key={index}

@@ -6,7 +6,7 @@ import Axios from "axios";
 import { encrypt, decrypt, compare } from "n-krypta";
 
 function MyAccount() {
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
+  const secret = process.env.REACT_APP_SECRET_KEY;
   const storedEncryptedData = localStorage.getItem("encryptedToken");
   const decryptedData = decrypt(storedEncryptedData, secret);
   const [userInfoEdit, setuserInfoEdit] = useState({

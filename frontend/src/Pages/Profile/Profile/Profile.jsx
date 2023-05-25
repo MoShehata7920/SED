@@ -11,35 +11,12 @@ import {
   BsFillBellFill,
 } from "react-icons/bs";
 import { Link, Outlet } from "react-router-dom";
-import axios from "axios";
-import { encrypt, decrypt, compare } from "n-krypta";
+import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 function Profile() {
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  const [UserData, setUserData] = useState("");
-  const GetUserDeta = async () => {
-    setError(null);
-    setIsPending(true);
-    try {
-      let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      });
-      setUserData(UserData.data.user);
-      setIsPending(false);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
-  };
-  useEffect(() => {
-    GetUserDeta();
-  }, []);
+  const GetApi = `/users/get`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
+  let datauser = data ? data.user : "";
+  useEffect(() => {}, [datauser]);
   return (
     <>
       <section>
@@ -52,7 +29,7 @@ function Profile() {
               <ul className=" text-center">
                 <div className=" d-flex align-items-center">
                   <img
-                    src={UserData.userImage}
+                    src={datauser.userImage}
                     className="w-100 rounded-circle me-4"
                     alt=""
                   />

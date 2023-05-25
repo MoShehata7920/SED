@@ -45,10 +45,12 @@ export default function AddItem() {
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
-  const { response, ErrorMessage, HandelPostApi } = UseAxiosPost(
-    postAPi,
-    formData
-  );
+  const {
+    response,
+    data: Data,
+    ErrorMessage,
+    HandelPostApi,
+  } = UseAxiosPost(postAPi, formData);
   const itemsubmit = (e) => {
     e.preventDefault();
     HandelPostApi();
