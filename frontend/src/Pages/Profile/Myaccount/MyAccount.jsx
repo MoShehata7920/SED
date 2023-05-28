@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./MyAccount.css";
-import Axios from "axios";
-import { encrypt, decrypt, compare } from "n-krypta";
-
+import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 function MyAccount() {
-  const secret = process.env.REACT_APP_SECRET_KEY;
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
+  let { UserID } = useParams();
   const [userInfoEdit, setuserInfoEdit] = useState({
     fullName: "",
     email: "",
@@ -16,12 +12,8 @@ function MyAccount() {
     address: "",
     phone: "",
   });
-  const [UserID, setUserID] = useState("");
-
-  console.log(userInfoEdit);
+  const patchAPi = `/users/update/${UserID}`;
   const [selectedFile, setSelectedFile] = useState(null);
-  const [response, setResponse] = useState("");
-  const [ErrorMessage, setErrorMessage] = useState("");
   const handleImageChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -53,35 +45,16 @@ function MyAccount() {
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
+  const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(
+    patchAPi,
+    formData
+  );
   async function itemsubmit(e) {
     e.preventDefault();
-
-    let request = await Axios.patch(
-      `http://47.243.7.214:3000/users/update/${UserID}`,
-      formData,
-      {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      }
-    )
-      .then((response) => {
-        setResponse(response.data.message);
-      })
-      .catch((error) => {
-        // check for the response property of the error object
-        if (error.response) {
-          // set the error message state variable with the error message
-          setErrorMessage(error.response.data.message);
-        }
-      });
+    HandelPachApi();
   }
 
   useEffect(() => {
-    const storedUserData = window.localStorage.getItem("UserData");
-    const parsedUserData = JSON.parse(storedUserData);
-    setUserID(parsedUserData._id);
-
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {

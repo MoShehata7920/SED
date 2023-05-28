@@ -10,9 +10,7 @@ import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 
 export default function SeeAllData() {
   let { SeeData } = useParams();
-  let [totalpageNum, settotalpageNum] = useState(1);
   let [currentpageNum, setcurrentpageNum] = useState(1);
-  let [AllData, setAllData] = useState([]);
   let [category, setcategory] = useState("all");
   let [sort, setsort] = useState("");
   let [MaxPrice, setMaxPrice] = useState("");
@@ -20,9 +18,11 @@ export default function SeeAllData() {
   let [Condition, setCondition] = useState("");
   let [Price, setPrice] = useState({ Min: "", Max: "" });
   console.log("min", Price.Min);
+
   const GetApi = `/products/get?purpose=${SeeData}&category=${category}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
-  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
+  let AllData = data ? data.items : [];
+  let totalpageNum = data ? data.totalPageNumber : 1;
   function pricedone() {
     setMaxPrice(Price.Max);
     setMinPrice(Price.Min);
@@ -32,12 +32,16 @@ export default function SeeAllData() {
     myitem[e.target.name] = e.target.value;
     setPrice(myitem);
   }
-  const Datareturn = async () => {
-    setAllData(data.items);
-    settotalpageNum(data.totalPageNumber);
+  const paginate = (pageNumber) => {
+    if (AllData.length == 0) {
+      setcurrentpageNum(1);
+    } else {
+      setcurrentpageNum(pageNumber);
+    }
+    console.log("current", currentpageNum);
   };
   useEffect(() => {
-    Datareturn();
+    paginate();
   }, [
     data,
     SeeData,

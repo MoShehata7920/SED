@@ -1,22 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { decrypt } from "n-krypta";
-export const UseAxiosPache = (url, formData) => {
+export const UseAxiosDelete = (url) => {
   const secret = process.env.REACT_APP_SECRET_KEY;
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const storedEncryptedData =
+    localStorage.getItem("encryptedToken") ?? "nothing";
   const decryptedData = decrypt(storedEncryptedData, secret);
   const API_KEY = process.env.REACT_APP_API_KEY;
+  const [data, setData] = useState(null);
   const [response, setResponse] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
-  const HandelPachApi = async () => {
+  const HandelDeleteApi = async () => {
     let request = await axios
-      .patch(`${API_KEY}${url}`, formData, {
+      .delete(`${API_KEY}${url}`, {
         headers: {
           Authentication: `Bearer ${decryptedData}`,
         },
       })
+
       .then((response) => {
         setResponse(response.data.message);
+        setData(response.data.token);
       })
       .catch((error) => {
         // check for the response property of the error object
@@ -27,5 +31,5 @@ export const UseAxiosPache = (url, formData) => {
       });
   };
 
-  return { response, ErrorMessage, HandelPachApi };
+  return { response, data, ErrorMessage, HandelDeleteApi };
 };

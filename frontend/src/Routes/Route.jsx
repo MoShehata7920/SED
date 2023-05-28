@@ -8,14 +8,14 @@ import Home from "../Pages/home/Home";
 import Favourit from "../Pages/Profile/Favourit/Favourit";
 import Profile from "../Pages/Profile/Profile/Profile";
 import Product from "../Pages/Profile/Product/Product";
-import MyAccount from "../Pages/Profile/Settings/Myaccount/MyAccount";
+import MyAccount from "../Pages/Profile/Myaccount/MyAccount";
 import Settings from "../Pages/Profile/Settings/Settings";
 import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
 import SearchPage from "../Pages/searchdata/searchdata";
 import SeeAllData from "../Pages/seealldata/SeeAllData";
 import SignIn from "../Pages/SignIn/SignIn";
 import Register from "../Pages/SignUp/SignUp";
-import MyAdds from "../Pages/Profile/Settings/MyAdds/MyAdds";
+import MyAdds from "../Pages/Profile/MyAdds/MyAdds";
 import Languages from "../Pages/Profile/Settings/Langages/Langagues";
 import Themes from "../Pages/Profile/Settings/Themes/Themes";
 import Notification from "../Pages/Profile/Settings/Notification/Notification";
@@ -44,10 +44,13 @@ function MainRoutes() {
         <Route path="/Profile" element={storedToken ? <Profile /> : <SignIn />}>
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
-          <Route path="/Profile/myProduct" element={<Product />}></Route>
+          <Route
+            path="/Profile/myProduct/:UserID"
+            element={<Product />}
+          ></Route>
           <Route path="/Profile/settings" element={<Settings />}></Route>
           <Route
-            path="/Profile/settings/myaccount"
+            path="/Profile/settings/myaccount/:UserID"
             element={<MyAccount />}
           ></Route>
           <Route

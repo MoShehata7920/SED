@@ -1,38 +1,13 @@
 import "./Userinfo.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { encrypt, decrypt, compare } from "n-krypta";
-export default function Userinfo() {
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
+import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 
-  const UserToken = localStorage.getItem("usertoken");
-  const [UserData, setUserData] = useState("");
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  window.localStorage.setItem("UserData", JSON.stringify(UserData));
-  const GetUserDeta = async () => {
-    setError(null);
-    setIsPending(true);
-    try {
-      let UserData = await axios.get(`http://47.243.7.214:3000/users/get`, {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      });
-      setUserData(UserData.data.user);
-      setIsPending(false);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
-  };
-  useEffect(() => {
-    GetUserDeta();
-  }, []);
+export default function Userinfo() {
+  const GetApi = `/users/get`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
+  let UserData = data ? data.user : "";
+
   return (
     <>
       <div className="container-fluid bg-light ">
@@ -47,7 +22,7 @@ export default function Userinfo() {
                 />
               </div>
               <div className=" offset-7 col-2   ">
-                <Link to={"/Profile/settings/myaccount"}>
+                <Link to={`/Profile/settings/myaccount/${UserData._id}`}>
                   <button className="btn btn-primary">Edditing</button>
                 </Link>
               </div>

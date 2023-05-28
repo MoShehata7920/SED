@@ -43,7 +43,7 @@ function Profile() {
                   </Link>
                 </li>
                 <li className="sidebar-item ">
-                  <Link to={"/profile/myProduct"}>
+                  <Link to={`/profile/myProduct/${datauser._id}`}>
                     <i className="text-black ">{<BsListCheck />}</i>
                     <span className="ms-1 d-none d-sm-inline text-black">
                       Product

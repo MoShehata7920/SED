@@ -2,25 +2,19 @@ import Footer from "../../Component/footer/Footer";
 import Navebar from "../../Component/navebar/navbar";
 import { GiToggles } from "react-icons/gi";
 import { Link, useParams } from "react-router-dom";
-import Axios from "axios";
 import { useEffect, useState } from "react";
 import Paginate from "../../Component/pagination/Paginate";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 
 export default function Categories() {
   let { CategorieType } = useParams();
-  const [totalpageNum, settotalpageNum] = useState(1);
   const [currentpageNum, setcurrentpageNum] = useState(1);
-  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
   let [sort, setsort] = useState("");
-  let [Detcateg, setDetcateg] = useState([]);
   let [Service, setService] = useState("all");
   let [MaxPrice, setMaxPrice] = useState("");
   let [MinPrice, setMinPrice] = useState("");
   let [Condition, setCondition] = useState("");
   let [Price, setPrice] = useState({ Min: "", Max: "" });
-  console.log(Detcateg);
   function pricedone() {
     setMaxPrice(Price.Max);
     setMinPrice(Price.Min);
@@ -28,49 +22,43 @@ export default function Categories() {
   function getPrice(e) {
     let myitem = { ...Price };
     myitem[e.target.name] = e.target.value;
-
     setPrice(myitem);
   }
-  const GetCategDeta = async () => {
-    setError(null);
-    setIsPending(true);
+  let Detcateg;
+  let totalpageNum;
 
-    try {
-      if (
-        CategorieType == "Phones&Tablets" ||
-        CategorieType == "Phones & Tablets"
-      ) {
-        let respond = await Axios.get(
-          `http://47.243.7.214:3000/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
-        );
-        setDetcateg(respond.data.items);
-        settotalpageNum(respond.data.totalPageNumber);
-      } else if (
-        CategorieType == "Body&HealthCare" ||
-        CategorieType == "Body & Health Care"
-      ) {
-        let respond = await Axios.get(
-          `http://47.243.7.214:3000/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
-        );
-        setDetcateg(respond.data.items);
-        settotalpageNum(respond.data.totalPageNumber);
-      } else {
-        let respond = await Axios.get(
-          `http://47.243.7.214:3000/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`
-        );
-        setDetcateg(respond.data.items);
-        settotalpageNum(respond.data.totalPageNumber);
-      }
-      setIsPending(false);
-      //setError(null);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.items);
+  if (
+    CategorieType == "Phones&Tablets" ||
+    CategorieType == "Phones & Tablets"
+  ) {
+    const GetApi = `/products/get?purpose=${Service}&category=Phones%26Tablets&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`;
+    const { data, isPending, error } = UseAxiosGet(GetApi);
+    Detcateg = data ? data.items : [];
+    totalpageNum = data ? data.totalPageNumber : 1;
+  } else if (
+    CategorieType == "Body&HealthCare" ||
+    CategorieType == "Body & Health Care"
+  ) {
+    const GetApi = `/products/get?purpose=${Service}&category=Body%26HealthCare&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`;
+    const { data, isPending, error } = UseAxiosGet(GetApi);
+    Detcateg = data ? data.items : [];
+    totalpageNum = data ? data.totalPageNumber : 1;
+  } else {
+    const GetApi = `/products/get?purpose=${Service}&category=${CategorieType}&sort=${sort}&minPrice=${MinPrice}&maxPrice=${MaxPrice}&condition=${Condition}&page=${currentpageNum}`;
+    const { data, isPending, error } = UseAxiosGet(GetApi);
+    Detcateg = data ? data.items : [];
+    totalpageNum = data ? data.totalPageNumber : 1;
+  }
+  const paginate = (pageNumber) => {
+    if (Detcateg.length == 0) {
+      setcurrentpageNum(1);
+    } else {
+      setcurrentpageNum(pageNumber);
     }
+    console.log("current", currentpageNum);
   };
   useEffect(() => {
-    GetCategDeta();
+    paginate();
   }, [
     CategorieType,
     currentpageNum,

@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useParams } from "react-router-dom";
 import "./Product_editing.css";
-import Axios from "axios";
 import Navebar from "../../../Component/navebar/navbar";
-import { encrypt, decrypt, compare } from "n-krypta";
+import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
+import { UseAxiosDelete } from "../../../Component/axios/DeleteApi/DeleteApi";
 export default function ProductEditing() {
   let { Product_id } = useParams();
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
   const [ProductEdit, setProductEdit] = useState({
     productName: "",
     price: "",
@@ -18,11 +15,9 @@ export default function ProductEditing() {
     condition: "",
     purpose: "",
   });
-  const [UserToken, setUserToken] = useState("");
+  const postAPi = `/products/product/${Product_id}`;
+  const deleteAPi = `/products/product/${Product_id}`;
   const [selectedFile, setSelectedFile] = useState(null);
-  const [response, setResponse] = useState("");
-  const [ErrorMessage, setErrorMessage] = useState("");
-
   const handleImageChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -57,65 +52,48 @@ export default function ProductEditing() {
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
+  const {
+    response: postresponse,
+    ErrorMessage: postErrorMessage,
+    HandelPachApi,
+  } = UseAxiosPache(postAPi, formData);
+  const {
+    response: deleteresponse,
+    ErrorMessage: deleteErrorMessage,
+    HandelDeleteApi,
+  } = UseAxiosDelete(deleteAPi);
 
   async function itemsubmit(e) {
     e.preventDefault();
-
-    let request = await Axios.patch(
-      `http://47.243.7.214:3000/products/product/${Product_id}`,
-      formData,
-      {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      }
-    )
-      .then((response) => {
-        setResponse(response.data.message);
-      })
-      .catch((error) => {
-        // check for the response property of the error object
-        if (error.response) {
-          // set the error message state variable with the error message
-          setErrorMessage(error.response.data.message);
-        }
-      });
+    HandelPachApi();
   }
+
   async function itemRemove(e) {
     e.preventDefault();
-
-    let request = await Axios.delete(
-      `http://47.243.7.214:3000/products/product/${Product_id}`,
-      {
-        headers: {
-          Authentication: `Bearer ${decryptedData}`,
-        },
-      }
-    )
-      .then((response) => {
-        setResponse(response.data.message);
-      })
-      .catch((error) => {
-        // check for the response property of the error object
-        if (error.response) {
-          // set the error message state variable with the error message
-          setErrorMessage(error.response.data.message);
-        }
-      });
+    HandelDeleteApi();
   }
-
   useEffect(() => {
-    if (response) {
-      toast(`✔️ ${response}`);
+    if (deleteresponse) {
+      toast(`✔️ ${deleteresponse}`);
       setTimeout(() => {
         localStorage.removeItem("Productdata");
         window.location.href = "/Profile/userinfo";
       }, 3000);
     }
-    if (ErrorMessage && response == "") {
-      toast(`❌ ${ErrorMessage} `);
+    if (deleteErrorMessage && deleteresponse == "") {
+      toast(`❌ ${deleteErrorMessage} `);
     }
-  }, [response, ErrorMessage]);
+    if (postresponse) {
+      toast(`✔️ ${postresponse}`);
+      setTimeout(() => {
+        localStorage.removeItem("Productdata");
+        window.location.href = "/Profile/userinfo";
+      }, 3000);
+    }
+    if (postErrorMessage && postresponse == "") {
+      toast(`❌ ${postErrorMessage} `);
+    }
+  }, [postresponse, deleteresponse]);
   return (
     <>
       <section>
@@ -208,12 +186,7 @@ export default function ProductEditing() {
                   Save Changes
                 </button>
 
-                <Link
-                  to={"/profile/myProduct"}
-                  onClick={() => {
-                    localStorage.removeItem("Productdata");
-                  }}
-                >
+                <Link to={"/Profile/userinfo"}>
                   <button type="button" class="btn btn-primary  ">
                     Cancel
                   </button>

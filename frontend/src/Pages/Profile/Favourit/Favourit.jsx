@@ -1,46 +1,17 @@
 import "./Favourit.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import { GiToggles } from "react-icons/gi";
-import Axios from "axios";
 import { useEffect, useState } from "react";
 import Paginate from "../../../Component/pagination/Paginate";
-import { encrypt, decrypt, compare } from "n-krypta";
-export default function Favourit() {
-  const secret = "@#$%abdo@#@$$ezzatQ1234lalls&^";
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
-  const decryptedData = decrypt(storedEncryptedData, secret);
-  let [UserData, setUserData] = useState([]);
-  console.log(UserData);
-  const [totalpageNum, settotalpageNum] = useState(1);
-  const [currentpageNum, setcurrentpageNum] = useState(1);
-  const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  const UserFavProduct = async () => {
-    setError(null);
-    setIsPending(true);
+import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 
-    try {
-      let UserData = await Axios.get(
-        `http://47.243.7.214:3000/users/getWishlist`,
-        {
-          headers: {
-            Authentication: `Bearer ${decryptedData}`,
-          },
-        }
-      );
-      setUserData(UserData.data.items);
-      setIsPending(false);
-    } catch (err) {
-      setIsPending(false);
-      setError("could not fetch the data");
-      console.log(err.message);
-    }
-  };
-  useEffect(() => {
-    UserFavProduct();
-  }, []);
+export default function Favourit() {
+  // const [totalpageNum, settotalpageNum] = useState(1);
+  // const [currentpageNum, setcurrentpageNum] = useState(1);
+  // const paginate = (pageNumber) => setcurrentpageNum(pageNumber);
+  const GetApi = `/users/getWishlist`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
+  let UserData = data ? data.items : [];
   return (
     <>
       <div className="container-fluid  bg-dark  Productpage  ">
@@ -100,9 +71,9 @@ export default function Favourit() {
                   ))}
                 </div>
               </div>
-              <div className=" d-flex justify-content-center pb-5 ">
+              {/* <div className=" d-flex justify-content-center pb-5 ">
                 <Paginate paginate={paginate} totalpageNum={totalpageNum} />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

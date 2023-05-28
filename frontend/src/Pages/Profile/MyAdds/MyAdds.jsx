@@ -3,22 +3,13 @@ import "./MyAdds.css";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-
+import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 function MyAdds() {
   let { ProductId } = useParams();
-  let [Productitems, setProductitems] = useState({});
-
-  window.localStorage.setItem("Productdata", JSON.stringify(Productitems));
-  async function GetProductitems(ProductId, callback) {
-    let { data } = await Axios.get(
-      `http://47.243.7.214:3000/products/product/${ProductId}`
-    );
-    callback(data.product);
-  }
-  useEffect(() => {
-    GetProductitems(ProductId, setProductitems);
-  }, []);
-
+  const GetApi = `/products/product/${ProductId}`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
+  let Productitems = data ? data.product : "";
+  // window.localStorage.setItem("Productdata", JSON.stringify(Productitems));
   return (
     <>
       <div className="contanier  ">
