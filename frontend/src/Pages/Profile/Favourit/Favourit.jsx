@@ -1,7 +1,6 @@
 import "./Favourit.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Paginate from "../../../Component/pagination/Paginate";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 
@@ -24,7 +23,7 @@ export default function Favourit() {
                     <div className="col-xxl-4  col-xl-4  col-lg-6 col-sm-6 col-6  ">
                       <Link
                         key={index}
-                        to={`/Profile/settings/myadds/${categ._id}`}
+                        to={`/items/${categ._id}`}
                         className="text-decoration-none "
                       >
                         <div className="item slider-style2 mb-3 ">
