@@ -13,6 +13,16 @@ class ForgotPasswordRequest {
   ForgotPasswordRequest(this.email);
 }
 
+class ResetPasswordRequest {
+  String newPassword;
+  String confirmNewPassword;
+
+  ResetPasswordRequest(
+    this.newPassword,
+    this.confirmNewPassword,
+  );
+}
+
 class RegisterRequest {
   String userName;
   String mobileNumber;
@@ -125,7 +135,6 @@ class ChangePasswordRequest {
     this.oldPassword,
     this.newPassword,
     this.confirmNewPassword,
-
   );
 }
 
@@ -140,7 +149,7 @@ class NewConversationRequest {
   String senderId;
   String receiverId;
 
-  NewConversationRequest(this.senderId,this.receiverId);
+  NewConversationRequest(this.senderId, this.receiverId);
 }
 
 class GetAllConversationsRequest {

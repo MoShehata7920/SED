@@ -18,6 +18,14 @@ class RegisterObject with _$RegisterObject {
 }
 
 @freezed
+class ResetPasswordObject with _$ResetPasswordObject {
+  factory ResetPasswordObject(
+    String newPassword,
+    String confirmNewPassword,
+  ) = _resetPasswordObject;
+}
+
+@freezed
 class UserProfileObject with _$UserProfileObject {
   factory UserProfileObject(
     File? userImage,

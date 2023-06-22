@@ -28,5 +28,16 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>your_custom_scheme</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>Your App Name</string>
+		</dict>
+	</array>
 </dict>
 </plist>

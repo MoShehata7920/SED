@@ -11,6 +11,9 @@ abstract class RemoteDataSource {
 
   Future<ForgotPasswordResponse> forgotPassword(String email);
 
+  Future<DefaultResponse> resetPassword(
+      ResetPasswordRequest resetPasswordRequest);
+
   Future<VerifyEmailResponse> verifyEmail(int code);
 
   Future<AuthenticationResponse> register(RegisterRequest registerRequest);
@@ -79,6 +82,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<ForgotPasswordResponse> forgotPassword(String email) async {
     return await _appServiceClient.forgotPassword(email);
+  }
+
+  @override
+  Future<DefaultResponse> resetPassword(ResetPasswordRequest resetPasswordRequest) async {
+    return await _appServiceClient.resetPassword(
+        resetPasswordRequest.newPassword,
+        resetPasswordRequest.confirmNewPassword,
+        "Bearer ${Constants.token}");
   }
 
   @override
@@ -284,4 +295,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     return await _appServiceClient
         .newMessage(newMessageRequest.conversationId, newMessageRequest.senderId, newMessageRequest.text);
   }
+  
+  
 }
