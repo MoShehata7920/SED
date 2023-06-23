@@ -13,7 +13,7 @@ import '../../../../../domain/model/models.dart';
 class ChatViewModel extends BaseViewModel
     with ChatViewModelInputs, ChatViewModelOutputs {
   final StreamController _socketStreamController =
-      StreamController<String>.broadcast();
+      StreamController<Messages>.broadcast();
 
   final GetAllConversationsUseCase _newConversationUseCase =
       instance<GetAllConversationsUseCase>();
@@ -37,7 +37,7 @@ class ChatViewModel extends BaseViewModel
   Sink get socketInput => _socketStreamController.sink;
 
   @override
-  Stream<String> get socketOutput =>
+  Stream<Messages> get socketOutput =>
       _socketStreamController.stream.map((response) => response);
 
   void connectAndListen() {
@@ -53,8 +53,9 @@ class ChatViewModel extends BaseViewModel
     socket.onDisconnect((_) => print('disconnect'));
 
     socket.on('messageReceived', (data) {
-      print(data);
-      socketInput.add(data);
+      Messages msg = Messages(data['conversation'], data['sender']['_id'], data['text'], data['createdAt']);
+
+      socketInput.add(msg);
     });
   }
 
@@ -85,5 +86,5 @@ abstract class ChatViewModelInputs {
 }
 
 abstract class ChatViewModelOutputs {
-  Stream<String> get socketOutput;
+  Stream<Messages> get socketOutput;
 }

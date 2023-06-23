@@ -72,17 +72,6 @@ class MainScreenViewModel extends BaseViewModel
     String? token = await messaging.getToken();
     print('Device Token: $token');
 
-    Constants.socket.onConnect((_) {
-      Constants.socket.emit('token', Constants.token);
-      Constants.socket.emit('tokenDevice', token);
-    });
-
-    //When an event received from server, data is added to the stream
-    Constants.socket.on('event', (data) => print(data));
-    Constants.socket.onDisconnect((_) => print('disconnect'));
-    Constants.socket.emit("event", "{0,12}00");
-
-    Constants.socket.on('message', (data) => socketInput.add(data));
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         instance<FlutterLocalNotificationsPlugin>();
   }

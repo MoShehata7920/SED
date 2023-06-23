@@ -15,6 +15,6 @@ class Constants {
   static String? userId;
 
   static const int apiTimeOut = 60000;
-  static io.Socket socket = io.io('http://47.243.7.214:9001',
+  static io.Socket socket = io.io('http://47.243.7.214:3000',
       OptionBuilder().setTransports(['websocket']).build());
 }
