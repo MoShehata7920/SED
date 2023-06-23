@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sed/presentation/forgot_password/reset_password/viewmodel/reset_password_viewmodel.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import '../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../resources/color_manager.dart';
@@ -17,6 +19,36 @@ class ResetPasswordView extends StatefulWidget {
 class _ResetPasswordViewState extends State<ResetPasswordView> {
   final ResetPasswordViewmodel _viewModel = ResetPasswordViewmodel();
 
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmNewPasswordController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    _newPasswordController.addListener(
+        () => _viewModel.setNewPassword(_newPasswordController.text));
+
+    _confirmNewPasswordController.addListener(() =>
+        _viewModel.setConfirmNewPassword(_confirmNewPasswordController.text));
+    super.initState();
+
+    _viewModel.isUserRestedPasswordSuccessfullyStreamController.stream
+        .listen((isRegistered) {
+      if (isRegistered) {
+        // navigate to main screen
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +57,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(
-                  context, _buildContentWidget(), () => _viewModel) ??
+                context,
+                _buildContentWidget(),
+                () => _viewModel,
+              ) ??
               _buildContentWidget();
         },
       ),
@@ -34,68 +69,84 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
   Widget _buildContentWidget() {
     return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(
-                AppPadding.p65, AppPadding.p65, AppPadding.p65, AppPadding.p65),
-            child: Lottie.asset(JsonAssets.resetPassword)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-          child: StreamBuilder<String?>(
-              // stream: _viewModel.outputErrorPasswordValid,
+              AppPadding.p65,
+              AppPadding.p65,
+              AppPadding.p65,
+              AppPadding.p65,
+            ),
+            child: Lottie.asset(JsonAssets.resetPassword),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+            child: StreamBuilder<String?>(
+              stream: _viewModel.outputErrorNewPasswordValid,
               builder: (context, snapshot) {
-            return TextFormField(
-                keyboardType: TextInputType.visiblePassword,
-                // controller: _passwordEditingController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.newPassword,
-                  labelText: AppStrings.newPassword,
-                  errorMaxLines: 3,
-                  errorText: snapshot.data, //else present the error to the user
-                ));
-          }),
-        ),
-        const SizedBox(
-          height: AppSize.s25,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-          child: StreamBuilder<String?>(
-              // stream: _viewModel.outputErrorConfirmPasswordValid,
+                return TextFormField(
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: _newPasswordController,
+                  decoration: InputDecoration(
+                    hintText: AppStrings.newPassword,
+                    labelText: AppStrings.newPassword,
+                    errorMaxLines: 3,
+                    errorText:
+                        snapshot.data, //else present the error to the user
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(
+            height: AppSize.s25,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+            child: StreamBuilder<String?>(
+              stream: _viewModel.outputErrorConfirmNewPasswordValid,
               builder: (context, snapshot) {
-            return TextFormField(
-                keyboardType: TextInputType.visiblePassword,
-                // controller: _confirmPasswordEditingController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.rewriteNewPassword,
-                  labelText: AppStrings.rewriteNewPassword,
-                  errorMaxLines: 3,
-                  errorText: snapshot.data, //else present the error to the user
-                ));
-          }),
-        ),
-        const SizedBox(
-          height: AppSize.s32,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-          child: StreamBuilder<bool>(
-              // stream: _viewModel.outputAreAllInputsValid,
+                return TextFormField(
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: _confirmNewPasswordController,
+                  decoration: InputDecoration(
+                    hintText: AppStrings.rewriteNewPassword,
+                    labelText: AppStrings.rewriteNewPassword,
+                    errorMaxLines: 3,
+                    errorText:
+                        snapshot.data, //else present the error to the user
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(
+            height: AppSize.s32,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+            child: StreamBuilder<bool>(
+              stream: _viewModel.outputAreAllInputsValid,
               builder: (context, snapshot) {
-            return SizedBox(
-              width: double.infinity,
-              height: AppSize.s40,
-              child: ElevatedButton(
-                  onPressed: (snapshot.data ?? false)
-                      ? () {
-                          // _viewModel.register();
-                        }
-                      : null,
-                  child: Text(AppStrings.confirm)),
-            );
-          }),
-        ),
-      ]),
+                return SizedBox(
+                  width: double.infinity,
+                  height: AppSize.s40,
+                  child: ElevatedButton(
+                    onPressed: (snapshot.data ?? false)
+                        ? () {
+                            _viewModel.resetPassword();
+                          }
+                        : null,
+                    child: Text(AppStrings.confirm),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

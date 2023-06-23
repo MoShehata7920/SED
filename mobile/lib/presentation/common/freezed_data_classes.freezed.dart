@@ -353,6 +353,144 @@ abstract class _registerObject implements RegisterObject {
 }
 
 /// @nodoc
+mixin _$ResetPasswordObject {
+  String get newPassword => throw _privateConstructorUsedError;
+  String get confirmNewPassword => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ResetPasswordObjectCopyWith<ResetPasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResetPasswordObjectCopyWith<$Res> {
+  factory $ResetPasswordObjectCopyWith(
+          ResetPasswordObject value, $Res Function(ResetPasswordObject) then) =
+      _$ResetPasswordObjectCopyWithImpl<$Res, ResetPasswordObject>;
+  @useResult
+  $Res call({String newPassword, String confirmNewPassword});
+}
+
+/// @nodoc
+class _$ResetPasswordObjectCopyWithImpl<$Res, $Val extends ResetPasswordObject>
+    implements $ResetPasswordObjectCopyWith<$Res> {
+  _$ResetPasswordObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? newPassword = null,
+    Object? confirmNewPassword = null,
+  }) {
+    return _then(_value.copyWith(
+      newPassword: null == newPassword
+          ? _value.newPassword
+          : newPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmNewPassword: null == confirmNewPassword
+          ? _value.confirmNewPassword
+          : confirmNewPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_resetPasswordObjectCopyWith<$Res>
+    implements $ResetPasswordObjectCopyWith<$Res> {
+  factory _$$_resetPasswordObjectCopyWith(_$_resetPasswordObject value,
+          $Res Function(_$_resetPasswordObject) then) =
+      __$$_resetPasswordObjectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String newPassword, String confirmNewPassword});
+}
+
+/// @nodoc
+class __$$_resetPasswordObjectCopyWithImpl<$Res>
+    extends _$ResetPasswordObjectCopyWithImpl<$Res, _$_resetPasswordObject>
+    implements _$$_resetPasswordObjectCopyWith<$Res> {
+  __$$_resetPasswordObjectCopyWithImpl(_$_resetPasswordObject _value,
+      $Res Function(_$_resetPasswordObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? newPassword = null,
+    Object? confirmNewPassword = null,
+  }) {
+    return _then(_$_resetPasswordObject(
+      null == newPassword
+          ? _value.newPassword
+          : newPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == confirmNewPassword
+          ? _value.confirmNewPassword
+          : confirmNewPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_resetPasswordObject implements _resetPasswordObject {
+  _$_resetPasswordObject(this.newPassword, this.confirmNewPassword);
+
+  @override
+  final String newPassword;
+  @override
+  final String confirmNewPassword;
+
+  @override
+  String toString() {
+    return 'ResetPasswordObject(newPassword: $newPassword, confirmNewPassword: $confirmNewPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_resetPasswordObject &&
+            (identical(other.newPassword, newPassword) ||
+                other.newPassword == newPassword) &&
+            (identical(other.confirmNewPassword, confirmNewPassword) ||
+                other.confirmNewPassword == confirmNewPassword));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, newPassword, confirmNewPassword);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_resetPasswordObjectCopyWith<_$_resetPasswordObject> get copyWith =>
+      __$$_resetPasswordObjectCopyWithImpl<_$_resetPasswordObject>(
+          this, _$identity);
+}
+
+abstract class _resetPasswordObject implements ResetPasswordObject {
+  factory _resetPasswordObject(
+          final String newPassword, final String confirmNewPassword) =
+      _$_resetPasswordObject;
+
+  @override
+  String get newPassword;
+  @override
+  String get confirmNewPassword;
+  @override
+  @JsonKey(ignore: true)
+  _$$_resetPasswordObjectCopyWith<_$_resetPasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$UserProfileObject {
   File? get userImage => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;

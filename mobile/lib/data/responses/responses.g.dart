@@ -545,13 +545,16 @@ MessagesResponse _$MessagesResponseFromJson(Map<String, dynamic> json) =>
       json['sender'] as String?,
       json['text'] as String?,
       json['createdAt'] as String?,
-    )..status = json['status'] as int?;
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
 
 Map<String, dynamic> _$MessagesResponseToJson(MessagesResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
+      'message': instance.message,
       'conversation': instance.conversationId,
       'sender': instance.senderId,
-      'text': instance.message,
+      'text': instance.text,
       'createdAt': instance.createdAt,
     };
