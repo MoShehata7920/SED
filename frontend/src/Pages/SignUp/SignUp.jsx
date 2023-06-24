@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SignUp.css";
+import { ToastContainer, toast } from "react-toastify";
+
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Navebar from "../../Component/navebar/navbar";
@@ -35,7 +37,10 @@ function Register() {
       localStorage.setItem("encryptedToken", encryptedData);
       window.location.href = "/";
     }
-  }, [data]);
+    if (ErrorMessage && response == "") {
+      toast(`❌ ${ErrorMessage} `);
+    }
+  }, [data, ErrorMessage]);
   return (
     <>
       <section>
@@ -135,6 +140,7 @@ function Register() {
                       </Link>{" "}
                     </p>
                   </div>
+                  <ToastContainer />
                 </form>
               </div>
             </div>

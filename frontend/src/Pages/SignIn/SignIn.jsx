@@ -2,6 +2,7 @@ import "./SignIn.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navebar from "../../Component/navebar/navbar";
+import { ToastContainer, toast } from "react-toastify";
 import { encrypt } from "n-krypta";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 function SignIn() {
@@ -32,7 +33,10 @@ function SignIn() {
       localStorage.setItem("encryptedToken", encryptedData);
       window.location.href = "/";
     }
-  }, [data]);
+    if (ErrorMessage && response == "") {
+      toast(`❌ ${ErrorMessage} `);
+    }
+  }, [data, ErrorMessage]);
 
   return (
     <>
@@ -94,6 +98,7 @@ function SignIn() {
                       </Link>
                     </p>
                   </div>
+                  <ToastContainer />
                 </form>
               </div>
             </div>
