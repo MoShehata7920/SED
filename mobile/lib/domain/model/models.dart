@@ -119,9 +119,10 @@ class UserData {
   String phone;
   String government;
   String address;
+  bool isVerified;
 
   UserData(this.id, this.name, this.image, this.phone, this.government,
-      this.address);
+      this.address, this.isVerified);
 }
 
 class ShowItems {
@@ -278,7 +279,7 @@ class GetAllConversations {
 
 class ConversationsData {
   String id;
-  
+
   List<UserData> usersData;
 
   ConversationsData(this.id, this.usersData);

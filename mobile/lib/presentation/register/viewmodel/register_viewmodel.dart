@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
@@ -194,17 +195,16 @@ class RegisterViewModel extends BaseViewModel
       _emailStreamController.stream.map((email) => _isEmailValid(email));
 
   @override
-  Stream<String?> get outputErrorEmailValid => outputIsEmailValid.map(
-      (isEmailValid) => isEmailValid ? null : AppStrings.emailInValid);
+  Stream<String?> get outputErrorEmailValid => outputIsEmailValid
+      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailInValid);
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
       .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get outputErrorPasswordValid =>
-      outputIsPasswordValid.map((isPasswordValid) =>
-          isPasswordValid ? null : AppStrings.passwordInValid);
+  Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(
+      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid);
 
   @override
   Stream<bool> get outputIsConfirmPasswordValid =>

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/usecase/verify_email_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
@@ -9,8 +13,20 @@ class VerifyEmailViewModel extends BaseViewModel
     with VerifyEmailViewModelInputs, VerifyEmailViewModelOutputs {
   final VerifyEmailUseCase _verifyEmailUseCase = instance<VerifyEmailUseCase>();
 
+  StreamController isUserLoggedInSuccessfullyStreamController =
+      StreamController<bool>();
+
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
   @override
   void start() {}
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    isUserLoggedInSuccessfullyStreamController.close();
+  }
 
   @override
   void verifyEmail(int code) async {
@@ -30,9 +46,9 @@ class VerifyEmailViewModel extends BaseViewModel
 
       // navigate to main screen
 
-      // _appPreferences.setToken(response.token ?? AppStrings.empty);
+      _appPreferences.setToken(Constants.token);
 
-      // isUserLoggedInSuccessfullyStreamController.add(true);
+      isUserLoggedInSuccessfullyStreamController.add(true);
     });
   }
 }

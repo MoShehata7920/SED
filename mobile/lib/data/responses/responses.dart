@@ -220,8 +220,11 @@ class UserDataResponse {
   @JsonKey(name: "address")
   String? address;
 
+  @JsonKey(name: "isVerified")
+  bool? isVerified;
+
   UserDataResponse(this.id, this.name, this.image, this.phone, this.government,
-      this.address);
+      this.address, this.isVerified);
 
   // From Json
   factory UserDataResponse.fromJson(Map<String, dynamic> json) =>
@@ -555,7 +558,6 @@ class NewMessageResponse extends BaseResponse {
   Map<String, dynamic> toJson() => _$NewMessageResponseToJson(this);
 }
 
-
 @JsonSerializable()
 class MessagesResponse extends BaseResponse {
   @JsonKey(name: "conversation")
@@ -570,8 +572,8 @@ class MessagesResponse extends BaseResponse {
   @JsonKey(name: "createdAt")
   String? createdAt;
 
-
-  MessagesResponse(this.conversationId, this.senderId, this.text, this.createdAt);
+  MessagesResponse(
+      this.conversationId, this.senderId, this.text, this.createdAt);
 
   // From Json
   factory MessagesResponse.fromJson(Map<String, dynamic> json) =>

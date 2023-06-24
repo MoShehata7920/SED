@@ -105,8 +105,14 @@ extension ItemsResponseMapper on ItemsResponse? {
 
 extension UserDataResponseMapper on UserDataResponse? {
   UserData toDomain() {
-    return UserData(this?.id ?? "", this?.name ?? "", this?.image ?? "",
-        this?.phone ?? "", this?.government ?? "", this?.address ?? "");
+    return UserData(
+        this?.id ?? "",
+        this?.name ?? "",
+        this?.image ?? "",
+        this?.phone ?? "",
+        this?.government ?? "",
+        this?.address ?? "",
+        this?.isVerified ?? false);
   }
 }
 
@@ -114,7 +120,7 @@ extension ItemResponseMapper on ItemResponse? {
   Item toDomain() {
     return Item(
         this?.product.toDomain() ?? Items("", "", "", 0, "", "", "", "", false),
-        this?.user.toDomain() ?? UserData("", "", "", "", "", ""));
+        this?.user.toDomain() ?? UserData("", "", "", "", "", "", false));
   }
 }
 
@@ -148,7 +154,7 @@ extension AddAdvertisementMapper on AddAdvertisementResponse? {
 extension GetMyProfileMapper on GetMyProfileDataResponse? {
   GetMyProfileData toDomain() {
     return GetMyProfileData(
-        this?.user.toDomain() ?? UserData("", "", "", "", "", ""));
+        this?.user.toDomain() ?? UserData("", "", "", "", "", "", false));
   }
 }
 
@@ -228,8 +234,8 @@ extension GetAllConversationsMapper on GetAllConversationsResponse? {
     List<ConversationsData> temp = [];
 
     this?.conversations?.forEach((element) {
-      temp.add(
-          ConversationsData(element?.conversationId ?? "", element?.usersData.toDomain() ?? []));
+      temp.add(ConversationsData(
+          element?.conversationId ?? "", element?.usersData.toDomain() ?? []));
     });
 
     return GetAllConversations(temp);
@@ -242,7 +248,7 @@ extension GetUserDataMapper on List<UserDataResponse?>? {
 
     this?.forEach((element) {
       tempUserData.add(UserData(element?.id ?? "", element?.name ?? "",
-          element?.image ?? "", "", "", ""));
+          element?.image ?? "", "", "", "", false));
     });
 
     return tempUserData;
@@ -254,8 +260,8 @@ extension GetChatMessagesMapper on GetChatMessagesResponse? {
     List<Messages> temp = [];
 
     this?.messages?.forEach((element) {
-      temp.add(
-          Messages(element?.conversationId ?? "", element?.senderId ?? "",element?.text ?? "", element?.createdAt ?? ""));
+      temp.add(Messages(element?.conversationId ?? "", element?.senderId ?? "",
+          element?.text ?? "", element?.createdAt ?? ""));
     });
 
     return GetChatMessages(temp);
@@ -264,6 +270,7 @@ extension GetChatMessagesMapper on GetChatMessagesResponse? {
 
 extension NewMessageMapper on NewMessageResponse? {
   NewMessage toDomain() {
-    return NewMessage(Message(this?.savedMessage?.conversationId ?? "", this?.savedMessage?.senderId ?? "",this?.savedMessage?.text ?? ""));
+    return NewMessage(Message(this?.savedMessage?.conversationId ?? "",
+        this?.savedMessage?.senderId ?? "", this?.savedMessage?.text ?? ""));
   }
 }

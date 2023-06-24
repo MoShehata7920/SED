@@ -44,8 +44,13 @@ class _LoginViewState extends State<LoginView> {
       if (isLoggedIn) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          _appPreferences.setUserLoggedInSuccessfully(true);
-          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+          if (_viewModel.isVerified) {
+            _appPreferences.setUserLoggedInSuccessfully(true);
+            Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+          } else {
+            Navigator.of(context)
+                .pushReplacementNamed(Routes.emailVerificationRoute);
+          }
         });
       }
     });

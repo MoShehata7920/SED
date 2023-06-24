@@ -6,6 +6,7 @@ import 'package:sed/app/functions.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../../domain/usecase/login_usecase.dart';
@@ -26,7 +27,6 @@ class LoginViewModel extends BaseViewModel
 
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
-
   // i didn't create it as private bc i will call it in view directly
   StreamController isUserLoggedInSuccessfullyStreamController =
       StreamController<bool>();
@@ -40,6 +40,8 @@ class LoginViewModel extends BaseViewModel
   IconData passwordSuffixIcon = IconsManager.passwordVisible;
 
   bool obscureText = true;
+
+  bool isVerified = true;
 
   // inputs
   @override
@@ -93,11 +95,12 @@ class LoginViewModel extends BaseViewModel
               inputState.add(ErrorState(
                   StateRendererType.popUpErrorState, failure.message))
             }, (response) {
+      _appPreferences.setToken(response.token ?? AppStrings.empty);
+
+      // Utils.getUserId();
       // right -> success
       inputState.add(ContentState());
       // navigate to main screen
-
-      _appPreferences.setToken(response.token ?? AppStrings.empty);
 
       isUserLoggedInSuccessfullyStreamController.add(true);
     });

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'responses.dart';
 
 // **************************************************************************
@@ -201,6 +199,7 @@ UserDataResponse _$UserDataResponseFromJson(Map<String, dynamic> json) =>
       json['phone'] as String?,
       json['government'] as String?,
       json['address'] as String?,
+      json['isVerified'] as bool?,
     );
 
 Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
@@ -211,6 +210,7 @@ Map<String, dynamic> _$UserDataResponseToJson(UserDataResponse instance) =>
       'phone': instance.phone,
       'government': instance.government,
       'address': instance.address,
+      'isVerified': instance.isVerified,
     };
 
 ShowItemsResponse _$ShowItemsResponseFromJson(Map<String, dynamic> json) =>
