@@ -24,6 +24,12 @@ abstract class AppServiceClient {
     @Field("searchOption") String email,
   );
 
+  @PATCH("/auth/reset")
+  Future<DefaultResponse> resetPassword(
+      @Field("password") String newPassword,
+      @Field("confirmPassword") String confirmNewPassword,
+      @Header("Authentication") String token);
+
   @POST("/auth/register")
   Future<AuthenticationResponse> register(
     @Field("fullName") String userName,

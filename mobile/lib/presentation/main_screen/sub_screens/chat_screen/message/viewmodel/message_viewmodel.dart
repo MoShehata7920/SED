@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/chat_messages_usecase.dart';
@@ -41,6 +43,7 @@ class MessageViewModel extends BaseViewModel
 
       conversationId = response.conversationId;
 
+
       inputState.add(ContentState());
     });
 
@@ -64,7 +67,9 @@ class MessageViewModel extends BaseViewModel
       // right -> success
 
       result = response;
-      
+
+      Constants.socket.emit('joinConversation',conversationId);
+
       inputState.add(ContentState());
     });
 
@@ -76,11 +81,11 @@ class MessageViewModel extends BaseViewModel
     final ChatViewModel _chatViewModel =
     instance<ChatViewModel>();
 
-Map<String, dynamic> messageData = {
-  'conversationId': conversationId,
-  'senderId': senderId,
-  'text': message,
-};
+    Map<String, dynamic> messageData = {
+      'conversationId': conversationId,
+      'senderId': senderId,
+      'text': message,
+    };
 
     _chatViewModel.socket.emit('sendMessage', messageData);
   }
