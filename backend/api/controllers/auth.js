@@ -84,7 +84,8 @@ exports.loginController = (req, res) => {
                     email: user.email,
                     id: user._id.toString(),
                     fullName: user.fullName,
-                    isAdmin: user.isAdmin
+                    isAdmin: user.isAdmin ,
+                    isVerified : user.isVerified
                 },
                     process.env.SECRET_KEY
                     // , {
@@ -113,7 +114,9 @@ exports.googleLogin = async (req, res, next) => {
             fullName: user.fullName,
             email: user.email,
             createdAt: user.createdAt,
-            isAdmin:user.isAdmin
+            isAdmin:user.isAdmin ,
+            isVerified : user.isVerified
+
         };
         // const expiresIn = "10h";
         // const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
