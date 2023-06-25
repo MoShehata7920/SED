@@ -245,13 +245,7 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         await user.save();
         res.status(200).json({ status:0,message: 'Account Verified' });
         const username = user.fullName
-        const transporter = nodemailer.createTransport({
-            service: "hotmail",
-            auth: {
-                user: process.env.MYMAIL,
-                pass: process.env.MAILPASSWORD
-            }
-        });
+
 
         const mailOptions = {
             to: user.email,
@@ -259,6 +253,14 @@ exports.verifyEmailByOtp = async (req, res, next) => {
             subject: 'Account Verification Successful',
             html: mailHelper.generateOtpVerifiedEmailTemplate(username)
         };
+        
+        const transporter = nodemailer.createTransport({
+            service: "hotmail",
+            auth: {
+                user: process.env.MYMAIL,
+                pass: process.env.MAILPASSWORD
+            }
+        });
 
         mailHelper.mailTransport().sendMail(mailOptions);
     } catch (err) {
