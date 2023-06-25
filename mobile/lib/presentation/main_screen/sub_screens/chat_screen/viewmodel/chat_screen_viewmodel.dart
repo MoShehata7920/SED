@@ -45,11 +45,11 @@ class ChatViewModel extends BaseViewModel
         OptionBuilder().setTransports(['websocket']).build());
 
     socket.onConnect((_) {
-      socket.emit('token', "Bearer ${Constants.token}");
+      final userId = Utils.getUserId();
+      print('User ID is $userId');
+      socket.emit('saveUserData', {'id': userId});
     });
 
-    //When an event received from server, data is added to the stream
-    socket.on('event', (data) => print(data));
     socket.onDisconnect((_) => print('disconnect'));
 
     socket.on('messageReceived', (data) {
