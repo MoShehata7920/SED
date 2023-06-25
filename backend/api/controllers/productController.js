@@ -12,7 +12,7 @@ exports.createProduct = (req, res) => {
         description: req.body.description,
         category: req.body.category,
         purpose: req.body.purpose,
-        // productImage: `localhost:3000/${req.file.path}` ,
+        // productImage: req.file.path ,
         productImage: `http://47.243.7.214:3000/${req.file.path}` || `http://47.243.7.214:3000/${req.file.name}` ,
         condition:req.body.condition,
         price: req.body.price,
@@ -194,8 +194,7 @@ exports.getProductsByQuery = async (req, res, next) => {
             }
         }
 
-        res.status(200).json({ status: 0, items: doc , totalDocs , totalPageNumber , currentPage:page });
-        return;
+        return res.status(200).json({ status: 0, items: doc , totalDocs , totalPageNumber , currentPage:page });
     } catch (err) {
         res.status(404).json({ status: 1, message: err });
     }
@@ -243,9 +242,8 @@ exports.getProductsByParams = async (req, res, next) => {
                 if (wishList.includes(obj._id)) {
                     obj.isSaved = true;
                 }
-            }
-            res.status(200).json({ status: 0, items: doc });
-            return;
+            }     
+            return res.status(200).json({ status: 0, items: doc })
 
         }
         if (Category == 'all' && purpose == 'all') {
@@ -266,8 +264,8 @@ exports.getProductsByParams = async (req, res, next) => {
                     obj.isSaved = true;
                 }
             }
-            res.status(200).json({ status: 0, items: doc });
-            return;
+            return res.status(200).json({ status: 0, items: doc });
+            
         }
         if (Category == 'all' || purpose == 'all') {
             const doc = await Product.find({ $or: [{ category: Category }, { purpose: purpose }] }).select('-seller -updatedAt -__v').lean().skip(skip).limit(perPage);
@@ -287,8 +285,8 @@ exports.getProductsByParams = async (req, res, next) => {
                     obj.isSaved = true;
                 }
             }
-            res.status(200).json({ status: 0, items: doc });
-            return;
+            
+            return res.status(200).json({ status: 0, items: doc });
         }
     } catch (err) {
         res.status(404).json({ status: 1, message: err });
@@ -302,7 +300,7 @@ exports.userProducts=async(req,res)=>{
     try {
         const products =await Product.find({seller:sellerId})
         if(products.length === 0){
-            res.status(200).json({status: 0 , message:'There are no products for this user'})
+            return res.status(200).json({status: 0 , message:'There are no products for this user' , products })
         }
         res.status(200).json({status:0 , products });
     } catch (err) {

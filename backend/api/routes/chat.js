@@ -53,7 +53,7 @@ router.get("/user-convs/:userId", async (req, res) => {
     //     perDocumentLimit:1              // only the last message to show from outside view    
     //   },
     if(conversations.length===0){
-      res.status(200).json({status:0 , message : "There are no conversations , start One !", conversations })
+      return res.status(200).json({status:0 , message : "There are no conversations , start One !", conversations })
     }
     res.status(200).json({ status:0 , conversations });
   } catch (err) {

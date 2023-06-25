@@ -42,7 +42,8 @@ exports.registerController = async (req, res, next) => {
             email:doc.email,
             id: doc._id.toString(),
             fullName: doc.fullName,
-            isAdmin: doc.isAdmin
+            isAdmin: doc.isAdmin,
+            isVerified : doc.isVerified
         },
             process.env.SECRET_KEY
             // , {
