@@ -77,16 +77,13 @@ class MessageViewModel extends BaseViewModel
 
   @override
   void sendMessage(String conversationId, String senderId, String message) async{
-    final ChatViewModel _chatViewModel =
-    instance<ChatViewModel>();
-
     Map<String, dynamic> messageData = {
       'conversationId': conversationId,
       'senderId': senderId,
       'text': message,
     };
 
-    _chatViewModel.socket.emit('sendMessage', messageData);
+    Constants.socket.emit('sendMessage', messageData);
   }
 
 }

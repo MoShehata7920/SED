@@ -41,22 +41,23 @@ class ChatViewModel extends BaseViewModel
       _socketStreamController.stream.map((response) => response);
 
   void connectAndListen() {
-    socket = io.io('http://47.243.7.214:3000',
-        OptionBuilder().setTransports(['websocket']).build());
-
-    socket.onConnect((_) {
-      final userId = Utils.getUserId();
-      print('User ID is $userId');
-      socket.emit('saveUserData', {'id': userId});
-    });
-
-    socket.onDisconnect((_) => print('disconnect'));
-
-    socket.on('messageReceived', (data) {
-      Messages msg = Messages(data['conversation'], data['sender']['_id'], data['text'], data['createdAt']);
-
-      socketInput.add(msg);
-    });
+    // socket = io.io('http://47.243.7.214:3000',
+    //     OptionBuilder().setTransports(['websocket']).build());
+    //
+    // socket.onConnect((_) {
+    //   final userId = Utils.getUserId();
+    //   print('User ID is $userId');
+    //   socket.emit('saveUserData', {'id': userId});
+    // });
+    //
+    // socket.onDisconnect((_) => print('disconnect'));
+    //
+    // socket.on('messageReceived', (data) {
+    //   Messages msg = Messages(data['conversation'], data['sender']['_id'], data['text'], data['createdAt']);
+    //
+    //   print(data);
+    //   socketInput.add(msg);
+    // });
   }
 
   @override
