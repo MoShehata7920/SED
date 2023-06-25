@@ -12,7 +12,8 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
       const ext = file.originalname.split('.').pop(); // extract file extension
-      const filename = `${new Date().toDateString()}${uuidv4()}.${ext}`;
+      // const filename = `${new Date().toDateString()}${uuidv4()}.${ext}`;
+      const filename = `${new Date().toISOString().replace(/:/g, '-')}${uuidv4()}.${ext}`;
       const filePath = path.join('./SEDimages/products', filename);
   
       // Check if the file already exists
