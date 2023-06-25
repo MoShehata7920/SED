@@ -43,19 +43,19 @@ const SedCategories = [
     }),
     new Category({
         _id: 8,
-        name: "Others",
-        image: "https://th.bing.com/th/id/R.aa7bb005e0ae46b9d926678338276352?rik=kGKZV5x8YQlQPQ&riu=http%3a%2f%2fwww.emergtest.com%2fimages_sites%2fothers_logo.png&ehk=ltHmyX%2fMrCxdgUvEAqdxcuvHF1Qyye%2brzOFWvqVyaaI%3d&risl=&pid=ImgRaw&r=0"
-    }),
-    new Category({
-        _id: 9,
         name: "Sports",
         image: "https://th.bing.com/th/id/OIP.JcFY9NUq0LdgxZc-vBXPewHaHa?pid=ImgDet&rs=1"
     }),
     new Category({
-        _id: 10,
+        _id: 9,
         name: "Vehicles",
         image: "https://th.bing.com/th/id/R.10bc4790ede4bb677dc3c06ec7c37319?rik=UBY3GJmDK5OB5A&riu=http%3a%2f%2fdigestcars.com%2fwp-content%2fuploads%2f2019%2f12%2fcar-2.jpg&ehk=YnoaW1KEXTtsQfOea2VPf2rZszEggrXVtLKILEMuO%2bM%3d&risl=&pid=ImgRaw&r=0"
-    })
+    }),
+    new Category({
+        _id: 10,
+        name: "Others",
+        image: "https://th.bing.com/th/id/R.aa7bb005e0ae46b9d926678338276352?rik=kGKZV5x8YQlQPQ&riu=http%3a%2f%2fwww.emergtest.com%2fimages_sites%2fothers_logo.png&ehk=ltHmyX%2fMrCxdgUvEAqdxcuvHF1Qyye%2brzOFWvqVyaaI%3d&risl=&pid=ImgRaw&r=0"
+    }),
 ];
 
 var done = 0;

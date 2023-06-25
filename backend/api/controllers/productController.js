@@ -332,9 +332,9 @@ exports.searchQuery=async(req,res)=>{
                 {purpose:{$regex:search , $options: 'i' }},
                 {category:{$regex:search , $options: 'i' }},
             ]
-        const result=await Product.find(query)
-        const result_number=result.length
-        res.status(200).json({status:0,result ,result_number})
+        const items=await Product.find(query)
+        const result_number=items.length
+        res.status(200).json({status:0,items ,result_number})
     } catch (err) {
         res.status(500).json({status:1 , err});
     }
