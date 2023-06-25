@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -101,7 +102,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
         backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
         iconTheme: IconThemeData(color: ColorsManager.secondaryText),
-        title: Text(AppStrings.myAccount,
+        title: Text(AppStrings.myAccount.tr(),
             style: TextStyle(color: ColorsManager.secondaryText)),
       ),
       backgroundColor: ColorsManager.primaryBackground,
@@ -124,7 +125,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(AppStrings.profilePic,
+            Text(AppStrings.profilePic.tr(),
                 style: TextStyle(
                     fontSize: AppSize.s20,
                     fontWeight: FontWeight.bold,
@@ -172,7 +173,7 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
               ],
             ),
             const SizedBox(height: AppSize.s24),
-            Text(AppStrings.profileInfo,
+            Text(AppStrings.profileInfo.tr(),
                 style: TextStyle(
                     fontSize: AppSize.s20,
                     fontWeight: FontWeight.bold,
@@ -181,21 +182,21 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: AppStrings.name,
+                labelText: AppStrings.name.tr(),
               ),
             ),
             const SizedBox(height: AppSize.s8),
             TextField(
               controller: _phoneController,
               decoration: InputDecoration(
-                labelText: AppStrings.phoneNumber,
+                labelText: AppStrings.phoneNumber.tr(),
               ),
             ),
             const SizedBox(height: AppSize.s8),
             DropdownButtonFormField<String>(
               value: selectedCity,
               decoration: InputDecoration(
-                labelText: AppStrings.selectGovernment,
+                labelText: AppStrings.selectGovernment.tr(),
               ),
               dropdownColor: ColorsManager.primaryBackground,
               items: AppStrings.governments.map((String government) {
@@ -215,50 +216,20 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
             TextField(
               controller: _addressController,
               decoration: InputDecoration(
-                labelText: AppStrings.address,
+                labelText: AppStrings.address.tr(),
               ),
               inputFormatters: [
                 LengthLimitingTextInputFormatter(50),
               ],
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
             ),
-            // const SizedBox(height: AppSize.s8),
-            // Text(AppStrings.changePassword.tr(),
-            //     style: TextStyle(
-            //         fontSize: AppSize.s20,
-            //         fontWeight: FontWeight.bold,
-            //         color: ColorsManager.primaryText)),
-            // const SizedBox(height: AppSize.s16),
-            // TextField(
-            //   controller: _passwordController,
-            //   obscureText: true,
-            //   decoration: InputDecoration(
-            //     labelText: AppStrings.oldPassword.tr(),
-            //   ),
-            // ),
-            // const SizedBox(height: AppSize.s8),
-            // TextField(
-            //   controller: _passwordController,
-            //   obscureText: true,
-            //   decoration: InputDecoration(
-            //     labelText: AppStrings.newPassword,
-            //   ),
-            // ),
-            // const SizedBox(height: AppSize.s8),
-            // TextField(
-            //   controller: _passwordController,
-            //   obscureText: true,
-            //   decoration: InputDecoration(
-            //     labelText: AppStrings.rewriteNewPassword,
-            //   ),
-            // ),
             const SizedBox(height: AppSize.s16),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   _viewModel.updateUserProfile();
                 },
-                child: Text(AppStrings.saveChanges),
+                child: Text(AppStrings.saveChanges.tr()),
               ),
             ),
             const SizedBox(height: AppSize.s16),
@@ -273,12 +244,12 @@ class MyAccountScreenViewState extends State<MyAccountScreenView> {
                           .pushReplacementNamed(Routes.loginRoute);
                     });
                   },
-                  child: Text(AppStrings.logOut),
+                  child: Text(AppStrings.logOut.tr()),
                 ),
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    AppStrings.deleteAccount,
+                    AppStrings.deleteAccount.tr(),
                     style: TextStyle(color: ColorsManager.error),
                   ),
                 ),

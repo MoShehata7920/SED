@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppStrings {
-  static String ourTeam = "our_team".tr();
-  static String mohamedShehata = "mohamed_shehata".tr();
-  static String mahmoudHafez = "mahmoud_hafez".tr();
-  static String abdullahRagab = "abdullah_ragab".tr();
-  static String mahmoudElamrosy = "mahmoud_elamrosy".tr();
-  static String mohamedAdel = "mohamed_adel".tr();
-  static String abdElrahmanEzzat = "abdElrahman_ezzat".tr();
-  static String mobileDeveloper = "mobile_developer".tr();
-  static String backendDeveloper = "backend_developer".tr();
-  static String frontDeveloper = "front_developer".tr();
+  static String ourTeam = "our_team";
+  static String mohamedShehata = "mohamed_shehata";
+  static String mahmoudHafez = "mahmoud_hafez";
+  static String abdullahRagab = "abdullah_ragab";
+  static String mahmoudElamrosy = "mahmoud_elamrosy";
+  static String mohamedAdel = "mohamed_adel";
+  static String abdElrahmanEzzat = "abdElrahman_ezzat";
+  static String mobileDeveloper = "mobile_developer";
+  static String backendDeveloper = "backend_developer";
+  static String frontDeveloper = "front_developer";
   static const String mohamedShehataImageUrl =
       'http://i.epvpimg.com/tRsTeab.png';
   static const String mahmoudHafezImageUrl = 'http://i.epvpimg.com/y6anfab.png';
@@ -21,7 +21,7 @@ class AppStrings {
   static const String mohamedAdelImageUrl = 'http://i.epvpimg.com/vTCgeab.png';
   static const String abdElrahmanEzzatImageUrl =
       'http://i.epvpimg.com/hB5oeab.png';
-  static String drElshwimySupervisor = "dr_elshwimy_supervisor".tr();
+  static String drElshwimySupervisor = "dr_elshwimy_supervisor";
 
   static const String empty = "";
   static const String noProfilePic =
@@ -30,8 +30,8 @@ class AppStrings {
   static const String sed = "SED Inc.";
 
   //splash screen
-  static String noRouteTitle = "no_route_title".tr();
-  static String noRouteFound = "no_route_found".tr();
+  static String noRouteTitle = "no_route_title";
+  static String noRouteFound = "no_route_found";
   static String poweredBy = "powered_by";
   static String eagles = "eagles";
   static String eaglesTeam = "eagles_team";
@@ -49,18 +49,18 @@ class AppStrings {
   ];
 
   //login screen
-  static String email = "email".tr();
-  static String emailInValid = "email_in_valid".tr();
-  static String password = "password".tr();
-  static String confirmPassword = "confirm_password".tr();
-  static String passwordError = "password_error".tr();
-  static String confirmPasswordError = "confirm_password_error".tr();
-  static String login = "login".tr();
+  static String email = "email";
+  static String emailInValid = "email_in_valid";
+  static String password = "password";
+  static String confirmPassword = "confirm_password";
+  static String passwordError = "password_error";
+  static String confirmPasswordError = "confirm_password_error";
+  static String login = "login";
 
   // email verify screen
-  static String verifyYourEmail = "verify_your_email".tr();
-  static String enterOtp = "enter_otp".tr();
-  static String resendCode = "resend_code".tr();
+  static String verifyYourEmail = "verify_your_email";
+  static String enterOtp = "enter_otp";
+  static String resendCode = "resend_code";
 
   //state renderer
   static const String loading = "loading";
@@ -71,32 +71,32 @@ class AppStrings {
   static const String cancel = "cancel";
 
   // error handler
-  static String badRequest = "bad_request".tr();
-  static String unAuthorized = "un_authorized".tr();
-  static String forbidden = "forbidden".tr();
-  static String somethingWrong = "something_wrong".tr();
-  static String timeOut = "time_out".tr();
-  static String cancelRequest = "cancel_request".tr();
-  static String cacheError = "cache_error".tr();
-  static String noInternet = "no_internet".tr();
+  static String badRequest = "bad_request";
+  static String unAuthorized = "un_authorized";
+  static String forbidden = "forbidden";
+  static String somethingWrong = "something_wrong";
+  static String timeOut = "time_out";
+  static String cancelRequest = "cancel_request";
+  static String cacheError = "cache_error";
+  static String noInternet = "no_internet";
 
   //forgot password screen
-  static String resendText = "resend_text".tr();
-  static String forgetPassword = "forget_password".tr();
-  static String resetPassword = "reset_password".tr();
-  static String newPassword = "new_password".tr();
-  static String rewriteNewPassword = "rewrite_new_password".tr();
-  static String confirm = "confirm".tr();
+  static String resendText = "resend_text";
+  static String forgetPassword = "forget_password";
+  static String resetPassword = "reset_password";
+  static String newPassword = "new_password";
+  static String rewriteNewPassword = "rewrite_new_password";
+  static String confirm = "confirm";
 
   // Register Screen
-  static String userNameInValid = "user_name_in_valid".tr();
-  static String mobileNumberInValid = "mobile_number_in_valid".tr();
-  static String passwordInValid = "password_in_valid".tr();
-  static String loginText = "login_text".tr();
-  static String useSocialToLoginText = "use_social_to_login_text".tr();
-  static String register = "register".tr();
-  static String mobileNumber = "mobile_number".tr();
-  static String username = "user_name".tr();
+  static String userNameInValid = "user_name_in_valid";
+  static String mobileNumberInValid = "mobile_number_in_valid";
+  static String passwordInValid = "password_in_valid";
+  static String loginText = "login_text";
+  static String useSocialToLoginText = "use_social_to_login_text";
+  static String register = "register";
+  static String mobileNumber = "mobile_number";
+  static String username = "user_name";
 
   // Home Screen
   static String home = "Home";
@@ -119,100 +119,100 @@ class AppStrings {
   static const String sell = "sell";
 
   // Add products screen
-  static String addAdvertisement = "add_advertisement".tr();
-  static String addImage = "add_image".tr();
-  static String selectedCategory = "selected_category".tr();
-  static String change = "change".tr();
-  static String selectSection = "select_section".tr();
-  static String condition = "condition".tr();
-  static String used = "used".tr();
-  static String newItem = "new_item".tr();
-  static String name = "name".tr();
-  static String productName = "product_name".tr();
-  static String price = "price".tr();
-  static String productPrice = "product_price".tr();
-  static String description = "description".tr();
-  static String productDescription = "product_description".tr();
-  static String submit = "submit".tr();
-  static String categories = "categories".tr();
-  static String fieldError = "field_error".tr();
+  static String addAdvertisement = "add_advertisement";
+  static String addImage = "add_image";
+  static String selectedCategory = "selected_category";
+  static String change = "change";
+  static String selectSection = "select_section";
+  static String condition = "condition";
+  static String used = "used";
+  static String newItem = "new_item";
+  static String name = "name";
+  static String productName = "product_name";
+  static String price = "price";
+  static String productPrice = "product_price";
+  static String description = "description";
+  static String productDescription = "product_description";
+  static String submit = "submit";
+  static String categories = "categories";
+  static String fieldError = "field_error";
 
   //  setting screen
-  static String general = "general".tr();
-  static String account = "account".tr();
-  static String myAds = "my_ads".tr();
+  static String general = "general";
+  static String account = "account";
+  static String myAds = "my_ads";
   static String language = "language";
-  static String convertToLightMode = "convert_to_light_mode".tr();
-  static String convertToDarkMode = "convert_to_dark_mode".tr();
-  static String notifications = "notifications".tr();
-  static String share = "share".tr();
-  static String help = "help".tr();
-  static String aboutUs = "about_us".tr();
+  static String convertToLightMode = "convert_to_light_mode";
+  static String convertToDarkMode = "convert_to_dark_mode";
+  static String notifications = "notifications";
+  static String share = "share";
+  static String help = "help";
+  static String aboutUs = "about_us";
 
   // add and update screen
-  static String successfullyAddedAd = "successfully_added_ad".tr();
-  static String successfullyUpdatedAd = "successfully_updated_ad".tr();
+  static String successfullyAddedAd = "successfully_added_ad";
+  static String successfullyUpdatedAd = "successfully_updated_ad";
 
   // help screen
-  static String needHelp = "needHelp".tr();
-  static String ifYouNeedHelp = "ifYouNeedHelp".tr();
-  static String phone = "phone".tr();
-  static String appreciateFeedBack = "appreciateFeedBack".tr();
-  static String byEaglesTeam = "byEaglesTeam".tr();
+  static String needHelp = "needHelp";
+  static String ifYouNeedHelp = "ifYouNeedHelp";
+  static String phone = "phone";
+  static String appreciateFeedBack = "appreciateFeedBack";
+  static String byEaglesTeam = "byEaglesTeam";
 
   // search Screen
-  static String enterSearchTerm = "enter_search_term".tr();
+  static String enterSearchTerm = "enter_search_term";
 
   // camera screen
-  static String uploadImage = "upload_image".tr();
-  static String noImageSelected = "no_image_selected".tr();
-  static String takeAPhoto = "take_photo".tr();
-  static String selectFromGallery = "select_from_gallery".tr();
+  static String uploadImage = "upload_image";
+  static String noImageSelected = "no_image_selected";
+  static String takeAPhoto = "take_photo";
+  static String selectFromGallery = "select_from_gallery";
 
   // My Account Screen
-  static String myAccount = "my_account".tr();
-  static String profilePic = "profile_pic".tr();
-  static String profileInfo = "profile_info".tr();
-  static String phoneNumber = "phone_number".tr();
-  static String selectGovernment = "select_government".tr();
+  static String myAccount = "my_account";
+  static String profilePic = "profile_pic";
+  static String profileInfo = "profile_info";
+  static String phoneNumber = "phone_number";
+  static String selectGovernment = "select_government";
   static List<String> get governments => [
-        'alexandria',
-        'aswan',
-        'asyut',
-        'beheira',
-        'beni_suef',
-        'cairo',
-        'dakahlia',
-        'damietta',
-        'faiyum',
-        'Gharbia',
-        'giza',
-        'ismailia',
-        'kafr_el_sheikh',
-        'luxor',
-        'matrouh',
-        'minya',
-        'monufia',
-        'new_valley',
-        'north_sinai',
-        'port_said',
-        'qalyubia',
-        'qena',
-        'red_sea',
-        'sharqia',
-        'sohag',
-        'south_sinai',
-        'suez',
+        'alexandria'.tr(),
+        'aswan'.tr(),
+        'asyut'.tr(),
+        'beheira'.tr(),
+        'beni_suef'.tr(),
+        'cairo'.tr(),
+        'dakahlia'.tr(),
+        'damietta'.tr(),
+        'faiyum'.tr(),
+        'Gharbia'.tr(),
+        'giza'.tr(),
+        'ismailia'.tr(),
+        'kafr_el_sheikh'.tr(),
+        'luxor'.tr(),
+        'matrouh'.tr(),
+        'minya'.tr(),
+        'monufia'.tr(),
+        'new_valley'.tr(),
+        'north_sinai'.tr(),
+        'port_said'.tr(),
+        'qalyubia'.tr(),
+        'qena'.tr(),
+        'red_sea'.tr(),
+        'sharqia'.tr(),
+        'sohag'.tr(),
+        'south_sinai'.tr(),
+        'suez'.tr(),
       ];
-  static String address = "address".tr();
-  static String changePassword = "change_password".tr();
-  static String oldPassword = "old_password".tr();
-  static String saveChanges = "save_changes".tr();
-  static String logOut = "log_out".tr();
-  static String deleteAccount = "delete_account".tr();
-  static String addressError = "address_error".tr();
+  static String address = "address";
+  static String changePassword = "change_password";
+  static String oldPassword = "old_password";
+  static String saveChanges = "save_changes";
+  static String logOut = "log_out";
+  static String deleteAccount = "delete_account";
+  static String addressError = "address_error";
 
   // chat
-  static String typeMessage = "type_message".tr();
-  static String messages = "messages".tr();
+  static String typeMessage = "type_message";
+  static String messages = "messages";
 }

@@ -133,7 +133,7 @@ class MyAccountViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorUserNameValid =>
       outputIsUserNameValid.map((isUserNameValid) =>
-          isUserNameValid ? null : AppStrings.userNameInValid);
+          isUserNameValid ? null : AppStrings.userNameInValid.tr());
 
   @override
   Stream<bool> get outputIsMobileNumberValid =>
@@ -143,7 +143,7 @@ class MyAccountViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorMobileNumberValid =>
       outputIsMobileNumberValid.map((isMobileNumberValid) =>
-          isMobileNumberValid ? null : AppStrings.mobileNumberInValid);
+          isMobileNumberValid ? null : AppStrings.mobileNumberInValid.tr());
 
   @override
   Stream<bool> get outputIsUserGovernmentValid =>
@@ -156,7 +156,7 @@ class MyAccountViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorAddressValid => outputIsAddressValid.map(
-      (isAddressValid) => isAddressValid ? null : AppStrings.addressError);
+      (isAddressValid) => isAddressValid ? null : AppStrings.addressError.tr());
 
   @override
   // TODO: implement outputAreAllInputsValid

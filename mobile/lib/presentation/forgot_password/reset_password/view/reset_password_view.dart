@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
@@ -90,8 +91,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   keyboardType: TextInputType.visiblePassword,
                   controller: _newPasswordController,
                   decoration: InputDecoration(
-                    hintText: AppStrings.newPassword,
-                    labelText: AppStrings.newPassword,
+                    hintText: AppStrings.newPassword.tr(),
+                    labelText: AppStrings.newPassword.tr(),
                     errorMaxLines: 3,
                     errorText:
                         snapshot.data, //else present the error to the user
@@ -112,8 +113,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   keyboardType: TextInputType.visiblePassword,
                   controller: _confirmNewPasswordController,
                   decoration: InputDecoration(
-                    hintText: AppStrings.rewriteNewPassword,
-                    labelText: AppStrings.rewriteNewPassword,
+                    hintText: AppStrings.rewriteNewPassword.tr(),
+                    labelText: AppStrings.rewriteNewPassword.tr(),
                     errorMaxLines: 3,
                     errorText:
                         snapshot.data, //else present the error to the user
@@ -139,7 +140,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             _viewModel.resetPassword();
                           }
                         : null,
-                    child: Text(AppStrings.confirm),
+                    child: Text(AppStrings.confirm.tr()),
                   ),
                 );
               },

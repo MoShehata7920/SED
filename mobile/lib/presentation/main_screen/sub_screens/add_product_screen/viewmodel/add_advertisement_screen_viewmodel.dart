@@ -186,7 +186,7 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyAddedAd,
+          AppStrings.successfullyAddedAd.tr(),
           AppStrings.success.tr(),
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));
@@ -219,7 +219,7 @@ class AddAdvertisementViewModel extends BaseViewModel
       // right -> success
       inputState.add(SuccessState(
           StateRendererType.popUpSuccessState,
-          AppStrings.successfullyUpdatedAd,
+          AppStrings.successfullyUpdatedAd.tr(),
           AppStrings.success.tr(),
           () => Navigator.of(context)
               .pushReplacementNamed(Routes.mainScreenRoute)));

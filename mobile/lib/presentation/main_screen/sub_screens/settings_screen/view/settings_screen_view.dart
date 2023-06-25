@@ -181,21 +181,21 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s15,
             ),
-            _getInkwell(IconsManager.account, AppStrings.account, () {
+            _getInkwell(IconsManager.account, AppStrings.account.tr(), () {
               Navigator.pushNamed(context, Routes.myAccountScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.password, AppStrings.changePassword, () {
+            _getInkwell(IconsManager.password, AppStrings.changePassword.tr(), () {
               Navigator.pushNamed(context, Routes.changePasswordScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.myAds, AppStrings.myAds, () {
+            _getInkwell(IconsManager.myAds, AppStrings.myAds.tr(), () {
               Navigator.pushNamed(context, Routes.myAdsScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
@@ -237,7 +237,7 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               height: AppSize.s5,
             ),
             _getInkwell(
-                    IconsManager.notification, AppStrings.notifications, () {})
+                    IconsManager.notification, AppStrings.notifications.tr(), () {})
                 .animateOnPageLoad(
                     msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             Padding(
@@ -248,14 +248,14 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                   bottom: AppPadding.p5),
               child: Text(
                 textAlign: TextAlign.start,
-                AppStrings.general,
+                AppStrings.general.tr(),
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: ColorsManager.secondaryText,
                     ),
               ),
             ).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
-            _getInkwell(IconsManager.share, AppStrings.share, () {
+            _getInkwell(IconsManager.share, AppStrings.share.tr(), () {
               Share.share(
                   'https://instagram.com/mohamed_shehata7920?igshid=ZDdkNTZiNTM=');
             }).animateOnPageLoad(
@@ -263,14 +263,14 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.help, AppStrings.help, () {
+            _getInkwell(IconsManager.help, AppStrings.help.tr(), () {
               Navigator.pushNamed(context, Routes.helpScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(
               height: AppSize.s5,
             ),
-            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs, () {
+            _getInkwell(IconsManager.questionMark, AppStrings.aboutUs.tr(), () {
               Navigator.pushNamed(context, Routes.aboutUsScreenRoute);
             }).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),

@@ -81,7 +81,7 @@ class ResetPasswordViewmodel extends BaseViewModel
   @override
   Stream<String?> get outputErrorNewPasswordValid =>
       outputIsNewPasswordValid.map((isNewPasswordValid) =>
-          isNewPasswordValid ? null : AppStrings.passwordInValid);
+          isNewPasswordValid ? null : AppStrings.passwordInValid.tr());
 
   @override
   Stream<bool> get outputIsConfirmNewPasswordValid =>
@@ -91,7 +91,7 @@ class ResetPasswordViewmodel extends BaseViewModel
   @override
   Stream<String?> get outputErrorConfirmNewPasswordValid =>
       outputIsConfirmNewPasswordValid.map((isConfirmNewPasswordValid) =>
-          isConfirmNewPasswordValid ? null : AppStrings.confirmPasswordError);
+          isConfirmNewPasswordValid ? null : AppStrings.confirmPasswordError.tr());
 
   @override
   Stream<bool> get outputAreAllInputsValid =>

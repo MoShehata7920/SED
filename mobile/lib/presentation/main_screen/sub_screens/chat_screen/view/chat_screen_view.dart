@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
@@ -64,7 +65,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
-          AppStrings.messages,
+          AppStrings.messages.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontSize: AppSize.s16, color: ColorsManager.primaryText),
         ),

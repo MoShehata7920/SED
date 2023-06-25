@@ -102,7 +102,7 @@ class ChangePasswordViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorOldPasswordValid =>
       outputIsOldPasswordValid.map((isOldPasswordValid) =>
-          isOldPasswordValid ? null : AppStrings.passwordError);
+          isOldPasswordValid ? null : AppStrings.passwordError.tr());
 
   @override
   Stream<bool> get outputIsNewPasswordValid =>
@@ -112,7 +112,7 @@ class ChangePasswordViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorNewPasswordValid =>
       outputIsNewPasswordValid.map((isNewPasswordValid) =>
-          isNewPasswordValid ? null : AppStrings.passwordInValid);
+          isNewPasswordValid ? null : AppStrings.passwordInValid.tr());
 
   @override
   Stream<bool> get outputIsConfirmNewPasswordValid =>
@@ -124,7 +124,7 @@ class ChangePasswordViewModel extends BaseViewModel
       outputIsConfirmNewPasswordValid.map((isConfirmNewPasswordValid) =>
           isConfirmNewPasswordValid
               ? null
-              : AppStrings.confirmPasswordError);
+              : AppStrings.confirmPasswordError.tr());
 
   @override
   Stream<bool> get outputAreAllInputsValid =>

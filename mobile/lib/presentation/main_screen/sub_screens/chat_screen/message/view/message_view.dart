@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
@@ -148,7 +148,7 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                     child: TextFormField(
                       controller: _textEditingController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.typeMessage,
+                        hintText: AppStrings.typeMessage.tr(),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.p20, vertical: AppPadding.p10),
                         border: OutlineInputBorder(

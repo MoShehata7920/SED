@@ -60,7 +60,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           ),
         ),
         title: Text(
-          AppStrings.forgetPassword,
+          AppStrings.forgetPassword.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.secondaryText,
                 fontSize: AppSize.s20,
@@ -97,8 +97,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         obscureText: false,
                         controller: _emailController,
                         decoration: InputDecoration(
-                          hintText: AppStrings.email,
-                          labelText: AppStrings.email,
+                          hintText: AppStrings.email.tr(),
+                          labelText: AppStrings.email.tr(),
                           labelStyle: TextStyle(
                               fontSize: AppSize.s14,
                               color: ColorsManager.secondaryText),
@@ -107,7 +107,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           errorText: (snapshot.data ??
                                   true) //check if the username was null
                               ? null //then no errors
-                              : AppStrings.emailInValid
+                              : AppStrings.emailInValid.tr()
                                   .tr(), //else present the error to the user
                         ));
                   }),
@@ -158,7 +158,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                         }
                                       : null,
                                   child: Text(
-                                    AppStrings.resetPassword,
+                                    AppStrings.resetPassword.tr(),
                                     style: TextStyle(
                                         fontSize: AppSize.s16,
                                         fontWeight: FontWeight.w500,

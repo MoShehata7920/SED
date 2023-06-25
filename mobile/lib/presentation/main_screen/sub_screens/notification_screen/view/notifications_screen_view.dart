@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
@@ -37,7 +38,7 @@ class NotificationScreenViewState extends State<NotificationScreenView> {
         elevation: 0,
         backgroundColor: ColorsManager.primaryBackground,
         title: Text(
-          AppStrings.notifications,
+          AppStrings.notifications.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.primaryText,
                 fontWeight: FontWeight.bold,

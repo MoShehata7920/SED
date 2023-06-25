@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
@@ -22,7 +23,7 @@ class _CategoriesScreenViewState extends State<CategoriesScreenView> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          AppStrings.categories,
+          AppStrings.categories.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.lineColor,
                 fontSize: AppSize.s20,
