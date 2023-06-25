@@ -18,12 +18,14 @@ import Register from "../Pages/SignUp/SignUp";
 import MyAdds from "../Pages/Profile/MyAdds/MyAdds";
 import Languages from "../Pages/Profile/Settings/Langages/Langagues";
 import Themes from "../Pages/Profile/Settings/Themes/Themes";
-import Notification from "../Pages/Profile/Settings/Notification/Notification";
+import Notification from "../Pages/Profile/Notification/Notification";
 import Share from "../Pages/Profile/Settings/Share/Share";
 import Help from "../Pages/Profile/Settings/Help/Help";
 import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
 import ProductEditing from "../Pages/Profile/Product_Editing/Product_Editing";
+import Change_Password from "../Pages/Profile/Change_Password/Change_password";
+import Email_verfication from "../Component/Email_verification/Email_verification";
 // import Chat from "../Pages/Chat/Chat";
 
 function MainRoutes() {
@@ -40,9 +42,14 @@ function MainRoutes() {
           path="/SignUp"
           element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
         />
+        <Route path="/Email_verfication" element={<Email_verfication />} />
         <Route path="/forgetpassword" element={<Forgetpass />} />
         <Route path="/Profile" element={storedToken ? <Profile /> : <SignIn />}>
           <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
+          <Route
+            path="/Profile/ChangePassword/:UserID"
+            element={<Change_Password />}
+          ></Route>
           <Route path="/Profile/favourit" element={<Favourit />}></Route>
           <Route
             path="/Profile/myProduct/:UserID"
