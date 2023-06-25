@@ -10,6 +10,8 @@ import {
   BsGearWideConnected,
   BsFillBellFill,
 } from "react-icons/bs";
+import { FaLock } from "react-icons/fa";
+
 import { Link, Outlet } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 function Profile() {
@@ -69,6 +71,14 @@ function Profile() {
                     </span>
                     <span className="ms-1 d-none d-sm-inline text-black">
                       Notification
+                    </span>
+                  </Link>
+                </li>
+                <li className="sidebar-item mb-3">
+                  <Link to={`/Profile/ChangePassword/${datauser._id}`}>
+                    <i className="text-black">{<FaLock />}</i>
+                    <span className="ms-1 d-none d-sm-inline text-black">
+                      ChangePassword
                     </span>
                   </Link>
                 </li>

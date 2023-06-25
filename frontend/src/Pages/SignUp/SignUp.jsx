@@ -35,7 +35,7 @@ function Register() {
     if (data) {
       const encryptedData = encrypt(data, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      window.location.href = "/";
+      window.location.href = "/Email_verfication";
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);
