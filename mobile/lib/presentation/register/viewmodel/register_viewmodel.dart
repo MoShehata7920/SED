@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sed/app/app_preferences.dart';
-import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
@@ -178,7 +178,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorUserNameValid => outputIsUserNameValid
-      .map((isUserNAme) => isUserNAme ? null : AppStrings.userNameInValid);
+      .map((isUserNAme) => isUserNAme ? null : AppStrings.userNameInValid.tr());
 
   @override
   Stream<bool> get outputIsMobileNumberValid =>
@@ -188,7 +188,7 @@ class RegisterViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorMobileNumberValid =>
       outputIsMobileNumberValid.map((isMobileNumberValid) =>
-          isMobileNumberValid ? null : AppStrings.mobileNumberInValid);
+          isMobileNumberValid ? null : AppStrings.mobileNumberInValid.tr());
 
   @override
   Stream<bool> get outputIsEmailValid =>
@@ -196,7 +196,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorEmailValid => outputIsEmailValid
-      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailInValid);
+      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailInValid.tr());
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
@@ -204,7 +204,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorPasswordValid => outputIsPasswordValid.map(
-      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid);
+      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInValid.tr());
 
   @override
   Stream<bool> get outputIsConfirmPasswordValid =>
@@ -214,7 +214,7 @@ class RegisterViewModel extends BaseViewModel
   @override
   Stream<String?> get outputErrorConfirmPasswordValid =>
       outputIsConfirmPasswordValid.map((isConfirmPasswordValid) =>
-          isConfirmPasswordValid ? null : AppStrings.confirmPasswordError);
+          isConfirmPasswordValid ? null : AppStrings.confirmPasswordError.tr());
 
   @override
   Stream<bool> get outputAreAllInputsValid =>

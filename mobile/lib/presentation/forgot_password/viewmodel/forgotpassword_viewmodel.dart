@@ -108,7 +108,7 @@ class ForgotPasswordViewModel extends BaseViewModel
     }
   }
 
-  String getResendText() => sprintf(AppStrings.resendText, [_secondsLeft]);
+  String getResendText() => sprintf(AppStrings.resendText.tr(), [_secondsLeft]);
 }
 
 abstract class ForgotPasswordViewModelInputs {

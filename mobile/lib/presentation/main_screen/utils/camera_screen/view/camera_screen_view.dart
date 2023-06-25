@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
@@ -42,7 +43,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
         backgroundColor: ColorsManager.primaryBackground,
         elevation: 0,
         title: Text(
-          AppStrings.uploadImage,
+          AppStrings.uploadImage.tr(),
           style: TextStyle(color: ColorsManager.secondaryText),
         ),
       ),
@@ -53,7 +54,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
               children: <Widget>[
                 _image == null
                     ? Text(
-                        AppStrings.noImageSelected,
+                        AppStrings.noImageSelected.tr(),
                         style: TextStyle(
                           fontSize: AppSize.s18,
                           color: ColorsManager.primaryText,
@@ -92,7 +93,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                 FloatingActionButton(
                   backgroundColor: ColorsManager.primaryColor,
                   onPressed: _viewModel.getImageFromCamera,
-                  tooltip: AppStrings.takeAPhoto,
+                  tooltip: AppStrings.takeAPhoto.tr(),
                   child: const Icon(IconsManager.camera),
                 ),
                 const SizedBox(
@@ -101,7 +102,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                 FloatingActionButton(
                   backgroundColor: ColorsManager.primaryColor,
                   onPressed: _viewModel.getImageFromGallery,
-                  tooltip: AppStrings.selectFromGallery,
+                  tooltip: AppStrings.selectFromGallery.tr(),
                   child: const Icon(IconsManager.gallery),
                 ),
               ],

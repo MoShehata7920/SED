@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/resources/custom_icons_icons.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
@@ -13,7 +14,7 @@ class HelpScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.help,
+          AppStrings.help.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.secondaryText,
                 fontSize: AppSize.s22,
@@ -32,7 +33,7 @@ class HelpScreen extends StatelessWidget {
           children: [
             const SizedBox(height: AppSize.s20),
             Text(
-              AppStrings.needHelp,
+              AppStrings.needHelp.tr(),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.primaryText,
                     fontWeight: FontWeight.bold,
@@ -41,7 +42,7 @@ class HelpScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSize.s20),
             Text(
-              AppStrings.ifYouNeedHelp,
+              AppStrings.ifYouNeedHelp.tr(),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.secondaryText,
                     fontSize: AppSize.s18,
@@ -52,7 +53,7 @@ class HelpScreen extends StatelessWidget {
               leading:
                   Icon(IconsManager.email, color: ColorsManager.primaryText),
               title: Text(
-                AppStrings.email,
+                AppStrings.email.tr(),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.primaryText,
                       fontSize: AppSize.s18,
@@ -72,7 +73,7 @@ class HelpScreen extends StatelessWidget {
               leading:
                   Icon(IconsManager.phone, color: ColorsManager.primaryText),
               title: Text(
-                AppStrings.phone,
+                AppStrings.phone.tr(),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.primaryText,
                       fontSize: AppSize.s18,
@@ -90,7 +91,7 @@ class HelpScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSize.s20),
             Text(
-              AppStrings.appreciateFeedBack,
+              AppStrings.appreciateFeedBack.tr(),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.secondaryText,
                     fontSize: AppSize.s16,
@@ -102,7 +103,7 @@ class HelpScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    AppStrings.byEaglesTeam,
+                    AppStrings.byEaglesTeam.tr(),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: ColorsManager.secondaryText,
                           fontSize: AppSize.s14,

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';

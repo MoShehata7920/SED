@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/presentation/common/animation_manager/animation_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -16,7 +17,7 @@ class AboutUsScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: ColorsManager.primaryBackground,
         title: Text(
-          AppStrings.aboutUs,
+          AppStrings.aboutUs.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: ColorsManager.secondaryText,
                 fontWeight: FontWeight.bold,
@@ -31,7 +32,7 @@ class AboutUsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppStrings.ourTeam,
+              AppStrings.ourTeam.tr(),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.primaryText,
                     fontWeight: FontWeight.bold,
@@ -40,43 +41,43 @@ class AboutUsScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mohamedShehata,
-              title: AppStrings.mobileDeveloper,
+              name: AppStrings.mohamedShehata.tr(),
+              title: AppStrings.mobileDeveloper.tr(),
               imageUrl: AppStrings.mohamedShehataImageUrl,
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mahmoudHafez,
-              title: AppStrings.mobileDeveloper,
+              name: AppStrings.mahmoudHafez.tr(),
+              title: AppStrings.mobileDeveloper.tr(),
               imageUrl: AppStrings.mahmoudHafezImageUrl,
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.abdullahRagab,
-              title: AppStrings.backendDeveloper,
+              name: AppStrings.abdullahRagab.tr(),
+              title: AppStrings.backendDeveloper.tr(),
               imageUrl: AppStrings.abdullahRagabImageUrl,
             ).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mahmoudElamrosy,
-              title: AppStrings.backendDeveloper,
+              name: AppStrings.mahmoudElamrosy.tr(),
+              title: AppStrings.backendDeveloper.tr(),
               imageUrl: AppStrings.mahmoudElamrosyImageUrl,
             ).animateOnPageLoad(
                 msDelay: 300, dx: 70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.mohamedAdel,
-              title: AppStrings.frontDeveloper,
+              name: AppStrings.mohamedAdel.tr(),
+              title: AppStrings.frontDeveloper.tr(),
               imageUrl: AppStrings.mohamedAdelImageUrl,
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
             const SizedBox(height: AppSize.s16),
             _buildTeamMember(
-              name: AppStrings.abdElrahmanEzzat,
-              title: AppStrings.frontDeveloper,
+              name: AppStrings.abdElrahmanEzzat.tr(),
+              title: AppStrings.frontDeveloper.tr(),
               imageUrl: AppStrings.abdElrahmanEzzatImageUrl,
             ).animateOnPageLoad(
                 msDelay: 300, dx: -70.0, dy: 0.0, showDelay: 900),
@@ -91,7 +92,7 @@ class AboutUsScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSize.s8),
             Text(
-              AppStrings.drElshwimySupervisor,
+              AppStrings.drElshwimySupervisor.tr(),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorsManager.secondaryText,
                     fontSize: AppSize.s14,

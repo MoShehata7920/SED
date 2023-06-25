@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sprintf/sprintf.dart';
@@ -64,11 +65,9 @@ class Utils {
   static String getUserId() {
     try {
       // Decode the token payload
-      Map<String, dynamic> decodedToken = json
-          .decode(utf8.decode(base64Url.decode(Constants.token.split(".")[1])));
+      Map<String, dynamic> payload = Jwt.parseJwt(Constants.token);
 
-      // Get the user ID from the decoded JSON object
-      return decodedToken["id"];
+      return payload["id"];
     } catch (e) {
       print("Error decoding JWT token: $e");
       return "";

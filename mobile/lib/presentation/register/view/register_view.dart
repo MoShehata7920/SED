@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:sed/presentation/register/viewmodel/register_viewmodel.dart';
@@ -132,8 +133,8 @@ class _RegisterViewState extends State<RegisterView> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _userNameEditingController,
                             decoration: InputDecoration(
-                              hintText: AppStrings.username,
-                              labelText: AppStrings.username,
+                              hintText: AppStrings.username.tr(),
+                              labelText: AppStrings.username.tr(),
                               errorText: snapshot
                                   .data, //else present the error to the user
                             ));
@@ -162,8 +163,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     keyboardType: TextInputType.phone,
                                     controller: _mobileNumberEditingController,
                                     decoration: InputDecoration(
-                                      hintText: AppStrings.mobileNumber,
-                                      labelText: AppStrings.mobileNumber,
+                                      hintText: AppStrings.mobileNumber.tr(),
+                                      labelText: AppStrings.mobileNumber.tr(),
                                       errorText: snapshot
                                           .data, //else present the error to the user
                                     ));
@@ -186,8 +187,8 @@ class _RegisterViewState extends State<RegisterView> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailEditingController,
                             decoration: InputDecoration(
-                              hintText: AppStrings.email,
-                              labelText: AppStrings.email,
+                              hintText: AppStrings.email.tr(),
+                              labelText: AppStrings.email.tr(),
                               errorText: snapshot
                                   .data, //else present the error to the user
                             ));
@@ -207,8 +208,8 @@ class _RegisterViewState extends State<RegisterView> {
                             controller: _passwordEditingController,
                             obscureText: _viewModel.obscureText,
                             decoration: InputDecoration(
-                              hintText: AppStrings.password,
-                              labelText: AppStrings.password,
+                              hintText: AppStrings.password.tr(),
+                              labelText: AppStrings.password.tr(),
                               suffixIcon: InkWell(
                                 focusNode: FocusNode(skipTraversal: true),
                                 onTap: () {
@@ -242,8 +243,8 @@ class _RegisterViewState extends State<RegisterView> {
                             controller: _confirmPasswordEditingController,
                             obscureText: _viewModel.obscureText,
                             decoration: InputDecoration(
-                              hintText: AppStrings.confirmPassword,
-                              labelText: AppStrings.confirmPassword,
+                              hintText: AppStrings.confirmPassword.tr(),
+                              labelText: AppStrings.confirmPassword.tr(),
                               suffixIcon: InkWell(
                                 focusNode: FocusNode(skipTraversal: true),
                                 onTap: () {
@@ -281,7 +282,7 @@ class _RegisterViewState extends State<RegisterView> {
                                       _viewModel.register();
                                     }
                                   : null,
-                              child: Text(AppStrings.register)),
+                              child: Text(AppStrings.register.tr())),
                         );
                       }),
                 ),
@@ -290,7 +291,7 @@ class _RegisterViewState extends State<RegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppStrings.loginText,
+                      AppStrings.loginText.tr(),
                       style: TextStyle(color: ColorsManager.secondaryText),
                     ),
                     TextButton(
@@ -298,7 +299,7 @@ class _RegisterViewState extends State<RegisterView> {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        AppStrings.login,
+                        AppStrings.login.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
@@ -311,7 +312,7 @@ class _RegisterViewState extends State<RegisterView> {
                   padding: const EdgeInsetsDirectional.fromSTEB(AppPadding.p0,
                       AppPadding.p12, AppPadding.p0, AppPadding.p0),
                   child: Text(
-                    AppStrings.useSocialToLoginText,
+                    AppStrings.useSocialToLoginText.tr(),
                     style: TextStyle(color: ColorsManager.secondaryText),
                   ),
                 ),

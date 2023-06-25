@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
@@ -11,8 +10,6 @@ import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_s
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/view/settings_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
-import 'package:socket_io_client/socket_io_client.dart';
-import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class MainScreenViewModel extends BaseViewModel
     with MainScreenViewModelInputs, MainScreenViewModelOutputs {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sed/app/app_preferences.dart';
@@ -163,7 +164,7 @@ class OnBoardingPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Routes.registerRoute);
                 },
-                child: Text(AppStrings.register)),
+                child: Text(AppStrings.register.tr())),
           ).animateOnPageLoad(msDelay: 550, dx: -79.0, dy: 0, showDelay: 900),
         ),
         Row(
@@ -171,7 +172,7 @@ class OnBoardingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppStrings.loginText,
+              AppStrings.loginText.tr(),
               style: TextStyle(color: ColorsManager.secondaryText),
             ),
             TextButton(
@@ -179,7 +180,7 @@ class OnBoardingPage extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, Routes.loginRoute);
               },
               child: Text(
-                AppStrings.login,
+                AppStrings.login.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
