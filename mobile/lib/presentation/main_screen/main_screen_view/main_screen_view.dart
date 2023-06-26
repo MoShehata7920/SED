@@ -1,9 +1,11 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
 class MainScreenView extends StatefulWidget {
@@ -21,6 +23,17 @@ class _MainScreenViewState extends State<MainScreenView> {
     _viewModel.start();
 
     super.initState();
+
+    _configureSelectNotificationSubject();
+
+  }
+
+  void _configureSelectNotificationSubject() {
+    _viewModel.selectNotificationStreamController.stream.listen((String? payload) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushNamed(Routes.chatScreenRoute);
+      });
+    });
   }
 
   @override

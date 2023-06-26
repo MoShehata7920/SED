@@ -2,24 +2,33 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sed/app/app.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/app/noti.dart';
+import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/view/chat_screen_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/sub_screens/home_screen/view/home_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/view/settings_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:build_daemon/constants.dart';
+import '../sub_screens/chat_screen/message/viewmodel/message_viewmodel.dart';
 import '../utils/utils.dart';
 
 class MainScreenViewModel extends BaseViewModel
     with MainScreenViewModelInputs, MainScreenViewModelOutputs {
   final StreamController _mainViewStreamController =
       StreamController<int>.broadcast();
+
+  final StreamController<String?> selectNotificationStreamController =
+  StreamController<String?>();
 
   int bottomNavIndex = 0;
 
@@ -83,14 +92,26 @@ class MainScreenViewModel extends BaseViewModel
     Constants.socket.onDisconnect((_) => print('disconnect'));
 
     Constants.socket.on('messageReceived', (data) {
-      print(data);
-      // Messages msg = Messages(data['conversation'], data['sender']['_id'], data['text'], data['createdAt']);
-      //
-      // socketInput.add(msg);
-    });
+      Messages msg = Messages(data['conversation'], data['sender']['_id'], data['text'], data['createdAt']);
 
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        instance<FlutterLocalNotificationsPlugin>();
+      print(data);
+
+      if(Utils.isInMessageScreen) {
+        final ChatViewModel chatViewModel =
+        instance<ChatViewModel>();
+
+        chatViewModel.socketInput.add(msg);
+      } else {
+        // that means he is a receiver push him a notification
+        if(msg.senderId != Utils.getUserId()) {
+          final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+          instance<FlutterLocalNotificationsPlugin>();
+
+          Noti.showBigTextNotification(title: data['sender']['fullName'],imageUrl: data['sender']['userImage'], description: msg.message, fln: flutterLocalNotificationsPlugin,payload: msg.conversationId);
+
+        }
+      }
+    });
   }
 }
 

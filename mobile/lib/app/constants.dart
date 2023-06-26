@@ -1,4 +1,5 @@
 // * why don't we just use app strings ?
+import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 

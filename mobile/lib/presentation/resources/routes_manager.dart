@@ -7,11 +7,13 @@ import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/categories/categories_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/add_product_screen/view/add_advertisement_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/chat_screen/message/view/message_view.dart';
+import 'package:sed/presentation/main_screen/sub_screens/chat_screen/view/chat_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/notification_screen/view/notifications_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/about_us_screen/aboutus_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/settings_screen/settings_sub_screens/help_screen/help_screen_view.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view/show_items_screen_view.dart';
 import 'package:sed/presentation/main_screen/utils/camera_screen/view/camera_screen_view.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/onboarding/view/onboarding_view.dart';
 import 'package:sed/presentation/register/view/register_view.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
@@ -50,10 +52,18 @@ class Routes {
   static const String changePasswordScreenRoute = "/changePassword";
   static const String messagingScreenRoute = "/messaging";
   static const String cameraScreenRoute = "/camera";
+  static const String chatScreenRoute = "/chat";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
+
+    if(settings.name != Routes.messagingScreenRoute) {
+      Utils.isInMessageScreen = false;
+    } else {
+      Utils.isInMessageScreen = true;
+    }
+
     switch (settings.name) {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (context) => const SplashView());
@@ -158,6 +168,10 @@ class RouteGenerator {
         initLoginModule();
         return MaterialPageRoute(
             builder: (context) => const CameraScreenView());
+
+      case Routes.chatScreenRoute:
+        return MaterialPageRoute(
+            builder: (context) => const ChatScreenView());
 
       default:
         return unDefinedRoute();

@@ -73,4 +73,6 @@ class Utils {
       return "";
     }
   }
+
+  static bool isInMessageScreen = false;
 }

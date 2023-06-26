@@ -28,8 +28,6 @@ class ChatViewModel extends BaseViewModel
 
   @override
   void dispose() {
-    _socketStreamController.close();
-
     super.dispose();
   }
 

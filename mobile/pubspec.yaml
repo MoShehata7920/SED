@@ -59,7 +59,7 @@ dependencies:
   toggle_switch: ^2.0.1
   flutter_phoenix: ^1.1.0
   easy_localization: ^3.0.1
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^14.1.1
   badges: ^3.0.2
   firebase_core: ^2.8.0
   firebase_messaging: ^14.3.0
