@@ -43,17 +43,29 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
 
   final TextEditingController _textEditingController = TextEditingController();
 
-  final scrollController = ScrollController();
+  final _scrollController = ScrollController();
 
   void _bind() async {
     if (conversationId != null) {
       messages =
           await _messageViewModel.getConversationMessages(conversationId!);
     } else {
-      //make new conversation
+      // Make new conversation
       conversationId =
           await _messageViewModel.createNewConversation(sellerId ?? "");
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToBottom();
+    });
+  }
+
+  void _scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.extentTotal,
+      duration: const Duration(milliseconds: 1),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -110,35 +122,39 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
   }
 
   Widget _getBody() {
-    final ChatViewModel _chatViewModel =
-    instance<ChatViewModel>();
+    final ChatViewModel _chatViewModel = instance<ChatViewModel>();
 
-    Widget result = Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: StreamBuilder<Messages>(
         stream: _chatViewModel.socketOutput,
         builder: (context, snapshot) {
-          if(snapshot.data != null) {
+          if (snapshot.data != null) {
             messages!.messages.add(snapshot.data!);
           }
           return Column(
             children: [
               Expanded(
-                child: ListView.separated(
-                  controller: scrollController,
+                child: SingleChildScrollView(
+                  reverse: true,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: messages != null ? messages!.messages.length : 0,
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: AppSize.s15,
+                  child: Column(
+                    children: messages != null
+                        ? messages!.messages.map((message) {
+                            if (message.senderId == Utils.getUserId()) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: buildMyMessage(message.message),
+                              );
+                            } else {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: buildReceivedMessage(message.message),
+                              );
+                            }
+                          }).toList()
+                        : [],
                   ),
-                  itemBuilder: ((context, index) {
-                    if (messages!.messages[index].senderId == Utils.getUserId()) {
-                      return buildMyMessage(messages!.messages[index].message);
-                    } else {
-                      return buildReceivedMessage(
-                          messages!.messages[index].message);
-                    }
-                  }),
                 ),
               ),
               const SizedBox(height: AppSize.s20),
@@ -150,14 +166,16 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                       decoration: InputDecoration(
                         hintText: AppStrings.typeMessage.tr(),
                         contentPadding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p20, vertical: AppPadding.p10),
+                            horizontal: AppPadding.p20,
+                            vertical: AppPadding.p10),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(AppSize.s30),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(AppSize.s30),
-                          borderSide:
-                              BorderSide(color: ColorsManager.tertiaryColor),
+                          borderSide: BorderSide(
+                            color: ColorsManager.tertiaryColor,
+                          ),
                         ),
                       ),
                     ),
@@ -165,8 +183,11 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                   const SizedBox(width: AppSize.s20),
                   IconButton(
                     onPressed: () {
-                      _messageViewModel.sendMessage(conversationId ?? "",
-                          Utils.getUserId(), _textEditingController.text);
+                      _messageViewModel.sendMessage(
+                        conversationId ?? "",
+                        Utils.getUserId(),
+                        _textEditingController.text,
+                      );
 
                       _textEditingController.clear();
                     },
@@ -187,16 +208,12 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: AppSize.s5,
-              )
+              const SizedBox(height: AppSize.s5),
             ],
           );
-        }
+        },
       ),
     );
-
-    return result;
   }
 
   Widget buildReceivedMessage(String model) => Align(
@@ -263,4 +280,11 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
           ),
         ),
       );
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _textEditingController.dispose();
+    super.dispose();
+  }
 }

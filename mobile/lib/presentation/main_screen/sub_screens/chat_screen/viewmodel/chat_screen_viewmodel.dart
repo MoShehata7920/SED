@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/usecase/get_all_conversations_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
@@ -7,7 +6,6 @@ import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-import 'package:socket_io_client/socket_io_client.dart';
 import '../../../../../domain/model/models.dart';
 
 class ChatViewModel extends BaseViewModel
