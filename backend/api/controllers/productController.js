@@ -8,7 +8,7 @@ const lodash = require('lodash');
 
 exports.createProduct = (req, res) => {
     if(!req.user.isVerified){
-        return res.status(200).json({status:0 , message : " You have to verify your email before posting any ads "})
+        return res.status(400).json({status:0 , message : " You have to verify your email before posting any ads "})
     }
     new Product({
         productName: req.body.productName,

@@ -8,7 +8,8 @@ export default function Userinfo() {
   const GetApi = `/users/get`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
   let UserData = data ? data.user : "";
-
+  const userId = getUserId();
+  console.log(userId);
   return (
     <>
       <div className="container-fluid bg-light ">
