@@ -2,7 +2,7 @@ const passportSetup = require('../config/passport-setup')
 const passport = require('passport')
 const router = require('express').Router()
 const authController = require('../controllers/auth');
-const {resetVerification} = require('../middleware/check-reset')
+const {resetVerification , resetVerificationByOTP } = require('../middleware/check-reset')
 const { body, validationResult } = require('express-validator');
 const { verifyTokenAndAdmin, verifyToken } = require('../middleware/check-auth')
 
@@ -62,13 +62,16 @@ router.post('/resendVerifyEmail',verifyToken,authController.resendVerifyEmail)
 //new edits for mobile app to send otp as the email verify with  otp
 router.post('/forgotOTP', authController.forgotPasswordByOTP);
 router.post('/resetOTP',
-    // resetVerification,
+    resetVerificationByOTP,
     body('password').not().isEmpty().withMessage('Empty Password Field'),
     body('password').isLength({ min: 5 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).withMessage('weak password'),
     body('confirmPassword').custom((value, { req }) => {
         if (value !== req.body.password) { throw new Error('Password And Confirmation Doesn\'t Match'); }
         return true;
-    }), authController.resetPasswordByOTP);
+    }),
+    body('code').matches(/^.{6}$/)  //  validating is onyl 6 chars
+    .withMessage('Code must be 6 characters long.')
+    , authController.resetPasswordByOTP);
 /////////////
 
 

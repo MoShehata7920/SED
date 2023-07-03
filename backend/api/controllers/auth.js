@@ -345,14 +345,15 @@ exports.resetPasswordByOTP = async (req, res) => {
             const errorMessages = errors.array().map(error => error.msg);
             return res.status(200).json({ message: errorMessages });
         }
-        // const user = await User.findOne({ _id: req.user._id });
-        const otb = req.body.code;
-
-        const user = await User.findOne({
-            reset_password_token: otb,
-            reset_password_expires: { $gt: Date.now() },
-        });
-
+        // const otb = req.body.code;
+        
+        // const user = await User.findOne({
+            //     reset_password_token: otb,
+            //     reset_password_expires: { $gt: Date.now() },
+            // });
+            
+        const user = await User.findOne({ _id: req.user._id });
+        
         if (!user) {
             return res.status(406).json({ status:0,message: 'Invalid or expired Code' });
         }
@@ -361,13 +362,14 @@ exports.resetPasswordByOTP = async (req, res) => {
         user.reset_password_token = undefined;
         user.reset_password_expires = undefined;
         await user.save()
-        console.log(user)
+        // console.log(user)
         mailHelper.mailTransport().sendMail({
             from: process.env.MYMAIL,
             to: user.email,
             subject: 'Your new password has been Changed Successfully',
             html: mailHelper.generateResetedPasswordTemplate(user.email)
         });
+        res.status(200).json({status:0,message:"pw has been reset successfully"})
     } catch (error) {
         console.log(error)
         res.status(404).json(error)
