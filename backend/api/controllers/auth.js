@@ -312,3 +312,64 @@ exports.resendVerifyEmail=async(req,res)=>{
         res.status(500).json({status:1, message: 'Server Error' });
     }
 }
+
+
+exports.forgotPasswordByOTP = async (req, res) => {
+    //changes to impelemt if works
+    // (1) reset_password_token >>>>>>> reset_password_otp 
+    // (2) generateVerifyEmailTemplate >>>>>>> to change content of email
+    const errors = validationResult(req);           //validating email field with express-validator
+    if (!errors.isEmpty()) {
+        return res.status(200).json({ errors: errors.array() });
+    }
+    const searchOption = req.body.searchOption;
+    const user = await User.findOne({ $or: [{ email: searchOption }, {phone: searchOption }] });           // finding user
+    if (!user) return res.status(200).json({ status: 0, message: ' can\'t find any user with this email address' })    // if user not found
+
+    const otp = mailHelper.generateOTP()                 // creating otp
+    const newUser = await User.findByIdAndUpdate(user._id, { reset_password_token: otp, reset_password_expires: Date.now() + 60 * 60 * 1000 * 6 }, { upsert: true, new: true }) //updating user document , otp expires after 6 hours
+    res.status(200).json({ status: 0,user: newUser, message: 'Reset password email has been sent successfuly to your email address' })
+    mailHelper.mailTransport().sendMail({
+        from: "sedteam@outlook.com",
+        to: user.email,
+        subject: "SED Support team , Reset Your Account Password",
+        html: mailHelper.generateForgotPasswordTemplateByOTP(otp) 
+    })
+};
+
+exports.resetPasswordByOTP = async (req, res) => {
+
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const errorMessages = errors.array().map(error => error.msg);
+            return res.status(200).json({ message: errorMessages });
+        }
+        // const user = await User.findOne({ _id: req.user._id });
+        const otb = req.body.code;
+
+        const user = await User.findOne({
+            reset_password_token: otb,
+            reset_password_expires: { $gt: Date.now() },
+        });
+
+        if (!user) {
+            return res.status(406).json({ status:0,message: 'Invalid or expired Code' });
+        }
+
+        user.password = bcrypt.hashSync(req.body.password, 10);
+        user.reset_password_token = undefined;
+        user.reset_password_expires = undefined;
+        await user.save()
+        console.log(user)
+        mailHelper.mailTransport().sendMail({
+            from: process.env.MYMAIL,
+            to: user.email,
+            subject: 'Your new password has been Changed Successfully',
+            html: mailHelper.generateResetedPasswordTemplate(user.email)
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(404).json(error)
+    }
+};

@@ -162,12 +162,12 @@ exports.generateResetedPasswordTemplate = email => {
       <body>
       <div class="container">
         <img class="logo" src="https://i.pinimg.com/originals/ea/6a/73/ea6a73674b0a6ab38e171afc421ceaa1.png" alt="Logo" />
-        <h4 class="subject">New Password Confirmiation</h4>
+        <h4 class="subject">New Password Confirmation</h4>
         <div class="message">
         <p>Hello,</p>
-        <p>This is a confirmation that the password for your account ${email} has just been changed.</p>
-        <p>Regards,</p>
-        <p>The SED App Team</p>
+        <p>This is a confirmation mail that to let you know you have changed your password successfully for your account : ${email} , if you didn't make that please contact us.</p>
+        <p>Best Regards,</p>
+        <p>SED Team</p>
         </div>
         <div class="footer">
         <p>Copyright © 2023 SED App.
@@ -317,4 +317,77 @@ exports.generateOtpVerifiedEmailTemplate = username => {
       </body>
     </html>
   `
+};
+
+// forgot password request mail with otp for mobile app 
+exports.generateForgotPasswordTemplateByOTP = otp => {
+  const resetLink = `https://yourwebsite.com/reset-password?otp=${otp}`;  // to be changed with static change password page from front-end
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Verification OTP for your account</title>
+    <style type="text/css">
+      /* Set default font styles */
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+      }
+      /* Center the content */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /* Add styles to the logo */
+      .logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      /* Add styles to the subject */
+      .subject {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 30px;
+        text-align: center;
+      }
+      /* Add styles to the message content */
+      .message {
+        margin-top: 20px;
+      }
+      /* Add styles to the footer */
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+    </style>
+  </head>
+        <body>
+        <div class="container">
+          <img class="logo" src="https://i.pinimg.com/originals/ea/6a/73/ea6a73674b0a6ab38e171afc421ceaa1.png" alt="Logo" />
+          <h3 class="subject">Reset Password</h3>
+          <div class="message">
+            <p>Dear User,</p>
+            <p>We have received a request to reset your password for your account on SED App.</p>
+            <p>To proceed with the password reset, please enter the following OTP code:</p>
+            <h2>${otp}</h2>
+            <p>This OTP code will expire in 6 Hours.</p>
+            <p>If you did not initiate this request, please disregard this email and contact us immediately at [sedteam@outlook.com / 01556727311].</p>
+            <p>Thank you for using SED.</p>
+            <p>The SED App Team</p>
+          </div>
+          <div class="footer">
+            <p>&copy; 2023 SED App. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
 };
