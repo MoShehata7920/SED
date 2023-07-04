@@ -346,7 +346,15 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
             return res.status(200).json({ message: errorMessages });
         }
         const user=req.user
-        
+        const token = jwt.sign({
+            email: user.email,
+            id: user._id.toString(),
+            fullName: user.fullName,
+            isAdmin: user.isAdmin ,
+            isVerified : user.isVerified
+        },
+            process.env.SECRET_KEY , {expiresIn: '10h'}
+        )
         if (!user) {
             return res.status(406).json({ status:0,message: 'Invalid or expired Code' });
         }
@@ -354,7 +362,7 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
         user.reset_password_expires = undefined;
         await user.save()
         
-        res.status(200).json({status:0,message:"success verified otp"})
+        res.status(200).json({status:0,message:"success verified otp" , token })
     } catch (error) {
         console.log(error)
         res.status(404).json(error)
