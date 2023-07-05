@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ignore_for_file: avoid_print, depend_on_referenced_packages
+// ignore_for_file: avoid_print, depend_on_referenced_packages, unused_field, unused_local_variable, use_build_context_synchronously, unused_element
 
 import 'dart:async';
 import 'dart:convert' show jsonDecode;

@@ -13,7 +13,7 @@ class IconsManager {
   static const passwordNotVisible = CupertinoIcons.eye_slash_fill;
   static const phone = IconBroken.call;
 
-  static  List<TabItem> iconsList = [
+  static List<TabItem> iconsList = [
     TabItem(icon: Icons.home, title: AppStrings.home),
     TabItem(icon: IconBroken.chat, title: AppStrings.chat),
     TabItem(icon: Icons.add, title: AppStrings.add),
@@ -38,16 +38,16 @@ class IconsManager {
   static const google = FontAwesomeIcons.google;
 
   static List<IconData> categoriesIcons = [
-    FontAwesomeIcons.laptop,
-    FontAwesomeIcons.shirt,
     FontAwesomeIcons.mobile,
     FontAwesomeIcons.bookOpen,
     FontAwesomeIcons.chair,
     FontAwesomeIcons.burger,
-    FontAwesomeIcons.soap,
-    FontAwesomeIcons.cubes,
+    FontAwesomeIcons.shirt,
+    FontAwesomeIcons.laptop,
     FontAwesomeIcons.basketball,
     FontAwesomeIcons.car,
+    FontAwesomeIcons.cubes,
+    FontAwesomeIcons.soap,
   ];
 
   // add item screen

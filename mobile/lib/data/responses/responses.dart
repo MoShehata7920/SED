@@ -53,6 +53,17 @@ class ForgotPasswordResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class ResetPasswordOTPResponse extends BaseResponse {
+  ResetPasswordOTPResponse();
+  // From Json
+  factory ResetPasswordOTPResponse.fromJson(Map<String, dynamic> json) =>
+      _$ResetPasswordOTPResponseFromJson(json);
+
+  // To Json
+  Map<String, dynamic> toJson() => _$ResetPasswordOTPResponseToJson(this);
+}
+
+@JsonSerializable()
 class HomeResponse extends BaseResponse {
   @JsonKey(name: "carousel")
   CarouselResponse? carousel;

@@ -1,9 +1,12 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:sed/app/functions.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/view_handler.dart';
 import 'package:sed/presentation/main_screen/sub_screens/show_items_screen/viewmodel/show_items_screen_viewmodel.dart';
+import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -18,7 +21,6 @@ class ShowItemsView extends StatefulWidget {
   String? image;
 
   @override
-  // ignore: no_logic_in_create_state
   State<ShowItemsView> createState() =>
       _ShowItemsViewState(type, categoryName, image);
 }
@@ -289,7 +291,7 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                       ),
                       Expanded(
                         child: Text(
-                          showItemsContentObject.items[index].date,
+                          Utils.getCreatedTime(showItemsContentObject.items[index].date),
                           textAlign: TextAlign.end,
                           maxLines: AppValues.maxDateLines,
                           overflow: TextOverflow.ellipsis,

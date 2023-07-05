@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:convert';
 import 'dart:ui';
 
@@ -7,8 +9,9 @@ import 'package:sed/app/di.dart';
 
 import '../presentation/main_screen/main_screen_viewmodel/main_screen_viewmodel.dart';
 
-class Noti{
-  static Future initialize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+class Noti {
+  static Future initialize(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize =
         const AndroidInitializationSettings('mipmap/ic_launcher');
     var iOSInitialize = const DarwinInitializationSettings();
@@ -22,6 +25,8 @@ class Noti{
           final MainScreenViewModel viewModel = instance<MainScreenViewModel>();
 
           viewModel.selectNotificationStreamController.add('1234');
+          break;
+        case NotificationResponseType.selectedNotificationAction:
           break;
       }
     });

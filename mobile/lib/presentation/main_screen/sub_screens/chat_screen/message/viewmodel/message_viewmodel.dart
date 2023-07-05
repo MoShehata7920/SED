@@ -2,12 +2,10 @@ import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/domain/usecase/chat_messages_usecase.dart';
-import 'package:sed/domain/usecase/chat_send_message_usecase.dart';
 import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
-import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/chat_screen_viewmodel.dart';
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 
 class MessageViewModel extends BaseViewModel
@@ -18,8 +16,6 @@ class MessageViewModel extends BaseViewModel
   final ChatMessagesUseCase _chatMessagesUseCase =
       instance<ChatMessagesUseCase>();
 
-  final NewMessageUseCase _newMessageUseCase =
-      instance<NewMessageUseCase>();
 
   @override
   void start() {}

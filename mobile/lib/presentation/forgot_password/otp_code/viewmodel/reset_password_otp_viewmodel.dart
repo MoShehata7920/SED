@@ -1,20 +1,17 @@
 import 'dart:async';
-import 'package:sed/app/app_preferences.dart';
-import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/usecase/verify_email_usecase.dart';
 import 'package:sed/presentation/base/baseviewmodel.dart';
 import '../../../common/state_renderer/state_renderer.dart';
 import '../../../common/state_renderer/state_renderer_impl.dart';
 
-class VerifyEmailViewModel extends BaseViewModel
-    with VerifyEmailViewModelInputs, VerifyEmailViewModelOutputs {
-  final VerifyEmailUseCase _verifyEmailUseCase = instance<VerifyEmailUseCase>();
+class ResetPasswordOTPViewModel extends BaseViewModel
+    with ResetPasswordOTPViewModelInputs, ResetPasswordOTPViewModelOutputs {
+  final VerifyEmailUseCase _resetPasswordOtpUseCase =
+      instance<VerifyEmailUseCase>();
 
   StreamController isEmailVerifiedSuccessfullyStreamController =
       StreamController<bool>();
-
-  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
   void start() {}
@@ -26,11 +23,11 @@ class VerifyEmailViewModel extends BaseViewModel
   }
 
   @override
-  void verifyEmail(int code) async {
+  void resetPasswordOtp(int code) async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
 
-    var response = await _verifyEmailUseCase.execute(code);
+    var response = await _resetPasswordOtpUseCase.execute(code);
 
     response.fold(
         (failure) => {
@@ -43,15 +40,13 @@ class VerifyEmailViewModel extends BaseViewModel
 
       // navigate to main screen
 
-      _appPreferences.setToken(Constants.token);
-
       isEmailVerifiedSuccessfullyStreamController.add(true);
     });
   }
 }
 
-abstract class VerifyEmailViewModelInputs {
-  void verifyEmail(int code);
+abstract class ResetPasswordOTPViewModelInputs {
+  void resetPasswordOtp(int code);
 }
 
-abstract class VerifyEmailViewModelOutputs {}
+abstract class ResetPasswordOTPViewModelOutputs {}

@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:sed/app/app_preferences.dart';
-import 'package:sed/app/di.dart';
-import 'package:sed/presentation/register/email_verification/viewmodel/email_verification_viewmodel.dart';
+import 'package:sed/presentation/forgot_password/otp_code/viewmodel/reset_password_otp_viewmodel.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import '../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../resources/assets_manager.dart';
@@ -13,29 +11,27 @@ import '../../../resources/color_manager.dart';
 import '../../../resources/strings_manager.dart';
 import '../../../resources/values_manager.dart';
 
-class EmailVerificationScreenView extends StatefulWidget {
-  const EmailVerificationScreenView({super.key});
+class ResetPasswordOTPView extends StatefulWidget {
+  const ResetPasswordOTPView({super.key});
 
   @override
-  State<EmailVerificationScreenView> createState() =>
-      _EmailVerificationScreenViewState();
+  State<ResetPasswordOTPView> createState() => _ResetPasswordOTPViewState();
 }
 
-class _EmailVerificationScreenViewState
-    extends State<EmailVerificationScreenView> {
+class _ResetPasswordOTPViewState extends State<ResetPasswordOTPView> {
   final TextEditingController _digitsController = TextEditingController();
-  final VerifyEmailViewModel _verifyEmailViewModel = VerifyEmailViewModel();
+  final ResetPasswordOTPViewModel _resetPasswordOTPViewModel =
+      ResetPasswordOTPViewModel();
 
-  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   void _bind() {
-    _verifyEmailViewModel.isEmailVerifiedSuccessfullyStreamController.stream
+    _resetPasswordOTPViewModel
+        .isEmailVerifiedSuccessfullyStreamController.stream
         .listen((isLoggedIn) {
       if (isLoggedIn) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          _appPreferences.setUserLoggedInSuccessfully(true);
-          Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);
+          Navigator.of(context).pushReplacementNamed(Routes.resetPasswordRoute);
         });
       }
     });
@@ -54,13 +50,13 @@ class _EmailVerificationScreenViewState
     return Scaffold(
       backgroundColor: ColorsManager.primaryBackground,
       body: StreamBuilder<FlowState>(
-        stream: _verifyEmailViewModel.outputState,
+        stream: _resetPasswordOTPViewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(
                   context,
                   _buildContentWidget(),
-                  () => _verifyEmailViewModel
-                      .verifyEmail(int.parse(currentText))) ??
+                  () => _resetPasswordOTPViewModel
+                      .resetPasswordOtp(int.parse(currentText))) ??
               _buildContentWidget();
         },
       ),
@@ -154,7 +150,8 @@ class _EmailVerificationScreenViewState
               height: AppSize.s40,
               child: ElevatedButton(
                   onPressed: () {
-                    _verifyEmailViewModel.verifyEmail(int.parse(currentText));
+                    _resetPasswordOTPViewModel
+                        .resetPasswordOtp(int.parse(currentText));
                   },
                   child: Text(AppStrings.confirm.tr()))),
         ),

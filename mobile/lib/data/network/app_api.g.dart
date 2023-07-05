@@ -63,7 +63,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/auth/forgot',
+              '/auth/forgotOTP',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -73,15 +73,36 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<ResetPasswordOTPResponse> resetPasswordOTP(code) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'code': code};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResetPasswordOTPResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/resetOTP',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ResetPasswordOTPResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<DefaultResponse> resetPassword(
     newPassword,
     confirmNewPassword,
-    token,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authentication': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final _data = {
       'password': newPassword,
       'confirmPassword': confirmNewPassword,
@@ -94,7 +115,7 @@ class _AppServiceClient implements AppServiceClient {
     )
             .compose(
               _dio.options,
-              '/auth/reset',
+              '/auth/verified-pw-change',
               queryParameters: queryParameters,
               data: _data,
             )

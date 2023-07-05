@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-
 class AppStrings {
   static String ourTeam = "our_team";
   static String mohamedShehata = "mohamed_shehata";

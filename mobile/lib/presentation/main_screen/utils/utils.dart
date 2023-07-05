@@ -1,11 +1,10 @@
-import 'dart:convert';
+// ignore_for_file: avoid_print
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sprintf/sprintf.dart';
-
 import '../../../app/constants.dart';
 
 class Utils {

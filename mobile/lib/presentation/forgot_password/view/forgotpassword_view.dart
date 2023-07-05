@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/viewmodel/forgotpassword_viewmodel.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../resources/values_manager.dart';
@@ -26,6 +28,17 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
     _emailController
         .addListener(() => _viewModel.setEmail(_emailController.text));
+
+    _viewModel.isEmailSentSuccessfullyStreamController.stream
+        .listen((isLoggedIn) {
+      if (isLoggedIn) {
+        // navigate to main screen
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context)
+              .pushReplacementNamed(Routes.resetPasswordOTPRoute);
+        });
+      }
+    });
   }
 
   @override
@@ -107,7 +120,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           errorText: (snapshot.data ??
                                   true) //check if the username was null
                               ? null //then no errors
-                              : AppStrings.emailInValid.tr()
+                              : AppStrings.emailInValid
+                                  .tr()
                                   .tr(), //else present the error to the user
                         ));
                   }),

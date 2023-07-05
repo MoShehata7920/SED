@@ -24,10 +24,6 @@ class ChatViewModel extends BaseViewModel
     connectAndListen();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Sink get socketInput => _socketStreamController.sink;

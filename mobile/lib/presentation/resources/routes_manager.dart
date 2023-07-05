@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sed/app/di.dart';
+import 'package:sed/presentation/forgot_password/otp_code/view/reset_password_otp_view.dart';
 import 'package:sed/presentation/forgot_password/reset_password/view/reset_password_view.dart';
 import 'package:sed/presentation/login/view/login_view.dart';
 import 'package:sed/presentation/main_screen/items_screen/showProfile/view/show_profile_view.dart';
@@ -35,8 +36,9 @@ class Routes {
   static const String loginRoute = "/login";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String resetPasswordRoute = "/resetPassword";
-  static const String registerRoute = "/register";
   static const String emailVerificationRoute = "/emailVerification";
+  static const String registerRoute = "/register";
+  static const String resetPasswordOTPRoute = "/resetPasswordOTP";
   static const String mainScreenRoute = "/main";
   static const String itemScreenRoute = "/item";
   static const String showItemsScreenRoute = "/showItems";
@@ -57,8 +59,7 @@ class Routes {
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
-
-    if(settings.name != Routes.messagingScreenRoute) {
+    if (settings.name != Routes.messagingScreenRoute) {
       Utils.isInMessageScreen = false;
     } else {
       Utils.isInMessageScreen = true;
@@ -79,6 +80,11 @@ class RouteGenerator {
         initForgotPasswordModule();
         return MaterialPageRoute(
             builder: (context) => const ForgotPasswordView());
+
+      case Routes.resetPasswordOTPRoute:
+        initRegisterModule();
+        return MaterialPageRoute(
+            builder: (context) => const ResetPasswordOTPView());
 
       case Routes.resetPasswordRoute:
         return MaterialPageRoute(
@@ -162,7 +168,8 @@ class RouteGenerator {
         List<dynamic> args = settings.arguments as List<dynamic>;
 
         return MaterialPageRoute(
-            builder: (context) => MessagingScreenView(args[0], args[1], args[2], args[3]));
+            builder: (context) =>
+                MessagingScreenView(args[0], args[1], args[2], args[3]));
 
       case Routes.cameraScreenRoute:
         initLoginModule();
@@ -170,8 +177,7 @@ class RouteGenerator {
             builder: (context) => const CameraScreenView());
 
       case Routes.chatScreenRoute:
-        return MaterialPageRoute(
-            builder: (context) => const ChatScreenView());
+        return MaterialPageRoute(builder: (context) => const ChatScreenView());
 
       default:
         return unDefinedRoute();

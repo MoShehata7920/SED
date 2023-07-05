@@ -16,6 +16,9 @@ class ForgotPasswordViewModel extends BaseViewModel
   final StreamController _showResendStreamController =
       StreamController<bool>.broadcast();
 
+  StreamController isEmailSentSuccessfullyStreamController =
+      StreamController<bool>();
+
   String forgotPasswordEmail = AppStrings.empty;
 
   final ForgotPasswordUseCase _forgotPasswordUseCase;
@@ -34,6 +37,7 @@ class ForgotPasswordViewModel extends BaseViewModel
   @override
   void dispose() {
     _emailStreamController.close();
+    isEmailSentSuccessfullyStreamController.close();
 
     _timer?.cancel();
   }
@@ -56,6 +60,8 @@ class ForgotPasswordViewModel extends BaseViewModel
           AppStrings.success.tr(), () {}));
 
       _showResendStreamController.add(true);
+
+      isEmailSentSuccessfullyStreamController.add(true);
     });
 
     _initTimers();

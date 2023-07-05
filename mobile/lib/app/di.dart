@@ -24,6 +24,7 @@ import 'package:sed/domain/usecase/myprofile_get_ads_usecase.dart';
 import 'package:sed/domain/usecase/new_conversation_usecase.dart';
 import 'package:sed/domain/usecase/notifications.dart';
 import 'package:sed/domain/usecase/register_usecase.dart';
+import 'package:sed/domain/usecase/reset_password_otp_usecase.dart';
 import 'package:sed/domain/usecase/reset_password_usecase.dart';
 import 'package:sed/domain/usecase/saving_products_usecase.dart';
 import 'package:sed/domain/usecase/search_usecase.dart';
@@ -76,6 +77,9 @@ Future<void> initAppModule() async {
   //app service client
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
+  instance.registerFactory<ResetPasswordOTPUseCase>(
+      () => ResetPasswordOTPUseCase(instance()));
+
   instance.registerFactory<ResetPasswordUsecase>(
       () => ResetPasswordUsecase(instance()));
 
@@ -88,7 +92,8 @@ Future<void> initAppModule() async {
       () => RepositoryImpl(instance(), instance()));
 
   // main screen view
-  instance.registerLazySingleton<MainScreenViewModel>(() => MainScreenViewModel());
+  instance
+      .registerLazySingleton<MainScreenViewModel>(() => MainScreenViewModel());
 
   // home screen view
   instance
@@ -154,14 +159,12 @@ Future<void> initAppModule() async {
   instance.registerFactory<ChatMessagesUseCase>(
       () => ChatMessagesUseCase(instance()));
 
-  instance.registerFactory<NewMessageUseCase>(
-      () => NewMessageUseCase(instance()));
+  instance
+      .registerFactory<NewMessageUseCase>(() => NewMessageUseCase(instance()));
 
-  instance.registerLazySingleton<ChatViewModel>(
-      () => ChatViewModel());
+  instance.registerLazySingleton<ChatViewModel>(() => ChatViewModel());
 
-  instance.registerLazySingleton<MessageViewModel>(
-      () => MessageViewModel());
+  instance.registerLazySingleton<MessageViewModel>(() => MessageViewModel());
 
   await initNotificationModule();
 }

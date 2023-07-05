@@ -15,6 +15,12 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   }
 }
 
+extension ResetPasswordOTPResponseMapper on ResetPasswordOTPResponse? {
+  VerifyEMail toDomain() {
+    return VerifyEMail();
+  }
+}
+
 extension VerifyEmailResponseMapper on VerifyEmailResponse? {
   VerifyEMail toDomain() {
     return VerifyEMail();

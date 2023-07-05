@@ -1,6 +1,7 @@
+// ignore_for_file: no_logic_in_create_state, no_leading_underscores_for_local_identifiers
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -9,6 +10,7 @@ import 'package:sed/presentation/main_screen/sub_screens/chat_screen/viewmodel/c
 import 'package:sed/presentation/main_screen/utils/utils.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
+import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
 
@@ -37,7 +39,6 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
   _MessagingScreenViewState(
       this.image, this.name, this.sellerId, this.conversationId);
 
-  final ImagePicker _imagePicker = ImagePicker();
 
   final MessageViewModel _messageViewModel = MessageViewModel();
 
@@ -197,9 +198,10 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      var image =
-                          _imagePicker.pickImage(source: ImageSource.gallery);
+                    onPressed: () async {
+                      // ignore: unused_local_variable
+                      final image = await Navigator.pushNamed(
+                          context, Routes.cameraScreenRoute);
                     },
                     icon: Icon(
                       IconsManager.gallery,

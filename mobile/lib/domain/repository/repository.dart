@@ -10,6 +10,8 @@ abstract class Repository {
 
   Future<Either<Failure, String>> forgotPassword(String email);
 
+  Future<Either<Failure, VerifyEMail>> resetPasswordOTP(int code);
+
   Future<Either<Failure, Default>> resetPassword(
       ResetPasswordRequest resetPasswordRequest);
 

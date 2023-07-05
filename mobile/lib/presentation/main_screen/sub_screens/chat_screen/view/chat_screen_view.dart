@@ -17,8 +17,7 @@ class ChatScreenView extends StatefulWidget {
 }
 
 class _ChatScreenViewState extends State<ChatScreenView> {
-  final ChatViewModel _chatViewModel =
-  instance<ChatViewModel>();
+  final ChatViewModel _chatViewModel = instance<ChatViewModel>();
 
   void _bind() {
     _chatViewModel.getAllConversations();
@@ -254,7 +253,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              .fromSTEB(
                                               AppPadding.p6,
                                               AppPadding.p0,
                                               AppPadding.p0,

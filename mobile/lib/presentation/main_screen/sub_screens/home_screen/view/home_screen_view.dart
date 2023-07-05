@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -333,19 +335,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                       horizontal: AppPadding.p15),
                                   child: InkWell(
                                     onTap: () async {
+                                      // ignore: unused_local_variable
                                       final image = await Navigator.pushNamed(
                                           context, Routes.cameraScreenRoute);
-
-                                      // var image = await _imagePicker.pickImage(
-                                      //     source: ImageSource.gallery);
-
-                                      // File imageFile = File(image!.path);
-
-                                      // List<int> imageBytes = imageFile.readAsBytesSync();
-                                      // String base64Image = base64.encode(imageBytes);
-
-                                      // Navigator.pushNamed(context, Routes.showItemsScreenRoute,
-                                      //     arguments: [Views.SEARCHIMAGE, 0 , base64Image]);
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,

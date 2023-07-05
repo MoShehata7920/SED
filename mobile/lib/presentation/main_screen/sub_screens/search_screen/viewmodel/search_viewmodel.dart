@@ -26,7 +26,6 @@ class SearchViewModel extends BaseViewModel
   ShowItems? items;
   @override
   void start() {
-    // TODO: implement start
   }
 
   void onSearchTextChanged(String value) {

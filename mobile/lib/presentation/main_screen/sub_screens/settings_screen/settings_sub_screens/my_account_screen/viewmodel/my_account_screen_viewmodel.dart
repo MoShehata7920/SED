@@ -123,7 +123,6 @@ class MyAccountViewModel extends BaseViewModel
 
   // Outputs
   @override
-  // TODO: implement imageOutput
   Stream<String> get imageOutput => throw UnimplementedError();
 
   @override
@@ -159,7 +158,6 @@ class MyAccountViewModel extends BaseViewModel
       (isAddressValid) => isAddressValid ? null : AppStrings.addressError.tr());
 
   @override
-  // TODO: implement outputAreAllInputsValid
   Stream<bool> get outputAreAllInputsValid => throw UnimplementedError();
 
   // private functions

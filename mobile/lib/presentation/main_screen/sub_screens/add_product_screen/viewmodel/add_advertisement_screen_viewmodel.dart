@@ -11,7 +11,6 @@ import 'package:sed/presentation/common/freezed_data_classes.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
-import 'dart:convert';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../../../../domain/usecase/update_ad_usecase.dart';
 
@@ -115,7 +114,7 @@ class AddAdvertisementViewModel extends BaseViewModel
   bool _areAllInputsValid() {
     return _isNameValid(advertisementObject.name) &&
         _isDescriptionValid(advertisementObject.description) &&
-        _isImageValid(advertisementObject.image == null ? "" : "image");
+        _isImageValid("image");
   }
 
   @override
@@ -138,8 +137,6 @@ class AddAdvertisementViewModel extends BaseViewModel
 
     File imageFile = File(imageMapping.path);
 
-    List<int> imageBytes = imageFile.readAsBytesSync();
-    String base64Image = base64.encode(imageBytes);
     advertisementObject = advertisementObject.copyWith(image: imageFile);
 
     areAllInputsValidInput.add(null);
@@ -194,7 +191,6 @@ class AddAdvertisementViewModel extends BaseViewModel
   }
 
   void updateAd(BuildContext context, String itemId) async {
-
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popUpLoadingState));
 

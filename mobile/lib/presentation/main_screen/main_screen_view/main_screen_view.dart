@@ -47,7 +47,7 @@ class _MainScreenViewState extends State<MainScreenView> {
               body: snapshot.data ??
                   _viewModel.mainScreenWidgets[0], //destination screen
               bottomNavigationBar: ConvexAppBar.badge(
-                {1: '5'},
+                const {1: '5'},
                 badgeMargin: const EdgeInsets.only(
                     left: AppPadding.p14, bottom: AppPadding.p14),
                 activeColor: ColorsManager.secondaryText,

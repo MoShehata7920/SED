@@ -14,6 +14,8 @@ abstract class RemoteDataSource {
   Future<DefaultResponse> resetPassword(
       ResetPasswordRequest resetPasswordRequest);
 
+  Future<ResetPasswordOTPResponse> resetPasswordOTP(int code);
+
   Future<VerifyEmailResponse> verifyEmail(int code);
 
   Future<AuthenticationResponse> register(RegisterRequest registerRequest);
@@ -64,8 +66,7 @@ abstract class RemoteDataSource {
   Future<GetChatMessagesResponse> getChatMessages(
       ChatMessagesRequest chatMessagesRequest);
 
-  Future<NewMessageResponse> newMessage(
-      NewMessageRequest newMessageRequest);
+  Future<NewMessageResponse> newMessage(NewMessageRequest newMessageRequest);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -85,11 +86,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<DefaultResponse> resetPassword(ResetPasswordRequest resetPasswordRequest) async {
+  Future<ResetPasswordOTPResponse> resetPasswordOTP(int code) async {
+    return await _appServiceClient.resetPasswordOTP(
+        code);
+  }
+
+  @override
+  Future<DefaultResponse> resetPassword(
+      ResetPasswordRequest resetPasswordRequest) async {
     return await _appServiceClient.resetPassword(
         resetPasswordRequest.newPassword,
         resetPasswordRequest.confirmNewPassword,
-        "Bearer ${Constants.token}");
+        );
   }
 
   @override
@@ -291,9 +299,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<NewMessageResponse> newMessage(NewMessageRequest newMessageRequest) async{
-    return await _appServiceClient
-        .newMessage(newMessageRequest.conversationId, newMessageRequest.senderId, newMessageRequest.text);
+  Future<NewMessageResponse> newMessage(
+      NewMessageRequest newMessageRequest) async {
+    return await _appServiceClient.newMessage(newMessageRequest.conversationId,
+        newMessageRequest.senderId, newMessageRequest.text);
   }
   
   

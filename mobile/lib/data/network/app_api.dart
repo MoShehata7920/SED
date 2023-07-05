@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:sed/app/constants.dart';
@@ -19,16 +18,20 @@ abstract class AppServiceClient {
     @Field("password") String password,
   );
 
-  @POST("/auth/forgot")
+  @POST("/auth/forgotOTP")
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("searchOption") String email,
   );
 
-  @PATCH("/auth/reset")
+  @POST("/auth/resetOTP")
+  Future<ResetPasswordOTPResponse> resetPasswordOTP(
+      @Field("code") int code);
+
+  @PATCH("/auth/verified-pw-change")
   Future<DefaultResponse> resetPassword(
       @Field("password") String newPassword,
       @Field("confirmPassword") String confirmNewPassword,
-      @Header("Authentication") String token);
+      );
 
   @POST("/auth/register")
   Future<AuthenticationResponse> register(
