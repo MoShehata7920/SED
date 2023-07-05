@@ -313,7 +313,7 @@ exports.resendVerifyEmail=async(req,res)=>{
     }
 }
 
-
+// forgot password endpoint that takes email to send an otp to it     ' it takes email ' 
 exports.forgotPasswordByOTP = async (req, res) => {
     //changes to impelemt if works
     // (1) reset_password_token >>>>>>> reset_password_otp 
@@ -337,39 +337,73 @@ exports.forgotPasswordByOTP = async (req, res) => {
     })
 };
 
-exports.resetPasswordByOTP = async (req, res) => {
-
+// verifying otp  ' it takes code '
+exports.VerifyresetPasswordOTP = async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
             return res.status(200).json({ message: errorMessages });
         }
-        // const user = await User.findOne({ _id: req.user._id });
-        const otb = req.body.code;
-
-        const user = await User.findOne({
-            reset_password_token: otb,
-            reset_password_expires: { $gt: Date.now() },
-        });
-
+        const user=req.user
+        const token = jwt.sign({
+            email: user.email,
+            id: user._id.toString(),
+            fullName: user.fullName,
+            isAdmin: user.isAdmin ,
+            isVerified : user.isVerified
+        },
+            process.env.SECRET_KEY , {expiresIn: '10h'}
+        )
         if (!user) {
             return res.status(406).json({ status:0,message: 'Invalid or expired Code' });
         }
-
-        user.password = bcrypt.hashSync(req.body.password, 10);
         user.reset_password_token = undefined;
         user.reset_password_expires = undefined;
         await user.save()
-        console.log(user)
-        mailHelper.mailTransport().sendMail({
-            from: process.env.MYMAIL,
-            to: user.email,
-            subject: 'Your new password has been Changed Successfully',
-            html: mailHelper.generateResetedPasswordTemplate(user.email)
-        });
+        
+        res.status(200).json({status:0,message:"success verified otp" , token })
     } catch (error) {
         console.log(error)
         res.status(404).json(error)
     }
 };
+
+// this endpoint is last step on reset after veryifing otp to write the new password  ' it takes password , confirmPassword ' 
+exports.verifiedPwChange=async(req,res)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const errorMessages = errors.array().map(error=>error.msg);
+        return res.status(400).json({ status: 0, message: errorMessages });
+    }
+    try {
+    const user=await User.findById(req.user.id)
+    const hashedPassword=await bcrypt.hash(req.body.password,10)
+    const token = jwt.sign({
+        email: user.email,
+        id: user._id.toString(),
+        fullName: user.fullName,
+        isAdmin: user.isAdmin ,
+        isVerified : user.isVerified
+    },
+        process.env.SECRET_KEY , {expiresIn: '10h'}
+    )
+    user.password=hashedPassword
+    await user.save()
+
+    mailHelper.mailTransport().sendMail({
+        from: process.env.MYMAIL,
+        to: user.email,
+        subject: 'Your new password has been Changed Successfully',
+        html: mailHelper.generateResetedPasswordTemplate(user.email)
+    });
+
+    res.status(200).json({
+        status: 0,
+        message: "Password has been updated successfully",
+        token
+    });
+    } catch (err) {
+        res.status(400).json({message:err.message , err})
+    }
+}
