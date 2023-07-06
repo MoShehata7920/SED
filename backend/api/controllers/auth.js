@@ -224,7 +224,7 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(200).json({status:0, message: errorMessages });
+            return res.status(200).json({status:1, message: errorMessages });
         }
 
         const otb = req.body.code;
@@ -243,7 +243,19 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         user.verify_otp_expires = undefined;
 
         await user.save();
-        res.status(200).json({ status:0,message: 'Account Verified' });
+        const token = jwt.sign({
+            email: user.email,
+            id: user._id.toString(),
+            fullName: user.fullName,
+            isAdmin: user.isAdmin ,
+            isVerified : user.isVerified
+        },
+            process.env.SECRET_KEY
+            // , {
+            //     expiresIn: '10h'
+            // }
+        )
+        res.status(200).json({ status:0,message: 'Account Verified', token:token});
         const username = user.fullName
 
 
@@ -343,31 +355,36 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(200).json({ message: errorMessages });
+            return res.status(200).json({status:1, message: errorMessages });
         }
-        const user=req.user
-        const token = jwt.sign({
-            email: user.email,
-            id: user._id.toString(),
-            fullName: user.fullName,
-            isAdmin: user.isAdmin ,
-            isVerified : user.isVerified
-        },
-            process.env.SECRET_KEY , {expiresIn: '10h'}
-        )
+
+        const otb = req.body.code;
+
+        const user = await User.findOne({
+            reset_password_token: otb,
+            reset_password_expires: { $gt: Date.now() },
+        });
+
         if (!user) {
-            return res.status(406).json({ status:0,message: 'Invalid or expired Code' });
+            return res.status(200).json({ status:0,message: 'Invalid or expired Code' });
         }
+
         user.reset_password_token = undefined;
         user.reset_password_expires = undefined;
-        await user.save()
-        
-        res.status(200).json({status:0,message:"success verified otp" , token })
-    } catch (error) {
-        console.log(error)
-        res.status(404).json(error)
+
+        await user.save();
+        const token = jwt.sign({
+            id: user._id.toString(),
+        },
+            process.env.SECRET_KEY , {expiresIn: '1h'}
+        )
+        res.status(200).json({ status:0,message: 'Go To Reset Page', token:token});
+
+    } catch (err) {
+        return res.status(500).json({ status:1,message:err });
     }
 };
+
 
 // this endpoint is last step on reset after veryifing otp to write the new password  ' it takes password , confirmPassword ' 
 exports.verifiedPwChange=async(req,res)=>{
@@ -378,16 +395,7 @@ exports.verifiedPwChange=async(req,res)=>{
     }
     try {
     const user=await User.findById(req.user.id)
-    const hashedPassword=await bcrypt.hash(req.body.password,10)
-    const token = jwt.sign({
-        email: user.email,
-        id: user._id.toString(),
-        fullName: user.fullName,
-        isAdmin: user.isAdmin ,
-        isVerified : user.isVerified
-    },
-        process.env.SECRET_KEY , {expiresIn: '10h'}
-    )
+
     user.password=hashedPassword
     await user.save()
 
@@ -400,8 +408,7 @@ exports.verifiedPwChange=async(req,res)=>{
 
     res.status(200).json({
         status: 0,
-        message: "Password has been updated successfully",
-        token
+        message: "Password has been updated successfully"
     });
     } catch (err) {
         res.status(400).json({message:err.message , err})

@@ -6,51 +6,70 @@ const check_auth = require('../middleware/check-auth');
 const lodash = require('lodash');
 
 exports.homePage = async (req, res) => {
-  const productPerCat = 10            // number of products to show beside category which equal to 10 items
+  const productPerCat = 10; // Number of products to show beside category, set to 10 items
   var userData = {};
   let wishList = [];
+
+  // Verify user authentication and retrieve user data if available
   if (req.headers.authentication) {
     userData = check_auth.verifyTokenWithReturn(req.headers.authentication);
   }
+
+  // Check if user data is available and retrieve wishlist
   if (!lodash.isEmpty(userData)) {
     const doc = await User.findById(userData.id).select('wishList fullName -_id');
-    if (doc) { // check if doc is not null or undefined
+    if (doc) {
       wishList = doc.wishList;
     }
   }
+
   try {
+    // Retrieve carousel images
     const carouselPromise = Images.find({ imageLocation: 'carousel' })
       .select('image')
       .lean()
       .exec();
+
+    // Retrieve categories
     const categoriesPromise = Category.find({})
       .select('name image')
       .lean()
       .exec();
-    const sellPromise = Product.find({ purpose: 'sell' }).sort({ createdAt: -1 })
+
+    // Retrieve sell items
+    const sellPromise = Product.find({ purpose: 'sell' })
+      .sort({ createdAt: -1 })
       .limit(productPerCat)
       .select('productName description category price productImage seller createdAt')
-      .populate('seller','government address')
-      .lean()
-      .exec();
-    const exchangePromise = Product.find({ purpose: 'exchange' }).sort({ createdAt: -1 })
-      .limit(productPerCat)
-      .populate('seller','government address')
-      .select('productName description category price productImage seller createdAt')
-      .lean()
-      .exec();
-    const donatePromise = Product.find({ purpose: 'donate' }).sort({ createdAt: -1 })
-      .limit(productPerCat)
-      .select('productName description category price productImage seller createdAt')
-      .populate('seller','government address')
+      .populate('seller', 'government address')
       .lean()
       .exec();
 
+    // Retrieve exchange items
+    const exchangePromise = Product.find({ purpose: 'exchange' })
+      .sort({ createdAt: -1 })
+      .limit(productPerCat)
+      .populate('seller', 'government address')
+      .select('productName description category price productImage seller createdAt')
+      .lean()
+      .exec();
+
+    // Retrieve donate items
+    const donatePromise = Product.find({ purpose: 'donate' })
+      .sort({ createdAt: -1 })
+      .limit(productPerCat)
+      .select('productName description category price productImage seller createdAt')
+      .populate('seller', 'government address')
+      .lean()
+      .exec();
+
+    // Retrieve section images
     const sectionsPromise = Images.find({ imageLocation: 'sections' })
       .select('image SectionId')
       .lean()
       .exec();
 
+    // Await all the promises
     const [
       carouselDb,
       categories,
@@ -66,47 +85,48 @@ exports.homePage = async (req, res) => {
       exchangePromise,
       sectionsPromise,
     ]);
-    const carouselAsArray = []
+
+    // Process carousel images
+    const carouselAsArray = [];
     for (var i = 0; i < carouselDb.length; i++) {
-      carouselAsArray.push(carouselDb[i].image)
+      carouselAsArray.push(carouselDb[i].image);
     }
-    const carousel = { Images: carouselAsArray }
-    // iterate over each object in the list
+    const carousel = { Images: carouselAsArray };
+
+    // Iterate over sellItems and add 'isSaved' property based on wishlist
     for (let i = 0; i < sellItems.length; i++) {
       const obj = sellItems[i];
+      obj.isSaved = false; // Set default 'isSaved' property to false
 
-      // set default isSaved property to false
-      obj.isSaved = false;
-
-      // check if object _id is in wishlist
+      // Check if object _id is in wishlist
       if (wishList.includes(obj._id)) {
         obj.isSaved = true;
       }
     }
-    // iterate over each object in the list
+
+    // Iterate over donateItems and add 'isSaved' property based on wishlist
     for (let i = 0; i < donateItems.length; i++) {
       const obj = donateItems[i];
+      obj.isSaved = false; // Set default 'isSaved' property to false
 
-      // set default isSaved property to false
-      obj.isSaved = false;
-
-      // check if object _id is in wishlist
+      // Check if object _id is in wishlist
       if (wishList.includes(obj._id)) {
         obj.isSaved = true;
       }
     }
-    // iterate over each object in the list
+
+    // Iterate over exchangeItems and add 'isSaved' property based on wishlist
     for (let i = 0; i < exchangeItems.length; i++) {
       const obj = exchangeItems[i];
+      obj.isSaved = false; // Set default 'isSaved' property to false
 
-      // set default isSaved property to false
-      obj.isSaved = false;
-
-      // check if object _id is in wishlist
+      // Check if object _id is in wishlist
       if (wishList.includes(obj._id)) {
         obj.isSaved = true;
       }
     }
+
+    // Send the response with the retrieved data
     res.status(200).json({
       carousel,
       categories,

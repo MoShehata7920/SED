@@ -39,12 +39,14 @@ const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the on
 };
 
 const verifyTokenAndAuthorization=(req,res,next)=>{
-    verifyToken(req,res,()=>{
-        if(req.params.id==req.user._id || req.user.isAdmin){   // checks if the same user editing his self or an admin
-            next()
-        }else{
-            res.status(500).json({status:0,message:'You are not authorized  \' development msg: it must be you or your item to edit \' '})
+    const token=req.headers.authentication.split(' ')
+    const checker=jwt.verify(token[1] , process.env.SECRET_KEY , (err,decoded)=>{
+        if(err){
+            return res.status(403).json('Token Not Vaild')
         }
+        req.user=decoded
+        next()    // to continue to the next function 
+
     })
 };
 
