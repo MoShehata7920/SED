@@ -355,31 +355,48 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(200).json({ message: errorMessages });
+            return res.status(200).json({status:1, message: errorMessages });
         }
-        const user=req.user
-        const token = jwt.sign({
-            email: user.email,
-            id: user._id.toString(),
-            fullName: user.fullName,
-            isAdmin: user.isAdmin ,
-            isVerified : user.isVerified
-        },
-            process.env.SECRET_KEY , {expiresIn: '10h'}
-        )
+
+        const otb = req.body.code;
+
+        const user = await User.findOne({
+            reset_password_token: otb,
+            reset_password_expires: { $gt: Date.now() },
+        });
+
         if (!user) {
-            return res.status(406).json({ status:0,message: 'Invalid or expired Code' });
+            return res.status(200).json({ status:0,message: 'Invalid or expired Code' });
         }
+
         user.reset_password_token = undefined;
         user.reset_password_expires = undefined;
-        await user.save()
+
+        await user.save();
+        res.status(200).json({ status:0,message: 'Go To Reset Page'});
+
+
+        // const mailOptions = {
+        //     to: user.email,
+        //     from: process.env.MYMAIL,
+        //     subject: 'Account Verification Successful',
+        //     html: mailHelper.generateOtpVerifiedEmailTemplate(username)
+        // };
         
-        res.status(200).json({status:0,message:"success verified otp" , token })
-    } catch (error) {
-        console.log(error)
-        res.status(404).json(error)
+        // const transporter = nodemailer.createTransport({
+        //     service: "hotmail",
+        //     auth: {
+        //         user: process.env.MYMAIL,
+        //         pass: process.env.MAILPASSWORD
+        //     }
+        // });
+
+        // mailHelper.mailTransport().sendMail(mailOptions);
+    } catch (err) {
+        return res.status(500).json({ status:1,message:err });
     }
 };
+
 
 // this endpoint is last step on reset after veryifing otp to write the new password  ' it takes password , confirmPassword ' 
 exports.verifiedPwChange=async(req,res)=>{
