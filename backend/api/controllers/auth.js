@@ -224,7 +224,7 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(200).json({status:0, message: errorMessages });
+            return res.status(200).json({status:1, message: errorMessages });
         }
 
         const otb = req.body.code;
@@ -243,7 +243,19 @@ exports.verifyEmailByOtp = async (req, res, next) => {
         user.verify_otp_expires = undefined;
 
         await user.save();
-        res.status(200).json({ status:0,message: 'Account Verified' });
+        const token = jwt.sign({
+            email: user.email,
+            id: user._id.toString(),
+            fullName: user.fullName,
+            isAdmin: user.isAdmin ,
+            isVerified : user.isVerified
+        },
+            process.env.SECRET_KEY
+            // , {
+            //     expiresIn: '10h'
+            // }
+        )
+        res.status(200).json({ status:0,message: 'Account Verified', token:token});
         const username = user.fullName
 
 

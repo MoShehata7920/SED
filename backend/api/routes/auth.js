@@ -62,7 +62,6 @@ router.post('/resendVerifyEmail',verifyToken,authController.resendVerifyEmail)
 //new edits for mobile app to send otp as the email verify with  otp
 router.post('/forgotOTP', authController.forgotPasswordByOTP);
 router.post('/resetOTP',
-    resetVerificationByOTP,
     body('code').matches(/^.{6}$/)  //  validating is onyl 6 chars
     .withMessage('Code must be 6 characters long.')
     , authController.VerifyresetPasswordOTP);
