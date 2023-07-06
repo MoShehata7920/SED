@@ -1,39 +1,46 @@
 import React, { useEffect, useState } from "react";
-import "./Forgetpass.css";
 import Navebar from "../../Component/navebar/navbar";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 import { ToastContainer, toast } from "react-toastify";
+import { encrypt } from "n-krypta";
 
-function Forgetpass() {
-  const [Email, setEmail] = useState({
-    searchOption: "",
+function Reset_pass_code() {
+  const secret = process.env.REACT_APP_SECRET_KEY;
+  const [Reset_code, setReset_codel] = useState({
+    code: "",
   });
-  const postAPi = "/auth/forgotOTP";
-  console.log(Email);
+  const postAPi = "/auth/resetOTP";
+
+  console.log(Reset_code);
   function getiteminfo(e) {
-    let myuser = { ...Email };
+    let myuser = { ...Reset_code };
     myuser[e.target.name] = e.target.value;
-    setEmail(myuser);
+    setReset_codel(myuser);
   }
   const { response, data, ErrorMessage, HandelPostApi } = UseAxiosPost(
     postAPi,
-    Email
+    Reset_code
   );
+  let token = data ? data.token : null;
   const itemsubmit = (e) => {
     e.preventDefault();
     HandelPostApi();
   };
   useEffect(() => {
+    if (data) {
+      const encryptedData = encrypt(token, secret);
+      localStorage.setItem("encryptedToken", encryptedData);
+    }
     if (response) {
       toast(`✔️ ${response} `);
       setTimeout(() => {
-        window.location.href = "/Reset_pass_code";
+        window.location.href = `/Reset_Password`;
       }, 3000);
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);
     }
-  }, [response, ErrorMessage]);
+  }, [data, response, ErrorMessage]);
   return (
     <>
       <section className="mb-5">
@@ -41,7 +48,7 @@ function Forgetpass() {
       </section>
       <section>
         <div className="login-box mt-5">
-          <h2 className=" mb-1  mt-3">Forget password</h2>
+          <h2 className=" mb-1  mt-3">Reset_Password_Code</h2>
           <form onSubmit={itemsubmit}>
             <div class="form__group field">
               <input
@@ -49,16 +56,16 @@ function Forgetpass() {
                 type="input"
                 class="form__field"
                 placeholder="Name"
-                name="searchOption"
+                name="code"
                 id="searchOption"
                 required
               />
               <label for="searchOption" class="form__label">
-                Email
+                RESET_CODE
               </label>
             </div>
             <div className="login mt-5 mb-2">
-              <button type="submit"> send virify </button>
+              <button type="submit"> RESET </button>
             </div>
           </form>
         </div>
@@ -67,4 +74,4 @@ function Forgetpass() {
     </>
   );
 }
-export default Forgetpass;
+export default Reset_pass_code;

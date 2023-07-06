@@ -17,6 +17,7 @@ function SignIn() {
     postAPi,
     user
   );
+  let Token = data ? data.token : null;
   function getuserinfo(e) {
     let myuser = { ...user };
     myuser[e.target.name] = e.target.value;
@@ -29,7 +30,7 @@ function SignIn() {
   };
   useEffect(() => {
     if (data) {
-      const encryptedData = encrypt(data, secret);
+      const encryptedData = encrypt(Token, secret);
       localStorage.setItem("encryptedToken", encryptedData);
       window.location.href = "/";
     }
@@ -47,22 +48,25 @@ function SignIn() {
         <div className="container-fluid">
           <div className="row">
             <div className=" offset-xl-3 offset-lg-2 offset-md-1 offset-sm-0 col-xl-6 col-lg-8 col-md-10 col-sm-12 ">
-              <div className=" Login_parent mt-5 mb-5">
-                <h2 className=" text-center">Welcom To SED</h2>
-                <form onSubmit={usersubmit}>
-                  <div class="form__group field">
+              <div className=" Login_parent  mt-5 mb-5">
+                <h2 className=" text-center">Welcome To SED</h2>
+                <form className="page" onSubmit={usersubmit}>
+                  <div class="field field_v1">
+                    <label for="first-name" class="ha-screen-reader">
+                      Email
+                    </label>
                     <input
                       type="input"
-                      class="form__field"
-                      placeholder="Name"
+                      id="first-name"
+                      class="field__input"
+                      placeholder="e.g. Stanislav"
                       name="loginOption"
-                      id="loginOption"
                       required
                       onChange={getuserinfo}
                     />
-                    <label for="loginOption" class="form__label">
-                      Email
-                    </label>
+                    <span class="field__label-wrap" aria-hidden="true">
+                      <span class="field__label">Email</span>
+                    </span>
                   </div>
                   <div class="form__group field">
                     <input

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { decrypt } from "n-krypta";
 export const UseAxiosPache = (url, formData) => {
   const secret = process.env.REACT_APP_SECRET_KEY;
-  const storedEncryptedData = localStorage.getItem("encryptedToken");
+  const storedEncryptedData =
+    localStorage.getItem("encryptedToken") ?? "nothing";
   const decryptedData = decrypt(storedEncryptedData, secret);
   const API_KEY = process.env.REACT_APP_API_KEY;
   const [response, setResponse] = useState("");
@@ -12,7 +13,7 @@ export const UseAxiosPache = (url, formData) => {
     let request = await axios
       .patch(`${API_KEY}${url}`, formData, {
         headers: {
-          Authentication: `Bearer ${decryptedData}`,
+          Authentication: `Bearer ${decryptedData}  `,
         },
       })
       .then((response) => {
