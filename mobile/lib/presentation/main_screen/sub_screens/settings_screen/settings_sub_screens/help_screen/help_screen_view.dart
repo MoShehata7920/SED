@@ -4,6 +4,7 @@ import 'package:sed/presentation/resources/custom_icons_icons.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import 'package:sed/presentation/resources/values_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../resources/color_manager.dart';
 
 class HelpScreen extends StatelessWidget {
@@ -60,13 +61,14 @@ class HelpScreen extends StatelessWidget {
                     ),
               ),
               subtitle: Text(
-                'support@example.com',
+                AppStrings.sedMail,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.secondaryText,
                     ),
               ),
               onTap: () {
                 // Handle email tap
+                launchUrl(Uri(scheme: "mailto", path: AppStrings.sedMail));
               },
             ),
             ListTile(
@@ -80,13 +82,14 @@ class HelpScreen extends StatelessWidget {
                     ),
               ),
               subtitle: Text(
-                '+1 (555) 123-4567',
+                '+20 (111) 123-4567',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorsManager.secondaryText,
                     ),
               ),
               onTap: () {
                 // Handle phone tap
+                launchUrl(Uri(scheme: "tel", path: '01112268819'));
               },
             ),
             const SizedBox(height: AppSize.s20),

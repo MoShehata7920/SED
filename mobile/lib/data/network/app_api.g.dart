@@ -97,12 +97,14 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<DefaultResponse> resetPassword(
+    token,
     newPassword,
     confirmNewPassword,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authentication': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = {
       'password': newPassword,
       'confirmPassword': confirmNewPassword,

@@ -24,14 +24,14 @@ abstract class AppServiceClient {
   );
 
   @POST("/auth/resetOTP")
-  Future<ResetPasswordOTPResponse> resetPasswordOTP(
-      @Field("code") int code);
+  Future<ResetPasswordOTPResponse> resetPasswordOTP(@Field("code") int code);
 
   @PATCH("/auth/verified-pw-change")
   Future<DefaultResponse> resetPassword(
-      @Field("password") String newPassword,
-      @Field("confirmPassword") String confirmNewPassword,
-      );
+    @Header("Authentication") String token,
+    @Field("password") String newPassword,
+    @Field("confirmPassword") String confirmNewPassword,
+  );
 
   @POST("/auth/register")
   Future<AuthenticationResponse> register(
