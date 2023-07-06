@@ -375,23 +375,6 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
         await user.save();
         res.status(200).json({ status:0,message: 'Go To Reset Page', user:user._id});
 
-
-        // const mailOptions = {
-        //     to: user.email,
-        //     from: process.env.MYMAIL,
-        //     subject: 'Account Verification Successful',
-        //     html: mailHelper.generateOtpVerifiedEmailTemplate(username)
-        // };
-        
-        // const transporter = nodemailer.createTransport({
-        //     service: "hotmail",
-        //     auth: {
-        //         user: process.env.MYMAIL,
-        //         pass: process.env.MAILPASSWORD
-        //     }
-        // });
-
-        // mailHelper.mailTransport().sendMail(mailOptions);
     } catch (err) {
         return res.status(500).json({ status:1,message:err });
     }
