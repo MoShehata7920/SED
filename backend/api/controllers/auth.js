@@ -373,6 +373,11 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
         user.reset_password_expires = undefined;
 
         await user.save();
+        const token = jwt.sign({
+            id: user._id.toString(),
+        },
+            process.env.SECRET_KEY , {expiresIn: '1h'}
+        )
         res.status(200).json({ status:0,message: 'Go To Reset Page', user:user._id});
 
     } catch (err) {
@@ -389,7 +394,7 @@ exports.verifiedPwChange=async(req,res)=>{
         return res.status(400).json({ status: 0, message: errorMessages });
     }
     try {
-    const user=await User.findById(req.body.user)
+    const user=await User.findById(req.user.id)
     const hashedPassword=await bcrypt.hash(req.body.password,10)
     const token = jwt.sign({
         email: user.email,

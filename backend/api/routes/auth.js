@@ -65,7 +65,7 @@ router.post('/resetOTP',
     body('code').matches(/^.{6}$/)  //  validating is onyl 6 chars
         .withMessage('Code must be 6 characters long.')
     , authController.VerifyresetPasswordOTP);
-router.patch('/verified-pw-change'
+router.patch('/verified-pw-change',verifyTokenAndAuthorization
     , [
         body('password').isLength({ min: 5 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).withMessage('weak password , Enter a strong one that contains cap chars and numbers'),
         body('confirmPassword').custom((value, { req }) => {
