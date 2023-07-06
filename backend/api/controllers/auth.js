@@ -378,7 +378,7 @@ exports.VerifyresetPasswordOTP = async (req, res) => {
         },
             process.env.SECRET_KEY , {expiresIn: '1h'}
         )
-        res.status(200).json({ status:0,message: 'Go To Reset Page', user:user._id});
+        res.status(200).json({ status:0,message: 'Go To Reset Page', token:token});
 
     } catch (err) {
         return res.status(500).json({ status:1,message:err });
@@ -395,16 +395,7 @@ exports.verifiedPwChange=async(req,res)=>{
     }
     try {
     const user=await User.findById(req.user.id)
-    const hashedPassword=await bcrypt.hash(req.body.password,10)
-    const token = jwt.sign({
-        email: user.email,
-        id: user._id.toString(),
-        fullName: user.fullName,
-        isAdmin: user.isAdmin ,
-        isVerified : user.isVerified
-    },
-        process.env.SECRET_KEY , {expiresIn: '10h'}
-    )
+
     user.password=hashedPassword
     await user.save()
 
@@ -417,8 +408,7 @@ exports.verifiedPwChange=async(req,res)=>{
 
     res.status(200).json({
         status: 0,
-        message: "Password has been updated successfully",
-        token
+        message: "Password has been updated successfully"
     });
     } catch (err) {
         res.status(400).json({message:err.message , err})
