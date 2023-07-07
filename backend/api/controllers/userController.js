@@ -74,9 +74,7 @@ exports.getSingleUser = async (req, res) => {
       "-password -verify_account_otp -verify_otp_expires -__v "
     );
     if (!user) {
-      res
-        .status(200)
-        .json({ status: 0, message: "There Is No User with this id " });
+      res.status(200).json({ status: 0, message: "There Is No User with this id " });
     }
     res.status(200).json({ status: 0, user });
   } catch (error) {
