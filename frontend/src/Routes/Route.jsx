@@ -24,16 +24,15 @@ import Help from "../Pages/Profile/Settings/Help/Help";
 import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
 import ProductEditing from "../Pages/Profile/Product_Editing/Product_Editing";
-<<<<<<< Updated upstream
+
 import Change_Password from "../Pages/Profile/Change_Password/Change_password";
 import Email_verfication from "../Component/Email_verification/Email_verification";
 import Reset_pass_code from "../Component/Reset_pass_cod/Reset_pass_code";
 import ResetPassword from "../Component/Reset_password/Reset_password";
 
-=======
+
 import Chat from "../Pages/Chat/Chat";
->>>>>>> Stashed changes
-// import Chat from "../Pages/Chat/Chat";
+
 
 function MainRoutes() {
   const storedToken = localStorage.getItem("encryptedToken");
