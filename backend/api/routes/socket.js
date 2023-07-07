@@ -17,6 +17,7 @@ module.exports = function (io) {
         // Join conversation room
         socket.on('joinConversation', async (conversationId) => {
             socket.join(conversationId);
+            console.log(`user joined conv ${conversationId}`);
 
             // Load previous messages
             try {
@@ -29,6 +30,7 @@ module.exports = function (io) {
 
         // Send message
         socket.on('sendMessage', async (data) => {
+            console.log('front sm3');
             const { conversationId, senderId, text } = data;
             const message = new Message({ conversation: conversationId, sender: senderId, text });
             try {
