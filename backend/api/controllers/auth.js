@@ -110,7 +110,7 @@ exports.googleLogin = async (req, res, next) => {
             return;
         }
         const decryptedData = {
-            _id: user._id,
+            id: user._id,
             fullName: user.fullName,
             email: user.email,
             createdAt: user.createdAt,
