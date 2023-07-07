@@ -1,22 +1,18 @@
-// Copyright 2013 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// ignore_for_file: avoid_print, depend_on_referenced_packages, unused_field, unused_local_variable, use_build_context_synchronously, unused_element
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, unused_field, avoid_print, unused_local_variable
 
 import 'dart:async';
 import 'dart:convert' show jsonDecode;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
-
 import '../../../../app/constants.dart';
 
 /// The scopes required by this application.
@@ -30,9 +26,7 @@ const List<String> scopes = <String>[
 GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: scopes,
     serverClientId:
-        "602406913114-n0ekltbq1095rnr9fm6rnd55vb3eo25p.apps.googleusercontent.com");
-
-
+        "602406913114-n185mg0kognuf9v655hfchlst4m4815b.apps.googleusercontent.com");
 
 /// The SignInDemo app.
 class SignInDemo extends StatefulWidget {
@@ -47,6 +41,7 @@ class _SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount? _currentUser;
   bool _isAuthorized = false; // has granted permissions?
   String _contactText = '';
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
   void initState() {
@@ -79,6 +74,8 @@ class _SignInDemoState extends State<SignInDemo> {
     // and the Google Sign In button together to "reduce friction and improve
     // sign-in rates" ([docs](https://developers.google.com/identity/gsi/web/guides/display-button#html)).
     //_googleSignIn.signInSilently();
+
+    _handleSignOut();
   }
 
   // Calls the People API REST endpoint for the signed-in user to retrieve information.
@@ -86,12 +83,12 @@ class _SignInDemoState extends State<SignInDemo> {
     setState(() {
       _contactText = 'Loading contact info...';
     });
-    const String apiUrl = 'http://sed.zapto.org:3000/auth/google/redirect';
+    const String apiUrl = 'http://sednow.site:3000/auth/google/redirect';
     final Map<String, String> queryParams = {
       'code': serverAuthToken,
       'scope':
           'email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid',
-      'authuser': '0',
+      'authuser': '2',
       'prompt': 'consent',
     };
     final String queryString = Uri(queryParameters: queryParams).query;
@@ -115,6 +112,7 @@ class _SignInDemoState extends State<SignInDemo> {
 
     Constants.token = token;
     //Constants.user = user;
+    _appPreferences.setUserLoggedInSuccessfully(true);
 
     Navigator.pushReplacementNamed(context, Routes.mainScreenRoute);
   }
