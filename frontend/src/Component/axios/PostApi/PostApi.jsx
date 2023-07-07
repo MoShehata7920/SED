@@ -20,7 +20,7 @@ export const UseAxiosPost = (url, formData) => {
 
       .then((response) => {
         setResponse(response.data.message);
-        setData(response.data.token);
+        setData(response.data);
       })
       .catch((error) => {
         // check for the response property of the error object

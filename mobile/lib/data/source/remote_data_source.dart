@@ -95,6 +95,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<DefaultResponse> resetPassword(
       ResetPasswordRequest resetPasswordRequest) async {
     return await _appServiceClient.resetPassword(
+        "Bearer ${Constants.token}",
         resetPasswordRequest.newPassword,
         resetPasswordRequest.confirmNewPassword,
         );

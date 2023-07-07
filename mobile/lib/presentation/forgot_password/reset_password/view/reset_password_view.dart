@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sed/app/app_preferences.dart';
+import 'package:sed/app/di.dart';
 import 'package:sed/presentation/forgot_password/reset_password/viewmodel/reset_password_viewmodel.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import '../../../common/state_renderer/state_renderer_impl.dart';
@@ -24,6 +26,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   final TextEditingController _confirmNewPasswordController =
       TextEditingController();
 
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
   @override
   void initState() {
     _newPasswordController.addListener(
@@ -36,6 +40,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
     _viewModel.isUserRestedPasswordSuccessfullyStreamController.stream
         .listen((isRegistered) {
       if (isRegistered) {
+        _appPreferences.setUserLoggedInSuccessfully(true);
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacementNamed(Routes.mainScreenRoute);

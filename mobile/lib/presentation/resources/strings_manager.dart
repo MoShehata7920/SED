@@ -1,5 +1,6 @@
 class AppStrings {
   static String ourTeam = "our_team";
+  static String sedMail = "admin@sednow.site";
   static String mohamedShehata = "mohamed_shehata";
   static String mahmoudHafez = "mahmoud_hafez";
   static String abdullahRagab = "abdullah_ragab";

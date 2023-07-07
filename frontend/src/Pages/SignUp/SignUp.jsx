@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./SignUp.css";
+import {
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+} from "mdb-react-ui-kit";
+import { Icon } from "react-icons-kit";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+import { eye } from "react-icons-kit/feather/eye";
 import { ToastContainer, toast } from "react-toastify";
-
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Navebar from "../../Component/navebar/navbar";
 import { encrypt } from "n-krypta";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 function Register() {
-  const navigate = useNavigate();
   const secret = process.env.REACT_APP_SECRET_KEY;
   const postAPi = "/auth/register";
   const [user, setuser] = useState({
@@ -18,6 +27,8 @@ function Register() {
     email: "",
     phone: "",
   });
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
   const { response, data, ErrorMessage, HandelPostApi } = UseAxiosPost(
     postAPi,
     user
@@ -27,6 +38,15 @@ function Register() {
     myuser[e.target.name] = e.target.value;
     setuser(myuser);
   }
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
   const usersubmit = (e) => {
     e.preventDefault();
     HandelPostApi();
@@ -47,105 +67,119 @@ function Register() {
         <Navebar />
       </section>
       <section>
-        <div className="container-fluid">
-          <div className="row">
-            <div className=" offset-xl-3 offset-lg-2 offset-md-1 offset-sm-0 col-xl-6 col-lg-8 col-md-10 col-sm-12 ">
-              <div className=" Login_parent mt-5 mb-5">
-                <h2 className=" text-center mb-0"> Create Your Account </h2>
-                <form onSubmit={usersubmit}>
-                  <div class="form__group field">
-                    <input
-                      type="input"
-                      class="form__field"
-                      placeholder="FullName"
-                      name="fullName"
-                      id="fullName"
-                      required
-                      onChange={getuserinfo}
-                    />
-                    <label for="fullName" class="form__label">
-                      FullName
-                    </label>
-                  </div>
-                  <div class="form__group field">
-                    <input
-                      type="email"
-                      class="form__field"
-                      placeholder="FullName"
-                      name="email"
-                      id="email"
-                      required
-                      onChange={getuserinfo}
-                    />
-                    <label for="fullName" class="form__label">
-                      Email
-                    </label>
-                  </div>
-                  <div class="form__group field">
-                    <input
-                      type="number"
-                      class="form__field"
-                      placeholder="Phone Number"
-                      name="phone"
-                      id="phone"
-                      required
-                      onChange={getuserinfo}
-                    />
-                    <label for="phone" class="form__label">
-                      Phone Number
-                    </label>
-                  </div>
-                  <div class="form__group field">
-                    <input
-                      type="password"
-                      class="form__field"
-                      placeholder="FullName"
-                      name="password"
-                      id="password"
-                      required
-                      onChange={getuserinfo}
-                    />
-                    <label for="password" class="form__label">
-                      Password
-                    </label>
-                  </div>
-                  <div class="form__group field">
-                    <input
-                      type="password"
-                      class="form__field"
-                      placeholder="FullName"
-                      name="confirmPassword"
-                      id="confirmPassword"
-                      required
-                      onChange={getuserinfo}
-                    />
-                    <label for="confirmPassword" class="form__label">
-                      Confirm Password
-                    </label>
-                  </div>
+        <MDBContainer fluid className="p-3 my-5 h-custom">
+          <MDBRow>
+            <MDBCol col="10" md="6">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid"
+                alt="Sample image"
+              />
+            </MDBCol>
 
-                  <div className="login">
-                    <button type="submit"> Signup </button>
-                    <button type="submit">
-                      {" "}
-                      Signup with <i>{<FcGoogle />}</i>{" "}
-                    </button>
-                  </div>
+            <MDBCol col="4" md="6">
+              <div className="d-flex flex-row align-items-center justify-content-center">
+                <p className="lead fw-normal mb-0 me-3">Sign in with</p>
 
-                  <div className="signup">
-                    <p>
-                      Aready Have Account?{" "}
-                      <Link to={"/signin"}>
-                        <a href="{}"> Signin </a>
-                      </Link>{" "}
-                    </p>
-                  </div>
-                  <ToastContainer />
-                </form>
+                <MDBBtn floating size="md" tag="a" className="me-2">
+                  <MDBIcon fab icon="facebook-f" />
+                </MDBBtn>
+
+                <MDBBtn floating size="md" tag="a" className="me-2">
+                  <MDBIcon fab icon="twitter" />
+                </MDBBtn>
+
+                <MDBBtn floating size="md" tag="a" className="me-2">
+                  <MDBIcon fab icon="linkedin-in" />
+                </MDBBtn>
               </div>
-            </div>
-          </div>
-        </div>
+
+              <div className="divider d-flex align-items-center my-4">
+                <p className="text-center fw-bold mx-3 mb-0">Or</p>
+              </div>
+              <form onSubmit={usersubmit}>
+                <MDBInput
+                  wrapperClass="mb-4"
+                  onChange={getuserinfo}
+                  label="full Name"
+                  id="formControlLg"
+                  type="text"
+                  name="fullName"
+                  size="lg"
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  onChange={getuserinfo}
+                  label="Email address"
+                  id="formControlLg"
+                  type="email"
+                  name="email"
+                  size="lg"
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  onChange={getuserinfo}
+                  label="Phone Number"
+                  id="formControlLg"
+                  type="text"
+                  name="phone"
+                  size="lg"
+                />
+                <div className=" position-relative ">
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    onChange={getuserinfo}
+                    label="Password"
+                    id="formControlLg"
+                    type={type}
+                    name="password"
+                    size="lg"
+                  />
+                  <span className=" icon-container " onClick={handleToggle}>
+                    <Icon icon={icon} size={25} />
+                  </span>
+                </div>
+                <div className=" position-relative ">
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    onChange={getuserinfo}
+                    label="Confirm Password"
+                    id="formControlLg"
+                    type={type}
+                    name="confirmPassword"
+                    size="lg"
+                  />
+                  <span className=" icon-container " onClick={handleToggle}>
+                    <Icon icon={icon} size={25} />
+                  </span>
+                </div>
+
+                <div className="text-center text-md-start mt-4 pt-2">
+                  <div>
+                    <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
+                      Sign Up
+                    </MDBBtn>
+                  </div>
+                  <div className="d-flex justify-content-between mb-4 mt-4">
+                    <Link
+                      className=" text-decoration-none"
+                      to={"/forgetpassword"}
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+                  <p className="small fw-bold mt-2  mb-2">
+                    have an account?{" "}
+                    <Link to={"/SignIn"} className="link-danger">
+                      Log In
+                    </Link>
+                  </p>
+                </div>
+                <ToastContainer />
+              </form>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
       </section>
     </>
   );

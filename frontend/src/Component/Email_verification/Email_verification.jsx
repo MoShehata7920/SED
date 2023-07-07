@@ -4,12 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import { UseAxiosPost } from "../axios/PostApi/PostApi";
 import Navebar from "../navebar/navbar";
 export default function Email_verfication() {
-  const [Code, setCode] = useState("");
-  console.log(Code);
+  const [Code, setCode] = useState({
+    code: "",
+  });
   const postAPi = `/auth/verifyemail`;
   function getUserinfo(e) {
-    const myinfo = e.target.value;
-    setCode(myinfo);
+    let myuser = { ...Code };
+    myuser[e.target.name] = e.target.value;
+    setCode(myuser);
   }
 
   const { response, ErrorMessage, HandelPostApi } = UseAxiosPost(postAPi, Code);
@@ -46,7 +48,7 @@ export default function Email_verfication() {
                   <div class="mb-3">
                     <label class="form-label">OTTP Code</label>
                     <input
-                      name="Code"
+                      name="code"
                       onChange={getUserinfo}
                       type="text"
                       class="form-control"

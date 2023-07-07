@@ -54,7 +54,8 @@ class ForgotPasswordResponse extends BaseResponse {
 
 @JsonSerializable()
 class ResetPasswordOTPResponse extends BaseResponse {
-  ResetPasswordOTPResponse();
+  String? token;
+  ResetPasswordOTPResponse(this.token);
   // From Json
   factory ResetPasswordOTPResponse.fromJson(Map<String, dynamic> json) =>
       _$ResetPasswordOTPResponseFromJson(json);

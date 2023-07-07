@@ -6,7 +6,6 @@ import 'package:sed/presentation/main_screen/main_screen_viewmodel/main_screen_v
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
-import 'package:sed/presentation/resources/values_manager.dart';
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -25,11 +24,11 @@ class _MainScreenViewState extends State<MainScreenView> {
     super.initState();
 
     _configureSelectNotificationSubject();
-
   }
 
   void _configureSelectNotificationSubject() {
-    _viewModel.selectNotificationStreamController.stream.listen((String? payload) {
+    _viewModel.selectNotificationStreamController.stream
+        .listen((String? payload) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pushNamed(Routes.chatScreenRoute);
       });
@@ -46,10 +45,7 @@ class _MainScreenViewState extends State<MainScreenView> {
               backgroundColor: ColorsManager.primaryBackground,
               body: snapshot.data ??
                   _viewModel.mainScreenWidgets[0], //destination screen
-              bottomNavigationBar: ConvexAppBar.badge(
-                const {1: '5'},
-                badgeMargin: const EdgeInsets.only(
-                    left: AppPadding.p14, bottom: AppPadding.p14),
+              bottomNavigationBar: ConvexAppBar(
                 activeColor: ColorsManager.secondaryText,
                 color: ColorsManager.grayIcon,
                 backgroundColor: ColorsManager.primaryBackground,

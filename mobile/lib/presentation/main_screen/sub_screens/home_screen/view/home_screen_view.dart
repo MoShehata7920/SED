@@ -123,6 +123,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
         child: Drawer(
           backgroundColor: ColorsManager.background,
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 Center(
@@ -203,6 +204,9 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           ]);
                     },
                   ),
+                const SizedBox(
+                  height: AppSize.s20,
+                )
               ],
             ),
           ),

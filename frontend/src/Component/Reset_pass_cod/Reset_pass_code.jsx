@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./Forgetpass.css";
+import Navebar from "../../Component/navebar/navbar";
+import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
+import { ToastContainer, toast } from "react-toastify";
+import { encrypt } from "n-krypta";
 import {
   MDBContainer,
   MDBCol,
@@ -8,41 +11,43 @@ import {
   MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
-import Navebar from "../../Component/navebar/navbar";
-import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
-import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
-
-function Forgetpass() {
-  const [Email, setEmail] = useState({
-    searchOption: "",
+function Reset_pass_code() {
+  const secret = process.env.REACT_APP_SECRET_KEY;
+  const [Reset_code, setReset_codel] = useState({
+    code: "",
   });
-  const postAPi = "/auth/forgotOTP";
-  console.log(Email);
+  const postAPi = "/auth/resetOTP";
+
+  console.log(Reset_code);
   function getiteminfo(e) {
-    let myuser = { ...Email };
+    let myuser = { ...Reset_code };
     myuser[e.target.name] = e.target.value;
-    setEmail(myuser);
+    setReset_codel(myuser);
   }
   const { response, data, ErrorMessage, HandelPostApi } = UseAxiosPost(
     postAPi,
-    Email
+    Reset_code
   );
+  let token = data ? data.token : null;
   const itemsubmit = (e) => {
     e.preventDefault();
     HandelPostApi();
   };
   useEffect(() => {
+    if (data) {
+      const encryptedData = encrypt(token, secret);
+      localStorage.setItem("encryptedToken", encryptedData);
+    }
     if (response) {
       toast(`✔️ ${response} `);
       setTimeout(() => {
-        window.location.href = "/Reset_pass_code";
+        window.location.href = `/Reset_Password`;
       }, 3000);
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);
     }
-  }, [response, ErrorMessage]);
+  }, [data, response, ErrorMessage]);
   return (
     <>
       <section className="mb-5">
@@ -64,16 +69,16 @@ function Forgetpass() {
                 <MDBInput
                   wrapperClass="mb-4"
                   onChange={getiteminfo}
-                  label="Email address"
+                  label=" RESET_CODE"
                   id="formControlLg"
-                  type="email"
-                  name="searchOption"
+                  type="text"
+                  name="code"
                   size="lg"
                 />
                 <div className="text-center text-md-start mt-4 pt-2">
                   <div>
                     <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
-                      Send Code
+                      RESET
                     </MDBBtn>
                   </div>
                 </div>
@@ -86,4 +91,4 @@ function Forgetpass() {
     </>
   );
 }
-export default Forgetpass;
+export default Reset_pass_code;

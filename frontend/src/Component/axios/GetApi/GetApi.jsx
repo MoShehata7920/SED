@@ -11,7 +11,6 @@ export const UseAxiosGet = (url) => {
   const [dataUser, setdataUser] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const getData = async () => {
       setError(null);

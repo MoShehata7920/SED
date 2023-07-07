@@ -64,7 +64,9 @@ Map<String, dynamic> _$ForgotPasswordResponseToJson(
 
 ResetPasswordOTPResponse _$ResetPasswordOTPResponseFromJson(
         Map<String, dynamic> json) =>
-    ResetPasswordOTPResponse()
+    ResetPasswordOTPResponse(
+      json['token'] as String?,
+    )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
 
@@ -73,6 +75,7 @@ Map<String, dynamic> _$ResetPasswordOTPResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
+      'token': instance.token,
     };
 
 HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
