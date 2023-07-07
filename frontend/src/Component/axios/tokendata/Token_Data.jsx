@@ -14,6 +14,3 @@ export function getUserId() {
     return null;
   }
 }
-
-// const userId = getUserId();
-// console.log(userId);

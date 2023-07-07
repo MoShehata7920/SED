@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Forgetpass.css";
+import {
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+} from "mdb-react-ui-kit";
 import Navebar from "../../Component/navebar/navbar";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function Forgetpass() {
   const [Email, setEmail] = useState({
@@ -40,29 +49,39 @@ function Forgetpass() {
         <Navebar />
       </section>
       <section>
-        <div className="login-box mt-5">
-          <h2 className=" mb-1  mt-3">Forget password</h2>
-          <form onSubmit={itemsubmit}>
-            <div class="form__group field">
-              <input
-                onChange={getiteminfo}
-                type="input"
-                class="form__field"
-                placeholder="Name"
-                name="searchOption"
-                id="searchOption"
-                required
+        <MDBContainer fluid className="p-3 my-5 h-custom">
+          <MDBRow>
+            <MDBCol col="10" md="6">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid"
+                alt="Sample image"
               />
-              <label for="searchOption" class="form__label">
-                Email
-              </label>
-            </div>
-            <div className="login mt-5 mb-2">
-              <button type="submit"> send virify </button>
-            </div>
-          </form>
-        </div>
-        <ToastContainer />
+            </MDBCol>
+
+            <MDBCol className="mt-5" col="4" md="6">
+              <form onSubmit={itemsubmit}>
+                <MDBInput
+                  wrapperClass="mb-4"
+                  onChange={getiteminfo}
+                  label="Email address"
+                  id="formControlLg"
+                  type="email"
+                  name="searchOption"
+                  size="lg"
+                />
+                <div className="text-center text-md-start mt-4 pt-2">
+                  <div>
+                    <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
+                      Send Code
+                    </MDBBtn>
+                  </div>
+                </div>
+              </form>
+            </MDBCol>
+            <ToastContainer />
+          </MDBRow>
+        </MDBContainer>
       </section>
     </>
   );

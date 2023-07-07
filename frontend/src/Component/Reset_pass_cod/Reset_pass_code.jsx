@@ -3,7 +3,14 @@ import Navebar from "../../Component/navebar/navbar";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 import { ToastContainer, toast } from "react-toastify";
 import { encrypt } from "n-krypta";
-
+import {
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+} from "mdb-react-ui-kit";
 function Reset_pass_code() {
   const secret = process.env.REACT_APP_SECRET_KEY;
   const [Reset_code, setReset_codel] = useState({
@@ -47,29 +54,39 @@ function Reset_pass_code() {
         <Navebar />
       </section>
       <section>
-        <div className="login-box mt-5">
-          <h2 className=" mb-1  mt-3">Reset_Password_Code</h2>
-          <form onSubmit={itemsubmit}>
-            <div class="form__group field">
-              <input
-                onChange={getiteminfo}
-                type="input"
-                class="form__field"
-                placeholder="Name"
-                name="code"
-                id="searchOption"
-                required
+        <MDBContainer fluid className="p-3 my-5 h-custom">
+          <MDBRow>
+            <MDBCol col="10" md="6">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid"
+                alt="Sample image"
               />
-              <label for="searchOption" class="form__label">
-                RESET_CODE
-              </label>
-            </div>
-            <div className="login mt-5 mb-2">
-              <button type="submit"> RESET </button>
-            </div>
-          </form>
-        </div>
-        <ToastContainer />
+            </MDBCol>
+
+            <MDBCol className="mt-5" col="4" md="6">
+              <form onSubmit={itemsubmit}>
+                <MDBInput
+                  wrapperClass="mb-4"
+                  onChange={getiteminfo}
+                  label=" RESET_CODE"
+                  id="formControlLg"
+                  type="text"
+                  name="code"
+                  size="lg"
+                />
+                <div className="text-center text-md-start mt-4 pt-2">
+                  <div>
+                    <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
+                      RESET
+                    </MDBBtn>
+                  </div>
+                </div>
+              </form>
+            </MDBCol>
+            <ToastContainer />
+          </MDBRow>
+        </MDBContainer>
       </section>
     </>
   );
