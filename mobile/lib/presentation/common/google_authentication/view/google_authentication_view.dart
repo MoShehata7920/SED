@@ -9,7 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:sed/app/app_preferences.dart';
 import 'package:sed/app/di.dart';
-import 'package:sed/domain/model/models.dart';
 import 'package:sed/presentation/resources/color_manager.dart';
 import 'package:sed/presentation/resources/icons_manager.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
@@ -94,7 +93,13 @@ class _SignInDemoState extends State<SignInDemo> {
     final String queryString = Uri(queryParameters: queryParams).query;
     final String requestUrl = '$apiUrl?$queryString';
 
-    final http.Response response = await http.get(Uri.parse(requestUrl));
+    final headers = {
+      'mobile': 'true', // Custom header to identify mobile device
+      // Add any other headers if required
+    };
+
+    final http.Response response =
+        await http.get(Uri.parse(requestUrl), headers: headers);
     if (response.statusCode != 200) {
       setState(() {
         _contactText = 'Server returned a ${response.statusCode} '
@@ -105,16 +110,19 @@ class _SignInDemoState extends State<SignInDemo> {
           'Server returned a ${response.statusCode} response: ${response.body}');
       return;
     }
+    try {
+      print(response.body);
+      final Map<String, dynamic> responseBody = jsonDecode(response.body);
+      final String token = responseBody['token'];
 
-    final Map<String, dynamic> responseBody = jsonDecode(response.body);
-    final User user = User.fromJson(responseBody['User']);
-    final String token = responseBody['token'];
+      Constants.token = token;
+      //Constants.user = user;
+      _appPreferences.setUserLoggedInSuccessfully(true);
 
-    Constants.token = token;
-    //Constants.user = user;
-    _appPreferences.setUserLoggedInSuccessfully(true);
-
-    Navigator.pushReplacementNamed(context, Routes.mainScreenRoute);
+      Navigator.pushReplacementNamed(context, Routes.mainScreenRoute);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> _handleSignIn() async {
