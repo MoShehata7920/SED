@@ -121,6 +121,11 @@ exports.googleLogin = async (req, res, next) => {
         // const expiresIn = "10h";
         // const token = jwt.sign(decryptedData, process.env.SECRET_KEY, { expiresIn });
         const token = jwt.sign(decryptedData, process.env.SECRET_KEY);
+        if(req.headers.mobile){     // if the request from mobile phone
+            res.status(200).json({ message: 'Logged in successfully', token, User: decryptedData });
+        }else{                      // if the request from web
+            res.redirect(`http://localhost:3006/SignIn?token=${token}`);
+        }
         res.status(200).json({ message: 'Logged in successfully', token, User: decryptedData });
     } catch (error) {
         console.log(error)
