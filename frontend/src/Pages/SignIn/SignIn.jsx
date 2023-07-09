@@ -17,9 +17,6 @@ import Navebar from "../../Component/navebar/navbar";
 import { ToastContainer, toast } from "react-toastify";
 import { encrypt } from "n-krypta";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
-import { GoogleLogin } from "react-google-login";
-import { gapi } from "gapi-script";
-import axios from "axios";
 // import { GoogleLogin } from "@react-oauth/google";
 function SignIn() {
   const [tokengoogle, settokengoogle] = useState("");
@@ -99,36 +96,10 @@ function SignIn() {
               <div className="d-flex flex-row align-items-center justify-content-center">
                 <p className="lead fw-normal mb-0 me-3">Sign in with</p>
                 <div>
-                  <button onClick={google}>login</button>
+                  <Link onClick={google} className="bg-white fs-4">
+                    <FcGoogle />
+                  </Link>
                 </div>
-                {/* <GoogleLogin
-                  clientId={serverClientId}
-                  buttonText="Sign in with Google"
-                  onSuccess={handleGetContact}
-                  // onFailure={handleFailure}
-                  responseType="code"
-                  accessType="offline"
-                  prompt="consent"
-                  scope={scopes.join(" ")}
-                  redirectUri="http://sednow.site:3000/auth/google/redirect"
-                /> */}
-                {/* <GoogleOAuthProvider clientId={serverClientId}>
-                  <GoogleLogin
-                    render={(renderProps) => (
-                      <button
-                        type="button"
-                        className=""
-                        onClick={renderProps.onClick}
-                        disabled={renderProps.disabled}
-                      >
-                        <FcGoogle className="" /> Sign in with google
-                      </button>
-                    )}
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy="single_host_origin"
-                  />
-                </GoogleOAuthProvider> */}
               </div>
 
               <div className="divider d-flex align-items-center my-4">
