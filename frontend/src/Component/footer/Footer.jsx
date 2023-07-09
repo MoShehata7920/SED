@@ -1,13 +1,14 @@
+import "./footer.css";
 import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className=" h-auto footer-div ">
-      <div className="container">
+    <footer className=" h-auto bg_footer ">
+      <div className="container ">
         <div className="row">
-          <div className="col-6">
-            <div className="app-div mt-5 rounded-3">
-              <h5 className="ms-3 pt-2 pb-1">Download Our App</h5>
+          <div className="col-6 ">
+            <div className="app-div mt-5 rounded-3 footer-div">
+              <h5 className="ms-3 pt-2 pb-1 text-white">Download Our App</h5>
               <div className="app-content d-flex justify-content-center ">
                 <div className="app-img me-2 ">
                   <NavLink to={"a"} className="w-100">
@@ -33,7 +34,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="line-footer mt-5"></div>
-      <div className="container mt-5">
+      <div className="container mt-5 ">
         <div className="row">
           <div className="col-3">
             <div className=" text-white">
