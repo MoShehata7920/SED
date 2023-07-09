@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import MainRoutes from "./Routes/Route";
 import { BrowserRouter } from "react-router-dom";
 
