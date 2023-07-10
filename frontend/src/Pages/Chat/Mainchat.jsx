@@ -81,3 +81,9 @@ function Mainchat({ socket, username, room }) {
 }
 
 export default Mainchat;
+
+
+<div key={conversation.id}>
+                    <h2>{conversation.title}</h2>
+                    <p>{conversation.message}</p>
+                  </div>

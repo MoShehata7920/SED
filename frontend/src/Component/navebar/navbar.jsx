@@ -4,6 +4,8 @@ import { BiLogIn } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { BsChatTextFill } from "react-icons/bs";
+
 
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
@@ -221,6 +223,15 @@ function Navebar() {
                     className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
                   >
                     <BiLogIn />
+                  </Link>
+                </li>
+                <li className="nav-item">
+                <Link
+                    to={"/Chat"}
+                    className="text-white chat-icon  nav-Link fs-2 d-flex align-items-center justify-content-center mx-3 mt-1 "
+                  >
+                                      <BsChatTextFill/>
+
                   </Link>
                 </li>
               </ul>
