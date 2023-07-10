@@ -2,7 +2,7 @@ import "./Profile.css";
 import "./Profile";
 import React, { useEffect, useState } from "react";
 import Navebar from "../../../Component/navebar/navbar";
-import {} from "react-icons/ci";
+import { MdAddShoppingCart, MdVerified } from "react-icons/md";
 import {
   BsListCheck,
   BsPerson,
@@ -11,7 +11,6 @@ import {
   BsFillBellFill,
 } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
-
 import { Link, Outlet } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 function Profile() {
@@ -83,10 +82,18 @@ function Profile() {
                   </Link>
                 </li>
                 <li className="sidebar-item mb-3">
-                  <Link to={"/profile/settings"}>
-                    <i className="text-black">{<BsGearWideConnected />}</i>
+                  <Link to={"/addItems"}>
+                    <i className="text-black">{<MdAddShoppingCart />}</i>
                     <span className="ms-1 d-none d-sm-inline text-black">
-                      Settings
+                      Add Product
+                    </span>
+                  </Link>
+                </li>
+                <li className="sidebar-item mb-3">
+                  <Link to={"/addItems"}>
+                    <i className="text-black">{<MdVerified />}</i>
+                    <span className="ms-1 d-none d-sm-inline text-black">
+                      Verifie Email
                     </span>
                   </Link>
                 </li>

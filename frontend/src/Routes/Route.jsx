@@ -29,8 +29,9 @@ import Email_verfication from "../Component/Email_verification/Email_verificatio
 import Reset_pass_code from "../Component/Reset_pass_cod/Reset_pass_code";
 import ResetPassword from "../Component/Reset_password/Reset_password";
 import Chat from "../Pages/Chat/Chat";
-
+import { getTokendeta } from "../Component/axios/tokendata/Token_Data";
 function MainRoutes() {
+  const Tokendata = getTokendeta();
   const storedToken = localStorage.getItem("encryptedToken");
   return (
     <>
@@ -87,7 +88,16 @@ function MainRoutes() {
         <Route path="/Categories/:CategorieType" element={<Categories />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/SeeAllData/:SeeData" element={<SeeAllData />} />
-        <Route path="/AddItems" element={<AddItem />} />
+        <Route
+          path="/AddItems"
+          element={
+            Tokendata == false ? (
+              <Navigate replace to={"/Email_verfication"} />
+            ) : (
+              <AddItem />
+            )
+          }
+        />
 
         <Route
           path="/SellerInfo/:SellerId/:ProductID"

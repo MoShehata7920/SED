@@ -16,6 +16,7 @@ export default function Dataitems() {
     prodId: id,
   });
   const { data, isPending, error } = UseAxiosGet(GetApi);
+  console.log(data);
   let dataproduct = data ? data.product : "";
   let datauser = data ? data.product.seller : "";
   const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(patchApi, ID);

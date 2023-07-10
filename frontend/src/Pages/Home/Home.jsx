@@ -301,19 +301,6 @@ export default function Home() {
           ))}
         </Swiper>
       </section>
-      {/* <section className="pt-5  ">
-        <OwlCarousel className=" owl-theme  " {...options2}>
-          <div className="item text-center">
-            <h1 className=" fs-9 ">DONATE</h1>
-            <Link to={"a"}>
-              <p className="text-black fs-3 "> see all</p>
-            </Link>
-          </div>
-          {Detadonat.map((donate, donateindex) => (
-            <DonateSlider key={donateindex} donate={donate} />
-          ))}
-        </OwlCarousel>
-      </section> */}
       <section className="pt-5 pb-5  ">
         <Swiper
           pagination={{

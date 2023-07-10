@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
 import { UseAxiosPost } from "../axios/PostApi/PostApi";
 import Navebar from "../navebar/navbar";
 export default function Email_verfication() {

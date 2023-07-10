@@ -114,7 +114,7 @@ export default function AddItem() {
                     >
                       <option selected>Chose Your Category</option>
                       <option value="Electronics">Electronics</option>
-                      <option value="Fasion">Fasion</option>
+                      <option value="fasion">Fasion</option>
                       <option value="Furniture">Furniture</option>
                       <option value="Sports">Sports</option>
                       <option value="Supermarket">Supermarket</option>

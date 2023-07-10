@@ -2,13 +2,13 @@ import "./Userinfo.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
-import { getUserId } from "../../../Component/axios/tokendata/Token_Data";
+import { getTokendeta } from "../../../Component/axios/tokendata/Token_Data";
 
 export default function Userinfo() {
   const GetApi = `/users/get`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
   let UserData = data ? data.user : "";
-  const userId = getUserId();
+  const userId = getTokendeta();
   console.log(userId);
   return (
     <>
