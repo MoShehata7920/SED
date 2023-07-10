@@ -42,7 +42,7 @@ function MainRoutes() {
           path="/SignIn"
           element={storedToken ? <Navigate replace to={"/"} /> : <SignIn />}
         />
-
+        <Route path="/chat" element={<Chat/>}/>
         <Route
           path="/SignUp"
           element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
@@ -108,12 +108,7 @@ function MainRoutes() {
           element={<ProductEditing />}
         />
       </Routes>
-      {/* {
-        <Chat
-          senderId="649845a077bf4e6af700cac5"
-          conversationId="64984e216bf1cc9ec20ded1d"
-        />
-      } */}
+      
     </>
   );
 }
