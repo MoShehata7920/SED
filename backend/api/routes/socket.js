@@ -21,7 +21,7 @@ module.exports = function (io) {
 
             // Load previous messages
             try {
-                const messages = await Message.find({ conversation: conversationId }).populate('sender', 'fullName');
+                const messages = await Message.find({ conversation: conversationId }).populate('sender', 'fullName userImage');
                 socket.emit('previousMessages', messages);
             } catch (err) {
                 console.error(err);
