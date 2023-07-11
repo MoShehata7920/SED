@@ -96,7 +96,7 @@ const Chat = () => {
             <div className="card" id="chat3" style={{ borderradius: "15px" }}>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0  chatslist">
+                  <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0  ">
                     <div className="chat-head">
                       <h3>Chats</h3>
                     </div>
@@ -109,13 +109,13 @@ const Chat = () => {
                             : conversation.users[0]; // Choose the first user ID as the conversation name
                         // console.log(receiverUser)
                         return (
-                          <div
+                          <div className=" chatslist"
                             data-mdb-perfect-scrollbar="true"
-                            style={{ position: "relative", height: "400px" }}
+                            style={{ position: "relative", height: "auto" }}
                           >
                             <ul className="list-unstyled mb-0">
                               <li
-                                className="p-2 border-bottom"
+                                className="p-2 border-bottom "
                                 key={conversation.id}
                               >
                                 <a
@@ -145,22 +145,14 @@ const Chat = () => {
                                       )}
                                       <span className="badge bg-success badge-dot"></span>
                                     </div>
-                                    <div className="pt-1">
-                                      <p className="fw-bold mb-0">
+                                    <div className="pt-1 reciever-info">
+                                      <p className="fw-bold mb-0 ">
                                         {receiverUser.fullName}
                                       </p>
                                       <p className="small text-muted">
                                         {conversation.lastMessage}
                                       </p>
                                     </div>
-                                  </div>
-                                  <div className="pt-1">
-                                    <p className="small text-muted mb-1">
-                                      Just now
-                                    </p>
-                                    <span className="badge bg-danger rounded-pill float-end">
-                                      3
-                                    </span>
                                   </div>
                                 </a>
                               </li>
