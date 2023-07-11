@@ -55,3 +55,9 @@ li{
 .chatbody img{
     border-radius: 50%;
 }
+
+.sendbox{
+    margin-left: auto;
+    width: 850px;
+    
+}

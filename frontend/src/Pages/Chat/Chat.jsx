@@ -58,6 +58,7 @@ import io from "socket.io-client";
 import "./Chat.css";
 import axios from "axios";
 import { getTokendeta } from "../../Component/axios/tokendata/Token_Data";
+import moment from 'moment';
 
 const Chat = () => {
   const Tokendata = getTokendeta();
@@ -172,7 +173,7 @@ const Chat = () => {
                                 <a href="#!" className="d-flex justify-content-between"  onClick={() => handleJoinConversation(conversation._id)}>
                                   <div className="d-flex flex-row">
                                     <div>
-                                      {receiverUser.userImage?<img src={receiverUser.userImage} alt="avatar" className="d-flex align-self-center me-3" width="60" /> : <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar" className="d-flex align-self-center me-3" width="60" /> }
+                                      {receiverUser.userImage?<img src={receiverUser.userImage} alt="avatar" style={{borderRadius:"50%"}} className="d-flex align-self-center me-3  " width="60" /> : <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar" className="d-flex align-self-center me-3" width="60" /> }
                                       <span className="badge bg-success badge-dot"></span>
                                     </div>
                                     <div className="pt-1">
@@ -193,7 +194,7 @@ const Chat = () => {
                     </div>
                   </div>
 
-                  <div class="col-md-6 col-lg-7 col-xl-8">
+                  <div class="col-md-6 col-lg-7 col-xl-8  chatbody">
                     <div
                       class="pt-3 pe-3"
                       data-mdb-perfect-scrollbar="true"
@@ -201,7 +202,7 @@ const Chat = () => {
                     >
                       {conversationId ? (
                         <div className="chat-scroll" >
-                          <ul className="chatbody">
+                          <ul className="">
                           {messages.map((message) => (
                             
                                 <li key={message._id}>
@@ -213,7 +214,7 @@ const Chat = () => {
                                           {message.text}
                                         </p>
                                         <p class="small me-3 mb-3 rounded-3 text-muted">
-                                          {message.createdAt}
+                                        {moment(message.createdAt).format('h:mm A')}
                                         </p>
                                       </div>
                                     </div>
@@ -222,7 +223,7 @@ const Chat = () => {
                                       <img
                                         src={message.sender.userImage}
                                         alt="avatar "
-                                        style={{ width: "45px", height: "100%" ,borderRadius:"50%"}}
+                                        style={{ width: "45px", height: "100%"}}
                                       ></img>
                                       <div>
                                         {/* <h5>{message.sender.fullName}</h5> */}
@@ -230,7 +231,7 @@ const Chat = () => {
                                           {message.text}
                                         </p>
                                         <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
-                                          {message.createdAt}
+                                        {moment(message.createdAt).format('h:mm A')}
                                         </p>
                                       </div>
                                     </div>
@@ -245,7 +246,9 @@ const Chat = () => {
                         ""
                       )}
                     </div>
-                    <div class="text-muted d-flex justify-content-between align-items-center pt-1 mt-2 send-box ">
+                
+                  </div>
+                  <div class="text-muted d-flex justify-content-end align-items-center pt-1 mt-2 send-box  sendbox  ">
                       <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
                         alt="avatar 3"
@@ -270,7 +273,6 @@ const Chat = () => {
                         send
                       </button>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
