@@ -15,5 +15,20 @@
     font-weight: bold;
     
 }
+.profile_img{
 
+
+        height: 200px;
+    
+ 
+}
+@media screen and (max-width: 900px) {
+    .profile_img{
+
+
+        height: 50px;
+    
+ 
+}
+}
 

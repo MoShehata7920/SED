@@ -1,64 +1,9 @@
-// //
-// import React, { useState, useEffect, useRef } from 'react';
-// import io from 'socket.io-client';
-
-// const Chat = ({ conversationId, senderId }) => {
-//   const [messages, setMessages] = useState([]);
-//   const [text, setText] = useState('');
-//   const socketRef = useRef();
-
-//   useEffect(() => {
-//     socketRef.current = io();
-//     socketRef.current.emit('saveUserData', { id: senderId });
-//     socketRef.current.on('previousMessages', (messages) => {
-//       setMessages(messages);
-//     });
-//     socketRef.current.on('messageReceived', (message) => {
-//       setMessages((messages) => [...messages, message]);
-//     });
-//     socketRef.current.emit('joinConversation', conversationId);
-
-//     return () => {
-//       socketRef.current.disconnect();
-//     };
-//   }, [conversationId, senderId]);
-
-//   const sendMessage = () => {
-//     if (text.trim() === '') {
-//       return;
-//     }
-//     socketRef.current.emit('sendMessage', { conversationId, senderId, text });
-//     setText('');
-//   };
-
-//   return (
-//     <>
-//       <div>
-//         {messages.map((message) => (
-//           <div key={message._id}>
-//             <p>{message.sender.fullName}</p>
-//             <p>{message.text}</p>
-//           </div>
-//         ))}
-//       </div>
-//       <div>
-//         <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
-//         <button onClick={sendMessage}>Send</button>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Chat;
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import "./Chat.css";
 import axios from "axios";
 import { getTokendeta } from "../../Component/axios/tokendata/Token_Data";
-import moment from 'moment';
+import moment from "moment";
 
 const Chat = () => {
   const Tokendata = getTokendeta();
@@ -68,7 +13,7 @@ const Chat = () => {
   const [text, setText] = useState("");
   //   const [senderId, setSenderId] = useState(null);
   const senderId = Tokendata.id;
-  const user=Tokendata
+  const user = Tokendata;
   // console.log(Tokendata);
   // console.log(senderId);
   const messagesEndRef = useRef(null);
@@ -160,30 +105,66 @@ const Chat = () => {
                       <h3>Chats</h3>
                     </div>
                     <div class="p-3">
-                    {userConversations.map(conversation => {
-  // Check if the first user ID in the conversation is the sender's ID
-                        const receiverUser = conversation.users[0] === senderId
-                          ? conversation.users[1] // Choose the second user ID as the conversation name
-                          : conversation.users[0] // Choose the first user ID as the conversation name
+                      {userConversations.map((conversation) => {
+                        // Check if the first user ID in the conversation is the sender's ID
+                        const receiverUser =
+                          conversation.users[0] === senderId
+                            ? conversation.users[1] // Choose the second user ID as the conversation name
+                            : conversation.users[0]; // Choose the first user ID as the conversation name
                         // console.log(receiverUser)
                         return (
-                          <div data-mdb-perfect-scrollbar="true" style={{ position: "relative", height: "400px" }}>
+                          <div
+                            data-mdb-perfect-scrollbar="true"
+                            style={{ position: "relative", height: "400px" }}
+                          >
                             <ul className="list-unstyled mb-0">
-                              <li className="p-2 border-bottom" key={conversation.id}>
-                                <a href="#!" className="d-flex justify-content-between"  onClick={() => handleJoinConversation(conversation._id)}>
+                              <li
+                                className="p-2 border-bottom"
+                                key={conversation.id}
+                              >
+                                <a
+                                  href="#!"
+                                  className="d-flex justify-content-between"
+                                  onClick={() =>
+                                    handleJoinConversation(conversation._id)
+                                  }
+                                >
                                   <div className="d-flex flex-row">
                                     <div>
-                                      {receiverUser.userImage?<img src={receiverUser.userImage} alt="avatar" style={{borderRadius:"50%"}} className="d-flex align-self-center me-3  " width="60" /> : <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar" className="d-flex align-self-center me-3" width="60" /> }
+                                      {receiverUser.userImage ? (
+                                        <img
+                                          src={receiverUser.userImage}
+                                          alt="avatar"
+                                          style={{ borderRadius: "50%" }}
+                                          className="d-flex align-self-center me-3  "
+                                          width="60"
+                                        />
+                                      ) : (
+                                        <img
+                                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                          alt="avatar"
+                                          className="d-flex align-self-center me-3"
+                                          width="60"
+                                        />
+                                      )}
                                       <span className="badge bg-success badge-dot"></span>
                                     </div>
                                     <div className="pt-1">
-                                      <p className="fw-bold mb-0">{receiverUser.fullName}</p>
-                                      <p className="small text-muted">{conversation.lastMessage}</p>
+                                      <p className="fw-bold mb-0">
+                                        {receiverUser.fullName}
+                                      </p>
+                                      <p className="small text-muted">
+                                        {conversation.lastMessage}
+                                      </p>
                                     </div>
                                   </div>
                                   <div className="pt-1">
-                                    <p className="small text-muted mb-1">Just now</p>
-                                    <span className="badge bg-danger rounded-pill float-end">3</span>
+                                    <p className="small text-muted mb-1">
+                                      Just now
+                                    </p>
+                                    <span className="badge bg-danger rounded-pill float-end">
+                                      3
+                                    </span>
                                   </div>
                                 </a>
                               </li>
@@ -201,43 +182,46 @@ const Chat = () => {
                       style={{ position: "relative", height: " 400px" }}
                     >
                       {conversationId ? (
-                        <div className="chat-scroll" >
+                        <div className="chat-scroll">
                           <ul className="">
-                          {messages.map((message) => (
-                            
-                                <li key={message._id}>
-                                  {message.sender._id === senderId ? (
-                                    <div class="d-flex flex-row justify-content-end">
-                                      <div>
-                                        {/* <h5>{message.sender.fullName}</h5> */}
-                                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-danger mw-75">
-                                          {message.text}
-                                        </p>
-                                        <p class="small me-3 mb-3 rounded-3 text-muted text-end">
-                                        {moment(message.createdAt).format('h:mm A')}
-                                        </p>
-                                      </div>
+                            {messages.map((message) => (
+                              <li key={message._id}>
+                                {message.sender._id === senderId ? (
+                                  <div class="d-flex flex-row justify-content-end">
+                                    <div>
+                                      {/* <h5>{message.sender.fullName}</h5> */}
+                                      <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-danger mw-75">
+                                        {message.text}
+                                      </p>
+                                      <p class="small me-3 mb-3 rounded-3 text-muted text-end">
+                                        {moment(message.createdAt).format(
+                                          "h:mm A"
+                                        )}
+                                      </p>
                                     </div>
-                                  ) : (
-                                    <div class="d-flex flex-row justify-content-start">
-                                      <img
-                                        src={message.sender.userImage}
-                                        alt="avatar "
-                                        style={{ width: "45px", height: "100%"}}
-                                      ></img>
-                                      <div>
-                                        {/* <h5>{message.sender.fullName}</h5> */}
-                                        <p class="small p-2 me-1 mb-1 text-white rounded-3 bg-primary mx-3 mw-75">
-                                          {message.text}
-                                        </p>
-                                        <p class="small ms-3 mb-3 rounded-3 text-muted text-start">
-                                        {moment(message.createdAt).format('h:mm A')}
-                                        </p>
-                                      </div>
+                                  </div>
+                                ) : (
+                                  <div class="d-flex flex-row justify-content-start">
+                                    <img
+                                      src={message.sender.userImage}
+                                      alt="avatar "
+                                      style={{ width: "45px", height: "100%" }}
+                                    ></img>
+                                    <div>
+                                      {/* <h5>{message.sender.fullName}</h5> */}
+                                      <p class="small p-2 me-1 mb-1 text-white rounded-3 bg-primary mx-3 mw-75">
+                                        {message.text}
+                                      </p>
+                                      <p class="small ms-3 mb-3 rounded-3 text-muted text-start">
+                                        {moment(message.createdAt).format(
+                                          "h:mm A"
+                                        )}
+                                      </p>
                                     </div>
-                                  )}
-                                </li>
-                              ))}
+                                  </div>
+                                )}
+                              </li>
+                            ))}
                             {}
                             <div ref={messagesEndRef} />
                           </ul>
@@ -246,33 +230,32 @@ const Chat = () => {
                         ""
                       )}
                     </div>
-                
                   </div>
                   <div class="text-muted d-flex justify-content-center align-items-center pt-1 mt-2  sendbox ">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                        alt="avatar 3"
-                        style={{
-                          width: "40px",
-                          height: "100%",
-                          marginLeft: "20px",
-                        }}
-                      ></img>
-                      <input
-                        type="text"
-                        class="form-control form-control-lg"
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        id="exampleFormControlInput2"
-                        placeholder="Type message"
-                      ></input>
-                      <button
-                        className="btn btn-primary rounded-2 "
-                        onClick={handleSendMessage}
-                      >
-                        send
-                      </button>
-                    </div>
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                      alt="avatar 3"
+                      style={{
+                        width: "40px",
+                        height: "100%",
+                        marginLeft: "20px",
+                      }}
+                    ></img>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                      id="exampleFormControlInput2"
+                      placeholder="Type message"
+                    ></input>
+                    <button
+                      className="btn btn-primary rounded-2 "
+                      onClick={handleSendMessage}
+                    >
+                      send
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

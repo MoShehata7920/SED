@@ -86,21 +86,31 @@ export default function Dataitems() {
                     <div className=" offset-2 col-12">
                       <h6>Uploaded By:- {datauser.fullName} </h6>
                     </div>
-                    <div className=" offset-2 col-3 ">
+                    <div className=" offset-2 col-3  ">
                       <img
                         src={datauser.userImage}
                         alt=""
-                        className="w-100  rounded-circle"
+                        className="w-100 dataitem_img  rounded-circle"
                       />
                     </div>
-                    <div className="col-6 mt-4">
+                    <div className="col-6 mt-2">
                       <Link to={`/SellerInfo/${datauser._id}/${id}`}>
                         <button className="btn btn-primary">show more</button>
                       </Link>
                     </div>
                   </div>
                   <div className="mt-2 text-center">
-                    <button className=" btn-items">contact</button>
+                    <Link to={"/chat"}>
+                      <button
+                        onClick={localStorage.setItem(
+                          "Reciver_id",
+                          datauser._id
+                        )}
+                        className=" btn-items"
+                      >
+                        contact
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -28,10 +28,10 @@ function Profile() {
           <div className="row">
             <div className="col-2 vh-100  bg-light   profile-sidebar d-flex flex-column  justify-content-center">
               <ul className=" text-center">
-                <div className=" d-flex align-items-center">
+                <div className=" d-flex align-items-center profile_img">
                   <img
                     src={datauser.userImage}
-                    className="w-100 rounded-circle me-4"
+                    className=" rounded-circle w-100 h-100 "
                     alt=""
                   />
                 </div>

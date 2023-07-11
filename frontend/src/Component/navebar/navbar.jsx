@@ -198,9 +198,12 @@ function Navebar() {
                 <li className="nav-item ">
                   <Link
                     to={"/Profile/userinfo"}
-                    className="text-white nav-Link fs-1 me-4 "
+                    className="text-white nav-Link fs-2 me-4 "
                   >
                     <CiUser />
+                  </Link>
+                  <Link to={"/Chat"} className="text-white nav-Link fs-2 me-4">
+                    <BsChatTextFill />
                   </Link>
                   <Link
                     onClick={() => {
@@ -208,17 +211,9 @@ function Navebar() {
                       window.location.reload();
                     }}
                     to={"/"}
-                    className="text-white nav-Link fs-1   "
+                    className="text-white nav-Link fs-2   "
                   >
                     <BiLogOut />
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to={"/Chat"}
-                    className="text-white chat-icon  nav-Link fs-2 d-flex align-items-center justify-content-center mx-3 mt-1 "
-                  >
-                    <BsChatTextFill />
                   </Link>
                 </li>
               </ul>
