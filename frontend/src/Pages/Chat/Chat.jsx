@@ -11,11 +11,10 @@ const Chat = () => {
   const [conversationId, setConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
-  //   const [senderId, setSenderId] = useState(null);
+  
   const senderId = Tokendata.id;
   const user = Tokendata;
-  // console.log(Tokendata);
-  // console.log(senderId);
+  
   const messagesEndRef = useRef(null);
   const [userConversations, setUserConversations] = useState([]);
 
@@ -27,13 +26,10 @@ const Chat = () => {
     instance
       .get(`/chat/user-convs/${senderId}`)
       .then((res) => {
-        // console.log(res);
         res.data.conversations
           ? setUserConversations(res.data.conversations)
           : setUserConversations([]);
-        // setUserConversations(res.data.conversations)
-        // console.log(res.data);
-        // console.log(res.data.conversations);
+       
       })
       .catch((err) => {
         console.log(err);
@@ -44,7 +40,7 @@ const Chat = () => {
     console.log("Connecting to socket server...");
     const newSocket = io.connect("http://localhost:3000", {
       transports: ["websocket"],
-    }); // Replace with your server URL
+    }); 
     setSocket(newSocket);
     return () => newSocket.close();
   }, []);
@@ -54,7 +50,7 @@ const Chat = () => {
       console.log("socket true");
       socket.on("previousMessages", (messages) => {
         setMessages(messages);
-        // console.log(messages);
+      
       });
 
       socket.on("messageReceived", (message) => {
@@ -268,31 +264,3 @@ const Chat = () => {
 
 export default Chat;
 
-//-----------------------------------------------------------------------------
-
-// import io from 'socket.io-client';
-
-// const socket = io.connect('http://localhost:3000', {
-//   transports: ['websocket']
-// }); // Replace with your server URL
-
-// socket.on('connect', () => {
-//   console.log('Socket connected to server');
-// });
-
-// socket.on('message', (data) => {
-//   console.log('Received message:', data);
-// });
-
-// socket.on('connect_error', (error) => {
-//   console.error('Socket connection error:', error);
-// });
-
-// function Chat(){
-
-//     return(
-//         <>
-//         </>
-//     )
-// }
-// export default Chat;
