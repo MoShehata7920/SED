@@ -6,7 +6,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BsChatTextFill } from "react-icons/bs";
 
-
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
   const [error, setError] = useState(null);
@@ -214,6 +213,14 @@ function Navebar() {
                     <BiLogOut />
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link
+                    to={"/Chat"}
+                    className="text-white chat-icon  nav-Link fs-2 d-flex align-items-center justify-content-center mx-3 mt-1 "
+                  >
+                    <BsChatTextFill />
+                  </Link>
+                </li>
               </ul>
             ) : (
               <ul className="navbar-nav ">
@@ -223,15 +230,6 @@ function Navebar() {
                     className="text-white nav-Link fs-1 d-flex align-items-center justify-content-center "
                   >
                     <BiLogIn />
-                  </Link>
-                </li>
-                <li className="nav-item">
-                <Link
-                    to={"/Chat"}
-                    className="text-white chat-icon  nav-Link fs-2 d-flex align-items-center justify-content-center mx-3 mt-1 "
-                  >
-                                      <BsChatTextFill/>
-
                   </Link>
                 </li>
               </ul>

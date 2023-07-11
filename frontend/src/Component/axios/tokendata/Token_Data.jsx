@@ -8,7 +8,7 @@ export function getTokendeta() {
   try {
     const decodedToken = atob(decryptedData.split(".")[1]);
     const tokenData = JSON.parse(decodedToken);
-    return tokenData.isVerified;
+    return tokenData;
   } catch (error) {
     console.log("Error decoding JWT token: ", error);
     return null;

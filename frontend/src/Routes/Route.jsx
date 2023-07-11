@@ -42,7 +42,9 @@ function MainRoutes() {
           path="/SignIn"
           element={storedToken ? <Navigate replace to={"/"} /> : <SignIn />}
         />
-        <Route path="/chat" element={<Chat/>}/>
+
+        <Route path="/chat" element={<Chat />} />
+
         <Route
           path="/SignUp"
           element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
@@ -108,7 +110,6 @@ function MainRoutes() {
           element={<ProductEditing />}
         />
       </Routes>
-      
     </>
   );
 }
