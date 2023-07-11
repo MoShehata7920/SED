@@ -37,3 +37,21 @@ color: rgb(16, 67, 142);
 
     border-bottom:1px solid rgb(51, 80, 225) ;
 }
+
+li{
+    list-style: none;
+}
+
+.chatbody{
+
+    overflow: scroll;
+}
+
+
+.chat-scroll{
+    max-height: 600px;
+}
+
+.chatbody img{
+    border-radius: 50%;
+}

@@ -67,7 +67,9 @@ const Chat = () => {
   const [text, setText] = useState("");
   //   const [senderId, setSenderId] = useState(null);
   const senderId = Tokendata.id;
-  console.log(senderId);
+  const user=Tokendata
+  // console.log(Tokendata);
+  // console.log(senderId);
   const messagesEndRef = useRef(null);
   const [userConversations, setUserConversations] = useState([]);
 
@@ -85,7 +87,7 @@ const Chat = () => {
           : setUserConversations([]);
         // setUserConversations(res.data.conversations)
         // console.log(res.data);
-        console.log(res.data.conversations);
+        // console.log(res.data.conversations);
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +108,7 @@ const Chat = () => {
       console.log("socket true");
       socket.on("previousMessages", (messages) => {
         setMessages(messages);
-        console.log(" messages should be here");
+        // console.log(messages);
       });
 
       socket.on("messageReceived", (message) => {
@@ -129,7 +131,7 @@ const Chat = () => {
   };
 
   const handleJoinConversation = async (conversationId) => {
-    setConversationId("64984e216bf1cc9ec20ded1d");
+    setConversationId(conversationId);
     socket.emit("joinConversation", conversationId);
   };
 
@@ -157,45 +159,37 @@ const Chat = () => {
                       <h3>Chats</h3>
                     </div>
                     <div class="p-3">
-                      {userConversations.map((conversation) => (
-                        <div
-                          data-mdb-perfect-scrollbar="true"
-                          style={{ position: "relative", height: "400px" }}
-                        >
-                          <ul class="list-unstyled mb-0">
-                            <li class="p-2 border-bottom" key={conversation.id}>
-                              <a
-                                href="#!"
-                                class="d-flex justify-content-between"
-                              >
-                                <div class="d-flex flex-row">
-                                  <div>
-                                    <img
-                                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                      alt="avatar"
-                                      class="d-flex align-self-center me-3"
-                                      width="60"
-                                    ></img>
-                                    <span class="badge bg-success badge-dot"></span>
+                    {userConversations.map(conversation => {
+  // Check if the first user ID in the conversation is the sender's ID
+                        const receiverUser = conversation.users[0] === senderId
+                          ? conversation.users[1] // Choose the second user ID as the conversation name
+                          : conversation.users[0] // Choose the first user ID as the conversation name
+                        // console.log(receiverUser)
+                        return (
+                          <div data-mdb-perfect-scrollbar="true" style={{ position: "relative", height: "400px" }}>
+                            <ul className="list-unstyled mb-0">
+                              <li className="p-2 border-bottom" key={conversation.id}>
+                                <a href="#!" className="d-flex justify-content-between"  onClick={() => handleJoinConversation(conversation._id)}>
+                                  <div className="d-flex flex-row">
+                                    <div>
+                                      {receiverUser.userImage?<img src={receiverUser.userImage} alt="avatar" className="d-flex align-self-center me-3" width="60" /> : <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar" className="d-flex align-self-center me-3" width="60" /> }
+                                      <span className="badge bg-success badge-dot"></span>
+                                    </div>
+                                    <div className="pt-1">
+                                      <p className="fw-bold mb-0">{receiverUser.fullName}</p>
+                                      <p className="small text-muted">{conversation.lastMessage}</p>
+                                    </div>
                                   </div>
-                                  <div class="pt-1">
-                                    <p class="fw-bold mb-0">Marie Horwitz</p>
-                                    <p class="small text-muted">
-                                      {conversation.lastMessage}
-                                    </p>
+                                  <div className="pt-1">
+                                    <p className="small text-muted mb-1">Just now</p>
+                                    <span className="badge bg-danger rounded-pill float-end">3</span>
                                   </div>
-                                </div>
-                                <div class="pt-1">
-                                  <p class="small text-muted mb-1">Just now</p>
-                                  <span class="badge bg-danger rounded-pill float-end">
-                                    3
-                                  </span>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      ))}
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -206,49 +200,43 @@ const Chat = () => {
                       style={{ position: "relative", height: " 400px" }}
                     >
                       {conversationId ? (
-                        <div>
-                          <ul>
-                            {messages.map((message) => (
-                              <div>
+                        <div className="chat-scroll" >
+                          <ul className="chatbody">
+                          {messages.map((message) => (
+                            
                                 <li key={message._id}>
-                                  <div class="d-flex flex-row justify-content-start">
-                                    <img
-                                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                                      alt="avatar 1"
-                                      style={{ width: "45px", height: "100%" }}
-                                    ></img>
-                                    <div>
-                                      <h5>{message.sender.fullName}</h5>
-                                      <p class="small p-2 me-1 mb-1 text-white rounded-3 bg-primary mx-3 mw-75">
-                                        {message.text}{" "}
-                                      </p>
-                                      <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
-                                        12:00 PM | Aug 13
-                                      </p>
+                                  {message.sender._id === senderId ? (
+                                    <div class="d-flex flex-row justify-content-end">
+                                      <div>
+                                        {/* <h5>{message.sender.fullName}</h5> */}
+                                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-danger mw-75">
+                                          {message.text}
+                                        </p>
+                                        <p class="small me-3 mb-3 rounded-3 text-muted">
+                                          {message.createdAt}
+                                        </p>
+                                      </div>
                                     </div>
-                                  </div>
-                                </li>
-                                <li key={message._id}>
-                                  <div class="d-flex flex-row justify-content-end">
-                                    <div>
-                                      <h5>{message.sender.fullName}</h5>
-                                      <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-danger mw-75">
-                                        {" "}
-                                        hello
-                                      </p>
-                                      <p class="small me-3 mb-3 rounded-3 text-muted">
-                                        12:00 PM | Aug 13
-                                      </p>
+                                  ) : (
+                                    <div class="d-flex flex-row justify-content-start">
+                                      <img
+                                        src={message.sender.userImage}
+                                        alt="avatar "
+                                        style={{ width: "45px", height: "100%" ,borderRadius:"50%"}}
+                                      ></img>
+                                      <div>
+                                        {/* <h5>{message.sender.fullName}</h5> */}
+                                        <p class="small p-2 me-1 mb-1 text-white rounded-3 bg-primary mx-3 mw-75">
+                                          {message.text}
+                                        </p>
+                                        <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
+                                          {message.createdAt}
+                                        </p>
+                                      </div>
                                     </div>
-                                    <img
-                                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                      alt="avatar 1"
-                                      style={{ width: "45px", height: " 100%" }}
-                                    ></img>
-                                  </div>
+                                  )}
                                 </li>
-                              </div>
-                            ))}
+                              ))}
                             {}
                             <div ref={messagesEndRef} />
                           </ul>
