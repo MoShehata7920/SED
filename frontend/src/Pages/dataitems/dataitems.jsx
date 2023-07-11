@@ -5,13 +5,18 @@ import "./dataitems.css";
 import Footer from "../../Component/footer/Footer";
 import { BiHeart } from "react-icons/bi";
 import { FaHeart } from "react-icons/fa";
-import { encrypt, decrypt, compare } from "n-krypta";
+import { ToastContainer, toast } from "react-toastify";
 import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 import { UseAxiosPache } from "../../Component/axios/PachApi/PatchApi";
+import { getTokendeta } from "../../Component/axios/tokendata/Token_Data";
+import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 export default function Dataitems() {
+  const Tokendata = getTokendeta();
+  const senderId = Tokendata.id;
   let { id } = useParams();
   const GetApi = `/products/product/${id}`;
   const patchApi = `/users/addToWishlist`;
+  const postAPi = `/chat/new-conversation`;
   let [ID, setID] = useState({
     prodId: id,
   });
@@ -19,12 +24,41 @@ export default function Dataitems() {
   console.log(data);
   let dataproduct = data ? data.product : "";
   let datauser = data ? data.product.seller : "";
+  console.log(datauser._id);
+  const [ChatData, setChatData] = useState({
+    senderId: senderId,
+    receiverId: "",
+  });
+  const {
+    response: Respon,
+    ErrorMessage: Error,
+    data: Deta,
+    HandelPostApi,
+  } = UseAxiosPost(postAPi, ChatData);
   const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(patchApi, ID);
   let response_lenth = response ? response.user.length : null;
   let [Wishlist, setWishlist] = useState(false);
+
   async function SetWichlist() {
     HandelPachApi();
   }
+  useEffect(() => {
+    setChatData((prevChatData) => ({
+      ...prevChatData,
+      receiverId: datauser ? datauser._id : null,
+    }));
+    if (Respon) {
+      toast(`✔️ ${Respon}`);
+      setTimeout(() => {
+        localStorage.setItem("ChatID", Deta.existingConv._id);
+        window.location.href = "/chat";
+      }, 3000);
+    }
+    if (Error && Respon == "") {
+      toast(`❌ ${Error} `);
+    }
+  }, [Error, Respon, data, datauser]);
+
   return (
     <>
       <section>
@@ -99,24 +133,18 @@ export default function Dataitems() {
                       </Link>
                     </div>
                   </div>
+
                   <div className="mt-2 text-center">
-                    <Link to={"/chat"}>
-                      <button
-                        onClick={localStorage.setItem(
-                          "Reciver_id",
-                          datauser._id
-                        )}
-                        className=" btn-items"
-                      >
-                        contact
-                      </button>
-                    </Link>
+                    <button onClick={HandelPostApi} className=" btn-items">
+                      contact
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <ToastContainer />
       </section>
       <section>
         <Footer />
