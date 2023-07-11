@@ -19,12 +19,7 @@
         text-decoration: none;
     }
 
-.send-box{
-    
-    border-radius: 20px;
-    align-items: center;
-    border: 1px solid rgb(129, 184, 229);
-}
+
 
 .chat-head h3{
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -47,7 +42,6 @@ li{
     overflow: scroll;
 }
 
-
 .chat-scroll{
     max-height: 600px;
 }
@@ -57,7 +51,34 @@ li{
 }
 
 .sendbox{
-    margin-left: auto;
-    width: 850px;
+max-width:  50%; 
+border:1px solid rgb(132, 168, 197);
+border-radius: 15px;
+width: 400px;
+
     
+}
+
+.chatbody::-webkit-scrollbar {
+    display: none;
+}
+
+.chatslist{
+    overflow: scroll;
+}
+
+.chatslist::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+.card{
+     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;;
+}
+
+
+.chatslist{
+
+    border-right: 2 solid blue;
 }

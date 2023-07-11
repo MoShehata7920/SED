@@ -148,14 +148,14 @@ const Chat = () => {
   };
 
   return (
-    <section className="chat">
-      <div class="container py-5 chat-container">
+    <section className="chat  ">
+      <div class="container py-5 my-5 chat-container">
         <div class="row">
           <div class="col-md-12">
-            <div class="card" id="chat3" style={{ borderradius: "15px" }}>
+            <div className="card" id="chat3" style={{ borderradius: "15px" }}>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+                  <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0  chatslist">
                     <div className="chat-head">
                       <h3>Chats</h3>
                     </div>
@@ -213,7 +213,7 @@ const Chat = () => {
                                         <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-danger mw-75">
                                           {message.text}
                                         </p>
-                                        <p class="small me-3 mb-3 rounded-3 text-muted">
+                                        <p class="small me-3 mb-3 rounded-3 text-muted text-end">
                                         {moment(message.createdAt).format('h:mm A')}
                                         </p>
                                       </div>
@@ -230,7 +230,7 @@ const Chat = () => {
                                         <p class="small p-2 me-1 mb-1 text-white rounded-3 bg-primary mx-3 mw-75">
                                           {message.text}
                                         </p>
-                                        <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
+                                        <p class="small ms-3 mb-3 rounded-3 text-muted text-start">
                                         {moment(message.createdAt).format('h:mm A')}
                                         </p>
                                       </div>
@@ -248,7 +248,7 @@ const Chat = () => {
                     </div>
                 
                   </div>
-                  <div class="text-muted d-flex justify-content-end align-items-center pt-1 mt-2 send-box  sendbox  ">
+                  <div class="text-muted d-flex justify-content-center align-items-center pt-1 mt-2  sendbox ">
                       <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
                         alt="avatar 3"
