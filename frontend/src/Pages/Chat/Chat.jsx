@@ -104,7 +104,7 @@ const Chat = () => {
                       {userConversations.map((conversation) => {
                         // Check if the first user ID in the conversation is the sender's ID
                         const receiverUser =
-                          conversation.users[0] === senderId
+                          conversation.users[0]._id === senderId
                             ? conversation.users[1] // Choose the second user ID as the conversation name
                             : conversation.users[0]; // Choose the first user ID as the conversation name
                         // console.log(receiverUser)
