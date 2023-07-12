@@ -11,10 +11,8 @@ const Chat = () => {
   const [conversationId, setConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
-  
   const senderId = Tokendata.id;
   const user = Tokendata;
-  
   const messagesEndRef = useRef(null);
   const [userConversations, setUserConversations] = useState([]);
 
@@ -29,7 +27,6 @@ const Chat = () => {
         res.data.conversations
           ? setUserConversations(res.data.conversations)
           : setUserConversations([]);
-       
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +37,7 @@ const Chat = () => {
     console.log("Connecting to socket server...");
     const newSocket = io.connect("http://localhost:3000", {
       transports: ["websocket"],
-    }); 
+    });
     setSocket(newSocket);
     return () => newSocket.close();
   }, []);
@@ -50,7 +47,6 @@ const Chat = () => {
       console.log("socket true");
       socket.on("previousMessages", (messages) => {
         setMessages(messages);
-      
       });
 
       socket.on("messageReceived", (message) => {
@@ -109,7 +105,8 @@ const Chat = () => {
                             : conversation.users[0]; // Choose the first user ID as the conversation name
                         // console.log(receiverUser)
                         return (
-                          <div className=" chatslist"
+                          <div
+                            className=" chatslist"
                             data-mdb-perfect-scrollbar="true"
                             style={{ position: "relative", height: "auto" }}
                           >
@@ -255,4 +252,3 @@ const Chat = () => {
 };
 
 export default Chat;
-

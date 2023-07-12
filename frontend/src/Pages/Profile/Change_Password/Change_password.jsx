@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 export default function Change_Password() {
+  const navigate = useNavigate();
   let { UserID } = useParams();
   const [userInfoEdit, setuserInfoEdit] = useState({
     oldPassword: "",
@@ -29,7 +30,7 @@ export default function Change_Password() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        window.location.href = "/Profile/userinfo";
+        navigate("/Profile");
       }, 3000);
     }
     if (ErrorMessage && response == "") {

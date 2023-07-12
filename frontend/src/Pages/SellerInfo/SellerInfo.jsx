@@ -33,9 +33,9 @@ export default function SellerInfo() {
         <div className="container-fluid SellInfo_bg    ">
           {dataUser && (
             <div className="row ">
-              <div className=" col-8 border-bottom-0  SellInfo_bg pt-4 ">
+              <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-12 col-12 border-bottom-0  SellInfo_bg pt-4 ">
                 <div className="row mb-4 justify-content-center  ">
-                  <div className="col-2 ">
+                  <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-3 ">
                     <div className=" Sellerinfo_Img_hight">
                       <img
                         src={UserInfo.userImage}
@@ -44,13 +44,13 @@ export default function SellerInfo() {
                       />
                     </div>
                   </div>
-                  <div className="col-10 mt-3">
+                  <div className="col-xxl-10 col-xl-10 col-lg-9 col-md-8 col-8  mt-3">
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
                         <h5>Fullname:- {UserInfo.fullName}</h5>
                         <h5>Email:- {UserInfo.email}</h5>
                       </div>
-                      <div className="col-6">
+                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
                         <h5>Phone Number:- {UserInfo.phone}</h5>
                         <h5>
                           Address:-
@@ -64,10 +64,7 @@ export default function SellerInfo() {
             </div>
           )}
           <div className="row">
-            <div
-              id="style-7"
-              className="  col-12   scrollbar  vh-100 pt-4 ps-4 "
-            >
+            <div id="style-7" className="  col-12   scrollbar  pt-4 ps-4 ">
               <div className="row  ">
                 <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-12 w-100 ">
                   <div className="row justify-content-center">

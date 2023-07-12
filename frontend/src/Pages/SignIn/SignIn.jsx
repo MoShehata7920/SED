@@ -19,6 +19,7 @@ import { encrypt } from "n-krypta";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 // import { GoogleLogin } from "@react-oauth/google";
 function SignIn() {
+  const navigate = useNavigate();
   const [tokengoogle, settokengoogle] = useState("");
   console.log("this is token", tokengoogle);
 
@@ -64,12 +65,12 @@ function SignIn() {
     if (tokengoogle) {
       const encryptedData = encrypt(tokengoogle, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      window.location.href = "/";
+      navigate("/");
     }
     if (data) {
       const encryptedData = encrypt(Token, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      window.location.href = "/";
+      navigate("/");
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);

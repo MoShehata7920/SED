@@ -1,18 +1,14 @@
 import "./Profile.css";
 import "./Profile";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navebar from "../../../Component/navebar/navbar";
 import { MdAddShoppingCart, MdVerified } from "react-icons/md";
-import {
-  BsListCheck,
-  BsPerson,
-  BsHeart,
-  BsGearWideConnected,
-  BsFillBellFill,
-} from "react-icons/bs";
+import { AiOutlineReddit } from "react-icons/ai";
+import { BsListCheck, BsHeart, BsFillBellFill } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
+import Footer from "../../../Component/footer/Footer";
 function Profile() {
   const GetApi = `/users/get`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
@@ -26,76 +22,118 @@ function Profile() {
       <section>
         <div className="container-fluid bg-light ">
           <div className="row">
-            <div className="col-2 vh-100  bg-light   profile-sidebar d-flex flex-column  justify-content-center">
-              <ul className=" text-center">
-                <div className=" d-flex align-items-center profile_img">
-                  <img
-                    src={datauser.userImage}
-                    className=" rounded-circle w-100 h-100 "
-                    alt=""
-                  />
+            <div className="col-12 bg-light  profile-sidebar d-flex flex-column  justify-content-center">
+              <div className="row ">
+                <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-12 col-12 border-bottom-0  SellInfo_bg pt-4 ">
+                  <div className="row mb-4 justify-content-center  ">
+                    <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-3 ">
+                      <div className=" Sellerinfo_Img_hight">
+                        <img
+                          src={datauser.userImage}
+                          alt=""
+                          className=" w-100 h-100  rounded-circle"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-xxl-10 col-xl-10 col-lg-9 col-md-8 col-8  mt-3">
+                      <div className="row">
+                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
+                          <h5>Fullname:- {datauser.fullName}</h5>
+                          <h5>Email:- {datauser.email}</h5>
+                        </div>
+                        <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
+                          <h5>Phone Number:- {datauser.phone}</h5>
+                          <h5>
+                            Address:-
+                            {datauser.government}/{datauser.address}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <li className="sidebar-item ">
-                  <Link to={"/Profile/userinfo"}>
-                    <i className="text-black">{<BsPerson />}</i>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      User info
-                    </span>
-                  </Link>
-                </li>
-                <li className="sidebar-item ">
+              </div>
+              <div className="w-100 border border-1 border-black"></div>
+
+              <ul className=" text-center d-flex justify-content-around">
+                <li>
                   <Link to={`/profile/myProduct/${datauser._id}`}>
-                    <i className="text-black ">{<BsListCheck />}</i>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      Product
-                    </span>
+                    <label class="btn btn-outline-primary me-4 ">
+                      <i className="text-black ">{<BsListCheck />}</i>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Product
+                      </span>
+                    </label>
                   </Link>
-                </li>
-                <li className="sidebar-item ">
                   <Link to={"/profile/favourit"}>
-                    <i className="text-black">{<BsHeart />}</i>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      Favourit
-                    </span>
+                    <label class="btn btn-outline-primary me-4 ">
+                      <i className="text-black">{<BsHeart />}</i>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Favourit
+                      </span>
+                    </label>
                   </Link>
-                </li>
-                <li className="sidebar-item ">
-                  <Link
-                    className="text-decoration-none position-relative"
-                    to={"/Profile/settings/notification"}
-                  >
-                    <i className="text-black">{<BsFillBellFill />}</i>
-                    <span class="position-absolute top-0 start-0 translate-middle badge   text-black">
-                      10+
-                    </span>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      Notification
-                    </span>
-                  </Link>
-                </li>
-                <li className="sidebar-item mb-3">
-                  <Link to={`/Profile/ChangePassword/${datauser._id}`}>
-                    <i className="text-black">{<FaLock />}</i>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      ChangePassword
-                    </span>
-                  </Link>
-                </li>
-                <li className="sidebar-item mb-3">
-                  <Link to={"/addItems"}>
-                    <i className="text-black">{<MdAddShoppingCart />}</i>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      Add Product
-                    </span>
-                  </Link>
-                </li>
-                <li className="sidebar-item mb-3">
-                  <Link to={"/addItems"}>
-                    <i className="text-black">{<MdVerified />}</i>
-                    <span className="ms-1 d-none d-sm-inline text-black">
-                      Verifie Email
-                    </span>
-                  </Link>
+
+                  <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                    <Link
+                      className="text-decoration-none position-relative"
+                      to={"/Profile/notification"}
+                    >
+                      <i className="text-black">{<BsFillBellFill />}</i>
+                      <span class="position-absolute top-0 start-0 translate-middle badge   text-black">
+                        10+
+                      </span>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Notification
+                      </span>
+                    </Link>
+                  </label>
+
+                  <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                    <Link
+                      className="text-decoration-none "
+                      to={`/Profile/myaccount/${datauser._id}`}
+                    >
+                      <i className="text-black">{<AiOutlineReddit />}</i>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Account Eddit
+                      </span>
+                    </Link>
+                  </label>
+
+                  <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                    <Link
+                      className="text-decoration-none "
+                      to={`/Profile/ChangePassword/${datauser._id}`}
+                    >
+                      <i className="text-black">{<FaLock />}</i>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Change Password
+                      </span>
+                    </Link>
+                  </label>
+                  <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                    <Link
+                      className="text-decoration-none "
+                      to={"/profile/addItems"}
+                    >
+                      <i className="text-black">{<MdAddShoppingCart />}</i>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Add Product
+                      </span>
+                    </Link>
+                  </label>
+                  <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                    <Link
+                      className="text-decoration-none "
+                      to={"/Email_verfication"}
+                    >
+                      <i className="text-black">{<MdVerified />}</i>
+                      <span className="ms-1 d-none d-sm-inline text-black">
+                        Verify Email
+                      </span>
+                    </Link>
+                  </label>
                 </li>
               </ul>
             </div>
@@ -104,6 +142,9 @@ function Profile() {
             </div>
           </div>
         </div>
+      </section>
+      <section>
+        <Footer />
       </section>
     </>
   );

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./MyAccount.css";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 function MyAccount() {
+  const navigate = useNavigate();
   let { UserID } = useParams();
   const [userInfoEdit, setuserInfoEdit] = useState({
     fullName: "",
@@ -58,7 +59,7 @@ function MyAccount() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        window.location.href = "/Profile/userinfo";
+        navigate("/Profile");
       }, 3000);
     }
     if (ErrorMessage && response == "") {

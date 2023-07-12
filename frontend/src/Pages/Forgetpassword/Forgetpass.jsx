@@ -11,9 +11,10 @@ import {
 import Navebar from "../../Component/navebar/navbar";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Forgetpass() {
+  const navigate = useNavigate();
   const [Email, setEmail] = useState({
     searchOption: "",
   });
@@ -36,7 +37,7 @@ function Forgetpass() {
     if (response) {
       toast(`✔️ ${response} `);
       setTimeout(() => {
-        window.location.href = "/Reset_pass_code";
+        navigate("/Reset_pass_code");
       }, 3000);
     }
     if (ErrorMessage && response == "") {

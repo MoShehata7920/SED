@@ -2,13 +2,17 @@ import "./navbar.css";
 import { CiUser } from "react-icons/ci";
 import { BiLogIn } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BsChatTextFill } from "react-icons/bs";
+import { getTokendeta } from "../axios/tokendata/Token_Data";
 
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
   const [error, setError] = useState(null);
+  const Tokendata = getTokendeta();
+  const userID = Tokendata ? Tokendata.id : "";
+  console.log(userID);
   const storedToken = localStorage.getItem("encryptedToken");
   function logout() {
     localStorage.removeItem("encryptedToken");
@@ -29,6 +33,7 @@ function Navebar() {
     }
   };
 
+  useEffect(() => {}, [storedToken]);
   return (
     <>
       <nav className="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">
@@ -40,7 +45,7 @@ function Navebar() {
           </div>
           <div className="">
             <button
-              className="navbar-toggler"
+              className="navbar-toggler bg-white"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
@@ -55,7 +60,7 @@ function Navebar() {
             className="collapse navbar-collapse col-5 me-4"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <ul className="navbar-nav me-auto mb-2   mb-lg-0 ">
               <li className="nav-item dropdown me-2 ">
                 <Link
                   className="nav-Link dropdown-toggle text-white fs-4 "
@@ -197,7 +202,7 @@ function Navebar() {
               <ul className="navbar-nav  pb-3">
                 <li className="nav-item ">
                   <Link
-                    to={"/Profile/userinfo"}
+                    to={`/Profile/myProduct/${userID}`}
                     className="text-white nav-Link fs-2 me-4 "
                   >
                     <CiUser />
@@ -208,7 +213,6 @@ function Navebar() {
                   <Link
                     onClick={() => {
                       logout();
-                      window.location.reload();
                     }}
                     to={"/"}
                     className="text-white nav-Link fs-2   "

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Product_editing.css";
 import Navebar from "../../../Component/navebar/navbar";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 import { UseAxiosDelete } from "../../../Component/axios/DeleteApi/DeleteApi";
 export default function ProductEditing() {
+  const navigate = useNavigate();
   let { Product_id } = useParams();
   const [ProductEdit, setProductEdit] = useState({
     productName: "",
@@ -77,7 +78,7 @@ export default function ProductEditing() {
       toast(`✔️ ${deleteresponse}`);
       setTimeout(() => {
         localStorage.removeItem("Productdata");
-        window.location.href = "/Profile/userinfo";
+        navigate("/Profile");
       }, 3000);
     }
     if (deleteErrorMessage && deleteresponse == "") {
@@ -87,7 +88,7 @@ export default function ProductEditing() {
       toast(`✔️ ${postresponse}`);
       setTimeout(() => {
         localStorage.removeItem("Productdata");
-        window.location.href = "/Profile/userinfo";
+        navigate("/Profile");
       }, 3000);
     }
     if (postErrorMessage && postresponse == "") {

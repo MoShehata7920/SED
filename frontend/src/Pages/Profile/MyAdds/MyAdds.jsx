@@ -13,19 +13,19 @@ function MyAdds() {
   return (
     <>
       <div className="contanier  ">
-        <div className="row vh-100 flex-column align-items-center justify-content-center ">
-          <div className="col-9 product-div  rounded-3 bg-light">
+        <div className="row  align-items-center justify-content-center mt-5 mb-5  ">
+          <div className="col-8 product-div bg-danger  rounded-3 bg-light">
             <div className="row">
-              <div className="col-4 ">
-                <div className="photo-div bg-black h-75  rounded-3">
+              <div className="col-xxl-6 col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 mb-1">
+                <div className="photoADDs-div mt-4 ms-5   rounded-4">
                   <img
                     src={Productitems.productImage}
-                    className=" w-100 h-100 "
+                    className=" w-100 h-100 rounded-4 "
                     alt="..."
                   />
                 </div>
               </div>
-              <div className=" offset-4 mt-4 col-4  ">
+              <div className="product-info col-xxl-6 col-xl-6 col-lg-8 col-md-12 col-sm-12 col-12 mt-3">
                 <div className=" mt-5 text-center">
                   <h3 className="mt-5"> {Productitems.productName} </h3>
                   <h6 className="mt-5 fs-4 mb-4">
@@ -75,7 +75,7 @@ function MyAdds() {
                     Product Details
                   </button>
                 </div>
-                <div className="mt-5 text-center">
+                <div className="mt-5 mb-3 text-center">
                   <Link to={`/Product_Editing/${Productitems._id}`}>
                     <button className=" btn-items">Edit</button>
                   </Link>

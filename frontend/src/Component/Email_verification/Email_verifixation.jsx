@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navebar from "../../Component/navebar/navbar";
-import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 import { ToastContainer, toast } from "react-toastify";
-import { encrypt } from "n-krypta";
+import { UseAxiosPost } from "../axios/PostApi/PostApi";
 import {
   MDBContainer,
   MDBCol,
@@ -10,48 +8,43 @@ import {
   MDBBtn,
   MDBInput,
 } from "mdb-react-ui-kit";
+import Navebar from "../navebar/navbar";
 import { useNavigate } from "react-router-dom";
-function Reset_pass_code() {
+export default function Email_verfication() {
   const navigate = useNavigate();
-  const secret = process.env.REACT_APP_SECRET_KEY;
-  const [Reset_code, setReset_codel] = useState({
-    code: "",
+  const [Email, setEmail] = useState({
+    email: "",
   });
-  const postAPi = "/auth/resetOTP";
-
-  console.log(Reset_code);
-  function getiteminfo(e) {
-    let myuser = { ...Reset_code };
+  const postAPi = `/auth/resendVerifyEmail`;
+  function getUserinfo(e) {
+    let myuser = { ...Email };
     myuser[e.target.name] = e.target.value;
-    setReset_codel(myuser);
+    setEmail(myuser);
   }
-  const { response, data, ErrorMessage, HandelPostApi } = UseAxiosPost(
+
+  const { response, ErrorMessage, HandelPostApi } = UseAxiosPost(
     postAPi,
-    Reset_code
+    Email
   );
-  let token = data ? data.token : null;
-  const itemsubmit = (e) => {
+  async function itemsubmit(e) {
     e.preventDefault();
     HandelPostApi();
-  };
+  }
+
   useEffect(() => {
-    if (data) {
-      const encryptedData = encrypt(token, secret);
-      localStorage.setItem("encryptedToken", encryptedData);
-    }
     if (response) {
       toast(`✔️ ${response} `);
       setTimeout(() => {
-        navigate(`/Reset_Password`);
+        navigate("/Email_verfication_code");
       }, 3000);
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);
     }
-  }, [data, response, ErrorMessage]);
+  }, [response, ErrorMessage]);
   return (
     <>
-      <section className="mb-5">
+      <section>
         <Navebar />
       </section>
       <section>
@@ -69,17 +62,17 @@ function Reset_pass_code() {
               <form onSubmit={itemsubmit}>
                 <MDBInput
                   wrapperClass="mb-4"
-                  onChange={getiteminfo}
-                  label=" RESET_CODE"
-                  id="formControlLg"
-                  type="text"
-                  name="code"
+                  onChange={getUserinfo}
+                  label=" Email"
+                  id="email"
+                  type="email"
+                  name="email"
                   size="lg"
                 />
                 <div className="text-center text-md-start mt-4 pt-2">
                   <div>
                     <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
-                      RESET
+                      Send Code
                     </MDBBtn>
                   </div>
                 </div>
@@ -92,4 +85,3 @@ function Reset_pass_code() {
     </>
   );
 }
-export default Reset_pass_code;

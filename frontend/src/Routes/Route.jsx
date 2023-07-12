@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import AddItem from "../Pages/additems/AddItem";
 import Categories from "../Pages/categories/categories";
 import Dataitems from "../Pages/dataitems/dataitems";
 import Forgetpass from "../Pages/Forgetpassword/Forgetpass";
@@ -8,53 +7,109 @@ import Home from "../Pages/home/Home";
 import Favourit from "../Pages/Profile/Favourit/Favourit";
 import Profile from "../Pages/Profile/Profile/Profile";
 import Product from "../Pages/Profile/Product/Product";
-import MyAccount from "../Pages/Profile/Myaccount/MyAccount";
-import Settings from "../Pages/Profile/Settings/Settings";
+import MyAccount from "../Pages/Profile/Myaccount_Editing/MyAccount";
 import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
 import SearchPage from "../Pages/searchdata/searchdata";
 import SeeAllData from "../Pages/seealldata/SeeAllData";
 import SignIn from "../Pages/SignIn/SignIn";
 import Register from "../Pages/SignUp/SignUp";
-import MyAdds from "../Pages/Profile/MyAdds/MyAdds";
-import Languages from "../Pages/Profile/Settings/Langages/Langagues";
-import Themes from "../Pages/Profile/Settings/Themes/Themes";
+import MyAdds from "../Pages/Profile/MyAdds_Editing/MyAdds";
 import Notification from "../Pages/Profile/Notification/Notification";
-import Share from "../Pages/Profile/Settings/Share/Share";
-import Help from "../Pages/Profile/Settings/Help/Help";
-import Aboutus from "../Pages/Profile/Settings/Aboutus/Aboutus";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
 import ProductEditing from "../Pages/Profile/Product_Editing/Product_Editing";
 import Change_Password from "../Pages/Profile/Change_Password/Change_password";
-import Email_verfication from "../Component/Email_verification/Email_verification";
+import Email_verfication_code from "../Component/Email_verification_code/Email_verification_code";
 import Reset_pass_code from "../Component/Reset_pass_cod/Reset_pass_code";
 import ResetPassword from "../Component/Reset_password/Reset_password";
 import Chat from "../Pages/Chat/Chat";
 import { getTokendeta } from "../Component/axios/tokendata/Token_Data";
+import AddItem from "../Pages/Profile/additems/AddItem";
+import Email_verfication from "../Component/Email_verification/Email_verifixation";
 function MainRoutes() {
+  const [isPageOneCompleted, setIsPageOneCompleted] = useState(false);
+  const [isPageTowCompleted, setIsPageTowCompleted] = useState(false);
+  const handlePageOneCompletion = () => {
+    setIsPageOneCompleted(true);
+  };
+  const handlePageTowCompletion = () => {
+    setIsPageTowCompleted(true);
+  };
   const Tokendata = getTokendeta();
   const storedToken = localStorage.getItem("encryptedToken");
+  useEffect(() => {
+    return () => {
+      setIsPageOneCompleted(false);
+      setIsPageTowCompleted(false);
+    };
+  }, [storedToken]);
   return (
     <>
       <Routes>
         <Route path="/" exact element={<Home />} />
-
         <Route
           path="/SignIn"
           element={storedToken ? <Navigate replace to={"/"} /> : <SignIn />}
         />
-
         <Route path="/chat" element={<Chat />} />
-
+        <Route
+          path="/Email_verfication"
+          element={
+            storedToken ? (
+              <Email_verfication />
+            ) : (
+              <Navigate replace to={"/SignIn"} />
+            )
+          }
+        />
+        <Route
+          path="/Email_verfication_code"
+          element={
+            storedToken ? (
+              <Email_verfication_code />
+            ) : (
+              <Navigate replace to={"/SignIn"} />
+            )
+          }
+        />
         <Route
           path="/SignUp"
           element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
         />
-        <Route path="/Email_verfication" element={<Email_verfication />} />
-        <Route path="/forgetpassword" element={<Forgetpass />} />
-        <Route path="/Reset_pass_code" element={<Reset_pass_code />} />
-        <Route path="/Reset_password" element={<ResetPassword />} />
+        <Route
+          path="/forgetpassword"
+          element={<Forgetpass onComplete={handlePageOneCompletion} />}
+        />
+        <Route
+          path="/Reset_pass_code"
+          element={
+            isPageOneCompleted ? (
+              <Reset_pass_code onComplete={handlePageTowCompletion} />
+            ) : (
+              <Navigate replace to={"/forgetpassword"} />
+            )
+          }
+        />
+        <Route
+          path="/Reset_password"
+          element={
+            isPageTowCompleted ? (
+              <ResetPassword onComplete={handlePageTowCompletion} />
+            ) : (
+              <Navigate replace to={"/Reset_pass_code"} />
+            )
+          }
+        />
         <Route path="/Profile" element={storedToken ? <Profile /> : <SignIn />}>
-          <Route path="/Profile/userinfo" element={<Userinfo />}></Route>
+          <Route
+            path="/Profile/AddItems"
+            element={
+              Tokendata == false ? (
+                <Navigate replace to={"/Email_verfication"} />
+              ) : (
+                <AddItem />
+              )
+            }
+          />
           <Route
             path="/Profile/ChangePassword/:UserID"
             element={<Change_Password />}
@@ -64,42 +119,21 @@ function MainRoutes() {
             path="/Profile/myProduct/:UserID"
             element={<Product />}
           ></Route>
-          <Route path="/Profile/settings" element={<Settings />}></Route>
+
           <Route
-            path="/Profile/settings/myaccount/:UserID"
+            path="/Profile/myaccount/:UserID"
             element={<MyAccount />}
           ></Route>
+          <Route path="/Profile/myadds/:ProductId" element={<MyAdds />}></Route>
           <Route
-            path="/Profile/settings/myadds/:ProductId"
-            element={<MyAdds />}
-          ></Route>
-          <Route
-            path="/Profile/settings/langages"
-            element={<Languages />}
-          ></Route>
-          <Route path="/Profile/settings/themes" element={<Themes />}></Route>
-          <Route
-            path="/Profile/settings/notification"
+            path="/Profile/notification"
             element={<Notification />}
           ></Route>
-          <Route path="/Profile/settings/share" element={<Share />}></Route>
-          <Route path="/Profile/settings/help" element={<Help />}></Route>
-          <Route path="/Profile/settings/aboutus" element={<Aboutus />}></Route>
         </Route>
         <Route path="/items/:id" element={<Dataitems />} />
         <Route path="/Categories/:CategorieType" element={<Categories />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/SeeAllData/:SeeData" element={<SeeAllData />} />
-        <Route
-          path="/AddItems"
-          element={
-            Tokendata == false ? (
-              <Navigate replace to={"/Email_verfication"} />
-            ) : (
-              <AddItem />
-            )
-          }
-        />
 
         <Route
           path="/SellerInfo/:SellerId/:ProductID"

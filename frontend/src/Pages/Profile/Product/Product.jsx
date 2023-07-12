@@ -14,8 +14,8 @@ export default function Product() {
   let UserData = data ? data.products : [];
   return (
     <>
-      <div className="container-fluid  bg-dark  Productpage  ">
-        <div className=" row  vh-100    ">
+      <div className="container-fluid Productpage  ">
+        <div className=" row ">
           <div id="style-7" className="  col-12  scrollbar   h-100 pt-4 ps-4 ">
             <div className="row  w-100 h-100 align-items-center justify-content-center ">
               <div className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-12 w-100 ">
@@ -24,7 +24,7 @@ export default function Product() {
                     <div className="col-xxl-4  col-xl-4  col-lg-6 col-sm-6 col-6  ">
                       <Link
                         key={index}
-                        to={`/Profile/settings/myadds/${categ._id}`}
+                        to={`/Profile/myadds/${categ._id}`}
                         className="text-decoration-none "
                       >
                         <div className="item slider-style2 mb-3 ">

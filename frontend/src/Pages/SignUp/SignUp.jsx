@@ -12,12 +12,12 @@ import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
 import Navebar from "../../Component/navebar/navbar";
 import { encrypt } from "n-krypta";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 function Register() {
+  const navigate = useNavigate();
   const secret = process.env.REACT_APP_SECRET_KEY;
   const postAPi = "/auth/register";
   const [user, setuser] = useState({
@@ -55,7 +55,7 @@ function Register() {
     if (data) {
       const encryptedData = encrypt(data, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      window.location.href = "/Email_verfication";
+      navigate("/Email_verfication");
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);

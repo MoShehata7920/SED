@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { UseAxiosPost } from "../axios/PostApi/PostApi";
 import Navebar from "../navebar/navbar";
-export default function Email_verfication() {
+import {
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+  MDBInput,
+} from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
+export default function Email_verfication_code() {
+  const navigate = useNavigate();
   const [Code, setCode] = useState({
     code: "",
   });
@@ -23,7 +32,7 @@ export default function Email_verfication() {
     if (response) {
       toast(`✔️ ${response} `);
       setTimeout(() => {
-        window.location.href = "/";
+        navigate("/");
       }, 3000);
     }
     if (ErrorMessage && response == "") {
@@ -34,6 +43,41 @@ export default function Email_verfication() {
     <>
       <section>
         <Navebar />
+      </section>
+      <section>
+        <MDBContainer fluid className="p-3 my-5 h-custom">
+          <MDBRow>
+            <MDBCol col="10" md="6">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid"
+                alt="Sample image"
+              />
+            </MDBCol>
+
+            <MDBCol className="mt-5" col="4" md="6">
+              <form onSubmit={itemsubmit}>
+                <MDBInput
+                  wrapperClass="mb-4"
+                  onChange={getUserinfo}
+                  label=" Verified_CODE"
+                  id="code"
+                  type="text"
+                  name="code"
+                  size="lg"
+                />
+                <div className="text-center text-md-start mt-4 pt-2">
+                  <div>
+                    <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
+                      Verified
+                    </MDBBtn>
+                  </div>
+                </div>
+              </form>
+            </MDBCol>
+            <ToastContainer />
+          </MDBRow>
+        </MDBContainer>
       </section>
       <section>
         <div className="container  ">

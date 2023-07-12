@@ -36,9 +36,8 @@ export default function Dataitems() {
     HandelPostApi,
   } = UseAxiosPost(postAPi, ChatData);
   const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(patchApi, ID);
-  let response_lenth = response ? response.user.length : null;
+  // let response_lenth = response ? response.user.length : null;
   let [Wishlist, setWishlist] = useState(false);
-
   async function SetWichlist() {
     HandelPachApi();
   }
@@ -70,16 +69,16 @@ export default function Dataitems() {
             <div className=" col-8   rounded-5 bg-light  ">
               <div className="row">
                 <div className="col-xxl-6 col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 mb-1">
-                  <div className="photo-div bg-light   rounded-3">
+                  <div className="photo-div mt-4 ms-4   rounded-4">
                     <img
                       src={dataproduct.productImage}
-                      className=" w-100 "
+                      className=" w-100 h-100 rounded-4 "
                       alt="..."
                     />
                   </div>
                 </div>
                 <div className="product-info col-xxl-6 col-xl-6 col-lg-8 col-md-12 col-sm-12 col-12 mt-3">
-                  {Wishlist & (response_lenth > 1) ? (
+                  {Wishlist ? (
                     <div className="  text-end me-2 mt-5 ">
                       <Link
                         onClick={() => {
@@ -134,7 +133,7 @@ export default function Dataitems() {
                     </div>
                   </div>
 
-                  <div className="mt-2 text-center">
+                  <div className="mt-1 mb-3 text-center">
                     <button onClick={HandelPostApi} className=" btn-items">
                       contact
                     </button>

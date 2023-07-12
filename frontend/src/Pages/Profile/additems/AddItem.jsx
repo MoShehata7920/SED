@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../../Component/footer/Footer";
-import Navebar from "../../Component/navebar/navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./additem.css";
-import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
-import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
+import { UseAxiosPost } from "../../../Component/axios/PostApi/PostApi";
+import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
+import { useNavigate } from "react-router-dom";
 export default function AddItem() {
+  const navigate = useNavigate();
   const [item, setitem] = useState({
     productName: "",
     description: "",
@@ -60,7 +60,7 @@ export default function AddItem() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        window.location.reload();
+        navigate("/profile");
       }, 5000);
     }
     if (ErrorMessage && response == "") {
@@ -69,9 +69,6 @@ export default function AddItem() {
   }, [response, ErrorMessage, data]);
   return (
     <>
-      <section>
-        <Navebar />
-      </section>
       <section>
         <div className="container-fluid h-auto  additembackground">
           <div className="row  justify-content-center   ">
@@ -219,9 +216,6 @@ export default function AddItem() {
             </div>
           </div>
         </div>
-      </section>
-      <section>
-        <Footer />
       </section>
     </>
   );

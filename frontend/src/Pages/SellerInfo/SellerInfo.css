@@ -1,4 +1,4 @@
-
+/* 
 .scroll_prodect
 {
     scroll-behavior: auto;
@@ -37,7 +37,7 @@ scroll-behavior: smooth;
 									   color-stop(0.44, rgb(122,153,217)),
 									   color-stop(0.72, rgb(73,125,189)),
 									   color-stop(0.86, rgb(28,58,148)));
-}
+} */
 .Sellerinfo_Img_hight{
 	height: 100px;
 }

@@ -5,7 +5,6 @@ import {
   MDBCol,
   MDBRow,
   MDBBtn,
-  MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
 import { Icon } from "react-icons-kit";
@@ -13,7 +12,9 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import { UseAxiosPache } from "../axios/PachApi/PatchApi";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 export default function ResetPassword() {
+  const navigate = useNavigate();
   const [Reset_pass, setReset_pass] = useState({
     password: "",
     confirmPassword: "",
@@ -49,7 +50,7 @@ export default function ResetPassword() {
       toast(`✔️ ${response} `);
       setTimeout(() => {
         localStorage.removeItem("encryptedToken");
-        window.location.href = "/SignIn";
+        navigate("/SignIn");
       }, 3000);
     }
     if (ErrorMessage && response == "") {

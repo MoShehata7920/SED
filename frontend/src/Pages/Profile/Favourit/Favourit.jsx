@@ -13,8 +13,8 @@ export default function Favourit() {
   let UserData = data ? data.items : [];
   return (
     <>
-      <div className="container-fluid  bg-dark  Productpage  ">
-        <div className=" row  vh-100    ">
+      <div className="container-fluid    Productpage  ">
+        <div className=" row      ">
           <div id="style-7" className="  col-12  scrollbar   h-100 pt-4 ps-4 ">
             <div className="row  w-100 h-100 align-items-center justify-content-center ">
               <div className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-12 w-100 ">
@@ -41,12 +41,7 @@ export default function Favourit() {
                                 {categ.productName}
                               </h5>
                             </div>
-                            <div className="slider-service-detailes ">
-                              <p className=" text-black  h-100 w-100 ">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's content
-                              </p>
-                            </div>
+
                             <div className="slider-service-price ">
                               <p className=" text-black mb-3 h-100 w-100">
                                 {categ.price}
