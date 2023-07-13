@@ -1,8 +1,16 @@
+import "./Change_password.css";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Icon } from "react-icons-kit";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+import { eye } from "react-icons-kit/feather/eye";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
+import Userinfo from "../Userinfo/Userinfo";
 export default function Change_Password() {
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+
   const navigate = useNavigate();
   let { UserID } = useParams();
   const [userInfoEdit, setuserInfoEdit] = useState({
@@ -25,12 +33,20 @@ export default function Change_Password() {
     e.preventDefault();
     HandelPachApi();
   }
-
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
   useEffect(() => {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        navigate("/Profile");
+        navigate("/Profile/notification");
       }, 3000);
     }
     if (ErrorMessage && response == "") {
@@ -39,59 +55,51 @@ export default function Change_Password() {
   }, [response, ErrorMessage]);
   return (
     <>
-      <div className="container  ">
-        <div className="row vh-100  flex-column align-items-center justify-content-center   ">
-          <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12 rounded-3 border border-dark  pt-3 pb-3">
-            <form
-              onSubmit={itemsubmit}
-              className="row mt-3 justify-content-center "
-            >
-              <div className=" ms-4 col-5">
-                <div class="mb-3">
-                  <label class="form-label">old Password </label>
-                  <input
-                    name="oldPassword"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                    aria-describedby="emailHelp"
-                  ></input>
-                </div>
+      <Userinfo />
+      <div className="row      ">
+        <div className="  col-12 ">
+          <div className="Card_div  ">
+            <form onSubmit={itemsubmit}>
+              <div class="segment">
+                <h1>Password</h1>
+              </div>
 
-                <div class="mb-3">
-                  <label class="form-label">password </label>
-                  <input
-                    name="password"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">confirm Password</label>
-                  <input
-                    name="confirmPassword"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-              </div>
-              <div className="mb-3 mt-3 d-flex justify-content-center ">
-                <button type="submit" class="btn btn-primary me-4 ">
-                  Save Changes
-                </button>
-                <Link to={"/Profile/userinfo"}>
-                  <button type="button" class="btn btn-primary  ">
-                    Cancel
-                  </button>
-                </Link>
-              </div>
-              <ToastContainer />
+              <label className=" position-relative">
+                <input
+                  name="oldPassword"
+                  onChange={getUserinfo}
+                  type={type}
+                  placeholder="Old Password"
+                />
+                <span className=" icon-change-pass   " onClick={handleToggle}>
+                  <Icon icon={icon} size={25} />
+                </span>
+              </label>
+              <label>
+                <input
+                  name="password"
+                  onChange={getUserinfo}
+                  type={type}
+                  placeholder="New Password"
+                />
+              </label>
+              <label>
+                <input
+                  name="confirmPassword"
+                  onChange={getUserinfo}
+                  type={type}
+                  placeholder="Confirm Password"
+                />
+              </label>
+
+              <button class="red mb-3" type="submit">
+                <i class="icon ion-md-lock"></i> Change
+              </button>
             </form>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

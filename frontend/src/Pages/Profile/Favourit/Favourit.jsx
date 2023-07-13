@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Paginate from "../../../Component/pagination/Paginate";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
+import Userinfo from "../Userinfo/Userinfo";
 
 export default function Favourit() {
   // const [totalpageNum, settotalpageNum] = useState(1);
@@ -13,6 +14,7 @@ export default function Favourit() {
   let UserData = data ? data.items : [];
   return (
     <>
+      <Userinfo />
       <div className="container-fluid    Productpage  ">
         <div className=" row      ">
           <div id="style-7" className="  col-12  scrollbar   h-100 pt-4 ps-4 ">

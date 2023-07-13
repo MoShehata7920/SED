@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Paginate from "../../../Component/pagination/Paginate";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
+import Userinfo from "../Userinfo/Userinfo";
 export default function Product() {
   let { UserID } = useParams();
   // const [totalpageNum, settotalpageNum] = useState(1);
@@ -14,6 +15,7 @@ export default function Product() {
   let UserData = data ? data.products : [];
   return (
     <>
+      <Userinfo />
       <div className="container-fluid Productpage  ">
         <div className=" row ">
           <div id="style-7" className="  col-12  scrollbar   h-100 pt-4 ps-4 ">

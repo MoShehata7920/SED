@@ -24,7 +24,7 @@ export default function Footer() {
           </div>
         </div>
       </div> */}
-      <div className="line-footer mt-2"></div>
+      <div className="line-footer "></div>
       <div className="container mt-2 ">
         <div className="row">
           <div className="col-3">

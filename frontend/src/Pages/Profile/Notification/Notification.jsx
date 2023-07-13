@@ -1,9 +1,11 @@
 import React from "react";
 import "./Notification.css";
+import Userinfo from "../Userinfo/Userinfo";
 
 function Notification() {
   return (
     <>
+      <Userinfo />
       <section>
         <div className="container-fluid  vh-100 mt-4">
           <div className=" text-center">

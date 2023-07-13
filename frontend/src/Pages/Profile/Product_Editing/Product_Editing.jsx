@@ -5,6 +5,7 @@ import "./Product_editing.css";
 import Navebar from "../../../Component/navebar/navbar";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 import { UseAxiosDelete } from "../../../Component/axios/DeleteApi/DeleteApi";
+import Userinfo from "../Userinfo/Userinfo";
 export default function ProductEditing() {
   const navigate = useNavigate();
   let { Product_id } = useParams();
@@ -78,7 +79,7 @@ export default function ProductEditing() {
       toast(`✔️ ${deleteresponse}`);
       setTimeout(() => {
         localStorage.removeItem("Productdata");
-        navigate("/Profile");
+        navigate("/Profile/notification");
       }, 3000);
     }
     if (deleteErrorMessage && deleteresponse == "") {
@@ -88,7 +89,7 @@ export default function ProductEditing() {
       toast(`✔️ ${postresponse}`);
       setTimeout(() => {
         localStorage.removeItem("Productdata");
-        navigate("/Profile");
+        navigate("/Profile/notification");
       }, 3000);
     }
     if (postErrorMessage && postresponse == "") {
@@ -97,6 +98,7 @@ export default function ProductEditing() {
   }, [postresponse, deleteresponse]);
   return (
     <>
+      <Userinfo />
       <section>
         <Navebar />
       </section>

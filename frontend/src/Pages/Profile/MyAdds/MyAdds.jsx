@@ -4,6 +4,7 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
+import Userinfo from "../Userinfo/Userinfo";
 function MyAdds() {
   let { ProductId } = useParams();
   const GetApi = `/products/product/${ProductId}`;
@@ -12,6 +13,7 @@ function MyAdds() {
   // window.localStorage.setItem("Productdata", JSON.stringify(Productitems));
   return (
     <>
+      <Userinfo />
       <div className="contanier  ">
         <div className="row  align-items-center justify-content-center mt-5 mb-5  ">
           <div className="col-8 product-div bg-danger  rounded-3 bg-light">

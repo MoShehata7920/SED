@@ -5,7 +5,6 @@ import {
   MDBCol,
   MDBRow,
   MDBBtn,
-  MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
 import { Icon } from "react-icons-kit";

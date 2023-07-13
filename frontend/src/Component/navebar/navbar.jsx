@@ -16,8 +16,6 @@ function Navebar() {
   const storedToken = localStorage.getItem("encryptedToken");
   function logout() {
     localStorage.removeItem("encryptedToken");
-    localStorage.removeItem("UserData");
-    localStorage.removeItem("Productdata");
   }
   const navigate = useNavigate();
   const handleSubmit = (event) => {

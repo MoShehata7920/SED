@@ -5,6 +5,7 @@ import "./additem.css";
 import { UseAxiosPost } from "../../../Component/axios/PostApi/PostApi";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 import { useNavigate } from "react-router-dom";
+import Userinfo from "../Userinfo/Userinfo";
 export default function AddItem() {
   const navigate = useNavigate();
   const [item, setitem] = useState({
@@ -60,7 +61,7 @@ export default function AddItem() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        navigate("/profile");
+        navigate("/Profile/notification");
       }, 5000);
     }
     if (ErrorMessage && response == "") {
@@ -69,40 +70,26 @@ export default function AddItem() {
   }, [response, ErrorMessage, data]);
   return (
     <>
+      <Userinfo />
       <section>
-        <div className="container-fluid h-auto  additembackground">
-          <div className="row  justify-content-center   ">
-            <div className="  col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12 mt-5 mb-5 ">
-              <div className="ADDitemparent py-1">
-                <form
-                  onSubmit={itemsubmit}
-                  enctype="multipart/form-data"
-                  className=" d-flex flex-column  align-items-center"
-                >
-                  <div className="mt-5">
-                    <h5 className="">Product Name</h5>
+        <div className="">
+          <div className="row      ">
+            <div className="  col-12 ">
+              <div className="Card_div  ">
+                <form onSubmit={itemsubmit} enctype="multipart/form-data">
+                  <div class="segment">
+                    <h1>Account</h1>
                   </div>
-                  <div class="input-group  w-75">
+
+                  <label>
                     <input
                       name="productName"
                       onChange={getiteminfo}
                       type="text"
-                      class="form-control"
                       placeholder="Product Name"
-                      aria-label="Username"
-                      aria-describedby="addon-wrapping"
                     />
-                  </div>
-                  <div className="mt-5">
-                    <h5 className="">category</h5>
-                  </div>
-                  <div className="input-group  w-75 ">
-                    <label
-                      className="input-group-text"
-                      for="inputGroupSelect01"
-                    >
-                      Options
-                    </label>
+                  </label>
+                  <label>
                     <select
                       name="category"
                       onChange={getiteminfo}
@@ -121,17 +108,8 @@ export default function AddItem() {
                       <option value="Phones&Tablets">Phones&Tablets</option>
                       <option value="Body&HealthCare">Body&HealthCare</option>
                     </select>
-                  </div>
-                  <div className="mt-5">
-                    <h5 className="">purpose</h5>
-                  </div>
-                  <div className="input-group  w-75 ">
-                    <label
-                      className="input-group-text"
-                      for="inputGroupSelect01"
-                    >
-                      Options
-                    </label>
+                  </label>
+                  <label>
                     <select
                       name="purpose"
                       onChange={getiteminfo}
@@ -143,43 +121,25 @@ export default function AddItem() {
                       <option value="exchange">Exchange</option>
                       <option value="donate">Donate</option>
                     </select>
-                  </div>
-                  <div className="mt-5">
-                    <h5 className="">Product Price</h5>
-                  </div>
-                  <div class="input-group w-75 ">
-                    <span class="input-group-text">LE</span>
+                  </label>
+                  <label>
                     <input
                       name="price"
                       onChange={getiteminfo}
                       type="text"
-                      class="form-control"
                       aria-label="Amount (to the nearest dollar)"
+                      placeholder="Product Price"
                     />
-                    <span class="input-group-text">.00</span>
-                  </div>
-                  <div className="mt-5">
-                    <h5 className="">Product description</h5>
-                  </div>
-                  <div class="input-group w-75 ">
-                    <span class="input-group-text">DESC</span>
+                  </label>
+                  <label>
                     <textarea
                       name="description"
                       onChange={getiteminfo}
                       class="form-control"
                       aria-label="With textarea"
                     ></textarea>
-                  </div>
-                  <div className="mt-5">
-                    <h5 className="">Condition</h5>
-                  </div>
-                  <div className="input-group  w-75 ">
-                    <label
-                      className="input-group-text"
-                      for="inputGroupSelect01"
-                    >
-                      Options
-                    </label>
+                  </label>
+                  <label>
                     <select
                       name="condition"
                       onChange={getiteminfo}
@@ -190,31 +150,22 @@ export default function AddItem() {
                       <option value="New">New</option>
                       <option value="Used">Used</option>
                     </select>
-                  </div>
-                  <div className="mt-5">
-                    <h5 className="">Product Iamge</h5>
-                  </div>
-                  <div class="">
+                  </label>
+                  <label>
                     <input
                       onChange={handleImageChange}
-                      class="form-control"
                       type="file"
                       id="formFile"
                     />
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="btn btn-primary fs-4 mt-5 additem_button rounded-5 mb-3"
-                  >
-                    Submit
+                  </label>
+                  <button class="red mb-3" type="submit">
+                    <i class="icon ion-md-lock"></i> Add Product
                   </button>
-
-                  <ToastContainer />
                 </form>
               </div>
             </div>
           </div>
+          <ToastContainer />
         </div>
       </section>
     </>

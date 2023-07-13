@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./MyAccount.css";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
+import Userinfo from "../Userinfo/Userinfo";
 function MyAccount() {
   const navigate = useNavigate();
   let { UserID } = useParams();
@@ -54,12 +55,11 @@ function MyAccount() {
     e.preventDefault();
     HandelPachApi();
   }
-
   useEffect(() => {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        navigate("/Profile");
+        navigate("/Profile/notification");
       }, 3000);
     }
     if (ErrorMessage && response == "") {
@@ -68,95 +68,71 @@ function MyAccount() {
   }, [response, ErrorMessage]);
   return (
     <>
-      <div className="container  ">
-        <div className="row vh-100  flex-column align-items-center justify-content-center   ">
-          <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12 rounded-3 border border-dark  pt-3 pb-3">
-            <form onSubmit={itemsubmit} className="row mt-3 ">
-              <div className=" ms-4 col-5">
-                <div class="mb-3">
-                  <label class="form-label">user name </label>
+      <Userinfo />
+      <div className="">
+        <div className="row      ">
+          <div className="  col-12 ">
+            <div className="Card_div  ">
+              <form onSubmit={itemsubmit}>
+                <div class="segment">
+                  <h1>Account</h1>
+                </div>
+
+                <label>
                   <input
-                    placeholder={userInfoEdit.fullName}
                     name="fullName"
                     onChange={getUserinfo}
                     type="text"
-                    class="form-control"
-                    aria-describedby="emailHelp"
-                  ></input>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Email </label>
+                    placeholder="full Name"
+                  />
+                </label>
+                <label>
                   <input
-                    placeholder={userInfoEdit.email}
                     name="email"
                     onChange={getUserinfo}
                     type="email"
-                    class="form-control"
-                  ></input>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Government</label>
+                    placeholder="Email Address"
+                  />
+                </label>
+                <label>
                   <input
-                    placeholder={userInfoEdit.government}
                     name="government"
                     onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-              </div>
-              <div className=" offset-1 col-5">
-                <div class="mb-3">
-                  <label class="form-label">Address </label>
+                    type="email"
+                    placeholder="Government"
+                  />
+                </label>
+                <label>
                   <input
-                    placeholder={userInfoEdit.address}
                     name="address"
                     onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-
-                <div class="mb-3 "></div>
-
-                <div class="mb-3">
-                  <label class="form-label">Your IMG </label>
+                    type="email"
+                    placeholder="Address"
+                  />
+                </label>
+                <label>
+                  <input
+                    name="phone"
+                    onChange={getUserinfo}
+                    type="email"
+                    placeholder="Phone Number"
+                  />
+                </label>
+                <label>
                   <input
                     onChange={handleImageChange}
-                    class="form-control"
                     type="file"
                     id="formFile"
                   />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">mobile number </label>
-                  <input
-                    placeholder={userInfoEdit.phone}
-                    name="phone"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-              </div>
-              <div className="mb-3 mt-3 d-flex justify-content-center ">
-                <button type="submit" class="btn btn-primary me-4 ">
-                  Save Changes
+                </label>
+                <button class="red mb-3" type="submit">
+                  <i class="icon ion-md-lock"></i> Change
                 </button>
-
-                <Link to={"/Profile/userinfo"}>
-                  <button type="button" class="btn btn-primary  ">
-                    Cancel
-                  </button>
-                </Link>
-              </div>
-              <ToastContainer />
-            </form>
+              </form>
+            </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

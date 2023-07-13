@@ -55,7 +55,7 @@ function Register() {
     if (data) {
       const encryptedData = encrypt(data, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      navigate("/Email_verfication");
+      navigate("/Email_verfication_code");
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);

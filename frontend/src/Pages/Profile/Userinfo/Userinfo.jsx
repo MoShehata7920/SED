@@ -1,59 +1,137 @@
 import "./Userinfo.css";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
-import { getTokendeta } from "../../../Component/axios/tokendata/Token_Data";
+import React, { useEffect, useRef, useState } from "react";
+import Navebar from "../../../Component/navebar/navbar";
+import { MdAddShoppingCart, MdVerified } from "react-icons/md";
+import { AiOutlineReddit } from "react-icons/ai";
+import { BsListCheck, BsHeart, BsFillBellFill } from "react-icons/bs";
+import { FaLock } from "react-icons/fa";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Userinfo() {
   const GetApi = `/users/get`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
-  let UserData = data ? data.user : "";
-  const userId = getTokendeta();
-  console.log(userId);
+  let datauser = data ? data.user : "";
   return (
     <>
-      <div className="container-fluid bg-light ">
-        <div className="row mt-5 flex-column align-items-center justify-content-center   ">
-          <div className=" bg-white col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 rounded-4 border border-dark  pt-4 ">
-            <div className="row align-items-center justify-content-center ">
-              <div className=" col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-6 col-6  ">
-                <img
-                  src={UserData.userImage}
-                  alt=""
-                  className="w-100 rounded-5"
-                />
-              </div>
-              <div className=" offset-7 col-2   ">
-                <Link to={`/Profile/settings/myaccount/${UserData._id}`}>
-                  <button className="btn btn-primary">Edditing</button>
-                </Link>
-              </div>
-            </div>
-            <div className="row  mb-3 justify-content-center text-center ">
-              <div className="profile-user-info   col-xxl-4 col-xl-4  col-lg-6 col-md-6 col-sm-12 col-12  ">
-                <div className="user-info mt-4  ">
-                  <h5 className=" "> Full Name </h5>
-                  <h6 className="w-100 "> {UserData.fullName} </h6>
+      <section>
+        <Navebar />
+      </section>
+      <div className="row ">
+        <div className="col-12 userinfo-bg  profile-sidebar d-flex flex-column  justify-content-center">
+          <div className="row container ">
+            <div className=" col-12 border-bottom-0   pt-4 ">
+              <div className="row mb-4 justify-content-center  ">
+                <div className=" col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-3 ">
+                  <div className=" ms-3 userinfo_Img_hight">
+                    <img
+                      src={datauser.userImage}
+                      alt=""
+                      className=" w-100 h-100  rounded-circle"
+                    />
+                  </div>
                 </div>
-                <div className="user-info mt-5  ">
-                  <h5 className=" ">Email </h5>
-                  <h6 className="w-100"> {UserData.email}</h6>
-                </div>
-              </div>
-              <div className="profile-user-info h-100  col-xxl-4 col-xl-4  col-lg-6 col-md-6 col-sm-12 col-12    ">
-                <div className=" user-info mt-4  ">
-                  <h5 className="">Location </h5>
-                  <h6 className="w-100  ">
-                    {UserData.government}/{UserData.address}
-                  </h6>
-                </div>
-                <div className=" user-info mt-5  pb-4 ">
-                  <h5 className="">Mobile Number </h5>
-                  <h6 className="w-100  ">{UserData.phone}</h6>
+                <div className="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-9  mt-3 ">
+                  <div className="row ms-1">
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
+                      <h5>Fullname:- {datauser.fullName}</h5>
+                      <h5>Email:- {datauser.email}</h5>
+                    </div>
+                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
+                      <h5>Phone Number:- {datauser.phone}</h5>
+                      <h5>
+                        Address:-
+                        {datauser.government}/{datauser.address}
+                      </h5>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="w-100 border border-1 border-black"></div>
+
+          <ul className=" text-center d-flex justify-content-around">
+            <li>
+              <Link to={`/profile/myProduct/${datauser._id}`}>
+                <label class="btn btn-outline-primary me-4 ">
+                  <i className="text-black ">{<BsListCheck />}</i>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Product
+                  </span>
+                </label>
+              </Link>
+              <Link to={"/profile/favourit"}>
+                <label class="btn btn-outline-primary me-4 ">
+                  <i className="text-black">{<BsHeart />}</i>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Favourit
+                  </span>
+                </label>
+              </Link>
+
+              <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                <Link
+                  className="text-decoration-none position-relative"
+                  to={"/Profile/notification"}
+                >
+                  <i className="text-black">{<BsFillBellFill />}</i>
+                  <span class="position-absolute top-0 start-0 translate-middle badge   text-black">
+                    10+
+                  </span>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Notification
+                  </span>
+                </Link>
+              </label>
+
+              <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                <Link
+                  className="text-decoration-none "
+                  to={`/Profile/myaccount/${datauser._id}`}
+                >
+                  <i className="text-black">{<AiOutlineReddit />}</i>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Account Eddit
+                  </span>
+                </Link>
+              </label>
+
+              <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                <Link
+                  className="text-decoration-none "
+                  to={`/Profile/ChangePassword/${datauser._id}`}
+                >
+                  <i className="text-black">{<FaLock />}</i>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Change Password
+                  </span>
+                </Link>
+              </label>
+              <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                <Link
+                  className="text-decoration-none "
+                  to={"/profile/addItems"}
+                >
+                  <i className="text-black">{<MdAddShoppingCart />}</i>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Add Product
+                  </span>
+                </Link>
+              </label>
+              <label class="btn btn-outline-primary me-4 " for="btnradio1">
+                <Link
+                  className="text-decoration-none "
+                  to={"/Email_verfication"}
+                >
+                  <i className="text-black">{<MdVerified />}</i>
+                  <span className="ms-1 d-none d-sm-inline text-black">
+                    Verify Email
+                  </span>
+                </Link>
+              </label>
+            </li>
+          </ul>
         </div>
       </div>
     </>

@@ -8,12 +8,11 @@ import Favourit from "../Pages/Profile/Favourit/Favourit";
 import Profile from "../Pages/Profile/Profile/Profile";
 import Product from "../Pages/Profile/Product/Product";
 import MyAccount from "../Pages/Profile/Myaccount_Editing/MyAccount";
-import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
 import SearchPage from "../Pages/searchdata/searchdata";
 import SeeAllData from "../Pages/seealldata/SeeAllData";
 import SignIn from "../Pages/SignIn/SignIn";
 import Register from "../Pages/SignUp/SignUp";
-import MyAdds from "../Pages/Profile/MyAdds_Editing/MyAdds";
+import MyAdds from "../Pages/Profile/MyAdds/MyAdds";
 import Notification from "../Pages/Profile/Notification/Notification";
 import SellerInfo from "../Pages/SellerInfo/SellerInfo";
 import ProductEditing from "../Pages/Profile/Product_Editing/Product_Editing";
@@ -25,6 +24,7 @@ import Chat from "../Pages/Chat/Chat";
 import { getTokendeta } from "../Component/axios/tokendata/Token_Data";
 import AddItem from "../Pages/Profile/additems/AddItem";
 import Email_verfication from "../Component/Email_verification/Email_verifixation";
+import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
 function MainRoutes() {
   const [isPageOneCompleted, setIsPageOneCompleted] = useState(false);
   const [isPageTowCompleted, setIsPageTowCompleted] = useState(false);
@@ -36,19 +36,20 @@ function MainRoutes() {
   };
   const Tokendata = getTokendeta();
   const storedToken = localStorage.getItem("encryptedToken");
-  useEffect(() => {
-    return () => {
-      setIsPageOneCompleted(false);
-      setIsPageTowCompleted(false);
-    };
-  }, [storedToken]);
+  useEffect(() => {}, [storedToken]);
   return (
     <>
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route
           path="/SignIn"
-          element={storedToken ? <Navigate replace to={"/"} /> : <SignIn />}
+          element={
+            localStorage.getItem("encryptedToken") ? (
+              <Navigate replace to={"/"} />
+            ) : (
+              <SignIn />
+            )
+          }
         />
         <Route path="/chat" element={<Chat />} />
         <Route
@@ -99,6 +100,7 @@ function MainRoutes() {
             )
           }
         />
+
         <Route path="/Profile" element={storedToken ? <Profile /> : <SignIn />}>
           <Route
             path="/Profile/AddItems"
