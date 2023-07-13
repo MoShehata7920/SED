@@ -12,7 +12,7 @@ import { getTokendeta } from "../../Component/axios/tokendata/Token_Data";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 export default function Dataitems() {
   const Tokendata = getTokendeta();
-  const senderId = Tokendata.id;
+  const senderId = Tokendata ? Tokendata.id : "";
   let { id } = useParams();
   const GetApi = `/products/product/${id}`;
   const patchApi = `/users/addToWishlist`;
