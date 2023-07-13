@@ -78,7 +78,7 @@ export default function AddItem() {
               <div className="Card_div  ">
                 <form onSubmit={itemsubmit} enctype="multipart/form-data">
                   <div class="segment">
-                    <h1>Account</h1>
+                    <h1>Add product</h1>
                   </div>
 
                   <label>

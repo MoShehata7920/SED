@@ -9,6 +9,7 @@ import { getTokendeta } from "../axios/tokendata/Token_Data";
 
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
+  const [localestorage, setlocalestorage] = useState(null);
   const [error, setError] = useState(null);
   const Tokendata = getTokendeta();
   const userID = Tokendata ? Tokendata.id : "";
@@ -16,6 +17,7 @@ function Navebar() {
   const storedToken = localStorage.getItem("encryptedToken");
   function logout() {
     localStorage.removeItem("encryptedToken");
+    navigate("/");
   }
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -31,7 +33,6 @@ function Navebar() {
     }
   };
 
-  useEffect(() => {}, [storedToken]);
   return (
     <>
       <nav className="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">

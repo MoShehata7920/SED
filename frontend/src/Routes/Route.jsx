@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Categories from "../Pages/categories/categories";
 import Dataitems from "../Pages/dataitems/dataitems";
@@ -24,7 +24,6 @@ import Chat from "../Pages/Chat/Chat";
 import { getTokendeta } from "../Component/axios/tokendata/Token_Data";
 import AddItem from "../Pages/Profile/additems/AddItem";
 import Email_verfication from "../Component/Email_verification/Email_verifixation";
-import Userinfo from "../Pages/Profile/Userinfo/Userinfo";
 function MainRoutes() {
   const [isPageOneCompleted, setIsPageOneCompleted] = useState(false);
   const [isPageTowCompleted, setIsPageTowCompleted] = useState(false);
@@ -36,7 +35,6 @@ function MainRoutes() {
   };
   const Tokendata = getTokendeta();
   const storedToken = localStorage.getItem("encryptedToken");
-  useEffect(() => {}, [storedToken]);
   return (
     <>
       <Routes>
