@@ -530,7 +530,13 @@ class ConversationsResponse extends BaseResponse {
   @JsonKey(name: "users")
   List<UserDataResponse?>? usersData;
 
-  ConversationsResponse(this.conversationId, this.usersData);
+  @JsonKey(name: "lastMessage")
+  String? lastMessage;
+
+  @JsonKey(name: "createdAt")
+  DateTime? createdAt;
+
+  ConversationsResponse(this.conversationId, this.usersData, this.lastMessage, this.createdAt);
 
   // From Json
   factory ConversationsResponse.fromJson(Map<String, dynamic> json) =>

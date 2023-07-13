@@ -507,6 +507,10 @@ ConversationsResponse _$ConversationsResponseFromJson(
               ? null
               : UserDataResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['lastMessage'] as String?,
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -518,6 +522,8 @@ Map<String, dynamic> _$ConversationsResponseToJson(
       'message': instance.message,
       '_id': instance.conversationId,
       'users': instance.usersData,
+      'lastMessage': instance.lastMessage,
+      'createdAt': instance.createdAt?.toIso8601String(),
     };
 
 GetChatMessagesResponse _$GetChatMessagesResponseFromJson(

@@ -111,6 +111,8 @@ class AppStrings {
   static const String seeMore = "see_more";
   static const String lastProducts = "last_products";
   static const String searchHere = "search_here";
+  static const String searchByImage = "search_by_image";
+  static const String comingSoon = "coming_soon";
   static const String user = "user";
   static const String showProfile = "show_profile";
   static const String topCategories = "top_categories";

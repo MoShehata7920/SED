@@ -282,7 +282,11 @@ class ConversationsData {
 
   List<UserData> usersData;
 
-  ConversationsData(this.id, this.usersData);
+  String lastMessage;
+
+  DateTime createdAt;
+
+  ConversationsData(this.id, this.usersData, this.lastMessage, this.createdAt);
 }
 
 class GetChatMessages {

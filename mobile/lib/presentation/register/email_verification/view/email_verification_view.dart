@@ -141,7 +141,10 @@ class _EmailVerificationScreenViewState
         ),
         Center(
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushReplacementNamed(Routes.forgotPasswordRoute);
+                },
                 child: Text(
                   AppStrings.resendCode.tr(),
                   style: TextStyle(color: ColorsManager.primaryColor),

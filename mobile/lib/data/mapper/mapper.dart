@@ -241,7 +241,7 @@ extension GetAllConversationsMapper on GetAllConversationsResponse? {
 
     this?.conversations?.forEach((element) {
       temp.add(ConversationsData(
-          element?.conversationId ?? "", element?.usersData.toDomain() ?? []));
+          element?.conversationId ?? "", element?.usersData.toDomain() ?? [], element?.lastMessage ?? "", element?.createdAt ?? DateTime.now()));
     });
 
     return GetAllConversations(temp);

@@ -325,7 +325,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                           ),
                           Expanded(
                             child: Badge(
-                              label: const Text("New!"),
+                              label: Text(AppStrings.comingSoon.tr()),
                               alignment: AlignmentDirectional.topStart,
                               backgroundColor: ColorsManager.primaryColor,
                               child: Container(
@@ -359,7 +359,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                             color: ColorsManager
                                                 .secondaryBackground,
                                             child: Text(
-                                              "Search by image",
+                                              AppStrings.searchByImage.tr(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyLarge

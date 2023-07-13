@@ -135,8 +135,8 @@ class _ChatScreenViewState extends State<ChatScreenView> {
             element.usersData[0].id == Utils.getUserId()
                 ? element.usersData[1].name
                 : element.usersData[0].name,
-            "1:05",
-            "Hey bo, i wanna to buy this phone",
+            "",
+            element.lastMessage,
             true),
       ));
     }
@@ -153,10 +153,10 @@ class _ChatScreenViewState extends State<ChatScreenView> {
       bool isUnread) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(
-          AppPadding.p0, AppPadding.p6, AppPadding.p0, AppPadding.p0),
+          AppPadding.p0, AppPadding.p6, AppPadding.p0, AppPadding.p10),
       child: SizedBox(
         width: double.infinity,
-        height: AppSize.s65,
+        height: AppSize.s55,
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(
               AppPadding.p12, AppPadding.p0, AppPadding.p0, AppPadding.p0),
