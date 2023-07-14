@@ -182,3 +182,15 @@ exports.deleteUser = (req, res) => {
       res.status(500).json({ status: 1, err });
     });
 };
+
+exports.singleUserByHisId=async(req,res)=>{
+  try {
+    const user=await User.findById(req.params.userId)
+    if(!user){
+      return res.status(404).json({message:"there is no user with this id "})
+    }
+    res.status(200).json({user})
+  } catch (error) {
+    return res.status(500).json({message:error.message}) 
+  }
+}

@@ -68,4 +68,7 @@ router.patch('/change-password/:userId',verifyTokenAndAuthorization ,
     })
 ],userController.passwordChange)
 
+
+router.get('/singleuser/:userId',verifyTokenAndAdmin,userController.singleUserByHisId)
+
 module.exports = router;
