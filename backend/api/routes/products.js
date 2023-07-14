@@ -60,7 +60,7 @@ router.get('/get',productController.getProductsByQuery)
 router.get('/:purpose/:category/:page',productController.getProductsByParams)
 
 //specific user products
-router.get('/seller/:sellerId',verifyToken,productController.userProducts)
+router.get('/seller/:sellerId',productController.userProducts)
 
 //seperated search router
 router.get('/search',productController.searchQuery)
