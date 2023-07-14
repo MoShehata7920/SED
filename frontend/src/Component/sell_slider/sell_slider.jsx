@@ -28,7 +28,7 @@ export default function SellSlider({ sell }) {
           <div className="slider-service-btn">
             <button className="btn btn-primary mt-2 mb-3">
               <NavLink to={"n"} className="text-decoration-none text-white">
-                ADD TO CARD
+                Show More
               </NavLink>
             </button>
           </div>

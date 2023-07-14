@@ -26,7 +26,7 @@ export default function DonateSlider({ donate }) {
           <div className="slider-service-btn">
             <button className="btn btn-primary mt-2 mb-3">
               <Link to={"n"} className="text-decoration-none text-white">
-                ADD TO CARD
+                Show More
               </Link>
             </button>
           </div>

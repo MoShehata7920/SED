@@ -12,6 +12,7 @@ export default function Userinfo() {
   const GetApi = `/users/get`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
   let datauser = data ? data.user : "";
+
   return (
     <>
       <section>
@@ -19,36 +20,16 @@ export default function Userinfo() {
       </section>
       <div className="row ">
         <div className="col-12 userinfo-bg  profile-sidebar d-flex flex-column  justify-content-center">
-          <div className="row container ">
-            <div className=" col-12 border-bottom-0   pt-4 ">
-              <div className="row mb-4 justify-content-center  ">
-                <div className=" col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-3 ">
-                  <div className=" ms-3 userinfo_Img_hight">
-                    <img
-                      src={datauser.userImage}
-                      alt=""
-                      className=" w-100 h-100  rounded-circle"
-                    />
-                  </div>
-                </div>
-                <div className="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-9  mt-3 ">
-                  <div className="row ms-1">
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                      <h5>Fullname:- {datauser.fullName}</h5>
-                      <h5>Email:- {datauser.email}</h5>
-                    </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                      <h5>Phone Number:- {datauser.phone}</h5>
-                      <h5>
-                        Address:-
-                        {datauser.government}/{datauser.address}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className=" col-12 border-bottom-0  d-flex  justify-content-center  pt-4 mb-2 ">
+            <div className="  userinfo_Img_hight bg-image ">
+              <img
+                src={datauser.userImage}
+                alt=""
+                className=" w-100 h-100  rounded-circle  "
+              />
             </div>
           </div>
+          <h5 className=" text-center">Hello {datauser.fullName}</h5>
           <div className="w-100 border border-1 border-black"></div>
 
           <ul className=" text-center d-flex justify-content-around">

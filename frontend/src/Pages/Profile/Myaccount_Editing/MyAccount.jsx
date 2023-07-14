@@ -4,7 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./MyAccount.css";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 import Userinfo from "../Userinfo/Userinfo";
+import { getTokendeta } from "../../../Component/axios/tokendata/Token_Data";
+import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 function MyAccount() {
+  const Tokendata = getTokendeta();
+  const GetApi = `/users/get`;
+  const { data, isPending, error } = UseAxiosGet(GetApi);
+  let datauser = data ? data.user : "";
+  console.log(datauser);
   const navigate = useNavigate();
   let { UserID } = useParams();
   const [userInfoEdit, setuserInfoEdit] = useState({
@@ -83,7 +90,7 @@ function MyAccount() {
                     name="fullName"
                     onChange={getUserinfo}
                     type="text"
-                    placeholder="full Name"
+                    placeholder={datauser.fullName}
                   />
                 </label>
                 <label>
@@ -91,23 +98,23 @@ function MyAccount() {
                     name="email"
                     onChange={getUserinfo}
                     type="email"
-                    placeholder="Email Address"
+                    placeholder={datauser.email}
                   />
                 </label>
                 <label>
                   <input
                     name="government"
                     onChange={getUserinfo}
-                    type="email"
-                    placeholder="Government"
+                    type="text"
+                    placeholder={datauser.government}
                   />
                 </label>
                 <label>
                   <input
                     name="address"
                     onChange={getUserinfo}
-                    type="email"
-                    placeholder="Address"
+                    type="text"
+                    placeholder={datauser.address}
                   />
                 </label>
                 <label>
@@ -115,7 +122,7 @@ function MyAccount() {
                     name="phone"
                     onChange={getUserinfo}
                     type="email"
-                    placeholder="Phone Number"
+                    placeholder={datauser.phone}
                   />
                 </label>
                 <label>

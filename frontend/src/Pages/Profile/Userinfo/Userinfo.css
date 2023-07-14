@@ -1,5 +1,6 @@
 .userinfo-bg{
 background-color: #ebecf0;
+
 }
 .user-info h6::after{
     content: "";
@@ -47,6 +48,6 @@ padding-bottom: 0;
 
 }
 .userinfo_Img_hight{
-    height: 100px;
-    width: 100px
+    height: 150px;
+    width: 150px
 }

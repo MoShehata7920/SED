@@ -24,6 +24,8 @@ import Chat from "../Pages/Chat/Chat";
 import { getTokendeta } from "../Component/axios/tokendata/Token_Data";
 import AddItem from "../Pages/Profile/additems/AddItem";
 import Email_verfication from "../Component/Email_verification/Email_verifixation";
+import AdminPanal from "../Pages/Adminpanal/Adminpanal";
+import AllUser from "../Pages/Adminpanal/AllUser/AllUser";
 function MainRoutes() {
   const [isPageOneCompleted, setIsPageOneCompleted] = useState(false);
   const [isPageTowCompleted, setIsPageTowCompleted] = useState(false);
@@ -129,6 +131,12 @@ function MainRoutes() {
             path="/Profile/notification"
             element={<Notification />}
           ></Route>
+        </Route>
+        <Route
+          path="/Admin"
+          element={storedToken ? <AdminPanal /> : <SignIn />}
+        >
+          <Route path="/Admin/UsersInfo" element={<AllUser />} />
         </Route>
         <Route path="/items/:id" element={<Dataitems />} />
         <Route path="/Categories/:CategorieType" element={<Categories />} />

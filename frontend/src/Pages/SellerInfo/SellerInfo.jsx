@@ -1,7 +1,6 @@
 import "./SellerInfo.css";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Navebar from "../../Component/navebar/navbar";
 import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
 import Footer from "../../Component/footer/Footer";
@@ -72,7 +71,7 @@ export default function SellerInfo() {
                       <div className="col-xxl-3  col-xl-3  col-lg-4 col-sm-6 col-6  ">
                         <Link
                           key={index}
-                          to={`/Profile/settings/myadds/${categ._id}`}
+                          to={`/items/${categ._id}`}
                           className="text-decoration-none "
                         >
                           <div className="item slider-style2 mb-3 ">
