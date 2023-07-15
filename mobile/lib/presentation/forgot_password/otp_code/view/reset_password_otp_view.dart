@@ -23,7 +23,6 @@ class _ResetPasswordOTPViewState extends State<ResetPasswordOTPView> {
   final ResetPasswordOTPViewModel _resetPasswordOTPViewModel =
       ResetPasswordOTPViewModel();
 
-
   void _bind() {
     _resetPasswordOTPViewModel
         .isEmailVerifiedSuccessfullyStreamController.stream
@@ -137,7 +136,10 @@ class _ResetPasswordOTPViewState extends State<ResetPasswordOTPView> {
         ),
         Center(
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushReplacementNamed(Routes.forgotPasswordRoute);
+                },
                 child: Text(
                   AppStrings.resendCode.tr(),
                   style: TextStyle(color: ColorsManager.primaryColor),

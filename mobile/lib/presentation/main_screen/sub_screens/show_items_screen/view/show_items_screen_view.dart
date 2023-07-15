@@ -214,27 +214,28 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                             ),
                           )),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(AppPadding.p6),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16.0)),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p5),
-                        child: Text(
-                          showItemsContentObject.items[index].category,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: AppSize.s12,
-                                  color: ColorsManager.secondaryText),
+                    if (viewType != Views.CATEGORY)
+                      Padding(
+                        padding: const EdgeInsets.all(AppPadding.p6),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16.0)),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p5),
+                          child: Text(
+                            showItemsContentObject.items[index].category,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                    fontSize: AppSize.s12,
+                                    color: ColorsManager.secondaryText),
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -250,16 +251,28 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                       height: 1),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p10),
-                child: Text(
-                  getPrice(showItemsContentObject.items[index].price),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 15,
-                      color: ColorsManager.secondaryText,
-                      height: 1),
+              if (showItemsContentObject.items[index].price != 0.0)
+                Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
+                  child: Text(
+                    getPrice(showItemsContentObject.items[index].price),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 15,
+                        color: ColorsManager.secondaryText,
+                        height: 1),
+                  ),
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
+                  child: Text(
+                    "--------",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 15,
+                        color: ColorsManager.secondaryText,
+                        height: 1),
+                  ),
                 ),
-              ),
               const SizedBox(
                 height: AppSize.s15,
               ),
@@ -291,7 +304,8 @@ class _ShowItemsViewState extends State<ShowItemsView> {
                       ),
                       Expanded(
                         child: Text(
-                          Utils.getCreatedTime(showItemsContentObject.items[index].date),
+                          Utils.getCreatedTime(
+                              showItemsContentObject.items[index].date),
                           textAlign: TextAlign.end,
                           maxLines: AppValues.maxDateLines,
                           overflow: TextOverflow.ellipsis,

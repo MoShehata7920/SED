@@ -38,16 +38,16 @@ class IconsManager {
   static const google = FontAwesomeIcons.google;
 
   static List<IconData> categoriesIcons = [
+    FontAwesomeIcons.laptop,
+    FontAwesomeIcons.shirt,
     FontAwesomeIcons.mobile,
     FontAwesomeIcons.bookOpen,
     FontAwesomeIcons.chair,
     FontAwesomeIcons.burger,
-    FontAwesomeIcons.shirt,
-    FontAwesomeIcons.laptop,
+    FontAwesomeIcons.soap,
     FontAwesomeIcons.basketball,
     FontAwesomeIcons.car,
     FontAwesomeIcons.cubes,
-    FontAwesomeIcons.soap,
   ];
 
   // add item screen
