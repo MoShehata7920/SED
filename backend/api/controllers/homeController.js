@@ -7,7 +7,7 @@ const lodash = require('lodash');
 
 exports.homePage = async (req, res) => {
   const productPerCat = 10; // Number of products to show beside category, set to 10 items
-  var userData = {};
+  let userData = {};
   let wishList = [];
 
   // Verify user authentication and retrieve user data if available
@@ -17,9 +17,9 @@ exports.homePage = async (req, res) => {
 
   // Check if user data is available and retrieve wishlist
   if (!lodash.isEmpty(userData)) {
-    const doc = await User.findById(userData.id).select('wishList fullName -_id');
-    if (doc) {
-      wishList = doc.wishList;
+    const user = await User.findById(userData.id).select('wishList fullName -_id');
+    if (user) {
+      wishList = user.wishList;
     }
   }
 
@@ -27,15 +27,13 @@ exports.homePage = async (req, res) => {
     // Retrieve carousel images
     const carouselPromise = Images.find({ imageLocation: 'carousel' })
       .select('image')
-      .lean()
-      .exec();
+      .lean();
 
     // Retrieve categories
     const categoriesPromise = Category.find({})
-      .sort({_id:1})
+      .sort({ _id: 1 })
       .select('name image')
-      .lean()
-      .exec();
+      .lean();
 
     // Retrieve sell items
     const sellPromise = Product.find({ purpose: 'sell' })
@@ -43,17 +41,15 @@ exports.homePage = async (req, res) => {
       .limit(productPerCat)
       .select('productName description category price productImage seller createdAt')
       .populate('seller', 'government address')
-      .lean()
-      .exec();
+      .lean();
 
     // Retrieve exchange items
     const exchangePromise = Product.find({ purpose: 'exchange' })
       .sort({ createdAt: -1 })
       .limit(productPerCat)
-      .populate('seller', 'government address')
       .select('productName description category price productImage seller createdAt')
-      .lean()
-      .exec();
+      .populate('seller', 'government address')
+      .lean();
 
     // Retrieve donate items
     const donatePromise = Product.find({ purpose: 'donate' })
@@ -61,14 +57,12 @@ exports.homePage = async (req, res) => {
       .limit(productPerCat)
       .select('productName description category price productImage seller createdAt')
       .populate('seller', 'government address')
-      .lean()
-      .exec();
+      .lean();
 
     // Retrieve section images
     const sectionsPromise = Images.find({ imageLocation: 'sections' })
       .select('image SectionId')
-      .lean()
-      .exec();
+      .lean();
 
     // Await all the promises
     const [
@@ -88,44 +82,22 @@ exports.homePage = async (req, res) => {
     ]);
 
     // Process carousel images
-    const carouselAsArray = [];
-    for (var i = 0; i < carouselDb.length; i++) {
-      carouselAsArray.push(carouselDb[i].image);
-    }
-    const carousel = { Images: carouselAsArray };
+    const carousel = { Images: carouselDb.map(item => item.image) };
 
     // Iterate over sellItems and add 'isSaved' property based on wishlist
-    for (let i = 0; i < sellItems.length; i++) {
-      const obj = sellItems[i];
-      obj.isSaved = false; // Set default 'isSaved' property to false
-
-      // Check if object _id is in wishlist
-      if (wishList.includes(obj._id)) {
-        obj.isSaved = true;
-      }
-    }
+    sellItems.forEach(item => {
+      item.isSaved = wishList.includes(item._id);
+    });
 
     // Iterate over donateItems and add 'isSaved' property based on wishlist
-    for (let i = 0; i < donateItems.length; i++) {
-      const obj = donateItems[i];
-      obj.isSaved = false; // Set default 'isSaved' property to false
-
-      // Check if object _id is in wishlist
-      if (wishList.includes(obj._id)) {
-        obj.isSaved = true;
-      }
-    }
+    donateItems.forEach(item => {
+      item.isSaved = wishList.includes(item._id);
+    });
 
     // Iterate over exchangeItems and add 'isSaved' property based on wishlist
-    for (let i = 0; i < exchangeItems.length; i++) {
-      const obj = exchangeItems[i];
-      obj.isSaved = false; // Set default 'isSaved' property to false
-
-      // Check if object _id is in wishlist
-      if (wishList.includes(obj._id)) {
-        obj.isSaved = true;
-      }
-    }
+    exchangeItems.forEach(item => {
+      item.isSaved = wishList.includes(item._id);
+    });
 
     // Send the response with the retrieved data
     res.status(200).json({
@@ -143,3 +115,4 @@ exports.homePage = async (req, res) => {
     res.status(500).json({ status: 1, message: 'Internal server error' });
   }
 };
+

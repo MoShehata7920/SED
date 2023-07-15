@@ -8,24 +8,24 @@ exports.addToWishList = async (req, res) => {
   const prodId = req.body.prodId;
   try {
     const user = await User.findById(id);
-    const alreadyExisted = user.wishList.find(
-      (element) => element.toString() === prodId
-    ); // condition to check if the product is already exists in user wishlst or not
+    const alreadyExisted = user.wishList.includes(prodId); // Check if the product already exists in the user's wishlist
+    let updatedUser;
+
     if (alreadyExisted) {
-      let user = await User.findByIdAndUpdate(
+      updatedUser = await User.findByIdAndUpdate(
         id,
         { $pull: { wishList: prodId } },
         { new: true }
       );
-      res.status(200).json({ status: 0, user: user.wishList });
     } else {
-      let user = await User.findByIdAndUpdate(
+      updatedUser = await User.findByIdAndUpdate(
         id,
         { $push: { wishList: prodId } },
         { new: true }
       );
-      res.status(200).json({ status: 0, user: user.wishList });
     }
+
+    res.status(200).json({ status: 0, user: updatedUser.wishList });
   } catch (error) {
     res.status(404).json({ status: 1, error });
   }
@@ -40,12 +40,11 @@ exports.getWishlist = async (req, res, next) => {
     }
     const favProducts = user.wishList;
     const favProductsInfo = await Product.find({ _id: { $in: favProducts } });
-    const items = favProductsInfo.map((el) => {
-      el = el.toObject();
-      el.isSaved = true;
-      return el;
-    });
-    console.log(items);
+    const items = favProductsInfo.map((el) => ({
+      ...el.toObject(),
+      isSaved: true,
+    }));
+
     res.status(200).json({ status: 0, items });
   } catch (err) {
     console.log(err);
@@ -53,67 +52,66 @@ exports.getWishlist = async (req, res, next) => {
   }
 };
 
-//for admin dashboard
-// (1) getting all users
 exports.getAllUsers = (req, res) => {
   User.find()
-    .select("-password") // to hide user password
+    .select("-password")
     .exec()
     .then((docs) => {
-      res.status(200).json({ status: 0, docs });
+      res.status(200).json({ status: 0, users: docs });
     })
     .catch((err) => {
       res.status(500).json({ status: 1, err });
     });
 };
 
-//getting single user
 exports.getSingleUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select(
-      "-password -verify_account_otp -verify_otp_expires -__v "
+      "-password -verify_account_otp -verify_otp_expires -__v"
     );
     if (!user) {
-      res.status(200).json({ status: 0, message: "There Is No User with this id " });
+      res.status(200).json({ status: 0, message: "User not found" });
     }
     res.status(200).json({ status: 0, user });
   } catch (error) {
-    res.status(500).json({ success: 1, error });
+    res.status(500).json({ status: 1, error });
   }
 };
 
-// (2) updating single user
 exports.updateUser = async (req, res) => {
   try {
-    // validation result
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const errorMessages = errors.array().map(error=>error.msg);
+      const errorMessages = errors.array().map((error) => error.msg);
       return res.status(400).json({ status: 0, message: errorMessages });
     }
 
     if (req.file) {
       req.body.userImage = `http://47.243.7.214:3000/${req.file.path}`;
     }
-    let updateFields = {
+
+    const updateFields = {
       fullName: req.body.fullName,
       userImage: req.body.userImage,
       phone: req.body.phone,
       address: req.body.address,
       government: req.body.government,
     };
+
     if (req.user.isAdmin) {
       updateFields.isAdmin = req.body.isAdmin;
     }
-    const updated = await User.findByIdAndUpdate(
+
+    const updatedUser = await User.findByIdAndUpdate(
       req.params.userId,
       { $set: updateFields },
       { new: true }
     );
+
     res.status(200).json({
       status: 0,
       message: "User information has been updated successfully",
-      updated,
+      updated: updatedUser,
     });
   } catch (err) {
     console.log(err);
@@ -121,46 +119,52 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-exports.passwordChange= async(req,res)=>{
+exports.passwordChange = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const errorMessages = errors.array().map(error=>error.msg);
+    const errorMessages = errors.array().map((error) => error.msg);
     return res.status(400).json({ status: 0, message: errorMessages });
   }
 
   try {
-    const user=await User.findById(req.params.userId)
-    const match = await bcrypt.compare(req.body.oldPassword , user.password ); // checks if old password true
-    if(match){
-      const hashedPassword=await bcrypt.hash(req.body.password,10)
-      const updated = await User.findByIdAndUpdate(
+    const user = await User.findById(req.params.userId);
+    const match = await bcrypt.compare(req.body.oldPassword, user.password);
+
+    if (match) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const updatedUser = await User.findByIdAndUpdate(
         req.params.userId,
         {
           $set: {
-            password:hashedPassword,
+            password: hashedPassword,
           },
         },
         { new: true }
       );
+
       res.status(200).json({
         status: 0,
         message: "Password has been updated successfully",
-        updated,
+        updated: updatedUser,
       });
-    }else{
-      return res.status(200).json({message:"old password is wrong"})
+    } else {
+      return res.status(200).json({ message: "Old password is incorrect" });
     }
   } catch (err) {
-    res.status(400).json({message:err.message , err})
+    res.status(400).json({ message: err.message, err });
   }
-}
-
-exports.userPostedProducts = async (req, res, next) => {
-  const result = await Product.find({ seller: req.user.id });
-  res.status(200).json({ status: 0, result });
 };
 
-// (3) deleting single user
+exports.userPostedProducts = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const result = await Product.find({ seller: userId });
+    res.status(200).json({ status: 0, result });
+  } catch (error) {
+    res.status(500).json({ status: 1, error });
+  }
+};
+
 exports.deleteUser = (req, res) => {
   User.findById(req.params.userId)
     .exec()
@@ -171,13 +175,13 @@ exports.deleteUser = (req, res) => {
           .then(() => {
             res.status(200).json({
               status: 0,
-              message: "user has been deleted successfully",
+              message: "User has been deleted successfully",
             });
           });
       } else {
         res
           .status(404)
-          .json({ status: 0, message: "There is no user with this id" });
+          .json({ status: 0, message: "User not found" });
       }
     })
     .catch((err) => {
@@ -185,14 +189,15 @@ exports.deleteUser = (req, res) => {
     });
 };
 
-exports.singleUserByHisId=async(req,res)=>{
+exports.singleUserByHisId = async (req, res) => {
   try {
-    const user=await User.findById(req.params.userId)
-    if(!user){
-      return res.status(404).json({message:"there is no user with this id "})
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({user})
+    res.status(200).json({ user });
   } catch (error) {
-    return res.status(500).json({message:error.message}) 
+    return res.status(500).json({ message: error.message });
   }
-}
+};
+
