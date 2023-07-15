@@ -106,7 +106,11 @@ export default function UserAllData() {
                       <h5>Email:- {UserData.email}</h5>
                     </div>
                     <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                      <h5>Phone Number:- {UserData.phone}</h5>
+                      {UserData.phone > 12 ? (
+                        <h5>Phone Number:- {UserData.phone}</h5>
+                      ) : (
+                        <h5>Phone Number:- </h5>
+                      )}
                       <h5>
                         Address:-
                         {UserData.government}/{UserData.address}

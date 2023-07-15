@@ -18,10 +18,10 @@ import { encrypt } from "n-krypta";
 import { UseAxiosPost } from "../../Component/axios/PostApi/PostApi";
 // import { GoogleLogin } from "@react-oauth/google";
 function SignIn() {
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const navigate = useNavigate();
   const [tokengoogle, settokengoogle] = useState("");
   console.log("this is token", tokengoogle);
-
   const secret = process.env.REACT_APP_SECRET_KEY;
   const postAPi = "/auth/login";
   const [user, setuser] = useState({
@@ -54,7 +54,7 @@ function SignIn() {
     HandelPostApi();
   };
   const google = () => {
-    window.open("http://sednow.site:3000/auth/google", "_self");
+    window.open(`${API_KEY}/auth/google`, "_self");
   };
 
   useEffect(() => {

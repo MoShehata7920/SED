@@ -10,7 +10,8 @@ import { Link, Outlet } from "react-router-dom";
 
 export default function Userinfo() {
   const GetApi = `/users/get`;
-  const { data, isPending, error } = UseAxiosGet(GetApi);
+  const { data, isPending, error, decryptedData } = UseAxiosGet(GetApi);
+  console.log(decryptedData);
   let datauser = data ? data.user : "";
 
   return (

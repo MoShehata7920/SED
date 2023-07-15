@@ -18,8 +18,7 @@ export default function AllUser() {
   };
   const GetApi = `/users/getallusers`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
-  let datauser = data ? data.docs : [];
-  console.log(datauser);
+  let datauser = data ? data.users : [];
 
   return (
     <>

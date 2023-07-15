@@ -10,21 +10,19 @@ import Userinfo from "../Userinfo/Userinfo";
 export default function Change_Password() {
   const [type, setType] = useState("password");
   const [icon, setIcon] = useState(eyeOff);
-
   const navigate = useNavigate();
   let { UserID } = useParams();
   const [userInfoEdit, setuserInfoEdit] = useState({
     oldPassword: "",
     password: "",
     confirmPassword: "",
-  });
+  }); //body parameter
   const patchAPi = `/users/change-password/${UserID}`;
   function getUserinfo(e) {
     let myinfo = { ...userInfoEdit };
     myinfo[e.target.name] = e.target.value;
     setuserInfoEdit(myinfo);
   }
-
   const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(
     patchAPi,
     userInfoEdit
