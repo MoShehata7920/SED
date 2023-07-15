@@ -1,73 +1,103 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./additem.css";
-import { UseAxiosPost } from "../../../Component/axios/PostApi/PostApi";
-import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
-import { useNavigate } from "react-router-dom";
-import Userinfo from "../Userinfo/Userinfo";
-export default function AddItem() {
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "./Product_Admin_edit.css";
+import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
+import { UseAxiosDelete } from "../../../Component/axios/DeleteApi/DeleteApi";
+import AdminInfo from "../../../Component/AdminInfo/AdminInfo";
+export default function ProductAdminEditing() {
   const navigate = useNavigate();
-  const [item, setitem] = useState({
+  let { Product_id } = useParams();
+  const [ProductEdit, setProductEdit] = useState({
     productName: "",
+    price: "",
     description: "",
     category: "",
-    purpose: "",
     condition: "",
-    price: "",
-    seller: "",
+    purpose: "",
   });
-  const postAPi = "/products/newproduct";
-  const GetApi = "/users/get";
+  const postAPi = `/products/product/${Product_id}`;
+  const deleteAPi = `/products/product/${Product_id}`;
   const [selectedFile, setSelectedFile] = useState(null);
-  const { data, isPending, error } = UseAxiosGet(GetApi);
-  let UserID = data ? data.user._id : null;
-
   const handleImageChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
   console.log(selectedFile);
   function getiteminfo(e) {
-    let myitem = { ...item };
-    myitem[e.target.name] = e.target.value;
-    setitem(myitem);
+    let myinfo = { ...ProductEdit };
+    myinfo[e.target.name] = e.target.value;
+    setProductEdit(myinfo);
   }
   const formData = new FormData();
-  formData.append("productImage", selectedFile);
-  formData.append("productName", item.productName);
-  formData.append("description", item.description);
-  formData.append("category", item.category);
-  formData.append("purpose", item.purpose);
-  formData.append("condition", item.condition);
-  formData.append("price", item.price);
-  formData.append("seller", UserID);
+  if (selectedFile) {
+    formData.append("productImage", selectedFile);
+  }
+  if (ProductEdit.productName) {
+    formData.append("productName", ProductEdit.productName);
+  }
+  if (ProductEdit.price) {
+    formData.append("price", ProductEdit.price);
+  }
+  if (ProductEdit.description) {
+    formData.append("description", ProductEdit.description);
+  }
+  if (ProductEdit.category) {
+    formData.append("category", ProductEdit.category);
+  }
+  if (ProductEdit.condition) {
+    formData.append("condition", ProductEdit.condition);
+  }
+  if (ProductEdit.purpose) {
+    formData.append("purpose", ProductEdit.purpose);
+  }
   for (var pair of formData.entries()) {
     console.log(pair[1] + ", " + pair[0]);
   }
   const {
-    response,
-    data: Data,
-    ErrorMessage,
-    HandelPostApi,
-  } = UseAxiosPost(postAPi, formData);
-  const itemsubmit = (e) => {
+    response: postresponse,
+    ErrorMessage: postErrorMessage,
+    HandelPachApi,
+  } = UseAxiosPache(postAPi, formData);
+  const {
+    response: deleteresponse,
+    ErrorMessage: deleteErrorMessage,
+    HandelDeleteApi,
+  } = UseAxiosDelete(deleteAPi);
+
+  async function itemsubmit(e) {
     e.preventDefault();
-    HandelPostApi();
-  };
+    HandelPachApi();
+  }
+
+  async function itemRemove(e) {
+    e.preventDefault();
+    HandelDeleteApi();
+  }
   useEffect(() => {
-    if (response) {
-      toast(`✔️ ${response}`);
+    if (deleteresponse) {
+      toast(`✔️ ${deleteresponse}`);
       setTimeout(() => {
-        navigate("/Profile/notification");
-      }, 5000);
+        localStorage.removeItem("Productdata");
+        navigate("/Admin/UsersInfo");
+      }, 3000);
     }
-    if (ErrorMessage && response == "") {
-      toast(`❌ ${ErrorMessage} please fill all input field`);
+    if (deleteErrorMessage && deleteresponse == "") {
+      toast(`❌ ${deleteErrorMessage} `);
     }
-  }, [response, ErrorMessage, data]);
+    if (postresponse) {
+      toast(`✔️ ${postresponse}`);
+      setTimeout(() => {
+        localStorage.removeItem("Productdata");
+        navigate("/Admin/UsersInfo");
+      }, 3000);
+    }
+    if (postErrorMessage && postresponse == "") {
+      toast(`❌ ${postErrorMessage} `);
+    }
+  }, [postresponse, deleteresponse]);
   return (
     <>
-      <Userinfo />
+      <AdminInfo />
       <section>
         <div className="">
           <div className="row      ">
@@ -75,7 +105,7 @@ export default function AddItem() {
               <div className="Card_div  ">
                 <form onSubmit={itemsubmit} enctype="multipart/form-data">
                   <div class="segment">
-                    <h1>Add product</h1>
+                    <h1>Edit product</h1>
                   </div>
 
                   <label>
@@ -95,7 +125,7 @@ export default function AddItem() {
                     >
                       <option selected>Chose Your Category</option>
                       <option value="Electronics">Electronics</option>
-                      <option value="Fashion">Fashion</option>
+                      <option value="fasion">Fasion</option>
                       <option value="Furniture">Furniture</option>
                       <option value="Sports">Sports</option>
                       <option value="Supermarket">Supermarket</option>
@@ -156,7 +186,12 @@ export default function AddItem() {
                     />
                   </label>
                   <button class="red mb-3" type="submit">
-                    <i class="icon ion-md-lock"></i> Add Product
+                    <i class="icon ion-md-lock"></i> Edit Product
+                  </button>
+                </form>
+                <form onSubmit={itemRemove}>
+                  <button class="red mb-3" type="submit">
+                    <i class="icon ion-md-lock"></i> Remove
                   </button>
                 </form>
               </div>
