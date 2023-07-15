@@ -1,17 +1,17 @@
-import "./Userinfo.css";
-import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
-import React, { useEffect, useRef, useState } from "react";
-import Navebar from "../../../Component/navebar/navbar";
+import "./AdminInfo.css";
+import { UseAxiosGet } from "../../Component/axios/GetApi/GetApi";
+import Navebar from "../../Component/navebar/navbar";
 import { MdAddShoppingCart, MdVerified } from "react-icons/md";
 import { AiOutlineReddit } from "react-icons/ai";
-import { BsListCheck, BsHeart, BsFillBellFill } from "react-icons/bs";
+import { CiUser } from "react-icons/ci";
+import { BiImageAdd } from "react-icons/bi";
+import { BsFillImageFill, BsFillBellFill } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Userinfo() {
+export default function AdminInfo() {
   const GetApi = `/users/get`;
-  const { data, isPending, error, decryptedData } = UseAxiosGet(GetApi);
-  console.log(decryptedData);
+  const { data, isPending, error } = UseAxiosGet(GetApi);
   let datauser = data ? data.user : "";
 
   return (
@@ -20,13 +20,13 @@ export default function Userinfo() {
         <Navebar />
       </section>
       <div className="row ">
-        <div className="col-12 userinfo-bg  profile-sidebar d-flex flex-column  justify-content-center">
-          <div className=" col-12 border-bottom-0  d-flex  justify-content-center  pt-4 mb-2 ">
-            <div className="  userinfo_Img_hight bg-image ">
+        <div className="col-12 Admininfo-bg  profile-sidebar d-flex flex-column  justify-content-center">
+          <div className="  border-bottom-0  d-flex  justify-content-center  pt-4 mb-2 ">
+            <div className="   Admininfo_Img_hight  ">
               <img
                 src={datauser.userImage}
                 alt=""
-                className=" w-100 h-100  circle-frame rounded-circle  "
+                className=" w-100 h-100 circle-frame rounded-circle  "
               />
             </div>
           </div>
@@ -35,19 +35,19 @@ export default function Userinfo() {
 
           <ul className=" text-center d-flex justify-content-around">
             <li>
-              <Link to={`/profile/myProduct/${datauser._id}`}>
+              <Link to={`/Admin/UsersInfo`}>
                 <label class="btn btn-outline-primary me-4 ">
-                  <i className="text-black ">{<BsListCheck />}</i>
-                  <span className="ms-1 d-none d-sm-inline text-black">
-                    Product
+                  <i className="text-black">{<CiUser />}</i>
+                  <span className=" ms-1 d-none d-sm-inline text-black">
+                    All User
                   </span>
                 </label>
               </Link>
-              <Link to={"/profile/favourit"}>
+              <Link to={"/Admin/Website_img"}>
                 <label class="btn btn-outline-primary me-4 ">
-                  <i className="text-black">{<BsHeart />}</i>
+                  <i className="text-black ">{<BsFillImageFill />}</i>
                   <span className="ms-1 d-none d-sm-inline text-black">
-                    Favourit
+                    Website Image
                   </span>
                 </label>
               </Link>
@@ -55,14 +55,11 @@ export default function Userinfo() {
               <label class="btn btn-outline-primary me-4 " for="btnradio1">
                 <Link
                   className="text-decoration-none position-relative"
-                  to={"/Profile/notification"}
+                  to={"/Admin/Carousel_ADD"}
                 >
-                  <i className="text-black">{<BsFillBellFill />}</i>
-                  <span class="position-absolute top-0 start-0 translate-middle badge   text-black">
-                    10+
-                  </span>
+                  <i className="text-black">{<BiImageAdd />}</i>
                   <span className="ms-1 d-none d-sm-inline text-black">
-                    Notification
+                    Add Image
                   </span>
                 </Link>
               </label>
@@ -70,7 +67,7 @@ export default function Userinfo() {
               <label class="btn btn-outline-primary me-4 " for="btnradio1">
                 <Link
                   className="text-decoration-none "
-                  to={`/Profile/myaccount/${datauser._id}`}
+                  to={`/Admin/Admin_Account_Editing/${datauser._id}`}
                 >
                   <i className="text-black">{<AiOutlineReddit />}</i>
                   <span className="ms-1 d-none d-sm-inline text-black">
@@ -82,7 +79,7 @@ export default function Userinfo() {
               <label class="btn btn-outline-primary me-4 " for="btnradio1">
                 <Link
                   className="text-decoration-none "
-                  to={`/Profile/ChangePassword/${datauser._id}`}
+                  to={`/Admin/Change_Admin_Password/${datauser._id}`}
                 >
                   <i className="text-black">{<FaLock />}</i>
                   <span className="ms-1 d-none d-sm-inline text-black">
@@ -90,17 +87,7 @@ export default function Userinfo() {
                   </span>
                 </Link>
               </label>
-              <label class="btn btn-outline-primary me-4 " for="btnradio1">
-                <Link
-                  className="text-decoration-none "
-                  to={"/profile/addItems"}
-                >
-                  <i className="text-black">{<MdAddShoppingCart />}</i>
-                  <span className="ms-1 d-none d-sm-inline text-black">
-                    Add Product
-                  </span>
-                </Link>
-              </label>
+
               <label class="btn btn-outline-primary me-4 " for="btnradio1">
                 <Link
                   className="text-decoration-none "

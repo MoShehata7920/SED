@@ -24,7 +24,7 @@ export default function ProductEditing() {
     setSelectedFile(e.target.files[0]);
   };
   console.log(selectedFile);
-  function getUserinfo(e) {
+  function getiteminfo(e) {
     let myinfo = { ...ProductEdit };
     myinfo[e.target.name] = e.target.value;
     setProductEdit(myinfo);
@@ -100,115 +100,107 @@ export default function ProductEditing() {
     <>
       <Userinfo />
       <section>
-        <Navebar />
-      </section>
-      <div className="container  ">
-        <div className="row vh-100  flex-column align-items-center justify-content-center   ">
-          <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12  rounded-3 border border-dark  pt-3 pb-3">
-            <form onSubmit={itemsubmit} className="row mt-3 ">
-              <div className=" ms-4 col-5 ">
-                <div class="mb-3">
-                  <label class="form-label">Product_name </label>
-                  <input
-                    placeholder={ProductEdit.productName}
-                    name="productName"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                    aria-describedby="priceHelp"
-                  ></input>
-                </div>
+        <div className="">
+          <div className="row      ">
+            <div className="  col-12 ">
+              <div className="Card_div  ">
+                <form onSubmit={itemsubmit} enctype="multipart/form-data">
+                  <div class="segment">
+                    <h1>Edit product</h1>
+                  </div>
 
-                <div class="mb-3">
-                  <label class="form-label">price </label>
-                  <input
-                    placeholder={ProductEdit.price}
-                    name="price"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Description</label>
-                  <input
-                    placeholder={ProductEdit.description}
-                    name="description"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-              </div>
-              <div className=" offset-1 col-5 ">
-                <div class="mb-3">
-                  <label class="form-label">Condition </label>
-                  <input
-                    placeholder={ProductEdit.condition}
-                    name="productName"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                    aria-describedby="priceHelp"
-                  ></input>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Purpose </label>
-                  <input
-                    placeholder={ProductEdit.purpose}
-                    name="price"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Category</label>
-                  <input
-                    placeholder={ProductEdit.category}
-                    name="description"
-                    onChange={getUserinfo}
-                    type="text"
-                    class="form-control"
-                  ></input>
-                </div>
-              </div>
-              <div class="mb-3  d-flex flex-column align-items-center justify-content-center ">
-                <label class="form-label">Product IMG </label>
-                <input
-                  onChange={handleImageChange}
-                  class="form-control w-50"
-                  type="file"
-                  id="formFile"
-                />
-              </div>
-              <div className="mb-3 mt-3  d-flex  justify-content-center ">
-                <button type="submit" class="btn btn-primary me-4 ">
-                  Save Changes
-                </button>
-
-                <Link to={"/Profile/userinfo"}>
-                  <button type="button" class="btn btn-primary  ">
-                    Cancel
+                  <label>
+                    <input
+                      name="productName"
+                      onChange={getiteminfo}
+                      type="text"
+                      placeholder="Product Name"
+                    />
+                  </label>
+                  <label>
+                    <select
+                      name="category"
+                      onChange={getiteminfo}
+                      className="form-select"
+                      id="inputGroupSelect01"
+                    >
+                      <option selected>Chose Your Category</option>
+                      <option value="Electronics">Electronics</option>
+                      <option value="fasion">Fasion</option>
+                      <option value="Furniture">Furniture</option>
+                      <option value="Sports">Sports</option>
+                      <option value="Supermarket">Supermarket</option>
+                      <option value="Vehicles">Vehicles</option>
+                      <option value="Books">Books</option>
+                      <option value="Other">Other</option>
+                      <option value="Phones&Tablets">Phones&Tablets</option>
+                      <option value="Body&HealthCare">Body&HealthCare</option>
+                    </select>
+                  </label>
+                  <label>
+                    <select
+                      name="purpose"
+                      onChange={getiteminfo}
+                      className="form-select"
+                      id="inputGroupSelect01"
+                    >
+                      <option selected>Chose Your Purpose</option>
+                      <option value="sell">Sell</option>
+                      <option value="exchange">Exchange</option>
+                      <option value="donate">Donate</option>
+                    </select>
+                  </label>
+                  <label>
+                    <input
+                      name="price"
+                      onChange={getiteminfo}
+                      type="text"
+                      aria-label="Amount (to the nearest dollar)"
+                      placeholder="Product Price"
+                    />
+                  </label>
+                  <label>
+                    <textarea
+                      name="description"
+                      onChange={getiteminfo}
+                      class="form-control"
+                      aria-label="With textarea"
+                    ></textarea>
+                  </label>
+                  <label>
+                    <select
+                      name="condition"
+                      onChange={getiteminfo}
+                      className="form-select"
+                      id="inputGroupSelect01"
+                    >
+                      <option selected>Chose The Condition</option>
+                      <option value="New">New</option>
+                      <option value="Used">Used</option>
+                    </select>
+                  </label>
+                  <label>
+                    <input
+                      onChange={handleImageChange}
+                      type="file"
+                      id="formFile"
+                    />
+                  </label>
+                  <button class="red mb-3" type="submit">
+                    <i class="icon ion-md-lock"></i> Edit Product
                   </button>
-                </Link>
+                </form>
+                <form onSubmit={itemRemove}>
+                  <button class="red mb-3" type="submit">
+                    <i class="icon ion-md-lock"></i> Remove
+                  </button>
+                </form>
               </div>
-              <ToastContainer />
-            </form>
-            <form
-              onSubmit={itemRemove}
-              action=""
-              className="d-flex  justify-content-end"
-            >
-              <button type="submit" class="btn btn-primary me-4 ">
-                Remove
-              </button>
-            </form>
+            </div>
           </div>
+          <ToastContainer />
         </div>
-      </div>
+      </section>
     </>
   );
 }

@@ -15,7 +15,6 @@ export const UseAxiosGet = (url) => {
     const getData = async () => {
       setError(null);
       setIsPending(true);
-
       try {
         let { data } = await axios.get(`${API_KEY}${url}`, {
           headers: {
@@ -35,5 +34,5 @@ export const UseAxiosGet = (url) => {
     getData();
   }, [url]);
 
-  return { data, isPending, error };
+  return { data, isPending, error, decryptedData };
 };

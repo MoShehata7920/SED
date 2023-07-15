@@ -95,17 +95,19 @@ exports.updateUser = async (req, res) => {
     if (req.file) {
       req.body.userImage = `http://47.243.7.214:3000/${req.file.path}`;
     }
+    let updateFields = {
+      fullName: req.body.fullName,
+      userImage: req.body.userImage,
+      phone: req.body.phone,
+      address: req.body.address,
+      government: req.body.government,
+    };
+    if (req.user.isAdmin) {
+      updateFields.isAdmin = req.body.isAdmin;
+    }
     const updated = await User.findByIdAndUpdate(
       req.params.userId,
-      {
-        $set: {
-          fullName: req.body.fullName,
-          userImage: req.body.userImage,
-          phone: req.body.phone,
-          address: req.body.address,
-          government: req.body.government,
-        },
-      },
+      { $set: updateFields },
       { new: true }
     );
     res.status(200).json({

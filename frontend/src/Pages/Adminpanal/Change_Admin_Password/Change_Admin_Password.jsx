@@ -1,4 +1,4 @@
-import "./Change_password.css";
+import "./Change_Admin_Password.css";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,8 +6,8 @@ import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
-import Userinfo from "../Userinfo/Userinfo";
-export default function Change_Password() {
+import AdminInfo from "../../../Component/AdminInfo/AdminInfo";
+export default function ChangeAdminPassword() {
   const [type, setType] = useState("password");
   const [icon, setIcon] = useState(eyeOff);
   const navigate = useNavigate();
@@ -16,13 +16,14 @@ export default function Change_Password() {
     oldPassword: "",
     password: "",
     confirmPassword: "",
-  }); //body parameter
+  });
   const patchAPi = `/users/change-password/${UserID}`;
   function getUserinfo(e) {
     let myinfo = { ...userInfoEdit };
     myinfo[e.target.name] = e.target.value;
     setuserInfoEdit(myinfo);
   }
+
   const { response, ErrorMessage, HandelPachApi } = UseAxiosPache(
     patchAPi,
     userInfoEdit
@@ -44,7 +45,7 @@ export default function Change_Password() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        navigate("/Profile/notification");
+        navigate("/Admin/UsersInfo");
       }, 3000);
     }
     if (ErrorMessage && response == "") {
@@ -53,7 +54,7 @@ export default function Change_Password() {
   }, [response, ErrorMessage]);
   return (
     <>
-      <Userinfo />
+      <AdminInfo />
       <div className="row      ">
         <div className="  col-12 ">
           <div className="Card_div  ">

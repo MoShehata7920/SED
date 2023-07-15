@@ -51,7 +51,7 @@ exports.updateProduct = async (req, res) => {
       if (!product) {
         return res.status(400).json({ status: 0, message: 'There is no product with this id' });
       }
-      if (req.user.id != product.seller) {
+      if (req.user.id != product.seller && !req.user.isAdmin) {
         return res.status(405).json({ status: 0, message: 'not allowed' });
       }
   

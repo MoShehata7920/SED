@@ -5,6 +5,8 @@ const authController = require('../controllers/auth')
 const { body, validationResult } = require('express-validator');
 const productController=require('../controllers/productController')
 const appImages=require('../models/appImages')
+const Product=require('../models/product')
+const fs=require('fs')
 
 const multer = require('multer')
 const storage = multer.diskStorage({
@@ -27,7 +29,7 @@ const upload = multer({
 // @ getting all users , must be an admin  >> /admin/getallusers
 router.get('/getallusers', verifyTokenAndAdmin, userController.getAllUsers)
 // @ deleting user by his Id
-router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
+// router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
 
 
 // ---------------------------------  products  ---------------------------------------
@@ -36,7 +38,7 @@ router.delete('/delete/:userId', verifyTokenAndAdmin, userController.deleteUser)
 router.get('/getallproducts', verifyTokenAndAdmin, productController.getAllProducts)
 
 //deleting a product by it's Id , 'must be your product or you are admin'
-router.delete('/product/:prodId', verifyTokenAndAdmin, productController.deleteProduct) 
+// router.delete('/product/:prodId', verifyTokenAndAdmin, productController.deleteProduct)     >> comented  as it on products route
 
 
 // ---------------------------------- App Images  ---------------------------
@@ -72,8 +74,11 @@ router.get('/application-images',verifyTokenAndAdmin,async (req,res)=>{
 router.delete('/delete/:imageId', verifyTokenAndAdmin , async(req,res)=>{
     try {
         const imageId=req.params.imageId
-        await appImages.find()
-        res.status(200).json({status:0 , message:"User deleted successfully"})
+        const deletedImage = await appImages.findByIdAndDelete(imageId)
+        if (!deletedImage) {
+            return res.status(404).json({ status: 1, message: 'Image not found' });
+          }
+        res.status(200).json({status:0 , message:"carousel image deleted successfully"})
     } catch (error) {
         res.status(500).json({status:1 , message:error.message})
     }
@@ -82,12 +87,12 @@ router.delete('/delete/:imageId', verifyTokenAndAdmin , async(req,res)=>{
 router.patch('/editcarousel/:imageId',upload.single('image'),verifyTokenAndAdmin,async(req,res)=>{
     const imageId=req.params.imageId
     try {
-        const image = await Product.findOne({ _id: imageId });
+        const image = await appImages.findOne({ _id: imageId });
         if (!image) {
           return res.status(400).json({ status: 0, message: 'There is no image with this id' });
         }
         const newPhoto = req.file ? `http://47.243.7.214:3000/${req.file.path}` : null;
-        const oldPhoto = product.productImage;
+        const oldPhoto = image.productImage;
         const needToDelete = newPhoto !== oldPhoto;
         const updatedImage = newPhoto ? newPhoto : oldPhoto;
     

@@ -9,11 +9,9 @@ import { getTokendeta } from "../axios/tokendata/Token_Data";
 
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
-  const [localestorage, setlocalestorage] = useState(null);
   const [error, setError] = useState(null);
   const Tokendata = getTokendeta();
   const userID = Tokendata ? Tokendata.id : "";
-  console.log(userID);
   const storedToken = localStorage.getItem("encryptedToken");
   function logout() {
     localStorage.removeItem("encryptedToken");
@@ -32,7 +30,6 @@ function Navebar() {
       setError(error);
     }
   };
-
   return (
     <>
       <nav className="navbar navbar-expand-lg  pt-4 pb-4 bg-nav">
@@ -197,7 +194,7 @@ function Navebar() {
                 </button>
               </div>
             </form>
-            {storedToken ? (
+            {storedToken && Tokendata.isAdmin == false ? (
               <ul className="navbar-nav  pb-3">
                 <li className="nav-item ">
                   <Link
@@ -220,7 +217,30 @@ function Navebar() {
                   </Link>
                 </li>
               </ul>
-            ) : (
+            ) : null}
+            {storedToken && Tokendata.isAdmin == true ? (
+              <ul className="navbar-nav  pb-3">
+                <li className="nav-item ">
+                  <Link
+                    to={`/Admin/UsersInfo`}
+                    className="text-white nav-Link fs-2 me-4 "
+                  >
+                    <CiUser />
+                  </Link>
+
+                  <Link
+                    onClick={() => {
+                      logout();
+                    }}
+                    to={"/"}
+                    className="text-white nav-Link fs-2   "
+                  >
+                    <BiLogOut />
+                  </Link>
+                </li>
+              </ul>
+            ) : null}
+            {storedToken ? null : (
               <ul className="navbar-nav ">
                 <li className="nav-item">
                   <Link

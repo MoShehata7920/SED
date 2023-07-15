@@ -1,0 +1,133 @@
+
+.additembackground{
+    background-color: rgb(248 248 248)
+}
+.ADDitemparent{
+ 
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #555454;
+}
+
+.additem_button{
+    width: 150px;
+}
+.Card_div{
+    background-color: #ebecf0;
+}
+
+.Card_div  p, input, select, textarea, button {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.2px;
+    font-size: 16px;
+}
+.Card_div  div, p {
+    color: #babecc;
+    text-shadow: 1px 1px 1px #fff;
+}
+.Card_div  form {
+    padding: 16px;
+    width: 320px;
+    margin: 0 auto;
+}
+.segment {
+    padding: 32px 0;
+    text-align: center;
+}
+.Card_div button, input {
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    border-radius: 320px;
+    padding: 16px;
+    background-color: #ebecf0;
+    text-shadow: 1px 1px 0 #fff;
+}
+.Card_div select,textarea {
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    border-radius: 320px;
+    padding: 16px;
+    background-color: #ebecf0;
+    text-shadow: 1px 1px 0 #fff;
+}
+.Card_div label {
+    display: block;
+    margin-bottom: 24px;
+    width: 100%;
+}
+.Card_div input {
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.Card_div select,textarea {
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.Card_div input:focus {
+    box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+}
+.Card_div select:focus {
+    box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+}
+.Card_div textarea:focus {
+    box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+}
+.Card_div button {
+    color: #61677c;
+    font-weight: bold;
+    box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+}
+.Card_div button:hover {
+    box-shadow: -2px -2px 5px #fff, 2px 2px 5px #babecc;
+}
+.Card_div button:active {
+    box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+}
+.Card_div button .icon {
+    margin-right: 8px;
+}
+.Card_div button.unit {
+    border-radius: 8px;
+    line-height: 0;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 8px;
+    font-size: 19.2px;
+}
+.Card_div button.unit .icon {
+    margin-right: 0;
+}
+.Card_div button.red {
+    display: block;
+    width: 100%;
+    color: #ae1100;
+}
+.Card_div .input-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Card_div .input-group label {
+    margin: 0;
+    flex: 1;
+}
