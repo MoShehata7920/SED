@@ -68,9 +68,13 @@ export default function Email_verfication_code() {
                 />
                 <div className="text-center text-md-start mt-4 pt-2">
                   <div>
-                    <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
+                    <button
+                      type="submit"
+                      className="  btn btn-primary  py-2 px-5"
+                      size="lg"
+                    >
                       Verified
-                    </MDBBtn>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -100,7 +104,7 @@ export default function Email_verfication_code() {
                   </div>
                 </div>
                 <div className=" mb-3 mt-3 ms-4 d-flex justify-content-center  ">
-                  <button type="submit" class="btn btn-primary me-4 ">
+                  <button type="submit" class="btn btn-primary  py-2 px-5 ">
                     Verified
                   </button>
                 </div>

@@ -26,6 +26,14 @@ import AddItem from "../Pages/Profile/additems/AddItem";
 import Email_verfication from "../Component/Email_verification/Email_verifixation";
 import AdminPanal from "../Pages/Adminpanal/Adminpanal";
 import AllUser from "../Pages/Adminpanal/AllUser/AllUser";
+import WebsiteImg from "../Pages/Adminpanal/website_img/Website_img";
+import ChangeAdminPassword from "../Pages/Adminpanal/Change_Admin_Password/Change_Admin_Password";
+import AdminAccountEditing from "../Pages/Adminpanal/Admin_Account_Editing/Admin_Account_Editing";
+import UserAllData from "../Pages/Adminpanal/UserAll_data/UserAllData";
+import AddCarouselImage from "../Pages/Adminpanal/Add_Carousel/Add_Carousel";
+import ImageEdit from "../Pages/Adminpanal/Image_Edit/Image_Edit";
+import ProductAdminEditing from "../Pages/Adminpanal/Product_Admin_edit/Product_Admin_edit";
+import ShowUserProduct from "../Pages/Adminpanal/Show_User_Product/Show_User_Product";
 function MainRoutes() {
   const [isPageOneCompleted, setIsPageOneCompleted] = useState(false);
   const [isPageTowCompleted, setIsPageTowCompleted] = useState(false);
@@ -137,6 +145,26 @@ function MainRoutes() {
           element={storedToken ? <AdminPanal /> : <SignIn />}
         >
           <Route path="/Admin/UsersInfo" element={<AllUser />} />
+          <Route path="/Admin/Website_img" element={<WebsiteImg />} />
+          <Route
+            path="/Admin/Change_Admin_Password/:UserID"
+            element={<ChangeAdminPassword />}
+          />
+          <Route
+            path="/Admin/Admin_Account_Editing/:UserID"
+            element={<AdminAccountEditing />}
+          />
+          <Route path="/Admin/Users_Data/:UserID" element={<UserAllData />} />
+          <Route path="/Admin/Imgae_Edit/:ImgID" element={<ImageEdit />} />
+          <Route
+            path="/Admin/Product_Edit/:Product_id"
+            element={<ProductAdminEditing />}
+          />
+          <Route
+            path="/Admin/User_Product/:ProductId"
+            element={<ShowUserProduct />}
+          />
+          <Route path="/Admin/Carousel_ADD" element={<AddCarouselImage />} />
         </Route>
         <Route path="/items/:id" element={<Dataitems />} />
         <Route path="/Categories/:CategorieType" element={<Categories />} />

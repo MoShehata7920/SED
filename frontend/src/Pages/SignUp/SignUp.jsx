@@ -140,9 +140,13 @@ function Register() {
 
                 <div className="text-center text-md-start mt-4 pt-2">
                   <div>
-                    <MDBBtn type="submit" className="  mb-0 px-5" size="lg">
+                    <button
+                      type="submit"
+                      className=" btn btn-primary  py-2 px-5"
+                      size="lg"
+                    >
                       Sign Up
-                    </MDBBtn>
+                    </button>
                   </div>
                   <div className="d-flex justify-content-between mb-4 mt-4">
                     <Link

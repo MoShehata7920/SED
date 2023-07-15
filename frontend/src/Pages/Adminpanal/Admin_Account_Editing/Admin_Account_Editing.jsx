@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import "./MyAccount.css";
+import { useNavigate, useParams } from "react-router-dom";
+import "./Admin_Account_Editing.css";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
-import Userinfo from "../Userinfo/Userinfo";
+import { getTokendeta } from "../../../Component/axios/tokendata/Token_Data";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
-function MyAccount() {
+import AdminInfo from "../../../Component/AdminInfo/AdminInfo";
+export default function AdminAccountEditing() {
+  const Tokendata = getTokendeta();
   const GetApi = `/users/get`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
   let datauser = data ? data.user : "";
@@ -64,7 +66,7 @@ function MyAccount() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        navigate("/Profile/notification");
+        navigate("/Admin/UsersInfo");
       }, 3000);
     }
     if (ErrorMessage && response == "") {
@@ -73,7 +75,7 @@ function MyAccount() {
   }, [response, ErrorMessage]);
   return (
     <>
-      <Userinfo />
+      <AdminInfo />
       <div className="">
         <div className="row      ">
           <div className="  col-12 ">
@@ -119,7 +121,7 @@ function MyAccount() {
                   <input
                     name="phone"
                     onChange={getUserinfo}
-                    type="text"
+                    type="email"
                     placeholder={datauser.phone}
                   />
                 </label>
@@ -142,4 +144,3 @@ function MyAccount() {
     </>
   );
 }
-export default MyAccount;
