@@ -1,8 +1,11 @@
-const CryptoJS=require('crypto-js')
-// to encrypt and decrypt data in and out of our database to be more secure
-exports.encryption = (information) => 
-    CryptoJS.AES.encrypt(information, process.env.cryptoJS_Key).toString()
+const CryptoJS = require('crypto-js');
+
+exports.encryption = (information) => {
+  const encryptedInfo = CryptoJS.AES.encrypt(information, process.env.cryptoJS_Key).toString();
+  return encryptedInfo;
+};
 
 exports.decryption = (encryptedInfo) => {
-    return CryptoJS.AES.decrypt(encryptedInfo,process.env.cryptoJS_Key).toString(CryptoJS.enc.Utf8)
-    }
+  const decryptedInfo = CryptoJS.AES.decrypt(encryptedInfo, process.env.cryptoJS_Key).toString(CryptoJS.enc.Utf8);
+  return decryptedInfo;
+};
