@@ -45,7 +45,7 @@ export default function ChangeAdminPassword() {
     if (response) {
       toast(`✔️ ${response}`);
       setTimeout(() => {
-        navigate("/Profile/notification");
+        navigate("/Admin/UsersInfo");
       }, 3000);
     }
     if (ErrorMessage && response == "") {

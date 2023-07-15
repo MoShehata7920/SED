@@ -77,7 +77,6 @@ export default function ProductAdminEditing() {
     if (deleteresponse) {
       toast(`✔️ ${deleteresponse}`);
       setTimeout(() => {
-        localStorage.removeItem("Productdata");
         navigate("/Admin/UsersInfo");
       }, 3000);
     }
@@ -87,7 +86,6 @@ export default function ProductAdminEditing() {
     if (postresponse) {
       toast(`✔️ ${postresponse}`);
       setTimeout(() => {
-        localStorage.removeItem("Productdata");
         navigate("/Admin/UsersInfo");
       }, 3000);
     }

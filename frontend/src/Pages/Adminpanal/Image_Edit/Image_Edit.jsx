@@ -45,7 +45,16 @@ export default function ImageEdit() {
     if (Deleterror && Deletrespons == "") {
       toast(`❌ ${Deleterror} `);
     }
-  }, [Deletrespons, Deleterror]);
+    if (response) {
+      toast(`✔️ ${response}`);
+      setTimeout(() => {
+        navigate("/Admin/UsersInfo");
+      }, 3000);
+    }
+    if (ErrorMessage && response == "") {
+      toast(`❌ ${ErrorMessage} `);
+    }
+  }, [response, ErrorMessage, Deleterror, Deletrespons]);
   return (
     <>
       <AdminInfo />

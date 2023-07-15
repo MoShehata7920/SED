@@ -4,7 +4,7 @@ import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 import AdminInfo from "../../../Component/AdminInfo/AdminInfo";
 import { UseAxiosDelete } from "../../../Component/axios/DeleteApi/DeleteApi";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
-import { getTokendeta } from "../../../Component/axios/tokendata/Token_Data";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function UserAllData() {
   const navigate = useNavigate();
@@ -44,21 +44,42 @@ export default function UserAllData() {
     HandelDeleteApi();
   };
   useEffect(() => {
-    if (UserData.isAdmin == true) {
+    if (UserData && UserData.isAdmin) {
       setUserAdmin({
         ...UserAdmin,
         isAdmin: false,
       });
-      navigate(`/Admin/Users_Data/${UserID}`);
-    }
-    if (UserData.isAdmin == false) {
+    } else {
       setUserAdmin({
         ...UserAdmin,
         isAdmin: true,
       });
-      navigate(`/Admin/Users_Data/${UserID}`);
     }
-  }, []);
+    if (responseDelete) {
+      toast(`✔️ ${responseDelete}`);
+      setTimeout(() => {
+        navigate("/Admin/UsersInfo");
+      }, 3000);
+    }
+    if (ErrorMessageDelete && responseDelete == "") {
+      toast(`❌ ${ErrorMessageDelete} `);
+    }
+    if (response) {
+      toast(`✔️ ${response}`);
+      setTimeout(() => {
+        navigate("/Admin/UsersInfo");
+      }, 3000);
+    }
+    if (ErrorMessage && response == "") {
+      toast(`❌ ${ErrorMessage} `);
+    }
+  }, [
+    UserData.isAdmin,
+    response,
+    ErrorMessage,
+    ErrorMessageDelete,
+    responseDelete,
+  ]);
   return (
     <>
       <section>
@@ -178,6 +199,7 @@ export default function UserAllData() {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 }
