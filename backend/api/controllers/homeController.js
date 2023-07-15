@@ -32,6 +32,7 @@ exports.homePage = async (req, res) => {
 
     // Retrieve categories
     const categoriesPromise = Category.find({})
+      .sort({_id:1})
       .select('name image')
       .lean()
       .exec();

@@ -39,14 +39,13 @@ const verifyTokenAndAdmin=(req,res,next)=>{     // a function to check if the on
 };
 
 const verifyTokenAndAuthorization=(req,res,next)=>{
-    const token=req.headers.authentication.split(' ')
-    const checker=jwt.verify(token[1] , process.env.SECRET_KEY , (err,decoded)=>{
-        if(err){
-            return res.status(403).json('Token Not Vaild')
+    verifyToken(req,res,()=>{
+    if(req.params.id==req.user._id || req.user.isAdmin){
+        next()
         }
-        req.user=decoded
-        next()    // to continue to the next function 
-
+    else{
+        res.status(403).json({status:0,message:'You Are Not Allowed to do that'})
+    }
     })
 };
 
