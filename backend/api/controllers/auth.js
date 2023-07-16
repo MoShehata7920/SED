@@ -300,10 +300,11 @@ exports.resendVerifyEmail=async(req,res)=>{
 
         const otp = mailHelper.generateOTP()
         const expires = Date.now() + 3600000; // 1 hour
+        console.log(otp);
 
         // user.verify_account_otp = otp;
         // user.verify_otp_expires = expires;
-        await User.findByIdAndUpdate(req.user._id,{$set:{verify_account_otp:otp , verify_otp_expires:expires}} , {new:true})
+        await User.findByIdAndUpdate(user._id,{$set:{verify_account_otp:otp , verify_otp_expires:expires}} , {new:true})
 
 
         const transporter = nodemailer.createTransport({
@@ -399,7 +400,7 @@ exports.verifiedPwChange=async(req,res)=>{
     }
     try {
     const user=await User.findById(req.user.id)
-
+    const hashedPassword=await bcrypt.hash(req.body.password,10)
     user.password=hashedPassword
     await user.save()
 
