@@ -303,10 +303,7 @@ export default function Categories() {
                             </h5>
                           </div>
                           <div className="slider-service-detailes ">
-                            <p className=" text-black  h-100 w-100 ">
-                              Some quick example text to build on the card title
-                              and make up the bulk of the card's content
-                            </p>
+                            <p className=" text-black  h-100 w-100 "></p>
                           </div>
                           <div className="slider-service-price ">
                             <p className=" text-black mb-3 h-100 w-100">
