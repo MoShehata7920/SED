@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Product_Admin_edit.css";
 import { UseAxiosPache } from "../../../Component/axios/PachApi/PatchApi";
 import { UseAxiosDelete } from "../../../Component/axios/DeleteApi/DeleteApi";

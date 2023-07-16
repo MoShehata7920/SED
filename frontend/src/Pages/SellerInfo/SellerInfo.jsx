@@ -28,40 +28,22 @@ export default function SellerInfo() {
         <Navebar />
       </section>
 
+      <div className="infocardContainer">
+        <div id="main">
+          <img src={UserInfo.userImage} />
+        </div>
+        <div id="textbois">
+          <h2> {UserInfo.fullName}</h2>
+          <h4>{UserInfo.phone}</h4>
+          <h4>
+            {UserInfo.government}/{UserInfo.address}
+          </h4>
+          <h4>{UserInfo.email}</h4>
+        </div>
+      </div>
+
       <section>
-        <div className="container-fluid SellInfo_bg    ">
-          {dataUser && (
-            <div className="row ">
-              <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-12 col-12 border-bottom-0  SellInfo_bg pt-4 ">
-                <div className="row mb-4 justify-content-center  ">
-                  <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-3 ">
-                    <div className=" Sellerinfo_Img_hight">
-                      <img
-                        src={UserInfo.userImage}
-                        alt=""
-                        className=" w-100 h-100  rounded-circle"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-xxl-10 col-xl-10 col-lg-9 col-md-8 col-8  mt-3">
-                    <div className="row">
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                        <h5>Fullname:- {UserInfo.fullName}</h5>
-                        <h5>Email:- {UserInfo.email}</h5>
-                      </div>
-                      <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                        <h5>Phone Number:- {UserInfo.phone}</h5>
-                        <h5>
-                          Address:-
-                          {UserInfo.government}/{UserInfo.address}
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+        <div className="container-fluid SellInfo_bg  ">
           <div className="row">
             <div id="style-7" className="  col-12   scrollbar  pt-4 ps-4 ">
               <div className="row  ">
@@ -89,15 +71,8 @@ export default function SellerInfo() {
                                   {categ.productName}
                                 </h5>
                               </div>
-                              <div className="slider-service-detailes ">
-                                <p className=" text-black  h-100 w-100 ">
-                                  Some quick example text to build on the card
-                                  title and make up the bulk of the card's
-                                  content
-                                </p>
-                              </div>
                               <div className="slider-service-price ">
-                                <p className=" text-black mb-3 h-100 w-100">
+                                <p className=" text-black  h-100 w-100">
                                   {categ.price}
                                 </p>
                               </div>
@@ -108,7 +83,7 @@ export default function SellerInfo() {
                                     to={"n"}
                                     className="text-decoration-none text-white"
                                   >
-                                    ADD TO CARD
+                                    Show More
                                   </Link>
                                 </button>
                               </div>

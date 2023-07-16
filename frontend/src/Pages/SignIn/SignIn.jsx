@@ -64,12 +64,12 @@ function SignIn() {
     if (tokengoogle) {
       const encryptedData = encrypt(tokengoogle, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      navigate("/");
+      window.location.href = "/";
     }
     if (data) {
       const encryptedData = encrypt(Token, secret);
       localStorage.setItem("encryptedToken", encryptedData);
-      navigate("/");
+      window.location.href = "/";
     }
     if (ErrorMessage && response == "") {
       toast(`❌ ${ErrorMessage} `);

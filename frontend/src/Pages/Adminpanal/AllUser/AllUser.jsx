@@ -18,7 +18,7 @@ export default function AllUser() {
   };
   const GetApi = `/users/getallusers`;
   const { data, isPending, error } = UseAxiosGet(GetApi);
-  let datauser = data ? data.users : [];
+  let datauser = data ? data.docs : [];
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function AllUser() {
                   <th scope="row">{index + 1}</th>
                   <Link to={`/Admin/Users_Data/${Users._id}`}>
                     <td>
-                      <button className="btn btn-primary">Show</button>
+                      <button className="btn btn-primary px-4">Show</button>
                     </td>
                   </Link>
                   <td className=" AdminUseerinfo_Img_hight">

@@ -6,16 +6,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BsChatTextFill } from "react-icons/bs";
 import { getTokendeta } from "../axios/tokendata/Token_Data";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 function Navebar() {
   let [SearchData, setSearchData] = useState("");
   const [error, setError] = useState(null);
   const Tokendata = getTokendeta();
+  const isAdmin = Tokendata ? Tokendata.isAdmin : "";
   const userID = Tokendata ? Tokendata.id : "";
+  console.log(Tokendata);
   const storedToken = localStorage.getItem("encryptedToken");
   function logout() {
     localStorage.removeItem("encryptedToken");
-    navigate("/");
+    window.location.href("/");
   }
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -57,123 +60,93 @@ function Navebar() {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav me-auto mb-2   mb-lg-0 ">
-              <li className="nav-item dropdown me-2 ">
-                <Link
-                  className="nav-Link dropdown-toggle text-white fs-4 "
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Categories
-                </Link>
-                <ul className="dropdown-menu ">
-                  <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Electronics"}
-                    >
-                      Electronics
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/Categories/Fashion"} className="dropdown-item ">
-                      Fashion
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Furniture"}
-                    >
-                      Furniture
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item " to={"/Categories/Sports"}>
-                      Sports
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Supermarket"}
-                    >
-                      Supermarket
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Vehicles"}
-                    >
-                      Vehicles
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item " to={"/Categories/Others"}>
-                      Other
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Phones&Tablets"}
-                    >
-                      Phones&Tablets
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item "
-                      to={"/Categories/Body&HealthCare"}
-                    >
-                      Body&HealthCare
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item dropdown me-2">
-                <Link
-                  className="nav-Link dropdown-toggle text-white fs-4 ms-2 me-2"
-                  to={"a"}
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Services
-                </Link>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link
-                      to={"/SeeAllData/sell"}
-                      className="dropdown-item text-black"
-                    >
-                      SELL
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to={"/SeeAllData/exchange"}
-                      className="dropdown-item text-black"
-                    >
-                      EXCHANGE
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to={"/SeeAllData/donate"}
-                      className="dropdown-item text-black"
-                    >
-                      DONAT
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-Link text-white fs-4" to={"a"}>
-                  Brand Stores
-                </Link>
-              </li>
+              <NavDropdown title="Category" id="nav-dropdown">
+                <li>
+                  <Link
+                    className="dropdown-item "
+                    to={"/Categories/Electronics"}
+                  >
+                    Electronics
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/Categories/Fashion"} className="dropdown-item ">
+                    Fashion
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item " to={"/Categories/Furniture"}>
+                    Furniture
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item " to={"/Categories/Sports"}>
+                    Sports
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item "
+                    to={"/Categories/Supermarket"}
+                  >
+                    Supermarket
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item " to={"/Categories/Vehicles"}>
+                    Vehicles
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item " to={"/Categories/Others"}>
+                    Other
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item "
+                    to={"/Categories/Phones&Tablets"}
+                  >
+                    Phones&Tablets
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item "
+                    to={"/Categories/Body&HealthCare"}
+                  >
+                    Body&HealthCare
+                  </Link>
+                </li>
+              </NavDropdown>
+              <NavDropdown title="Services" id="nav-dropdown">
+                <li>
+                  <Link
+                    to={"/SeeAllData/sell"}
+                    className="dropdown-item text-black"
+                  >
+                    SELL
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/SeeAllData/exchange"}
+                    className="dropdown-item text-black"
+                  >
+                    EXCHANGE
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/SeeAllData/donate"}
+                    className="dropdown-item text-black"
+                  >
+                    DONAT
+                  </Link>
+                </li>
+              </NavDropdown>
+
+              <NavDropdown title="BrandStore" id="nav-dropdown"></NavDropdown>
             </ul>
 
             <form onSubmit={handleSubmit} className="d-flex" role="search">
@@ -194,7 +167,7 @@ function Navebar() {
                 </button>
               </div>
             </form>
-            {storedToken && Tokendata.isAdmin == false ? (
+            {storedToken && isAdmin == false ? (
               <ul className="navbar-nav  pb-3">
                 <li className="nav-item ">
                   <Link
@@ -218,7 +191,7 @@ function Navebar() {
                 </li>
               </ul>
             ) : null}
-            {storedToken && Tokendata.isAdmin == true ? (
+            {storedToken && isAdmin == true ? (
               <ul className="navbar-nav  pb-3">
                 <li className="nav-item ">
                   <Link
