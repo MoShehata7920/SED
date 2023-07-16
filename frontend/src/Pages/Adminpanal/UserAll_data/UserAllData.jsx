@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import "./UserAllData.css";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { UseAxiosGet } from "../../../Component/axios/GetApi/GetApi";
 import AdminInfo from "../../../Component/AdminInfo/AdminInfo";
@@ -86,41 +87,22 @@ export default function UserAllData() {
         <AdminInfo />
       </section>
       <section>
-        <div className="container-fluid SellInfo_bg    ">
-          <div className="row ">
-            <div className=" col-xxl-9 col-xl-9 col-lg-10 col-md-12 col-12 border-bottom-0  SellInfo_bg pt-4 ">
-              <div className="row mb-4 justify-content-center  ">
-                <div className="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-3 ">
-                  <div className=" Sellerinfo_Img_hight">
-                    <img
-                      src={UserData.userImage}
-                      alt=""
-                      className=" w-100 h-100  rounded-circle"
-                    />
-                  </div>
-                </div>
-                <div className="col-xxl-10 col-xl-10 col-lg-9 col-md-8 col-8  mt-3">
-                  <div className="row">
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                      <h5>Fullname:- {UserData.fullName}</h5>
-                      <h5>Email:- {UserData.email}</h5>
-                    </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 ">
-                      {UserData.phone > 12 ? (
-                        <h5>Phone Number:- {UserData.phone}</h5>
-                      ) : (
-                        <h5>Phone Number:- </h5>
-                      )}
-                      <h5>
-                        Address:-
-                        {UserData.government}/{UserData.address}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="infocardContainer">
+          <div id="main">
+            <img src={UserData.userImage} />
+          </div>
+          <div id="textbois">
+            <h2> {UserData.fullName}</h2>
+            <h4>{UserData.phone}</h4>
+            <h4>
+              {UserData.government}/{UserData.address}
+            </h4>
+            <h4>{UserData.email}</h4>
+          </div>
+        </div>
 
+        <div className="container-fluid SellInfo_bg    ">
+          <div className="row justify-content-center ms-5 ">
             <div className="  col-xxl-1 col-xl-1 col-lg-1 col-md-12 col-12 ">
               <form onSubmit={DeletSubmit}>
                 <button type="submit" className="btn btn-danger mt-5">

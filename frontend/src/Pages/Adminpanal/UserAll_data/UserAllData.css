@@ -1,5 +1,5 @@
 
-  .infocardContainer * {
+.infocardContainer * {
 	font-family: 'Fira Sans Condensed', sans-serif;
 	font-weight: 300;
   }
@@ -14,13 +14,14 @@
 	transition: all 500ms ease-in;
 	transition-delay: 0.3s;
 	margin: auto;
-    margin-top: 50px;
+margin-top: 50px;
   }
   .infocardContainer:hover {
 	width: 500px;
 	border-radius: 100px 10px 100px 100px;
 	transition: all 0.3s ease-out;
   }
+  
   .infocardContainer div {
 	color: rgb(14, 14, 14);
 	flex-shrink: 1;
@@ -28,7 +29,6 @@
 	--background-color: green;
   }
   .infocardContainer div * {
-	
 	display: flex;
 	--flex: inherit;
 	overflow: hidden;
@@ -75,6 +75,7 @@
   .infocardContainer #textbois #hotlinks {
 	max-width: 60%;
 	max-height: 30px;
+	
 	--background-color: white;
 	position:absolute;
 	bottom: 5px;

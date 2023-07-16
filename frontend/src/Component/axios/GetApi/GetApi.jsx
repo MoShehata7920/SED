@@ -34,5 +34,5 @@ export const UseAxiosGet = (url) => {
     getData();
   }, [url]);
 
-  return { data, isPending, error, decryptedData };
+  return { data, isPending, error };
 };

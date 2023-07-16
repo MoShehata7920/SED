@@ -5,7 +5,7 @@ import { MdAddShoppingCart, MdVerified } from "react-icons/md";
 import { AiOutlineReddit } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { BiImageAdd } from "react-icons/bi";
-import { BsFillImageFill, BsFillBellFill } from "react-icons/bs";
+import { BsFillImageFill } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -84,18 +84,6 @@ export default function AdminInfo() {
                   <i className="text-black">{<FaLock />}</i>
                   <span className="ms-1 d-none d-sm-inline text-black">
                     Change Password
-                  </span>
-                </Link>
-              </label>
-
-              <label class="btn btn-outline-primary me-4 " for="btnradio1">
-                <Link
-                  className="text-decoration-none "
-                  to={"/Email_verfication"}
-                >
-                  <i className="text-black">{<MdVerified />}</i>
-                  <span className="ms-1 d-none d-sm-inline text-black">
-                    Verify Email
                   </span>
                 </Link>
               </label>

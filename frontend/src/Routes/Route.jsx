@@ -72,42 +72,15 @@ function MainRoutes() {
         />
         <Route
           path="/Email_verfication_code"
-          element={
-            storedToken ? (
-              <Email_verfication_code />
-            ) : (
-              <Navigate replace to={"/SignIn"} />
-            )
-          }
+          element={<Email_verfication_code />}
         />
         <Route
           path="/SignUp"
           element={storedToken ? <Navigate replace to={"/"} /> : <Register />}
         />
-        <Route
-          path="/forgetpassword"
-          element={<Forgetpass onComplete={handlePageOneCompletion} />}
-        />
-        <Route
-          path="/Reset_pass_code"
-          element={
-            isPageOneCompleted ? (
-              <Reset_pass_code onComplete={handlePageTowCompletion} />
-            ) : (
-              <Navigate replace to={"/forgetpassword"} />
-            )
-          }
-        />
-        <Route
-          path="/Reset_password"
-          element={
-            isPageTowCompleted ? (
-              <ResetPassword onComplete={handlePageTowCompletion} />
-            ) : (
-              <Navigate replace to={"/Reset_pass_code"} />
-            )
-          }
-        />
+        <Route path="/forgetpassword" element={<Forgetpass />} />
+        <Route path="/Reset_pass_code" element={<Reset_pass_code />} />
+        <Route path="/Reset_password" element={<ResetPassword />} />
 
         <Route path="/Profile" element={storedToken ? <Profile /> : <SignIn />}>
           <Route
