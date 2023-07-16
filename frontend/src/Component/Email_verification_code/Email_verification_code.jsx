@@ -10,19 +10,27 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
+import { encrypt } from "n-krypta";
 export default function Email_verfication_code() {
+  const secret = process.env.REACT_APP_SECRET_KEY;
   const navigate = useNavigate();
-  const [Code, setCode] = useState({
+  const [VerifyCode, setVerifyCode] = useState({
     code: "",
   });
+  console.log(VerifyCode);
   const postAPi = `/auth/verifyemail`;
-  function getUserinfo(e) {
-    let myuser = { ...Code };
+  async function getUserinfo(e) {
+    let myuser = { ...VerifyCode };
     myuser[e.target.name] = e.target.value;
-    setCode(myuser);
+    setVerifyCode(myuser);
   }
 
-  const { response, ErrorMessage, HandelPostApi } = UseAxiosPost(postAPi, Code);
+  const { response, data, ErrorMessage, HandelPostApi } = UseAxiosPost(
+    postAPi,
+    VerifyCode
+  );
+  let Datatoken = data ? data.token : "";
+
   async function itemsubmit(e) {
     e.preventDefault();
     HandelPostApi();
@@ -32,6 +40,8 @@ export default function Email_verfication_code() {
     if (response) {
       toast(`✔️ ${response} `);
       setTimeout(() => {
+        const encryptedData = encrypt(Datatoken, secret);
+        localStorage.setItem("encryptedToken", encryptedData);
         navigate("/");
       }, 3000);
     }
@@ -82,37 +92,6 @@ export default function Email_verfication_code() {
             <ToastContainer />
           </MDBRow>
         </MDBContainer>
-      </section>
-      <section>
-        <div className="container  ">
-          <div className="row vh-100  flex-column align-items-center justify-content-center   ">
-            <div className=" col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-12 col-12 rounded-3 border border-dark  pt-3 pb-3">
-              <form
-                onSubmit={itemsubmit}
-                className="row mt-3 justify-content-center "
-              >
-                <div className=" col-4">
-                  <div class="mb-3">
-                    <label class="form-label">OTTP Code</label>
-                    <input
-                      name="code"
-                      onChange={getUserinfo}
-                      type="text"
-                      class="form-control"
-                      aria-describedby="emailHelp"
-                    ></input>
-                  </div>
-                </div>
-                <div className=" mb-3 mt-3 ms-4 d-flex justify-content-center  ">
-                  <button type="submit" class="btn btn-primary  py-2 px-5 ">
-                    Verified
-                  </button>
-                </div>
-                <ToastContainer />
-              </form>
-            </div>
-          </div>
-        </div>
       </section>
     </>
   );

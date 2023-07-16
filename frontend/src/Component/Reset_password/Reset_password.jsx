@@ -82,7 +82,7 @@ export default function ResetPassword() {
                     label="New Password"
                     id="formControlLg"
                     type={type}
-                    name="searchOption"
+                    name="password"
                     size="lg"
                   />
                   <span className=" icon-container " onClick={handleToggle}>
@@ -96,7 +96,7 @@ export default function ResetPassword() {
                     label="Confirm Password"
                     id="formControlLg"
                     type={type}
-                    name="searchOption"
+                    name="confirmPassword"
                     size="lg"
                   />
                   <span className=" icon-container " onClick={handleToggle}>

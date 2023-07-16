@@ -21,7 +21,6 @@ export default function Email_verfication() {
     myuser[e.target.name] = e.target.value;
     setEmail(myuser);
   }
-
   const { response, ErrorMessage, HandelPostApi } = UseAxiosPost(
     postAPi,
     Email
