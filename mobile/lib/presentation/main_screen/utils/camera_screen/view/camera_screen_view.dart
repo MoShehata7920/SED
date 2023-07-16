@@ -95,6 +95,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                   onPressed: _viewModel.getImageFromCamera,
                   tooltip: AppStrings.takeAPhoto.tr(),
                   child: const Icon(IconsManager.camera),
+                  heroTag: 'camera_icon',
                 ),
                 const SizedBox(
                   width: AppSize.s10,
@@ -104,6 +105,7 @@ class CameraScreenViewState extends State<CameraScreenView> {
                   onPressed: _viewModel.getImageFromGallery,
                   tooltip: AppStrings.selectFromGallery.tr(),
                   child: const Icon(IconsManager.gallery),
+                  heroTag: 'gallery_icon',
                 ),
               ],
             ),

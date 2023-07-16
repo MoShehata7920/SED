@@ -59,7 +59,7 @@ class _AddAdvertisementViewState extends State<AddAdvertisementView> {
     _nameController.addListener(() => _viewModel.setName(_nameController.text));
 
     _priceController.addListener(
-        () => _viewModel.setPrice(int.parse(_priceController.text)));
+        () => _viewModel.setPrice(_priceController.text.isNotEmpty ? int.parse(_priceController.text) : 0));
 
     _descriptionController.addListener(
         () => _viewModel.setDescription(_descriptionController.text));

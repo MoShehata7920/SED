@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sed/app/constants.dart';
 import 'package:sed/app/di.dart';
@@ -10,6 +11,7 @@ import 'package:sed/presentation/base/baseviewmodel.dart';
 import 'package:sed/presentation/common/freezed_data_classes.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sed/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:sed/presentation/main_screen/main_screen_view/main_screen_view.dart';
 import 'package:sed/presentation/resources/routes_manager.dart';
 import 'package:sed/presentation/resources/strings_manager.dart';
 import '../../../../../domain/usecase/update_ad_usecase.dart';
@@ -152,7 +154,7 @@ class AddAdvertisementViewModel extends BaseViewModel
 
   @override
   void setPrice(int price) {
-    priceInput.add(price);
+    priceInput.add(price.toString());
     advertisementObject = advertisementObject.copyWith(price: price);
     areAllInputsValidInput.add(null);
   }
@@ -185,8 +187,15 @@ class AddAdvertisementViewModel extends BaseViewModel
           StateRendererType.popUpSuccessState,
           AppStrings.successfullyAddedAd.tr(),
           AppStrings.success.tr(),
-          () => Navigator.of(context)
-              .pushReplacementNamed(Routes.mainScreenRoute)));
+          () {
+            Navigator.of(context).pop(); // Pop the current screen
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => MainScreenView()), // Replace `MainScreen` with your main screen widget
+              ); // Navigate to the main screen
+            });
+          }));
     });
   }
 
