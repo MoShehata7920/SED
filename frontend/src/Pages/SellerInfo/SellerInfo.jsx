@@ -27,12 +27,11 @@ export default function SellerInfo() {
       <section>
         <Navebar />
       </section>
-
       <div className="infocardContainer">
         <div id="main">
           <img src={UserInfo.userImage} />
         </div>
-        <div id="textbois">
+        <div id="textbois ">
           <h2> {UserInfo.fullName}</h2>
           <h4>{UserInfo.phone}</h4>
           <h4>
@@ -41,7 +40,6 @@ export default function SellerInfo() {
           <h4>{UserInfo.email}</h4>
         </div>
       </div>
-
       <section>
         <div className="container-fluid SellInfo_bg  ">
           <div className="row">
