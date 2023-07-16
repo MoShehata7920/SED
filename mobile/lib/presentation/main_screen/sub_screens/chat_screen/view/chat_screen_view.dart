@@ -36,7 +36,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 
   @override
   void dispose() {
-    _chatViewModel.dispose();
+    //_chatViewModel.dispose();
 
     super.dispose();
   }

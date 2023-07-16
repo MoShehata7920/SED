@@ -62,11 +62,14 @@ class _MessagingScreenViewState extends State<MessagingScreenView> {
   }
 
   void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.extentTotal,
-      duration: const Duration(milliseconds: 1),
-      curve: Curves.easeInOut,
-    );
+
+    if(_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 1),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
