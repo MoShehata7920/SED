@@ -19,10 +19,6 @@ export default function DonateSlider({ donate }) {
             </h5>
           </div>
           <div className="slider-service-detailes "></div>
-          <div className="slider-service-price ">
-            <p className=" text-black mb-3 h-100 w-100">{donate.price}</p>
-          </div>
-
           <div className="slider-service-btn">
             <button className="btn btn-primary mt-2 mb-3">
               <Link to={"n"} className="text-decoration-none text-white">
