@@ -1,32 +1,3 @@
-[![Intro Video](mobile/videos/intro_thumbnail.jpg)](https://github.com/MoShehata7920/SED/mobile/videos/intro.mp4)
-**SED App Demo**
-
-Click on the image above to watch a quick demo of the SED app in action.
-
-
-| conversations Screen | messaging Screen |
-| :------: | :----------: |
-| ![conversations Screen](mobile\screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
-
-| myAccount | Settings | MyAds |
-| :------: | :----------: | :----------: |
-| ![myAccount](mobile\screenshots\my_account.png) | ![Settings](mobile\screenshots\settings.png) | ![myAds](mobile\screenshots\my_ads.png) |
-
-![ForgotPassword Screen](mobile\screenshots\forgot_password.png)
-![SavedProducts Screen](mobile\screenshots\saved_products.png)
-![Categories drawer](mobile\screenshots\categories_drawer.png)
-![Search](mobile\screenshots\search.png)
-![Show Profile](mobile\screenshots\show_profile.png)
-
-
-
-
-
-<!-- Project Logo -->
-<p align="center">
-  <img src="your_project_logo.png" alt="SED - Sell, Exchange, and Donate">
-</p>
-
 <!-- Project Title -->
 <h1 align="center">SED - Sell, Exchange, and Donate</h1>
 
@@ -55,13 +26,32 @@ Click on the image above to watch a quick demo of the SED app in action.
 
 <!-- Screenshots -->
 ## Screenshots
+[![Intro Video](mobile/videos/intro_thumbnail.jpg)](https://github.com/MoShehata7920/SED/mobile/videos/intro.mp4)
+**SED App Demo**
+
+Click on the image above to watch a quick demo of the SED app in action.
+
+
+| conversations Screen | messaging Screen |
+| :------: | :----------: |
+| ![conversations Screen](mobile\screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
+
+| myAccount | Settings | MyAds |
+| :------: | :----------: | :----------: |
+| ![myAccount](mobile\screenshots\my_account.png) | ![Settings](mobile\screenshots\settings.png) | ![myAds](mobile\screenshots\my_ads.png) |
+
+![ForgotPassword Screen](mobile\screenshots\forgot_password.png)
+![SavedProducts Screen](mobile\screenshots\saved_products.png)
+![Categories drawer](mobile\screenshots\categories_drawer.png)
+![Search](mobile\screenshots\search.png)
+![Show Profile](mobile\screenshots\show_profile.png)
 
 <!-- Add screenshots or demo GIFs here -->
 
 <!-- Installation -->
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/yourusername/sed-app.git`
+1. Clone the repository: `git clone https://github.com/MoShehata7920/SED.git`
 2. Navigate to the project folder: `cd sed-app`
 3. Install dependencies: `flutter pub get`
 4. Run the app: `flutter run`
@@ -86,9 +76,8 @@ We welcome contributions from the community! If you find any issues or have sugg
 <!-- Author Information -->
 ## Author Information
 
-This project was developed by [Your Name](https://github.com/yourusername) and [Colleague's Name](https://github.com/colleagueusername).
+This project was developed by [Mohamed Shehata](https://github.com/MoShehata7920) and [Mahmoud Hafez](https://github.com/Bimbum1337).
 
 Connect with us:
-- [LinkedIn](https://www.linkedin.com/in/yourlinkedinprofile/)
-- [Twitter](https://twitter.com/yourtwitterhandle)
+- [LinkedIn](https://www.linkedin.com/in/mohamed-shehata-b9aa86233)
 
