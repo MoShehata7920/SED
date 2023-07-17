@@ -34,7 +34,7 @@ Click on the image above to watch a quick demo of the SED app in action.
 
 | conversations Screen | messaging Screen |
 | :------: | :----------: |
-| ![conversations Screen](mobile\screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
+| ![conversations Screen](screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
 
 | myAccount | Settings | MyAds |
 | :------: | :----------: | :----------: |
