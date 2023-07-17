@@ -26,7 +26,7 @@
 
 <!-- Screenshots -->
 ## Screenshots
-[![Intro Video](mobile/videos/intro_thumbnail.jpg)](https://github.com/MoShehata7920/SED/mobile/videos/intro.mp4)
+[![Intro Video](intro_thumbnail.jpg)](intro.mp4)
 **SED App Demo**
 
 Click on the image above to watch a quick demo of the SED app in action.
@@ -34,17 +34,20 @@ Click on the image above to watch a quick demo of the SED app in action.
 
 | conversations Screen | messaging Screen |
 | :------: | :----------: |
-| ![conversations Screen](screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
+| ![conversations Screen](conversations_screen.png) | ![messaging Screen](chatting_screen.png) |
+
+| Forgot Password Screen | Saved Products Screen |
+| :------: | :----------: |
+| ![ForgotPassword Screen](forgot_password.png) | ![SavedProducts Screen](saved_products.png) |
 
 | myAccount | Settings | MyAds |
 | :------: | :----------: | :----------: |
-| ![myAccount](mobile\screenshots\my_account.png) | ![Settings](mobile\screenshots\settings.png) | ![myAds](mobile\screenshots\my_ads.png) |
+| ![myAccount](my_account.png) | ![Settings](settings.png) | ![myAds](my_ads.png) |
 
-![ForgotPassword Screen](forgot_password.png)
-![SavedProducts Screen](mobile\screenshots\saved_products.png)
-![Categories drawer](mobile\screenshots\categories_drawer.png)
-![Search](mobile\screenshots\search.png)
-![Show Profile](mobile\screenshots\show_profile.png)
+| Categories Drawer | Search | Show Prfile |
+| :------: | :----------: | :----------: |
+| ![Categories drawer](categories_drawer.png) | ![Search](search.png) | ![Show Profile](show_profile.png) |
+
 
 <!-- Add screenshots or demo GIFs here -->
 
