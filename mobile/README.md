@@ -1,16 +1,94 @@
-# sed
+[![Intro Video](mobile/videos/intro_thumbnail.jpg)](https://github.com/MoShehata7920/SED/mobile/videos/intro.mp4)
+**SED App Demo**
 
-A new Flutter project.
+Click on the image above to watch a quick demo of the SED app in action.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+| conversations Screen | messaging Screen |
+| :------: | :----------: |
+| ![conversations Screen](mobile\screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
 
-A few resources to get you started if this is your first Flutter project:
+| myAccount | Settings | MyAds |
+| :------: | :----------: | :----------: |
+| ![myAccount](mobile\screenshots\my_account.png) | ![Settings](mobile\screenshots\settings.png) | ![myAds](mobile\screenshots\my_ads.png) |
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![ForgotPassword Screen](mobile\screenshots\forgot_password.png)
+![SavedProducts Screen](mobile\screenshots\saved_products.png)
+![Categories drawer](mobile\screenshots\categories_drawer.png)
+![Search](mobile\screenshots\search.png)
+![Show Profile](mobile\screenshots\show_profile.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
+<!-- Project Logo -->
+<p align="center">
+  <img src="your_project_logo.png" alt="SED - Sell, Exchange, and Donate">
+</p>
+
+<!-- Project Title -->
+<h1 align="center">SED - Sell, Exchange, and Donate</h1>
+
+<!-- Project Description -->
+<p align="center">
+  Welcome to SED, an innovative eCommerce app built with Flutter and powered by a robust Node.js backend. SED connects people, promotes generosity, and empowers communities by facilitating product sales, exchanges, and donations in a seamless and user-friendly manner.
+</p>
+
+<!-- Table of Contents -->
+## Table of Contents
+
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
+
+<!-- Features -->
+## Features
+
+- Sell: Post your products for sale and reach potential buyers.
+- Exchange: Connect with others to exchange products, fostering mutual assistance.
+- Donate: Spread happiness by donating products to those in need.
+- AI-Powered Search: Coming soon! Find products effortlessly with advanced AI search capabilities.
+
+<!-- Screenshots -->
+## Screenshots
+
+<!-- Add screenshots or demo GIFs here -->
+
+<!-- Installation -->
+## Installation
+
+1. Clone the repository: `git clone https://github.com/yourusername/sed-app.git`
+2. Navigate to the project folder: `cd sed-app`
+3. Install dependencies: `flutter pub get`
+4. Run the app: `flutter run`
+
+<!-- Technologies Used -->
+## Technologies Used
+
+- Flutter: Frontend framework for building beautiful native mobile apps.
+- Node.js: Backend technology to ensure robust functionality.
+- MVVM Pattern: Clean and scalable architecture for maintainable codebase.
+
+<!-- Contributing -->
+## Contributing
+
+We welcome contributions from the community! If you find any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request. Let's make SED even better together!
+
+<!-- License -->
+## License
+
+[MIT License](LICENSE)
+
+<!-- Author Information -->
+## Author Information
+
+This project was developed by [Your Name](https://github.com/yourusername) and [Colleague's Name](https://github.com/colleagueusername).
+
+Connect with us:
+- [LinkedIn](https://www.linkedin.com/in/yourlinkedinprofile/)
+- [Twitter](https://twitter.com/yourtwitterhandle)
+

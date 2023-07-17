@@ -192,7 +192,7 @@ class AddAdvertisementViewModel extends BaseViewModel
             SchedulerBinding.instance.addPostFrameCallback((_) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => MainScreenView()), // Replace `MainScreen` with your main screen widget
+                MaterialPageRoute(builder: (_) => const MainScreenView()), // Replace `MainScreen` with your main screen widget
               ); // Navigate to the main screen
             });
           }));
