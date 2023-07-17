@@ -36,15 +36,18 @@ Click on the image above to watch a quick demo of the SED app in action.
 | :------: | :----------: |
 | ![conversations Screen](conversations_screen.png) | ![messaging Screen](chatting_screen.png) |
 
+| Forgot Password Screen | Saved Products Screen |
+| :------: | :----------: |
+| ![ForgotPassword Screen](forgot_password.png) | ![SavedProducts Screen](saved_products.png) |
+
 | myAccount | Settings | MyAds |
 | :------: | :----------: | :----------: |
 | ![myAccount](my_account.png) | ![Settings](settings.png) | ![myAds](my_ads.png) |
 
-![ForgotPassword Screen](forgot_password.png)
-![SavedProducts Screen](saved_products.png)
-![Categories drawer](categories_drawer.png)
-![Search](search.png)
-![Show Profile](show_profile.png)
+| Categories Drawer | Search | Show Prfile |
+| :------: | :----------: | :----------: |
+| ![Categories drawer](categories_drawer.png) | ![Search](search.png) | ![Show Profile](show_profile.png) |
+
 
 <!-- Add screenshots or demo GIFs here -->
 
