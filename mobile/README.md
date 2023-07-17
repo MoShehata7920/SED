@@ -40,11 +40,11 @@ Click on the image above to watch a quick demo of the SED app in action.
 | :------: | :----------: | :----------: |
 | ![myAccount](mobile\screenshots\my_account.png) | ![Settings](mobile\screenshots\settings.png) | ![myAds](mobile\screenshots\my_ads.png) |
 
-![ForgotPassword Screen](mobile\screenshots\forgot_password.png)
+![ForgotPassword Screen](forgot_password.png)
 ![SavedProducts Screen](mobile\screenshots\saved_products.png)
 ![Categories drawer](mobile\screenshots\categories_drawer.png)
 ![Search](mobile\screenshots\search.png)
-![alt text](mobile\screenshots\show_profile.png)
+![Show Profile](mobile\screenshots\show_profile.png)
 
 <!-- Add screenshots or demo GIFs here -->
 
