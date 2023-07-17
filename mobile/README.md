@@ -34,13 +34,13 @@ Click on the image above to watch a quick demo of the SED app in action.
 
 | conversations Screen | messaging Screen |
 | :------: | :----------: |
-| ![conversations Screen](mobile\screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
+| ![conversations Screen](screenshots\conversations_screen.png) | ![messaging Screen](mobile\screenshots\chatting_screen.png) |
 
 | myAccount | Settings | MyAds |
 | :------: | :----------: | :----------: |
 | ![myAccount](mobile\screenshots\my_account.png) | ![Settings](mobile\screenshots\settings.png) | ![myAds](mobile\screenshots\my_ads.png) |
 
-![ForgotPassword Screen](mobile\screenshots\forgot_password.png)
+![ForgotPassword Screen](forgot_password.png)
 ![SavedProducts Screen](mobile\screenshots\saved_products.png)
 ![Categories drawer](mobile\screenshots\categories_drawer.png)
 ![Search](mobile\screenshots\search.png)
